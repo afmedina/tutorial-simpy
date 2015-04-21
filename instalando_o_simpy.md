@@ -1,4 +1,4 @@
-# Instalando o SimPy
+# Tutorial Simpy: Instalando o SimPy
 A nossa jornada começa pela instalação de alguns programas e bibliotecas úteis para o Simpy. Selecionei, para começar o tutorial, os seguintes pacotes:
 1.	Python 2.7
 2.	Pip
