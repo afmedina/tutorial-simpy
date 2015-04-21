@@ -35,6 +35,7 @@ get-pip.py```
 python get-pip.py```
  na pasta de trabalho escolhida (note a mensagem final de que o pip foi instalado com sucesso).
 
+![cmd get-pip.py](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20cmd%20get-pip.png?raw=true)
 ##Passo 3: Instalando o Simpy
 Instalar o Simpy é fácil!
 
