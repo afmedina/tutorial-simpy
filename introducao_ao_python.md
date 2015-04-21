@@ -13,8 +13,9 @@ Sugestões:
 5.	Eu tenho na minha mesa um livro de Python muito bom: Summerfield, Mak. Programming in Python 3: a complete introduction. Addison-Wesley Professional. 2012.
 
 Feito o tutorial, curso ou aprendido tudo sozinho, teste seus conhecimentos para verificar se você sabe o básico de Python e pode começar com o SimPy.
-##Teste seus conhecimentos em Python
-Construa um programa com três funções:
+##Teste seus conhecimentos em Python: o problema da ruina do apostador
+O [problema da ruina do apostador](http://en.wikipedia.org/wiki/Gambler%27s_ruin) é um problema clássico proposto por Pascal em uma carta para Fermat em 1656. A versão aqui proposta é uma simplificação visando avaliar seus conhecimentos em Python.
+> **Desafio**: dois apostadores iniciam um jogo de cara e coroa em que cada um deles aposta $1 sempre em um mesmo lado da moeda. O vencedor leva aposta total ($2). Cada jogador tem incialmente $10 disponíveis para apostar. O jogo termina quando um dos jogadores atinge a ruina e não pode mais apostar.
 
 Quando sentir-se confortável com a linguagem, pule para o próximo post que começa nossa aventura em SimPy.
 
