@@ -6,13 +6,13 @@ Se você nunca teve contato com a linguagem, aviso que não pretendo construir u
 Procure um tutorial rápido (já vi um até de 10 minutos!) e mãos à obra! Nada mais fácil do que aprender o básico de Python.
 
 Sugestões:
-1.	Um tutorial muito rápido (1 hora): Python in One Easy Lesson.
-2.	Um tutorial completo: Tutorial Python.
-3.	Um curso muito bom no Udacity: Programming Foundations with Python (clicando no botão azul “Access course materials”, você faz o curso de graça, mas sem receber o certificado). A vantagem do Udacity é que você pode começar o curso a hora que quiser.
-4.	Outro curso muito bom no Coursera: Introdução à Programação Interativa em Python (Parte 1).
+1.	Um curso muito bom no Udacity: [Programming Foundations with Python](https://www.udacity.com/course/programming-foundations-with-python--ud036) (clicando no botão azul “Access course materials”, você faz o curso de graça, mas sem receber o certificado). A vantagem do Udacity é que você pode começar o curso a hora que quiser.
+2.	Um tutorial muito rápido (1 hora): [Python in One Easy Lesson](http://cs.stanford.edu/people/nick/python-in-one-easy-lesson/).
+3.	Um tutorial completo: [Tutorial Python](http://wiki.python.org.br/Tutorial_Python).
+4.	Outro curso muito bom, este no Coursera: [Introdução à Programação Interativa em Python (Parte 1)](https://pt.coursera.org/course/interactivepython1).
 5.	Eu tenho na minha mesa um livro de Python muito bom: Summerfield, Mak. Programming in Python 3: a complete introduction. Addison-Wesley Professional. 2012.
 
-Feito o tutorial, curso, aprendido tudo sozinho, teste seus conhecimentos para verificar se você sabe o básico de Python e pode começar com o SimPy.
+Feito o tutorial, curso ou aprendido tudo sozinho, teste seus conhecimentos para verificar se você sabe o básico de Python e pode começar com o SimPy.
 ##Teste seus conhecimentos em Python
 Construa um programa com três funções:
 
