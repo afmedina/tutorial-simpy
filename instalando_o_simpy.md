@@ -17,20 +17,21 @@ Atenção:
 * Se você já tem o Python e o Pip instalados em sua máquina, pule diretamente para o Passo 3: “Instalando o Simpy”. 
 * Se você já tem o Python instalado, mas não o Pip (quem tem o Python +3.4, já tem o Pip instalado), pule para o Passo 2: “Instalando o Pip”
 
-Se esta é a sua primeira vez, minha sugestão: não perca tempo e instale a distribuição gratuita Anaconda. 
-	 
-É fácil, limpo e ela já instala na sua máquina mais de 200 pacotes (entre eles o Numpy) verificando toda sorte de compatibilidade, para que você não tenha trabalho algum.
+Se esta é a sua primeira vez, minha sugestão: não perca tempo e instale a distribuição gratuita [Anaconda](http://continuum.io/downloads). 
 
 ![Anaconda logo](https://github.com/afmedina/tutorial-simpy/blob/master/Anaconda_Logo180.png?raw=true)
+	 
+É fácil, limpo e ela já instala na sua máquina mais de 200 pacotes verificando toda sorte de compatibilidade, para que você não tenha trabalho algum. (Entre os pacotes instalados está o [NumPy](http://www.numpy.org/) que será muito útil no desenvolvimento dos seus modelos).
 
-Atualmente eles disponibilizam as versões 2.7 e 3.4 do Python (em 32 e 64 bit).
+Atualmente eles disponibilizam as versões 2.7 e 3.4 do Python (em 32 e 64 bit) na [página de downloads](http://continuum.io/downloads).
 
 Baixe o arquivo com a versão desejada (mais uma vez: SimPy roda nas duas versões) e siga as instruções do instalador.
 ##Passo 2: Instalando o Pip (para quem não instalou o Anaconda)
-(Nota: se a versão instalada do Python for +3.4 ou você fez o passo anterior, você pode pular este passo, pois o pip já está instalado no seu computador).
+>Se a versão instalada do Python for +3.4 ou você fez o passo anterior,  pode pular este passo, pois o pip já deve estar instalado no computador.
+
 1.	Baixe o pacote ```
 get-pip.py```
- para o seu computador, salvando em uma pasta de trabalho conveniente. 
+ [por este link](https://bootstrap.pypa.io/get-pip.py) para o seu computador, salvando-o em uma pasta de trabalho conveniente. 
 2.	Execute ```
 python get-pip.py```
  na pasta de trabalho escolhida (note a mensagem final de que o pip foi instalado com sucesso).
@@ -54,7 +55,7 @@ Os IDEs, para quem não conhece, são pacotes que facilitam a vida do programado
 Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já está configurado e pronto para o uso (repare na janela superior-direita, um tutorial de uso):
 ![IDE Spider](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20spyder800.png?raw=true)
 
-Pessoalmente, eu utilizo o Wing IDE 101 que é gratuito e eu acho muito bom:
+Pessoalmente, eu utilizo o [Wing IDE 101](http://wingware.com/downloads/wingide-101) que é gratuito e eu acho muito bom:
 
 ![IDE Wing 101](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20wing%20101%20800.png?raw=true)
 
