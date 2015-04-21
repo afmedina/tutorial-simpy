@@ -55,7 +55,9 @@ Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já e
 ![IDE Spider](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20spyder800.png?raw=true)
 
 Pessoalmente, eu utilizo o Wing IDE 101 que é gratuito e eu acho muito bom:
-![IDE Wing 101]
+
+![IDE Wing 101](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20wing%20101%20800.png?raw=true)
+
 >Atenção: se você instalou o Anaconda e pretende utilizar algum IDE que não o Spyder, siga as instruções deste link, para configurar o uso do seu IDE. (É fácil, não se avexe não!)
 
 Se você instalou chegou aqui com tudo instalado, o próximo passo é começar para valer com o SimPy!
