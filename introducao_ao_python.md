@@ -1,4 +1,4 @@
-#Tutorial SimPy: Python
+#Tutorial SimPy: Introdução ao Python
 Antes de começarmos com o SimPy, preciso garantir que você tenha algum conhecimento mínimo de Python. Se você já tem algum conhecimento anterior, pule para a seção “Teste seus conhecimentos em Python”.
 
 Se você nunca teve contato com a linguagem, aviso que não pretendo construir uma introdução ou tutorial ao Python, simplesmente porque isso é o que mais existe disponível na internet. 
@@ -13,8 +13,7 @@ Sugestões:
 5.	Eu tenho na minha mesa um livro de Python muito bom: Summerfield, Mak. Programming in Python 3: a complete introduction. Addison-Wesley Professional. 2012.
 
 Feito o tutorial, curso, aprendido tudo sozinho, teste seus conhecimentos para verificar se você sabe o básico de Python e pode começar com o SimPy.
-
-Programa teste seus conhecimentos em Python:
+##Teste seus conhecimentos em Python
 Construa um programa com três funções:
 
 Quando sentir-se confortável com a linguagem, pule para o próximo post que começa nossa aventura em SimPy.
