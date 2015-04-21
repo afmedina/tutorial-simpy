@@ -50,12 +50,16 @@ Sucessfully```
  indica que você já está pronto para o SimPy. Mas, antes disso, tenho uma sugestão para você:
 ##Passo 4: Instalando um Ambiente Integrado de Desenvolvimento (IDE) para aumentar a produtividade no Python
 Os IDEs, para quem não conhece, são pacotes que facilitam a vida do programador. Geralmente possuem editor de texto avançado, recursos de verificação de erros, estados de variáveis, processamento passo-a-passo etc.
+
 Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já está configurado e pronto para o uso (repare na janela superior-direita, um tutorial de uso):
- 
+![IDE Spider](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20spyder800.png?raw=true)
+
 Pessoalmente, eu utilizo o Wing IDE 101 que é gratuito e eu acho muito bom:
- 
-Mas ATENÇÃO: se você instalou o Anaconda e pretende utilizar algum IDE que não o Spyder, siga as instruções deste link, para configurar o uso do seu IDE. (É fácil, não se avexe não!)
+![IDE Wing 101]
+>Atenção: se você instalou o Anaconda e pretende utilizar algum IDE que não o Spyder, siga as instruções deste link, para configurar o uso do seu IDE. (É fácil, não se avexe não!)
+
 Se você instalou chegou aqui com tudo instalado, o próximo passo é começar para valer com o SimPy!
+
 No próximo post, é claro. Precisamos tomar um chá depois deste zilhões de megabytes instalados.
 
 
