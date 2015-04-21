@@ -21,6 +21,8 @@ Se esta é a sua primeira vez, minha sugestão: não perca tempo e instale a dis
 	 
 É fácil, limpo e ela já instala na sua máquina mais de 200 pacotes (entre eles o Numpy) verificando toda sorte de compatibilidade, para que você não tenha trabalho algum.
 
+![Anaconda logo](https://github.com/afmedina/tutorial-simpy/blob/master/Anaconda_Logo180.png)
+
 Atualmente eles disponibilizam as versões 2.7 e 3.4 do Python (em 32 e 64 bit).
 
 Baixe o arquivo com a versão desejada (mais uma vez: SimPy roda nas duas versões) e siga as instruções do instalador.
