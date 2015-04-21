@@ -1,4 +1,4 @@
-# Introdução ao SimPy 
+# Tutorial SimPy: Introdução ao SimPy 
 ![SimPy logo](SimPy_Logo300.png)
 
 Inaugurando a seção de tutoriais, vamos construir um tutorial de introdução à biblioteca de eventos discretos SimPy.
