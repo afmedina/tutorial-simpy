@@ -43,6 +43,8 @@ Digite numa janela cmd:
 ```
 pip install -U simpy
 ```
+![cmd simpy](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20cmd%20simpy.png?raw=true)
+
 A mensagem de ```
 Sucessfully```
  indica que você já está pronto para o SimPy. Mas, antes disso, tenho uma sugestão para você:
