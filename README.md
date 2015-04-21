@@ -1,4 +1,4 @@
-#Tutorial SimPy
+#Tutorial SimPy: See me, Fell me, README
 
 Breve tutorial para quem deseja conhecer a biblioteca Python de simulação de eventos discretos SimPy.
 
