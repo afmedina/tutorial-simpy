@@ -15,8 +15,37 @@ Sugestões:
 Feito o tutorial, curso ou aprendido tudo sozinho, teste seus conhecimentos para verificar se você sabe o básico de Python e pode começar com o SimPy.
 ##Teste seus conhecimentos em Python: o problema da ruina do apostador
 O [problema da ruina do apostador](http://en.wikipedia.org/wiki/Gambler%27s_ruin) é um problema clássico proposto por Pascal em uma carta para Fermat em 1656. A versão aqui proposta é uma simplificação visando avaliar seus conhecimentos em Python.
-> **Desafio**: dois apostadores iniciam um jogo de cara e coroa em que cada um deles aposta $1 sempre em um mesmo lado da moeda. O vencedor leva aposta total ($2). Cada jogador tem incialmente $10 disponíveis para apostar. O jogo termina quando um dos jogadores atinge a ruina e não pode mais apostar.
+> **Desafio**: dois apostadores iniciam um jogo de cara ou coroa em que cada um deles aposta $1 sempre em um mesmo lado da moeda. O vencedor leva aposta total ($2). Cada jogador tem incialmente $10 disponíveis para apostar. O jogo termina quando um dos jogadores atinge a ruina e não pode mais apostar.
 
-Quando sentir-se confortável com a linguagem, pule para o próximo post que começa nossa aventura em SimPy.
+Construa três funções:
+* transfer(winner,looser,bankroll,tossCount): transfere o valor do jogador perdedor para o vencedor e imprime na tela o nome do vencedor;
+* coinToss(bankroll,tossCount): sorteia o vencedor do cara ou coroa;
+* run2Ruin(bankroll): mantém um loop permanente até que um dos jogadores entrem em ruina
+
+Teste o programa com os parâmetros a seguir (você pode utilizar esse código como um template):
+```
+# -*- coding: utf-8 -*-
+from __future__ import print_function # para compatibilidade da função print com o Python 3
+import random # gerador de números aleatórios
+
+
+names = ['Chewbacca', 'R2D2'] # nomes dos jogadores
+
+def transfer(winner,looser,bankroll,tossCount):
+# transfere o valor do jogador perdedor para o vencedor e imprime na tela o nome do vencedor
+
+   
+def coinToss(bankroll,tossCount):
+# sorteia o vencedor do cara ou coroa
+
+ 
+def run2Ruin(bankroll):
+# mantém um loop permanente até que um dos jogadores entrem em ruina
+
+bankroll = [5,5] # dinheiro disponível por cada jogador
+run2Ruin(bankroll) # executa até a ruina de um dos jogadores
+```
+
+Quando sentir-se confortável com a linguagem, pule para o próximo post, onde finalmente começa nossa aventura em SimPy.
 
 
