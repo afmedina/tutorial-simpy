@@ -35,7 +35,7 @@ Contras:
 ## Desenvolvimento deste tutorial
 Planejei o tutorial em formato de posts de blog, de modo que eles sejam curtos e didáticos – tenho por meta que cada post não ultrapasse a 500 palavras.
 
-Pretendo publicar um novo post, sempre que já tenha o próximo post elaborado, para facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post.
+Pretendo publicar um novo post, sempre que já tenha o próximo post elaborado, para facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post. A ideia é trabalhar com os leitores e colaboradores para corrigir e fortalecer o texto de modo que, ao final da jornada, tenhamos todos um bom ebook sobre a liguagem SimPy para publicação.
 
 O plano é caminhar pela seguinte sequência de aprendizado:
 
