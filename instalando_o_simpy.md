@@ -28,8 +28,12 @@ Atualmente eles disponibilizam as versões 2.7 e 3.4 do Python (em 32 e 64 bit).
 Baixe o arquivo com a versão desejada (mais uma vez: SimPy roda nas duas versões) e siga as instruções do instalador.
 ##Passo 2: Instalando o Pip (para quem não instalou o Anaconda)
 (Nota: se a versão instalada do Python for +3.4 ou você fez o passo anterior, você pode pular este passo, pois o pip já está instalado no seu computador).
-1.	Baixe o pacote get-pip.py para o seu computador, salvando em uma pasta de trabalho conveniente. 
-2.	Execute python get-pip.py na pasta de trabalho escolhida (note a mensagem final de que o pip foi instalado com sucesso).
+1.	Baixe o pacote ```
+get-pip.py```
+ para o seu computador, salvando em uma pasta de trabalho conveniente. 
+2.	Execute ```
+python get-pip.py```
+ na pasta de trabalho escolhida (note a mensagem final de que o pip foi instalado com sucesso).
 
 ##Passo 3: Instalando o Simpy
 Instalar o Simpy é fácil!
