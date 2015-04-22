@@ -1,5 +1,5 @@
 # Summary
 
 * [Introdução ao SimPy](introducao_ao_simpy.md)
-* Instalando o SimPy
+* [Instalando o SimPy](instalando_o_simpy.md)
 
