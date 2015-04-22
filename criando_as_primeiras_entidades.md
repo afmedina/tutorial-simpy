@@ -1,17 +1,21 @@
 #Tutorial SimPy: criando as primeiras entidades
 
-Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação.
+Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão é construir uma função que crie entidades no modelo com intervalos sucessivos entre chegadas exponencialmente distribuídos, com média 2 min.
 
 Inicialmente, serão necessárias duas bibliotecas do Python: random – biblioteca de geração de números aleatórios – e o próprio SimPy.
 
-Começaremos nosso primeiro programa em SimPy chamando as bibliotecas de interesse (adicionalmente, existe uma chamada para a future, mas isso é apenas para manter a função print, compatível com o Python 3):
+Começaremos nosso primeiro programa em SimPy chamando as bibliotecas de interesse (adicionalmente, existe uma chamada para a ```
+future```
+, mas isso é apenas para manter a função ```
+print```
+, compatível com o Python 3):
 ```
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
-Tudo no SimPy gira em torno de **processos** criados pelo usuário e todos os processos vivem num environment, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
+Tudo no SimPy gira em torno de **processos** criados pelo usuário e todos os processos vivem num **environment**, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```
 # -*- coding: utf-8 -*-
@@ -21,7 +25,7 @@ import simpy # biblioteca de simulação
 
 env = simpy.Environment() # cria o environment do modelo
 ```
-Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, nada acontece.
+Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, ainda nada existe um processo sendo executado.
 
 Vamos escrever uma função ```
 geraChegadas```
@@ -48,9 +52,12 @@ env```
 yield env.timeout(random.expovariate (1/2))
 ```
 
-Ou seja: estamos chamando a função ```
+Ou seja: estamos executando ```
 yield env.timeout```
- para que ela retarde o processo num tempo aleatório gerado pela função random.expovariate.
+ para que o modelo retarde o processo num tempo aleatório gerado pela função ```
+random.expovariate```. Oportunamente, discutiremos mais a fundo qual a função do palavra yield (que não vem do SimPy, mas do Python). Por hora, considere que ela é uma maneira de **retornar** valores para o ```
+env```
+ criado.
 
 Colocando tudo junto na função ```
 geraChegadas```
@@ -73,10 +80,16 @@ def criaChegadas(env):
 
 env = simpy.Environment() # cria o environment do modelo```
 
-O código deve ser autoexplicativo. Note apenas, que dentro do print, existe uma chamada para a **hora atual de simulação** ```
+O código deve ser autoexplicativo: o laço ```
+while```
+ é infinito enquanto dure a simulação; um contador, ```
+contaChegada```
+, guarda o total de entidades geradas e a função ```
+print```
+, imprime na tela o instante de chegada de cada cliente. Note apenas que, dentro do print, existe uma chamada para a **hora atual de simulação** ```
 env.now```.
 
-Se você executar, nada acontece, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
+Se você executar, nada acontece novamente, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
 
 ```
 # -*- coding: utf-8 -*-
@@ -99,6 +112,8 @@ env.run(until=10)
 ```
 
 Agora sim!
+
+Note que env.process(criaChegadas(env)) é um comando que **torna** a função criaChegadas um processo dentro do environment env. Esse processo só começa a ser executado pela a 
 
 ## Conteúdos desta seção
 | Conteúdo | Descrição |
