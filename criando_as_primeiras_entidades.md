@@ -1,6 +1,5 @@
 #Tutorial SimPy: criando as primeiras entidades
 
-
 Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação.
 
 Inicialmente, serão necessárias duas bibliotecas do Python: random – biblioteca de geração de números aleatórios – e o próprio SimPy.
