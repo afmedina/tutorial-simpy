@@ -1,7 +1,7 @@
 #Tutorial SimPy: criando as primeiras entidades
 
 
-Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o “Alô mundo!” dos pacotes de simulação.
+Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação.
 
 Inicialmente, serão necessárias duas bibliotecas do Python: random – biblioteca de geração de números aleatórios – e o próprio SimPy.
 
@@ -12,7 +12,7 @@ from __future__ import print_function # para compatibilidade da função print c
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
-Tudo no SimPy gira em torno de processos criados pelo usuário e todos os processos vivem num environment, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment* “env”:
+Tudo no SimPy gira em torno de **processos** criados pelo usuário e todos os processos vivem num environment, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```
 # -*- coding: utf-8 -*-
@@ -28,7 +28,7 @@ Vamos escrever uma função ```
 geraChegadas```
  que cria entidades no sistema enquanto durar a simulação.
 
-Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos. Para gerar chegadas com intervalos exponenciais, a biblioteca random, bem detalhada na documentação, possui a função:
+Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, a biblioteca random, bem detalhada na [documentação](https://docs.python.org/2/library/random.html), possui a função:
 ```
 random.expovariate(lambd)```
 
@@ -112,7 +112,8 @@ Agora sim!
 | env.run(until=tempoSim) | executa a simulação pelo tempo tempoSim |
 
 ## Desafios
-**Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. Modifique a função ```
+**Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
+Modifique a função ```
 geraChegadas```
  de modo que ela receba como parâmetro o ```
 numeroMaxChegadas```
