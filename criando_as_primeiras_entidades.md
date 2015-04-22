@@ -1,4 +1,4 @@
-#Tutorial SimPy: criando as primeiras entidades
+#Tutorial SimPy: criando entidades
 
 Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão é construir uma função que crie entidades no modelo com intervalos sucessivos entre chegadas exponencialmente distribuídos, com média 2 min.
 
@@ -113,7 +113,15 @@ env.run(until=10)
 
 Agora sim!
 
-Note que env.process(criaChegadas(env)) é um comando que **torna** a função criaChegadas um processo dentro do environment env. Esse processo só começa a ser executado pela a 
+Note que ```
+env.process(criaChegadas(env))```
+ é um comando que **torna** a função criaChegadas um processo dentro do environment ```
+env```
+. Esse processo só começa a ser executado na linha seguinte, qando ```
+env.run(until=10)```
+ informa ao SimPy para que todo processo pertencente ao ```
+env```
+ seja executado por um tempo de simulação igual a 10 minutos.
 
 ## Conteúdos desta seção
 | Conteúdo | Descrição |
@@ -123,15 +131,15 @@ Note que env.process(criaChegadas(env)) é um comando que **torna** a função c
 | yield env.timeout(time) | gera um atraso dado por *time* |
 | random.seed(seed) | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
 | env.process(criaChegadas(env) | inicia a função criaChegadas como um *processo* em env |
-| env.run(until=tempoSim) | executa a simulação pelo tempo tempoSim |
+| env.run(until=tempoSim) | executa a simulação (executa todos os processos criandos em env) pelo tempo tempoSim |
 
-## Desafios
+## Desafios (soluções no próximo post)
 **Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
 Modifique a função ```
 geraChegadas```
  de modo que ela receba como parâmetro o ```
 numeroMaxChegadas```
- e limite a criação de entidades a este número. (Solução no próximo post).
+ e limite a criação de entidades a este número.
 
 **Desafio 3:** modifique a função ```
 geraChegadas```
