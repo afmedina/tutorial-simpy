@@ -1,4 +1,4 @@
-# Solução dos desafios 2 e 3
+# Tutorial SimPy: solução dos desafios 2 e 3
 
 ##Desafio 2
 É comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
