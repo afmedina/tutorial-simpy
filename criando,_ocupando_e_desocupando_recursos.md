@@ -17,8 +17,8 @@ env```
 
 É interessante notar que ocupar um recurso no SimPy é feito em duas etapas:
 1. Solicitar o recurso desejado com um ```
-request(```
-) e
+request()```
+e
 2. Aguardar o acesso ao recurso com um ```
 yield```
 
@@ -27,8 +27,8 @@ meuRecurso```
  ficaria:
 
 ```
-request = meuRecurso.request() # solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso)
-yield request # aguarda em fila a liberação do recurso```
+meuRequest = meuRecurso.request() # solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso)
+yield meuRequest # aguarda em fila a liberação do recurso```
 
 Se pode parecer estranho que a ocupação de um recurso envolva duas linhas de código, o bom observador deve notar que isso pode dar flexibilidade em situção de lógica intrincada.
 
@@ -38,7 +38,7 @@ Recurso criado e ocupado é liberado com a função ```
 recurso.release(request):```
 
 ```
-meuRecurso.release(resquest)
+meuRecurso.release(meuResquest)
 ```
 
 ## Juntando tudo em um exemplo: a fila M/M/1
