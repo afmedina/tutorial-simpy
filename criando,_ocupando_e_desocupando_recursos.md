@@ -158,7 +158,7 @@ def criaChegadas(env, servidorRes):
         print('Cliente %d chega em: %.1f ' % (contaChegada, env.now))
         
         # inicia o processo de atendimento
-        env  .process(atendimentoServidor(env, "Cliente %d" % contaChegada, servidorRes))
+        env.process(atendimentoServidor(env, "Cliente %d" % contaChegada, servidorRes))
 ```
 
  Antes de executar o script, vamos acrecentar algumas linhas de impressão para entedermos melhor a função ```
@@ -213,11 +213,24 @@ Cliente 10 inicia o atendimento em: 9.7```
 
 Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, que eles serão distrinchados diversas vezes nas seções seguintes. 
 
-Por hora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios:
+Por hora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
 
-Desafio 4: para melhor compreensão do funcionamento do programa, construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+## Conteúdos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| meuRecurso = simpy.Resource(env, capacity=1) | cria um recurso em env com capacidade = 1 |
+| meuRequest = meuRecurso.request() | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) |
+| yield meuRequest | aguarda em fila a liberação do recurso |
+| meuRecurso.release(meuResquest) | libera meuRecurso a partir do meuResquest realizado |
+| env.process(função_geradora) | inicia o processo implementado na função_geradora |
 
-Desafio 5: vamos calcular o tempo de permanência em fila de cada cliente e imprimir o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
+
+
+## Desafios
+
+**Desafio 4:** para melhor compreensão do funcionamento do programa, construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+
+**Desafio 5:** vamos calcular o tempo de permanência em fila de cada cliente e imprimir o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
 chegada.```
  Ao final do atendimento, armazene o tempo de fila, numa variável ```
 tempoFila```
