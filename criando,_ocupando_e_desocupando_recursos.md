@@ -213,7 +213,7 @@ Cliente 10 inicia o atendimento em: 9.7```
 
 Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, que eles serão distrinchados diversas vezes nas seções seguintes. 
 
-Por hora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
+Por ora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
 
 ## Conteúdos desta seção
 | Conteúdo | Descrição |
