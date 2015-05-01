@@ -161,7 +161,7 @@ def criaChegadas(env, servidorRes):
         env.process(atendimentoServidor(env, "Cliente %d" % contaChegada, servidorRes))
 ```
 
- Antes de executar o script, vamos acrecentar algumas linhas de impressão para entedermos melhor a função ```
+ Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entedermos melhor a função ```
 atendimentoServidor:```
 
 ```
@@ -230,11 +230,11 @@ Por ora, e para não esticar demais a atividade, analise atentamente os resultad
 
 **Desafio 4:** para melhor compreensão do funcionamento do programa, construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
-**Desafio 5:** vamos calcular o tempo de permanência em fila de cada cliente e imprimir o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
+**Desafio 5:** calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
 chegada.```
  Ao final do atendimento, armazene o tempo de fila, numa variável ```
 tempoFila```
- e imprima o resultado na tela.
+ e apresente o resultado na tela.
 
 
     
