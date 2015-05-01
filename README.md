@@ -7,3 +7,7 @@ Ele será desenvolvido e publicado como posts do blog do livro "Modelagem e Simu
 Intencionalmente, a ideia é construir, ao final da jornada de posts, um ebook "Introdução ao SimPy" para aqueles que desejam conhecer esta facinante biblioteca de eventos discretos.
 
 > Estamos considerando que você possui conhecimentos de Modelagem e Simulação em Eventos Discretos ou, ao menos, está fazendo algum curso sobre o assunto ou lendo nosso prestigioso livro!
+
+Autores: 
+
+Afonso C. Medina
