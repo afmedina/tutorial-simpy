@@ -9,7 +9,7 @@ numeroMaxChegadas```
  e limite a criação de entidades a este número.
  
 Neste caso, o *script* em Python é autoexplicativo (apenas note que limitei o número de chegadas em 5 e fiz isso antes, da chamada do processo):
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -60,7 +60,7 @@ Neste caso, precisamos verificar na documentação da biblioteca random, quais s
 
 A biblioteca NumPy, que veremos oportunamente, possui mais opções para distribuições estatísticas. Por enquanto, o desafio 3 pode ser solucionado de maneira literal:
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
