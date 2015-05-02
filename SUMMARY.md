@@ -6,5 +6,5 @@
 * [Introdução ao Python](introducao_ao_python.md)
 * [Solução desafio 1](solucao_desafio_1.md)
 * [Criando as primeiras entidades](criando_as_primeiras_entidades.md)
-* Solução dos desafios 2 e 3
+* [Solução dos desafios 2 e 3](solucao_dos_desafios_2_e_3.md)
 
