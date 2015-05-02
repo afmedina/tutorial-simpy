@@ -8,6 +8,7 @@ Intencionalmente, a ideia é construir, ao final da jornada de posts, um ebook "
 
 > Estamos considerando que você possui conhecimentos de Modelagem e Simulação em Eventos Discretos ou, ao menos, está fazendo algum curso sobre o assunto ou lendo nosso prestigioso livro!
 
-Autores: 
+Este tutorial é produto de um trabalho colaborativo entre colegas que ensinam, pesquisam ou trabalham profissionalmente com a Simulação de Eventos Discretos no seu dia-a-dia: 
 
 Afonso C. Medina
+
