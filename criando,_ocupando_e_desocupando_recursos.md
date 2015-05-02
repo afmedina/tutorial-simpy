@@ -26,7 +26,7 @@ Assim, uma chamada ao recurso ```
 meuRecurso```
  ficaria:
 
-```
+```python
 meuRequest = meuRecurso.request() # solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso)
 yield meuRequest # aguarda em fila a liberação do recurso```
 
@@ -37,7 +37,7 @@ Se pode parecer estranho que a ocupação de um recurso envolva duas linhas de c
 Recurso criado e ocupado é liberado com a função ```
 recurso.release(request):```
 
-```
+```python
 meuRecurso.release(meuResquest)
 ```
 
@@ -55,7 +55,7 @@ atendimentoServidor```
 servidorRes``` com capacidade de atender 1 cliente por vez.
 :
  
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -98,7 +98,7 @@ nome```
 servidorRes```
  para executar todo o processo de atendimento.
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -148,7 +148,7 @@ servidorRes```
  criado no corpo do programa e para gerar o processo de antendimento por meio da chamada à função ```
 env.process:```
 
-```
+```python
 def criaChegadas(env, servidorRes):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
@@ -164,7 +164,7 @@ def criaChegadas(env, servidorRes):
  Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entedermos melhor a função ```
 atendimentoServidor:```
 
-```
+```python
 def atendimentoServidor(env, nome, servidorRes):
     request = servidorRes.request() # solicita o recurso servidorRes
     
