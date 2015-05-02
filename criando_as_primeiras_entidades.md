@@ -9,7 +9,7 @@ future```
 , mas isso é apenas para manter a função ```
 print```
 , compatível com o Python 3):
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -17,7 +17,7 @@ import simpy # biblioteca de simulação```
 
 Tudo no SimPy gira em torno de **processos** criados pelo usuário e todos os processos vivem num **environment**, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -48,7 +48,7 @@ env.timeout```, que nada mais é do que uma função que causa um atraso de temp
 env```
  criado:
 
-```
+```python
 yield env.timeout(random.expovariate (1/2))
 ```
 
@@ -64,7 +64,7 @@ geraChegadas```
 e lembrando que temos de passar ```
 env```
  como argumento da função, temos:
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -91,7 +91,7 @@ env.now```.
 
 Se você executar, nada acontece novamente, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
