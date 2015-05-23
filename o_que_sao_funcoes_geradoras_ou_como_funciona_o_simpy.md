@@ -35,6 +35,7 @@ def seqNum():
 for i in seqNum():
     print(i)
 ```
+Execute o programa e reflita sobre cada chamada à função seqNum dentro do for.
     
     
 
