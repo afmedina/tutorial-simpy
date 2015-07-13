@@ -11,4 +11,4 @@ Intencionalmente, a ideia é construir, ao final da jornada de posts, um ebook "
 Este tutorial é produto de um trabalho colaborativo entre colegas que ensinam, pesquisam ou trabalham profissionalmente com a Simulação de Eventos Discretos no seu dia-a-dia: 
 
 Afonso C. Medina
-
+Marco Mesquita
