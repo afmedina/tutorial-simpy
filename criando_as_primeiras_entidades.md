@@ -201,7 +201,7 @@ geraChegadas```
  de modo que as chegadas entre entidades sejam distribuídas segundo uma triangular de moda 1, menor valor 0,1 e maior valor 1,1.
  
 <!---
-dar a dica de como pesquisar na biblioteca do simPy
+dar dica de como pesquisar na biblioteca do simPy
 --->
 
 
