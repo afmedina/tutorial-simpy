@@ -75,11 +75,16 @@ Não seria melhor começar com:
 1. O que é Simulação? (módulo 1)
 2. O que é Python? (módulo 2)
 3. O que é SimPy (módulo 3)
+4. Instalando Python / Simpy (módulo 4)
 ...
 
 --->
 
-Pretendo publicar um novo post, sempre que já tenha o próximo post elaborado, para facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post. A ideia é trabalhar com os leitores e colaboradores para corrigir e fortalecer o texto de modo que, ao final da jornada, tenhamos todos um bom ebook sobre a liguagem SimPy para publicação.
+Pretendo publicar um novo post, sempre que já tenha o próximo post elaborado, para facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post. A ideia é trabalhar com os leitores e colaboradores para corrigir e enriquecer o texto de modo que, ao final da jornada, tenhamos todos um bom ebook sobre a liguagem SimPy para publicação.
+
+<!---
+não entendi o primeiro parágrafo acima...
+--->
 
 O plano é caminhar pela seguinte sequência de aprendizado:
 
