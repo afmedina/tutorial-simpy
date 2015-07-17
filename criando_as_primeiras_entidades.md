@@ -97,13 +97,11 @@ env```
 <!---
 nome da função: cria ou gera chegadas?
 
-a rigor, você não criou a entidade, 
-
-não faltou um env.process(...)?
+a rigor, você não criou a entidade, não faltou um env.process(...)?
 
 explicar que "while true" é um loop infinito, que vai gerar chegadas indefinidamente , enquanto durar a simulação
 
-a alternativa seria gerar um número finito de chegadas (mais intuitivo) para começar
+uma alternativa seria gerar um número finito de chegadas (mais intuitivo) para começar
 
 --->
 
@@ -150,8 +148,8 @@ def criaChegadas(env):
 
 random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-env.process(criaChegadas(env))
-env.run(until=10)
+env.process(criaChegadas(env)) # cria o processo de chegadas
+env.run(until=10) # roda a simulação por 10 unidades de tempo
 ```
 
 Agora sim!
@@ -160,7 +158,7 @@ Note que ```
 env.process(criaChegadas(env))```
  é um comando que **torna** a função criaChegadas um processo dentro do environment ```
 env```
-. Esse processo só começa a ser executado na linha seguinte, qando ```
+. Esse processo só começa a ser executado na linha seguinte, quando ```
 env.run(until=10)```
  informa ao SimPy para que todo processo pertencente ao ```
 env```
@@ -187,10 +185,24 @@ geraChegadas```
  de modo que ela receba como parâmetro o ```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
+ 
+<!---
+a simulação vai continuar durando 10 minutos?
+
+uma coisa é simular um número fixo de chegadas, com tempo ilimitado
+
+outra coisa é limitar o tempo e deixar as chegadas ilimitadas
+
+uma terceira coisa é limitar o tempo e o número de chegadas...
+--->
 
 **Desafio 3:** modifique a função ```
 geraChegadas```
  de modo que as chegadas entre entidades sejam distribuídas segundo uma triangular de moda 1, menor valor 0,1 e maior valor 1,1.
+ 
+<!---
+dar a dica de como pesquisar na biblioteca do simPy
+--->
 
 
 
