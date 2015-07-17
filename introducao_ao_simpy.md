@@ -14,7 +14,9 @@ SimPy (Simulation in Python) é uma biblioteca para a construção de modelos de
 <!---
 1. o modelo de simulação é feito editando-se diretamente um código em Python (seria o equivalente ao SIMAN, linguagem por trás do Arena)
 2. a biblioteca SimPy disponibiliza funções que facilitam o desenvolvimento dos modelos (elaborados em Phyton)
-3. não há
+3. não há um ambiente visual para desenvolvimento dos modelos como nos softwares comerciais (talvez haja, mas o mais comum é trabalhoar direto com a linguuagem, não com ambientes de desenvolvimento)
+4. é uma linguagem gratuita
+5. acho que seria legal colocar um exemplo de código apenas para mostrar a cara de um modelo em simpy.
 --->
 
 Com SimPy é possível de se construir além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, essas possibilidades estão mais associadas ao Python do que propriamente a recursos da biblioteca.
