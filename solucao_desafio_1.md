@@ -34,3 +34,6 @@ def run2Ruin(bankroll):
 bankroll = [5,5]
 run2Ruin(bankroll)
 ```
+<!---
+não entendi, o código já estava no módulo anterior
+--->
