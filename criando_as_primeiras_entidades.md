@@ -51,8 +51,7 @@ Poderia ser: "fab", "hosp", "porto"?
 <!---
 Sugestão: simular chegadas (e partidas) em uma praça pública
 Pessoas chegam, ficam um tempo e vão embora
-Quantas pessoas teremos na fila?
-(fila com capacidade infinita)
+Quantas pessoas teremos na praça?
 --->
 
 Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, ainda não existe um processo sendo executado.
@@ -61,13 +60,13 @@ Vamos escrever uma função ```
 geraChegadas```
  que cria entidades no sistema enquanto durar a simulação.
 
-Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, a biblioteca random, bem detalhada na [documentação](https://docs.python.org/2/library/random.html), possui a função:
+Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca random, bem detalhada na [documentação](https://docs.python.org/2/library/random.html), que possui a função:
 ```
-random.expovariate(lambd)```
+random.expovariate(lambda)```
 
 Onde ```
-lambd```
- é a taxa de surgimento dos eventos ou, matematicamente, o inverso do tempo médio entre eventos sucessivos. No caso, se eu quero que as chegadas sejam entre intervalos de 2 min, a função ficaria:
+lambda```
+ é a taxa de ocorrência dos eventos ou, matematicamente, o inverso do tempo médio entre eventos sucessivos. No caso, se eu quero que as chegadas sejam entre intervalos médios de 2 min, a função ficaria:
 ```
 random.expovariate (1/2)```
 
@@ -94,6 +93,20 @@ geraChegadas```
 e lembrando que temos de passar ```
 env```
  como argumento da função, temos:
+ 
+<!---
+nome da função: cria ou gera chegadas?
+
+a rigor, você não criou a entidade, 
+
+não faltou um env.process(...)?
+
+explicar que "while true" é um loop infinito, que vai gerar chegadas indefinidamente , enquanto durar a simulação
+
+a alternativa seria gerar um número finito de chegadas (mais intuitivo) para começar
+
+--->
+
 ```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
