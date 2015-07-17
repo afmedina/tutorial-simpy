@@ -2,6 +2,18 @@
 
 Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão é construir uma função que crie entidades no modelo com intervalos sucessivos entre chegadas exponencialmente distribuídos, com média 2 min.
 
+<!---
+sugiro incluir um módulo inicial com o básico de simulação
+lá, definir entidades, recursos e processos
+dar exemplos de entidades: clientes, peças, navios etc
+recursos: posto de atendimento, máquina, berço etc
+processos: atendimento, usinagem, carga/descarga etc
+
+explicar dois processos básicos: geração (arrival) e extinção (dispose) de entidades
+
+o primeiro exemplo pode ser determinínstico (uma chegada exatamente a cada 5 min), depois o aleatório (exercício)
+--->
+
 Inicialmente, serão necessárias duas bibliotecas do Python: random – biblioteca de geração de números aleatórios – e o próprio SimPy.
 
 Começaremos nosso primeiro programa em SimPy chamando as bibliotecas de interesse (adicionalmente, existe uma chamada para a ```
@@ -9,13 +21,19 @@ future```
 , mas isso é apenas para manter a função ```
 print```
 , compatível com o Python 3):
+
+<!---
+não seria mais correto dizer que o programa é em Python? (ou Python / Simpy?)
+SimPy é a biblioteca...
+--->
+
 ```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
-Tudo no SimPy gira em torno de **processos** criados pelo usuário e todos os processos vivem num **environment**, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
+Tudo no SimPy gira em torno de **processos** criados pelo usuário e todos os processos ocorrem num **environment**, um “ambiente” de simulação. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -25,7 +43,19 @@ import simpy # biblioteca de simulação
 
 env = simpy.Environment() # cria o environment do modelo
 ```
-Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, ainda nada existe um processo sendo executado.
+<!---
+"env" é o nome do ambiente?
+Poderia ser: "fab", "hosp", "porto"?
+--->
+
+<!---
+Sugestão: simular chegadas (e partidas) em uma praça pública
+Pessoas chegam, ficam um tempo e vão embora
+Quantas pessoas teremos na fila?
+(fila com capacidade infinita)
+--->
+
+Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, ainda não existe um processo sendo executado.
 
 Vamos escrever uma função ```
 geraChegadas```
@@ -123,7 +153,7 @@ env.run(until=10)```
 env```
  seja executado por um tempo de simulação igual a 10 minutos.
 
-## Conteúdos desta seção
+## Conceitos desta seção
 | Conteúdo | Descrição |
 | -- | -- |
 | env = simpy.Environment() | cria um *environment* de simulação |
@@ -132,6 +162,10 @@ env```
 | random.seed(seed) | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
 | env.process(criaChegadas(env) | inicia a função criaChegadas como um *processo* em env |
 | env.run(until=tempoSim) | executa a simulação (executa todos os processos criandos em env) pelo tempo tempoSim |
+
+<!---
+Legal esta revisão (tabela)
+--->
 
 ## Desafios (soluções no próximo post)
 **Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
