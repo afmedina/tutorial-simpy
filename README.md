@@ -22,6 +22,8 @@ Intencionalmente, a ideia é construir, ao final da jornada de posts, um ebook "
 
 <!--
 Estamos pressupondo que o leitor domine os conceitos e métodos da Simulação por Eventos Discretos, ou então, que esteja estudando o assunto pelo livro []
+
+Pressupõe também que o leitor conheça Python (recomendar curso do CodeAcademy para quem não sabe?)
 -->
 
 Este tutorial é produto de um trabalho colaborativo entre colegas que ensinam, pesquisam ou utilizam profissionalmente a Simulação por Eventos Discretos no seu dia-a-dia: 
