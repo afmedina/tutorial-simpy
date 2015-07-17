@@ -7,7 +7,7 @@ primeiro comentário: simulação "de" ou "por" eventos discretos
 Breve tutorial para quem deseja conhecer a biblioteca Python de simulação de eventos discretos SimPy.
 
 <!--
-"a biblioteca SimPy de simulação por eventos discretos em Python"
+"...a biblioteca SimPy de simulação por eventos discretos em Python"
 -->
 
 Ele será desenvolvido e publicado como posts do blog do livro "Modelagem e Simulação de Eventos Discretos", disponível em livrosimulacao.eng.br.
