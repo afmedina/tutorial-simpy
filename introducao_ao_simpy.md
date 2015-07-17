@@ -1,16 +1,25 @@
 # Tutorial SimPy: Introdução ao SimPy 
 ![SimPy logo](SimPy_Logo300.png)
 
-[^comentário]
-
-Inaugurando a seção de tutoriais, vamos construir um tutorial de introdução à biblioteca de eventos discretos SimPy.
+Inaugurando a seção de tutoriais, vamos começar com uma introdução à biblioteca SimPy.
 
 O tutorial será desenvolvido em posts da seção blog e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
 
+<!---
+este parágrafo vale para todos os módulos do tutorial, deveria vir no README...
+--->
+
 SimPy (Simulation in Python) é uma biblioteca para a construção de modelos de simulação de eventos discretos desenvolvida em Python e distribuída segundo a licença MIT.  Sendo uma biblioteca, ela se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques de mouse. Com o SimPy, cabe ao usuário construir um programa de computador que represente seu modelo.
+
+<!---
+1. o modelo de simulação é feito editando-se diretamente um código em Python (seria o equivalente ao SIMAN, linguagem por trás do Arena)
+2. a biblioteca SimPy disponibiliza funções que facilitam o desenvolvimento dos modelos (elaborados em Phyton)
+3. não há
+--->
 
 Com SimPy é possível de se construir além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, essas possibilidades estão mais associadas ao Python do que propriamente a recursos da biblioteca.
 ## Por que utilizar o SimPy?
+
 Python é hoje uma das linguagens mais utilizadas no meio científico por diversas razões e uma pesquisa pela Internet vai mostrar diversos artigos, posts, discussões sobre os porquês desse sucesso. Pessoalmente, eu elenco a coisa toda em 3 grandes razões:
 
    - Facilidade de codificação, o que torna a leitura e interpretação do código muito fácil também. Engenheiros, matemáticos, pesquisadores em geral querem pensar no problema, nem tanto na linguagem e Python cumpre o que promete quando se fala em facilidade.
