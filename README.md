@@ -21,10 +21,10 @@ Intencionalmente, a ideia é construir, ao final da jornada de posts, um ebook "
 > Estamos considerando que você possui conhecimentos de Modelagem e Simulação em Eventos Discretos ou, ao menos, está fazendo algum curso sobre o assunto ou lendo o prestigioso livro [Modelagem e Simulação de Eventos Discretos (Chwif & Medina)](http://livrosimulacao.eng.br/)!
 
 <!--
-Este tutorial pressupõe que o leitor domine os conceitos de Simulação por Eventos Discretos, ou então, que esteja estudando o assunto pelo livro []
+Estamos pressupondo que o leitor domine os conceitos e métodos da Simulação por Eventos Discretos, ou então, que esteja estudando o assunto pelo livro []
 -->
 
-Este tutorial é produto de um trabalho colaborativo entre colegas que ensinam, pesquisam ou trabalham profissionalmente com a Simulação de Eventos Discretos no seu dia-a-dia: 
+Este tutorial é produto de um trabalho colaborativo entre colegas que ensinam, pesquisam ou utilizam profissionalmente a Simulação por Eventos Discretos no seu dia-a-dia: 
 
 Afonso C. Medina
 
