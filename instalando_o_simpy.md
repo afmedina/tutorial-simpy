@@ -3,7 +3,7 @@ A nossa jornada começa pela instalação de alguns programas e bibliotecas úte
 1.	Python 2.7
 2.	Pip
 3.	Simpy 3.0.4
-4.	Numpy
+4.	NumPy
 
 Um breve preambulo das minhas escolhas: no momento da elaboração deste tutorial, o Python já está na versão 3.4.0, mas como tenho interesse em utilizar o PyPy em algum momento mais à frente, tive de optar por uma versão compatível do Python, no caso a 2.7. Para o SimPy, você pode utilizar as versões mais atuais do Python.
 
@@ -11,7 +11,12 @@ Pip é um instalador de bibliotecas, facilita muito a vida do programador.
 
 O SimPy é o mais atual (e já sabemos que a versão 3 traz grandes alterações em relação à 2).
 
-Quanto ao Numpy, vamos aproveitar o embalo para instalá-lo, pois será muito útil para nossos modelos de simulação.
+Quanto ao NumPy, vamos aproveitar o embalo para instalá-lo, pois será muito útil para nossos modelos de simulação.
+
+<!---
+o numPy traz funções e constantes matemáticas que não esetão disponíveis no Python como...
+--->
+
 ##Passo 1: Anaconda, the easy way
 Atenção:
 * Se você já tem o Python e o Pip instalados em sua máquina, pule diretamente para o Passo 3: “Instalando o Simpy”. 
