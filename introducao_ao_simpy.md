@@ -41,21 +41,43 @@ ampliam o potencial de análise dos modelos
 --->
 
 Esta disponibilidade de bibliotecas, torna o SimPy particularmente interessante para quem está desenvolvendo suas pesquisas na área de simulação. O seu modelo provavelmente ficará melhor documentado, fácil de ser compreendido, facilitando a divulgação dos resultados de sua pesquisa.
+
+<!---
+por ser um software livre, é acessível a todos
+--->
+
 ##Prós e contras
 Prós:
 
 - Código aberto e livre (licença MIT);
-- Diversas bibliotecas de otimização, matemática e estatística podem ser incorporadas ao modelo;
+- Diversas funções de bibliotecas de otimização, matemática e estatística podem ser incorporadas ao modelo;
 - Permite a programação de lógicas sofisticadas, apoiando-se no Python (e suas bibliotecas);
 
 Contras:
 
 - Ausência de ferramentas para animação;
 - Necessidade de se programar cada processo do modelo;
-- Exige conhecimento prévio em Python.
+- Exige conhecimento prévio em Python. 
+
+<!---
+- Não inclui um ambiente visual de desenvolvimento (IDE)
+--->
 
 ## Desenvolvimento deste tutorial
 Planejei o tutorial em formato de posts de blog, de modo que eles sejam curtos e didáticos – tenho por meta que cada post não ultrapasse a 500 palavras.
+
+<!---
+Este trecho está repetido. Melhor por no capítulo de introução (README), com definição dos objetivos do tutorial, público-alvo, estutura etc.
+Cada etapa do tutorial poderia ser chamada "módulo".
+Estes módulo seria sobre o SimPy...
+
+Não seria melhor começar com:
+1. O que é Simulação? (módulo 1)
+2. O que é Python? (módulo 2)
+3. O que é SimPy (módulo 3)
+...
+
+--->
 
 Pretendo publicar um novo post, sempre que já tenha o próximo post elaborado, para facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post. A ideia é trabalhar com os leitores e colaboradores para corrigir e fortalecer o texto de modo que, ao final da jornada, tenhamos todos um bom ebook sobre a liguagem SimPy para publicação.
 
