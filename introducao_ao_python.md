@@ -1,5 +1,9 @@
 #Tutorial SimPy: Introdução ao Python
-Antes de começarmos com o SimPy, preciso garantir que você tenha algum conhecimento mínimo de Python. Se você já tem algum conhecimento anterior, pule para a seção “Teste seus conhecimentos em Python”.
+Antes de começarmos com o SimPy, preciso garantir que você tenha algum conhecimento mínimo de Python. Se você já tem algum conhecimento anterior, pule para a seção “Teste seus conhecimentos em Python” deste módulo.
+
+<!---
+acho que ficaria melhor inverter a ordem, como comentei anteriormente...
+--->
 
 Se você nunca teve contato com a linguagem, aviso que não pretendo construir uma introdução ou tutorial ao Python, simplesmente porque isso é o que mais existe disponível na internet. 
 
@@ -11,6 +15,11 @@ Sugestões:
 3.	Um tutorial completo: [Tutorial Python](http://wiki.python.org.br/Tutorial_Python).
 4.	Outro curso muito bom, este no Coursera: [Introdução à Programação Interativa em Python (Parte 1)](https://pt.coursera.org/course/interactivepython1).
 5.	Eu tenho na minha mesa um livro de Python muito bom: Summerfield, Mak. Programming in Python 3: a complete introduction. Addison-Wesley Professional. 2012.
+
+<!---
+eu gostei do CodeAcademy em 36 h...
+e comprei um livro para a Renata - Python for Kids, legalzinho...
+--->
 
 Feito o tutorial, curso ou aprendido tudo sozinho, teste seus conhecimentos para verificar se você sabe o básico de Python e pode começar com o SimPy.
 ##Teste seus conhecimentos em Python: o problema da ruina do apostador
@@ -45,6 +54,10 @@ def run2Ruin(bankroll):
 bankroll = [5,5] # dinheiro disponível por cada jogador
 run2Ruin(bankroll) # executa até a ruina de um dos jogadores
 ```
+
+<!---
+colocar algumas perguntas sobre o código, entrada e sáida para testar os conhecimentos do leitor (tipo quiz,depois de rodar o código)
+--->
 
 Quando sentir-se confortável com a linguagem, pule para o próximo post, onde finalmente começa nossa aventura em SimPy.
 
