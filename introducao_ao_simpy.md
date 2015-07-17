@@ -1,6 +1,8 @@
 # Tutorial SimPy: Introdução ao SimPy 
 ![SimPy logo](SimPy_Logo300.png)
 
+[^comentário]
+
 Inaugurando a seção de tutoriais, vamos construir um tutorial de introdução à biblioteca de eventos discretos SimPy.
 
 O tutorial será desenvolvido em posts da seção blog e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
