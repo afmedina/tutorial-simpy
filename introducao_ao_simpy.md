@@ -1,7 +1,7 @@
 # Tutorial SimPy: Introdução ao SimPy 
 ![SimPy logo](SimPy_Logo300.png)
 
-Inaugurando a seção de tutoriais, vamos começar com uma introdução à biblioteca SimPy.
+Inaugurando a seção de tutoriais, vamos começar com uma introdução ao SimPy.
 
 O tutorial será desenvolvido em posts da seção blog e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
 
@@ -13,10 +13,11 @@ SimPy (Simulation in Python) é uma biblioteca para a construção de modelos de
 
 <!---
 1. o modelo de simulação é feito editando-se diretamente um código em Python (seria o equivalente ao SIMAN, linguagem por trás do Arena)
-2. a biblioteca SimPy disponibiliza funções que facilitam o desenvolvimento dos modelos (elaborados em Phyton)
-3. não há um ambiente visual para desenvolvimento dos modelos como nos softwares comerciais (talvez haja, mas o mais comum é trabalhoar direto com a linguuagem, não com ambientes de desenvolvimento)
+2. a biblioteca SimPy disponibiliza funções que facilitam o desenvolvimento dos modelos
+3. não há um ambiente visual para desenvolvimento dos modelos como nos softwares comerciais (talvez haja, mas o mais comum é trabalhar diretamente com a linguuagem, não com ambientes de desenvolvimento)
 4. é uma linguagem gratuita
 5. acho que seria legal colocar um exemplo de código apenas para mostrar a cara de um modelo em simpy.
+6. o Python é uma linguagem orientada a objetos
 --->
 
 Com SimPy é possível de se construir além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, essas possibilidades estão mais associadas ao Python do que propriamente a recursos da biblioteca.
@@ -28,8 +29,12 @@ Python é hoje uma das linguagens mais utilizadas no meio científico por divers
    - Bibliotecas! Bibliotecas! Um número inacreditável de bibliotecas (para a área científica) está disponível para o programador.
    - Scripts. A funcionalidade de trabalhar com scripts (basicamente, Python é uma linguagem script) diminui drasticamente o tempo de desenvolvimento e aprendizado da linguagem.
 
+<!---
+gratuidade (software comerciais $$$)
+flexibilidade (software comerciais: engessado pelos módulos)
+--->
 
-SimPy é uma biblioteca em Python e isso significa que um modelo de simulação desenvolvido por ela, terá à disposição tudo que existe bom para quem programa em Python. O código fica fácil de ler (e desenvolver), o modelo pode ser distribuído como um pacote (sem a necessidade do usuário final instalar o Python), diversas bibliotecas de estatística e otimização disponíveis em Python, ampliam em muito o horizonte de aplicação dos modelos.
+SimPy é uma biblioteca em Python e isso significa que um modelo de simulação desenvolvido por ela, terá à disposição tudo que existe de bom para quem programa em Python. O código fica fácil de ler (e desenvolver), o modelo pode ser distribuído como um pacote (sem a necessidade do usuário final instalar o Python), diversas bibliotecas de estatística e otimização disponíveis em Python, ampliam em muito o horizonte de aplicação dos modelos.
 
 Esta disponibilidade de bibliotecas, torna o SimPy particularmente interessante para quem está desenvolvendo suas pesquisas na área de simulação. O seu modelo provavelmente ficará melhor documentado, fácil de ser compreendido, facilitando a divulgação dos resultados de sua pesquisa.
 ##Prós e contras
