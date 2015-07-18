@@ -126,7 +126,7 @@ def atendimentoServidor(env, nome, servidorRes):
 
 <!---
 "chegada" é um atributo da entidade cliente, explicar!
-(como uma varíavel só pode armazenar tantos valores, um para cada cliente?)
+(como uma varíavel só pode armazenar diferentes valores, um para cada cliente?)
 --->
 
 Para imprimir o resultado, vou simplesmente alterar a chamada a função print na linha seguinte, de modo que o código final da função ```
