@@ -97,3 +97,4 @@ env.run(until=10)```
 
 >Fique a vontade para implementar as função ao seu gosto, note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão desta função!**
 
+
