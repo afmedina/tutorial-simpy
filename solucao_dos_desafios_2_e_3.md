@@ -95,6 +95,6 @@ env = simpy.Environment() # cria o environment do modelo
 env.process(criaChegadas(env, numeroMaxChegadas))
 env.run(until=10)```
 
->Fique a vontade para implementar as função ao seu gosto, note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão desta função!**
+>Fique a vontade para implementar funções de geração de números aleatórios ao seu gosto. Note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão deste tipo de função!**
 
 
