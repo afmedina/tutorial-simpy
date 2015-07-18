@@ -9,6 +9,17 @@ numeroMaxChegadas```
  e limite a criação de entidades a este número.
  
 Neste caso, o *script* em Python é autoexplicativo (apenas note que limitei o número de chegadas em 5 e fiz isso antes, da chamada do processo):
+
+<!---
+pq vc define "tempo_medio_chegadas" e "numeroMaxChegadas" em lugares diferente do código?
+
+no módulo anterior não tinha a constante "tempo_medio_chegadas"
+
+sugestão: trocar o "while" por "for i=1 to n"
+
+random.seed foi comentado?
+--->
+
 ```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
@@ -84,5 +95,5 @@ env = simpy.Environment() # cria o environment do modelo
 env.process(criaChegadas(env, numeroMaxChegadas))
 env.run(until=10)```
 
->Fique a vontade para implementar as função ao seu paladar, note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão desta função!**
+>Fique a vontade para implementar as função ao seu gosto, note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão desta função!**
 
