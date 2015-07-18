@@ -1,7 +1,7 @@
 # Solução dos desafios 4 e 5
 
 ## Desafio 4 
-Para melhor compreensão do funcionamento do programa, construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+Construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
 Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Para este desafio, criei a variável global clientesFila, como mostra o ínicio do código alterado da seção anterior:
 
@@ -16,9 +16,13 @@ TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
 clientesFila = 0```
 
-O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente inicia seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função ```
+O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente sai da fila para iniciar seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função ```
 atendimentoServidor```
  da seção anterior:
+ 
+<!---
+alternativa: monitorar o número de clientes no sistema
+--->
 
 ```
 def atendimentoServidor(env, nome, servidorRes):
