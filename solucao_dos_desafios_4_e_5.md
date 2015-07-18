@@ -93,7 +93,7 @@ chegada.```
 tempoFila```
  e apresente o resultado na tela.
  
-A ideia deste desafio é que você se acostume com esse cálculo trivial mas importantíssimo dentro da simulação: o tempo de permanência de uma entidade em alguma coisa. Neste caso, a "alguma coisa" é o tempo de permanência em fila. A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do antendimento.
+A ideia deste desafio é que você se acostume com esse cálculo trivial mas importantíssimo dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é a fila. A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do antendimento.
 Assim, ao chegar, criamos uma variável ```
 chegada```
  que armazena o instante atual fornecido sempre pelo comando ```
@@ -123,6 +123,12 @@ def atendimentoServidor(env, nome, servidorRes):
     yield request # aguarda em fila até o acesso
     tempoFila = env.now-chegada
 ```
+
+<!---
+"chegada" é um atributo da entidade cliente, explicar!
+(como uma varíavel só pode armazenar tantos valores, um para cada cliente?)
+--->
+
 Para imprimir o resultado, vou simplesmente alterar a chamada a função print na linha seguinte, de modo que o código final da função ```
 atendimentoServidor```
  fica:
