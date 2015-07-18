@@ -1,8 +1,21 @@
-# Tutorial SimPy: criando, ocupando e desocupando recursos
+# Tutorial SimPy: criando, ocupando e liberando recursos
 
 ## Criando
 
 Em SimPy, tudo é processo e, portanto, criar um recurso também é um processo. A função que cria recursos é a: 
+
+<!---
+"criar um recurso também é um processo"???
+
+alternativa:
+Em simulação, simulamos processos que consomem recursos normalmente limitados. Quando um recurso é requisitado e não está disponível, há formação de filas.
+
+Nos modelos de simulação, precisamos criar os recursos, que são ocupados e liberados ao longo da imsulção por entidades.
+
+Por exemplo, na simulação de uma fábrica, criamos os recursos "máquinas" que serão utilizados nos processos de fabricação.
+
+No SimPy, a sintaxe para criar um recurso é:
+--->
 
 ```
 meuRecurso = simpy.Resource(env, capacity=1)```
