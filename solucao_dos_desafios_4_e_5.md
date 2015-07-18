@@ -21,7 +21,7 @@ atendimentoServidor```
  da seção anterior:
  
 <!---
-alternativa: monitorar o número de clientes no sistema
+alternativa: monitorar o número de clientes no sistema, não apenas na fila
 --->
 
 ```
@@ -36,6 +36,10 @@ def atendimentoServidor(env, nome, servidorRes):
     print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
     clientesFila -= 1 # decrementa contador de novo cliente em fila
 ```
+<!---
+precisa defnir novamente a variável "clientesFila"?
+--->
+
 Repare que acrescentei duas chamadas à função print, de modo  a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
 clientesFila.```
 Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
