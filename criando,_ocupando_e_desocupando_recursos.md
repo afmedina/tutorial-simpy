@@ -35,6 +35,14 @@ e
 2. Aguardar o acesso ao recurso com um ```
 yield```
 
+<!---
+é isso mesmo?
+
+uma coisa é entrar na fila (request), outra é ocupar o recurso (yield), depois tem o delay (outro yield) e finamlmente a liberação (release).
+
+por analogia com o Arena (Seize, Delay, Release), não seria melhor juntar tudo (Request, Delay, Release)
+--->
+
 Assim, uma chamada ao recurso ```
 meuRecurso```
  ficaria:
@@ -64,9 +72,13 @@ geraChegadas```
 atendimentoServidor```
  responsável por manter os clientes em fila e realizar o atendimento no servidor.
  
- Incialmente, vamos colocar acrescentar a constante TEMPO_MEDIO_ATENDIMENTO e criar o recurso ```
+Inicialmente, vamos acrescentar a constante TEMPO_MEDIO_ATENDIMENTO e criar o recurso ```
 servidorRes``` com capacidade de atender 1 cliente por vez.
 :
+
+<!---
+"servidorRes"?
+--->
  
 ```python
 # -*- coding: utf-8 -*-
@@ -93,7 +105,7 @@ servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
 env.process(criaChegadas(env, servidorRes))
 env.run(until=10)
 ```
-Se você executar o script anterior, o recurso é criado, mas nada acontece, afinal, não existe nenhuma função ocupando o recurso criado.
+Se você executar o script anterior, o recurso é criado, mas nada acontece, afinal, não existe nenhum processo requisitando o recurso criado.
 
 Precisamos criar uma função que realize o atendimento em 4 etapas:
 1. Solicitar um servidor
@@ -150,7 +162,7 @@ env.process(criaChegadas(env, servidorRes))
 env.run(until=10)
 
 ```
-Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, *e eu vou sempre repetir isso*, tudo é processo dentro de um environment. Assim, o atendimento é um processo que deve ser iniciado por cada cliente gerado na função ```
+Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador nota que não existe conexão entre elas. Em SimPy, *e eu vou sempre repetir isso*, tudo é processo dentro de um environment. Assim, o atendimento é um processo que deve ser iniciado por cada cliente gerado na função ```
 criaChegadas.```, por uma ```
 chamada env.process(função de atendimento).```
 
@@ -174,7 +186,7 @@ def criaChegadas(env, servidorRes):
         env.process(atendimentoServidor(env, "Cliente %d" % contaChegada, servidorRes))
 ```
 
- Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entedermos melhor a função ```
+Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entedermos melhor a função ```
 atendimentoServidor:```
 
 ```python
@@ -224,7 +236,7 @@ Cliente 9 termina o atendimento em: 6.8.
 Cliente 10 chega em: 9.7 
 Cliente 10 inicia o atendimento em: 9.7```
 
-Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, que eles serão distrinchados diversas vezes nas seções seguintes. 
+Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, que eles serão destrinchados nas seções seguintes. 
 
 Por ora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
 
