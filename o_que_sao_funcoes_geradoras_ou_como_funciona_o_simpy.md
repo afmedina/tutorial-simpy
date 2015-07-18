@@ -1,7 +1,11 @@
 # O que são funções geradoras? (Ou como funciona o SimPy)
 
 ##Iterador
-Na programação voltada ao objeto, *iteradores* são objetos que permitem ao programador observar os valores dentro de um dado objeto.
+Na programação voltada ao objeto, *iteradores* são métodos que permitem ao programador observar os valores dentro de um dado objeto.
+
+<!---
+esta seção está bem confusa, rever
+--->
 
 Quando você percorre uma lista com o comando ```
 for,```
