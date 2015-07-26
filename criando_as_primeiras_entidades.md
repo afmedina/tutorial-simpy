@@ -183,7 +183,7 @@ env```
 | random.expovariate | gera números aleatórios exponencialmente distribuidos |
 | yield env.timeout(time) | gera um atraso dado por *time* |
 | random.seed(seed) | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
-| env.process(criaChegadas(env) | inicia a função criaChegadas como um *processo* em env |
+| env.process(criaChegadas(env)) | inicia a função criaChegadas como um *processo* em env |
 | env.run(until=tempoSim) | executa a simulação (executa todos os processos criandos em env) pelo tempo tempoSim |
 
 <!---
