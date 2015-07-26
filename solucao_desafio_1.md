@@ -36,4 +36,6 @@ run2Ruin(bankroll)
 ```
 <!---
 não entendi, o código já estava no módulo anterior
+
+Tava nada!
 --->
