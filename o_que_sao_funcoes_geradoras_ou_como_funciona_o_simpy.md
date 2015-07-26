@@ -5,6 +5,8 @@ Na programação voltada ao objeto, *iteradores* são métodos que permitem ao p
 
 <!---
 esta seção está bem confusa, rever
+
+Só joguei uns conceitos. AInda não sei como apresentar isso de modo didático
 --->
 
 Quando você percorre uma lista com o comando ```
