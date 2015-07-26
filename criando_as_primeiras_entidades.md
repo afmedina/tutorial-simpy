@@ -206,6 +206,8 @@ uma coisa é simular um número fixo de chegadas, com tempo ilimitado
 outra coisa é limitar o tempo e deixar as chegadas ilimitadas
 
 uma terceira coisa é limitar o tempo e o número de chegadas...
+
+Isso seria tema de um post específico que você mesmo podia fazer! (obrigatoriamente deveria ser após o aluno ter feito um modelo completo)
 --->
 
 **Desafio 3:** modifique a função ```
@@ -214,6 +216,8 @@ geraChegadas```
  
 <!---
 dar dica de como pesquisar na biblioteca do simPy
+
+
 --->
 
 
