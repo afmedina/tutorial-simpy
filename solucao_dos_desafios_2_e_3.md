@@ -15,7 +15,11 @@ pq vc define "tempo_medio_chegadas" e "numeroMaxChegadas" em lugares diferente d
 
 no módulo anterior não tinha a constante "tempo_medio_chegadas"
 
+Precisa corrigir mesmo. Em Python, o usual é ctes em maiúsculas e na parte de cima. 
+
 sugestão: trocar o "while" por "for i=1 to n"
+
+não gosto do for nesse caso
 
 random.seed foi comentado?
 --->
