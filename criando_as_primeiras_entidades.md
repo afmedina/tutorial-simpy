@@ -12,6 +12,10 @@ processos: atendimento, usinagem, carga/descarga etc
 explicar dois processos básicos: geração (arrival) e extinção (dispose) de entidades
 
 o primeiro exemplo pode ser determinínstico (uma chegada exatamente a cada 5 min), depois o aleatório (exercício)
+
+Se fosse um livro de simulação... Mas acho que a maioria vem aqui já sabendo esse básico e quer aprender logo a linguagem
+
+Repare que, mesmo começando mais adiantado (pressupondo conhecimentos anteriores) a quantidade de informação é grande e longe de ser óvbia
 --->
 
 Inicialmente, serão necessárias duas bibliotecas do Python: random – biblioteca de geração de números aleatórios – e o próprio SimPy.
@@ -25,6 +29,8 @@ print```
 <!---
 não seria mais correto dizer que o programa é em Python? (ou Python / Simpy?)
 SimPy é a biblioteca...
+
+Não sei...
 --->
 
 ```python
@@ -46,12 +52,18 @@ env = simpy.Environment() # cria o environment do modelo
 <!---
 "env" é o nome do ambiente?
 Poderia ser: "fab", "hosp", "porto"?
+
+Isso ainda estou aprendendo. Nunca tentei um modelo com dois env ainda
 --->
 
 <!---
 Sugestão: simular chegadas (e partidas) em uma praça pública
 Pessoas chegam, ficam um tempo e vão embora
 Quantas pessoas teremos na praça?
+
+Ainda não. Limitei essa seção só no processo de chegadas, porque a linguagem não é nada fácil
+
+Mas aprimorar o exemplo, ok.
 --->
 
 Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, ainda não existe um processo sendo executado.
