@@ -22,6 +22,8 @@ sugestão: trocar o "while" por "for i=1 to n"
 não gosto do for nesse caso
 
 random.seed foi comentado?
+
+deveria, mas a seção anterior ficaria puxada. Como resolver?
 --->
 
 ```python
