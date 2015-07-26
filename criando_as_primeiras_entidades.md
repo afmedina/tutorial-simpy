@@ -217,7 +217,7 @@ geraChegadas```
 <!---
 dar dica de como pesquisar na biblioteca do simPy
 
-
+Boa pergunta! Não sei!
 --->
 
 
