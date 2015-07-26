@@ -60,14 +60,10 @@ Os IDEs, para quem não conhece, são interfaces que facilitam a vida do program
 Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já está configurado e pronto para o uso (repare na janela superior-direita, um tutorial de uso):
 ![IDE Spider](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20spyder800.png?raw=true)
 
-Pessoalmente, eu utilizo o [Wing IDE 101](http://wingware.com/downloads/wingide-101) que é gratuito e eu acho muito bom:
+Um IDE muito bom é o [Wing IDE 101](http://wingware.com/downloads/wingide-101) que é gratuito (e possui uma versão profissional paga):
 
 ![IDE Wing 101](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20wing%20101%20800.png?raw=true)
 
-<!---
-pq vc não usa o spyder? ele é gratuito?
-acho que vale a penas explicar melhor para o leitor...
---->
 
 >Atenção: se você instalou o Anaconda e pretende utilizar algum IDE que não o Spyder, siga as instruções deste link, para configurar o uso do seu IDE. (É fácil, não se avexe não!)
 
