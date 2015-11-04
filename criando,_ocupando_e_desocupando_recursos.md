@@ -89,7 +89,7 @@ import simpy  # biblioteca de simulação
 TEMPO_MEDIO_CHEGADAS = 1.0  # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
-def criaChegadas(env):
+def criaChegadas(env, servidorRes):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < 10):
