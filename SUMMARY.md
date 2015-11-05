@@ -12,5 +12,5 @@
 * [O que são funções geradoras? (Ou como funciona o SimPy)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
 * [Criando lotes (ou agrupando) entidades durante a simulação](criando_lotes_ou_agrupando_entidades_durante_a_simulacao.md)
-* Selecionando um recurso específico para um processo
+* [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 
