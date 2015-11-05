@@ -11,4 +11,5 @@
 * [Solução dos desafios 4 e 5](solucao_dos_desafios_4_e_5.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
+* Criando lotes (ou agrupando) entidades durante a simulação
 
