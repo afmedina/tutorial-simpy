@@ -12,7 +12,7 @@ Só joguei uns conceitos. AInda não sei como apresentar isso de modo didático
 Quando você percorre uma lista com o comando ```
 for,```
  por exemplo, está intrinsecamente utilizando um iterador:
-```
+```python
  lista = [1, 2, 3]
  for i in lista:
     print (i)```
@@ -22,7 +22,7 @@ No exemplo, o comando ```for``` permite vasculhar cada elemento dentro da lista.
 Elas existem e [estão entre nós há tempos](https://en.wikipedia.org/wiki/Generator_(computer_programming), nós é que não sabíamos...
 
 Uma função geradora é uma classe especial de funções que tem como característica retornar valores em sequência, cada vez que são chamadas. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo. Por exemplo, cada vez que a função a seguir é chamada, ela retorna um novo número da sequência entre 0 e 10:
-```
+```python
 def seqNum():
     n = 0
     while n <= 10:
@@ -38,7 +38,7 @@ Se você executou o programa anterior, deve ter notado que o ```yield``` funcion
 Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* for como no caso anterior ou, você pode chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
 Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do zumbi pelo plano:
-```
+```python
 import random
 
 def zombiePos():
@@ -55,13 +55,15 @@ print(next(zombie))
 print(next(zombie))
 ```
 Diferentemente do caso anterior, criamos um zumbi a partir da linha:
-
-```zombie = zombiePos()```
-
-Cada novo passo do pobre infeliz é obtido pelo comando ```next(zombie))```.
+```python
+zombie = zombiePos()```
+Cada novo passo do pobre infeliz é obtido pelo comando:
+```python
+next(zombie))```
 
 O bacana, no caso, é que podemos criar 2 zumbis passeando pela relva:
 
+```python
 import random
 
 def zombiePos():
@@ -75,9 +77,9 @@ zombie1 = zombiePos()
 zombie2 = zombiePos()
 print(next(zombie1), next(zombie2))
 print(next(zombie1), next(zombie2))
-print(next(zombie1), next(zombie2))
+print(next(zombie1), next(zombie2))```
 
-    
-    
+## SimPy x Funções geradoras
+
 
     
