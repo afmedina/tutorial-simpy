@@ -35,20 +35,48 @@ for i in seqNum():
 
 Se você executou o programa anterior, deve ter notado que o ```yield``` funciona como um ```return``` dentro da função, mas com o *superpoder* de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função **não** executa o corpo inteiro da função! Isto significa que, numa segunda chamada à função, a execução retoma a partir da linha seguinte ao ```yield``` e o próximo valor de *n* será o anterior incrementado de 1.
 
-Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop*. 
+Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* for como no caso anterior ou, você pode chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
-Que tal uma função que nos diaga a posição atual de um Zumbi que só pode andar num tabuleiro de xadrez (8x8 posições)?
+Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do zumbi pelo plano:
 ```
-def seqNum():
-    n = 0
-    while n <= 10:
-        yield n
-        n += 1
-    
-for i in seqNum():
-    print(i)
+import random
+
+def zombiePos():
+    x, y, = 0, 0 # zombie initial position
+    while True:
+        yield x, y
+        x += random.randint(-1, 1)
+        y += random.randint(-1, 1)
+
+zombie = zombiePos()
+
+print(next(zombie))
+print(next(zombie))
+print(next(zombie))
 ```
-Execute o programa e reflita sobre cada chamada à função seqNum dentro do for.
+Diferentemente do caso anterior, criamos um zumbi a partir da linha:
+
+```zombie = zombiePos()```
+
+Cada novo passo do pobre infeliz é obtido pelo comando ```next(zombie))```.
+
+O bacana, no caso, é que podemos criar 2 zumbis passeando pela relva:
+
+import random
+
+def zombiePos():
+    x, y, = 0, 0 # zombie initial position
+    while True:
+        yield x, y, "Brains!"
+        x += random.randint(-1, 1)
+        y += random.randint(-1, 1)
+        
+zombie1 = zombiePos()
+zombie2 = zombiePos()
+print(next(zombie1), next(zombie2))
+print(next(zombie1), next(zombie2))
+print(next(zombie1), next(zombie2))
+
     
     
 
