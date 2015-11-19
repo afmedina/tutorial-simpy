@@ -1,9 +1,9 @@
 # Tutorial SimPy: Introdução ao SimPy 
 ![SimPy logo](SimPy_Logo300.png)
 
-Inaugurando a seção de tutoriais, vamos começar com uma introdução ao **SimPy**.
+Inaugurando a seção de tutoriais do site,começaremos com uma introdução ao **SimPy**.
 
-Este tutorial será desenvolvido em posts da seção blog e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
+Este tutorial será desenvolvido em posts da seção **blog** e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
 
 <!---
 este parágrafo vale para todos os módulos do tutorial, deveria vir no README...
