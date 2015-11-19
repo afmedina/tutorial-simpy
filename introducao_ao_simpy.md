@@ -1,15 +1,15 @@
 # Tutorial SimPy: Introdução ao SimPy 
 ![SimPy logo](SimPy_Logo300.png)
 
-Inaugurando a seção de tutoriais, vamos começar com uma introdução ao SimPy.
+Inaugurando a seção de tutoriais, vamos começar com uma introdução ao **SimPy**.
 
-O tutorial será desenvolvido em posts da seção blog e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
+Este tutorial será desenvolvido em posts da seção blog e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
 
 <!---
 este parágrafo vale para todos os módulos do tutorial, deveria vir no README...
 --->
 
-SimPy (Simulation in Python) é uma biblioteca para a construção de modelos de simulação de eventos discretos desenvolvida em Python e distribuída segundo a licença MIT.  Sendo uma biblioteca, ela se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques de mouse. Com o SimPy, cabe ao usuário construir um programa de computador que represente seu modelo.
+**SimPy** (Simulation in Python) é uma biblioteca para a construção de modelos de simulação de eventos discretos desenvolvida em Python e distribuída segundo a licença MIT.  Sendo uma biblioteca, ela se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques de mouse. Com o SimPy, cabe ao usuário construir um programa de computador que represente seu modelo.
 
 <!---
 1. o modelo de simulação é feito editando-se diretamente um código em Python (seria o equivalente ao SIMAN, linguagem por trás do Arena)
