@@ -2,11 +2,6 @@
 
 
 Breve tutorial para quem deseja conhecer o ambiente **SimPy** (*Simulation in Python) para construção de modelos de simulação de eventos discretos em *Python*. 
-<!--
-"...a biblioteca SimPy de simulação de eventos discretos em Python"
-
-Do site deles: SimPy is a process-based discrete-event simulation framework based on standard Python. 
--->
 
 Ele será desenvolvido e publicado como posts do blog do livro "Modelagem e Simulação de Eventos Discretos", disponível em livrosimulacao.eng.br.
 
