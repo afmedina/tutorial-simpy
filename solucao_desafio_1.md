@@ -4,7 +4,7 @@ O código a seguir é uma possível solução para o desafio 1 da seção anteri
 
 O importante é que se você fez alguma que coisa que funcionou, acredito que está pronto para o SimPy.
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
