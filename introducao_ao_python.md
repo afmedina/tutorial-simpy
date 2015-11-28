@@ -11,6 +11,7 @@ Procure um tutorial rápido (já vi um até de 10 minutos!) e mãos à obra! Nad
 
 Sugestões:
 1.	Um curso muito bom no Udacity: [Programming Foundations with Python](https://www.udacity.com/course/programming-foundations-with-python--ud036) (clicando no botão azul “Access course materials”, você faz o curso de graça, mas sem receber o certificado). A vantagem do Udacity é que você pode começar o curso a hora que quiser.
+2.	Outro bom curso é do CodeAcacademy (
 2.	Um tutorial muito rápido (1 hora): [Python in One Easy Lesson](http://cs.stanford.edu/people/nick/python-in-one-easy-lesson/).
 3.	Um tutorial completo: [Tutorial Python](http://wiki.python.org.br/Tutorial_Python).
 4.	Outro curso muito bom, este no Coursera: [Introdução à Programação Interativa em Python (Parte 1)](https://pt.coursera.org/course/interactivepython1).
