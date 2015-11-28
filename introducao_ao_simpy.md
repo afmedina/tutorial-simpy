@@ -25,26 +25,19 @@ Com SimPy é possível de se construir além de modelos de simulação discreta,
 
 Python é hoje uma das linguagens mais utilizadas no meio científico e uma pesquisa pela Internet vai mostrar diversos artigos, posts, discussões sobre os porquês desse sucesso. Pessoalmente, eu elenco a coisa toda em 3 grandes razões:
 
-   - Facilidade de codificação, o que torna a leitura e interpretação do código muito fácil também. Engenheiros, matemáticos, pesquisadores em geral querem pensar no problema, nem tanto na linguagem e Python cumpre o que promete quando se fala em facilidade.
-   - Bibliotecas! Bibliotecas! Um número inacreditável de bibliotecas (para a área científica) está disponível para o programador.
-   - Scripts. A funcionalidade de trabalhar com scripts (basicamente, Python é uma linguagem script) diminui drasticamente o tempo de desenvolvimento e aprendizado da linguagem.
+   - **Facilidade de codificação**, o que torna a leitura e interpretação do código muito fácil também. Engenheiros, matemáticos, pesquisadores em geral querem pensar no problema, nem tanto na linguagem e Python cumpre o que promete quando se fala em facilidade.
+   - **Bibliotecas! Bibliotecas!** Um número inacreditável de bibliotecas (para a área científica) está disponível para o programador.
+   - **Scripts**. A funcionalidade de trabalhar com scripts (basicamente, Python é uma linguagem script) diminui drasticamente o tempo de desenvolvimento e aprendizado da linguagem.
 
-<!---
-gratuidade (software comerciais $$$)
-flexibilidade (software comerciais: engessado pelos módulos)
---->
 
-SimPy é uma biblioteca em Python e isso significa que um modelo de simulação desenvolvido com ela, terá à disposição tudo que existe de bom para quem programa em Python. O código fica fácil de ler (e desenvolver), o modelo pode ser distribuído como um pacote (sem a necessidade do usuário final ter que instalar o Python para rodá-lo), diversas bibliotecas de estatística e otimização disponíveis em Python, ampliam em muito o horizonte de aplicação dos modelos.
+Além disso, SimPy, quando comparado com softwares comerciais, é gratuito - o que, por si só, é uma grande vantagem num mercado em que os softwares são precificados a partir de milhares de dólares - e bastante
+flexível, no sentido de que não é engessado apenas pelos módulos existentes.
 
-<!---
-ampliam o potencial de análise dos modelos
---->
+SimPy é como uma biblioteca em Python e isso significa que um modelo de simulação desenvolvido com ele, terá à disposição tudo que existe de bom para quem programa em Python: o código fica fácil de ler (e desenvolver), o modelo pode ser distribuído como um pacote (sem a necessidade do usuário final ter que instalar o Python para rodá-lo), além das diversas bibliotecas de estatística e otimização disponíveis em Python, que ampliam em muito o horizonte de aplicação dos modelos.
 
-Esta disponibilidade de bibliotecas, torna o SimPy particularmente interessante para quem está desenvolvendo suas pesquisas na área de simulação. O seu modelo provavelmente ficará melhor documentado, fácil de ser compreendido, facilitando a divulgação dos resultados de sua pesquisa.
+Esta disponibilidade de bibliotecas, bem como ser um software livre, torna o SimPy particularmente interessante para quem está desenvolvendo suas pesquisas na área de simulação. O seu modelo provavelmente ficará melhor documentado e portanto mais fácil de ser compreendido, potencializando a divulgação dos resultados de sua pesquisa.
 
-<!---
-por ser um software livre, é acessível a todos
---->
+
 
 ##Prós e contras
 Prós:
