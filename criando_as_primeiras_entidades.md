@@ -1,6 +1,6 @@
 #Tutorial SimPy: criando entidades
 
-Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão é construir uma função que crie entidades no modelo com intervalos sucessivos entre chegadas exponencialmente distribuídos, com média 2 min.
+Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão é construir uma função que crie entidades no modelo com intervalos sucessivos entre chegadas exponencialmente distribuídas, com média 2 min.
 
 <!---
 sugiro incluir um módulo inicial com o básico de simulação
