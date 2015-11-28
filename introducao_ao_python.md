@@ -33,11 +33,10 @@ Construa três funções:
 
 1. ` transfer(winner, looser, bankroll, tossCount)`: transfere o valor do jogador perdedor para o vencedor e imprime na tela o nome do vencedor.;
 
+2. `coinToss(bankroll, tossCount):` sorteia o vencedor do cara ou coroa;
 
-1. `coinToss(bankroll, tossCount):` sorteia o vencedor do cara ou coroa;
+3. ` run2Ruin(bankroll)`: mantém um loop permanente até que um dos jogadores entrem em ruina
 
-
-1. ` run2Ruin(bankroll)`: mantém um loop permanente até que um dos jogadores entrem em ruina
 
 Teste o programa com os parâmetros a seguir (você pode utilizar esse código como um template):
 
