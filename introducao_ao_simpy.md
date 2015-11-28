@@ -9,7 +9,7 @@ Este tutorial será desenvolvido em posts da seção **blog** e a ideia é elabo
 este parágrafo vale para todos os módulos do tutorial, deveria vir no README...
 --->
 
-**SimPy** (Simulation in Python) é uma biblioteca para a construção de modelos de simulação de eventos discretos desenvolvida em Python e distribuída segundo a licença MIT.  Sendo uma biblioteca, ela se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques de mouse. Com o SimPy, cabe ao usuário construir um programa de computador que represente seu modelo.
+**SimPy** (*Simulation in Python*) é um *[framework](https://pt.wikipedia.org/wiki/Framework)* para a construção de modelos de simulação de eventos discretos em Python e distribuída segundo a [licença MIT](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).  Ele se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques de mouse. Com o **SimPy**, cabe ao usuário construir um programa de computador que represente seu modelo.
 
 <!---
 1. o modelo de simulação é feito editando-se diretamente um código em Python (seria o equivalente ao SIMAN, linguagem por trás do Arena)
@@ -20,10 +20,10 @@ este parágrafo vale para todos os módulos do tutorial, deveria vir no README..
 6. o Python é uma linguagem orientada a objetos
 --->
 
-Com SimPy é possível de se construir além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, essas possibilidades estão mais associadas ao Python do que propriamente a recursos da biblioteca.
+Com SimPy é possível de se construir além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, essas possibilidades estão mais associadas ao Python do que propriamente a recursos do SimPy.
 ## Por que utilizar o SimPy?
 
-Python é hoje uma das linguagens mais utilizadas no meio científico por diversas razões e uma pesquisa pela Internet vai mostrar diversos artigos, posts, discussões sobre os porquês desse sucesso. Pessoalmente, eu elenco a coisa toda em 3 grandes razões:
+Python é hoje uma das linguagens mais utilizadas no meio científico e uma pesquisa pela Internet vai mostrar diversos artigos, posts, discussões sobre os porquês desse sucesso. Pessoalmente, eu elenco a coisa toda em 3 grandes razões:
 
    - Facilidade de codificação, o que torna a leitura e interpretação do código muito fácil também. Engenheiros, matemáticos, pesquisadores em geral querem pensar no problema, nem tanto na linguagem e Python cumpre o que promete quando se fala em facilidade.
    - Bibliotecas! Bibliotecas! Um número inacreditável de bibliotecas (para a área científica) está disponível para o programador.
@@ -57,11 +57,9 @@ Contras:
 
 - Ausência de ferramentas para animação;
 - Necessidade de se programar cada processo do modelo;
-- Exige conhecimento prévio em Python. 
+- Exige conhecimento prévio em Python;
+- Não inclui um ambiente visual de desenvolvimento
 
-<!---
-- Não inclui um ambiente visual de desenvolvimento (IDE)
---->
 
 ## Desenvolvimento deste tutorial
 Planejei o tutorial em formato de posts de blog, de modo que eles sejam curtos e didáticos – tenho por meta que cada post não ultrapasse a 500 palavras.
