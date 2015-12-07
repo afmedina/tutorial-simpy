@@ -81,7 +81,7 @@ Onde ```
 lambda```
  é a taxa de ocorrência dos eventos ou, matematicamente, o inverso do tempo médio entre eventos sucessivos. No caso, se eu quero que as chegadas sejam entre intervalos médios de 2 min, a função ficaria:
 ```
-random.expovariate (1/2)```
+random.expovariate(1/2)```
 
 Temos agora um gerador de números aleatórios. Falta informar ao SimPy que queremos nossas entidades segundo essa distribuição. Isso é feito pela chamada da palavra reservada ```
 yield```
