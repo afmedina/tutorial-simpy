@@ -130,7 +130,7 @@ def geraChegadas(env):
     while True:
         yield env.timeout(random.expovariate(1/2))
         contaChegada += 1
-        print("Cliente %i chega em: %.1f " % (contaChegada, env.now))
+        print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
 
 env = simpy.Environment() # cria o environment do modelo```
 
@@ -155,7 +155,7 @@ def geraChegadas(env):
     while True:
         yield env.timeout(random.expovariate(1/2))
         contaChegada += 1
-        print("Cliente %i chega em: %.1f " % (contaChegada, env.now))
+        print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
 
 random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
@@ -184,6 +184,7 @@ env```
 | ```random.seed(seed)``` | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
 | ```env.process(geraChegadas(env))``` | inicia a função ```criaChegadas``` como um *processo* em ```env``` |
 | ```env.run(until=tempoSim)``` | executa a simulação (executa todos os processos criandos em ```env```) pelo tempo *tempoSim* |
+| ```env.now()``` | retorna o instante atual da simulação |
 
 <!---
 Legal esta revisão (tabela)
