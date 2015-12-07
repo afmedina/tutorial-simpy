@@ -21,7 +21,7 @@ No exemplo, o comando ```for``` permite vasculhar cada elemento dentro da lista.
 ##Funções geradoras
 Elas existem e [estão entre nós há tempos](https://en.wikipedia.org/wiki/Generator_(computer_programming), nós é que não sabíamos...
 
-Uma função geradora é uma classe especial de funções que tem como característica retornar valores em sequência, cada vez que são chamadas. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo. Por exemplo, cada vez que a função a seguir é chamada, ela retorna um novo número da sequência entre 0 e 10:
+Uma função geradora é uma classe especial de funções que tem como característica retornar, cada vez que são chamadas, valores em sequência. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo. Por exemplo, cada vez que a função a seguir é chamada, ela retorna um novo número da sequência entre 0 e 10:
 ```python
 def seqNum():
     n = 0
@@ -33,9 +33,9 @@ for i in seqNum():
     print(i)```
 
 
-Se você executou o programa anterior, deve ter notado que o ```yield``` funciona como um ```return``` dentro da função, mas com o *superpoder* de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função **não** executa o corpo inteiro da função! Isto significa que, numa segunda chamada à função, a execução retoma a partir da linha seguinte ao ```yield``` e o próximo valor de *n* será o anterior incrementado de 1.
+Se você executou o programa anterior, deve ter notado que o ```yield``` funciona como um ```return``` dentro da função, mas com o **superpoder** de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função **não** executa o corpo inteiro da função! Isto significa que, numa segunda chamada à função, a execução retoma a partir da linha seguinte ao ```yield``` e o próximo valor de *n* será o anterior incrementado de 1.
 
-Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* for como no caso anterior ou, você pode chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
+Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* ```for``` como no caso anterior ou, você pode chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
 Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do zumbi pelo plano:
 ```python
