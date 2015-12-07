@@ -3,9 +3,9 @@
 ## Desafio 4 
 Construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
-Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Para este desafio, criei a variável global clientesFila, como mostra o ínicio do código alterado da seção anterior:
+Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Assim, criei a variável global ```clientesFila```, como mostra o ínicio do código alterado da seção anterior:
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
@@ -24,7 +24,7 @@ atendimentoServidor```
 alternativa: monitorar o número de clientes no sistema, não apenas na fila
 --->
 
-```
+```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
@@ -40,7 +40,7 @@ def atendimentoServidor(env, nome, servidorRes):
 precisa defnir novamente a variável "clientesFila"?
 --->
 
-Repare que acrescentei duas chamadas à função print, de modo  a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
+Repare que acrescentei duas chamadas à função ```print```, de modo  a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
 clientesFila.```
 Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
 ```
@@ -93,63 +93,65 @@ chegada.```
 tempoFila```
  e apresente o resultado na tela.
  
-A ideia deste desafio é que você se acostume com esse cálculo trivial mas importantíssimo dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é a fila. A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do antendimento.
+A ideia deste desafio é que você se acostume com esse cálculo tão trivial mas tão importante dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é a fila.
+A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do antendimento.
 Assim, ao chegar, criamos uma variável ```
 chegada```
- que armazena o instante atual fornecido sempre pelo comando ```
+ que armazena o instante atual fornecido pelo comando ```
 env.now```
- do ```
-Simpy```
-:
-```
+ do
+SimPy:
+```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
-    chegada = env.now # armazena o instante de chegada do cliente
+    chegada = env.now() # armazena o instante de chegada do cliente
     request = servidorRes.request() # solicita o recurso servidorRes```
 
 
 Agora, inciado o atendimento (logo após o ```yield```
- que ocupa o recurso), a variável tempoFila armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável chegada.
-```
+ que ocupa o recurso), a variável ```tempoFila``` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável chegada:
+```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
-    chegada = env.now # armazena o instante de chegada do cliente
+    chegada = env.now() # armazena o instante de chegada do cliente
     request = servidorRes.request() # solicita o recurso servidorRes
     
     clientesFila += 1 # incrementa contador de novo cliente em fila
     print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' %(env.now, clientesFila))
     yield request # aguarda em fila até o acesso
-    tempoFila = env.now-chegada
+    tempoFila = env.now()-chegada
 ```
 
 <!---
 "chegada" é um atributo da entidade cliente, explicar!
 (como uma varíavel só pode armazenar diferentes valores, um para cada cliente?)
+
+Resp: pq cada entidade cria um processo diferente quando chama atendimentoServido(). chegada, no caso, é local.
 --->
 
-Para imprimir o resultado, vou simplesmente alterar a chamada a função print na linha seguinte, de modo que o código final da função ```
+Para imprimir o resultado, vou simplesmente alterar a chamada à função ```print``` na linha seguinte, de modo que o código final da função ```
 atendimentoServidor```
  fica:
-```
+```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
-    chegada = env.now # armazena o instante de chegada do cliente
+    chegada = env.now() # armazena o instante de chegada do cliente
     request = servidorRes.request() # solicita o recurso servidorRes
     
     clientesFila += 1 # incrementa contador de novo cliente em fila
     print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' %(env.now, clientesFila))
     yield request # aguarda em fila até o acesso
-    tempoFila = env.now-chegada
+    tempoFila = env.now()-chegada
     print('%s inicia o atendimento em: %.1f. Tempo em fila: %.1f min ' % (nome, env.now, tempoFila))
     clientesFila -= 1 # decrementa contador de novo cliente em fila
     
     # tempo de atendimento exponencial
     yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
 
-    print('%s termina o atendimento em: %.1f.' % (nome, env.now)) 
+    print('%s termina o atendimento em: %.1f.' % (nome, env.now())) 
 
     yield servidorRes.release(request) # libera o recurso servidorRes
 ```
