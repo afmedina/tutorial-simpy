@@ -1,8 +1,8 @@
 # Tutorial SimPy: solução do desafio 1
 
-O código a seguir é uma possível solução para o desafio 1 da seção anterior. Naturalmente é possível deixá-lo mais claro, eficiente, obscuro, elegante, rápido, lento, como todo código de programação.
+O código a seguir é uma possível solução para o desafio 1 da seção anterior. Naturalmente é possível deixá-lo mais claro, eficiente, obscuro, elegante, rápido ou lento, como todo código de programação.
 
-O importante é que se você fez alguma que coisa que funcionou, acredito que está pronto para o SimPy.
+O importante é que se você fez alguma que coisa que funcionou, acredito que é o suficiente para começar com o SimPy.
 
 ```python
 # -*- coding: utf-8 -*-
