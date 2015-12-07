@@ -39,7 +39,7 @@ from __future__ import print_function # para compatibilidade da função print c
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
-Tudo no SimPy gira em torno de **processos** criandos por funções e todos os processos ocorrem num **environment**, ou um “ambiente” de simulação criando a par. O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
+Tudo no SimPy gira em torno de **processos** criandos por funções e todos os processos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da biliote . O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```python
 # -*- coding: utf-8 -*-
