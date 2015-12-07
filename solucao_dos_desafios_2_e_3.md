@@ -40,7 +40,7 @@ def geraChegadas(env, numeroMaxChegadas):
     while (contaChegada < numeroMaxChegadas):
         yield env.timeout(random.expovariate(1/TEMPO_MEDIO_CHEGADAS))
         contaChegada += 1
-        print("Cliente %i chega em: %.1f " % (contaChegada, env.now))
+        print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
 
 random.seed(1000)   # semente do gerador de números aleatórios
 
@@ -91,7 +91,7 @@ def geraChegadas(env, numeroMaxChegadas):
     while (contaChegada < numeroMaxChegadas):
         yield env.timeout(random.triangular(0.1,1,1.1))
         contaChegada += 1
-        print("Cliente %i chega em: %.1f " % (contaChegada, env.now))
+        print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
 
 random.seed(1000)   # semente do gerador de números aleatórios
 
