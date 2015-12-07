@@ -2,7 +2,7 @@
 
 ## Criando
 
-Em SimPy, tudo é processo e, portanto, criar um recurso também é um processo. A função que cria recursos é a: 
+Em SimPy, tudo é processo e, portanto, criar um recurso também é um processo. A função que cria recursos é ```simpy.Resource```, cuja sintaxe é: 
 
 <!---
 "criar um recurso também é um processo"???
@@ -64,13 +64,13 @@ meuRecurso.release(meuResquest)
 
 ## Juntando tudo em um exemplo: a fila M/M/1
 
-A fila M/M/1 (ver...) tem chegadas exponenciais, atendimentos exponenciais e apenas um servidor. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
+A fila M/M/1 (ver...) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
 
 Partindo da função ```
-geraChegadas```
+geraChegadas``` codificada na seção anterior
 , precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função ```
 atendimentoServidor```
- responsável por manter os clientes em fila e realizar o atendimento no servidor.
+ responsável por manter os clientes em fila e realizar o atendimento.
  
 Inicialmente, vamos acrescentar a constante TEMPO_MEDIO_ATENDIMENTO e criar o recurso ```
 servidorRes``` com capacidade de atender 1 cliente por vez.
@@ -89,7 +89,7 @@ import simpy  # biblioteca de simulação
 TEMPO_MEDIO_CHEGADAS = 1.0  # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
-def criaChegadas(env, servidorRes):
+def geraChegadas(env, servidorRes):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < 10):
@@ -102,7 +102,7 @@ random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
-env.process(criaChegadas(env, servidorRes))
+env.process(geraChegadas(env, servidorRes))
 env.run(until=10)
 ```
 Se você executar o script anterior, o recurso é criado, mas nada acontece, afinal, não existe nenhum processo requisitando o recurso criado.
@@ -132,7 +132,7 @@ import simpy  # biblioteca de simulação
 TEMPO_MEDIO_CHEGADAS = 1.0  # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
-def criaChegadas(env):
+def geraChegadas(env):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < 10):
@@ -158,13 +158,13 @@ random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
-env.process(criaChegadas(env, servidorRes))
+env.process(geraChegadas(env, servidorRes))
 env.run(until=10)
 
 ```
-Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador nota que não existe conexão entre elas. Em SimPy, *e eu vou sempre repetir isso*, tudo é processo dentro de um environment. Assim, o atendimento é um processo que deve ser iniciado por cada cliente gerado na função ```
-criaChegadas.```, por uma ```
-chamada env.process(função de atendimento).```
+Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador nota que não existe conexão entre elas. Em SimPy, *e eu vou sempre repetir isso*, **tudo é processo dentro de um *environment***. Assim, o atendimento é um processo que deve ser iniciado por cada cliente gerado na função ```
+criaChegadas.``` Isto é feito por uma chamada a função```
+ env.process(função de atendimento).```
 
 A função ```
 geraChegadas```
@@ -174,7 +174,7 @@ servidorRes```
 env.process:```
 
 ```python
-def criaChegadas(env, servidorRes):
+def geraChegadas(env, servidorRes):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < 10):
@@ -241,7 +241,7 @@ Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, 
 Por ora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
 
 ## Conteúdos desta seção
-| Conteúdo | Descrição |
+| **Conteúdo** | **Descrição** |
 | -- | -- |
 | meuRecurso = simpy.Resource(env, capacity=1) | cria um recurso em env com capacidade = 1 |
 | meuRequest = meuRecurso.request() | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) |
