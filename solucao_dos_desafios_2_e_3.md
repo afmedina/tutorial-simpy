@@ -8,7 +8,7 @@ geraChegadas```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
  
-Neste caso, o *script* em Python é autoexplicativo (apenas note que limitei o número de chegadas em 5 e fiz isso antes, da chamada do processo):
+Neste caso, o *script* em Python é autoexplicativo (apenas note que limitei o número de chegadas em 5 e fiz isso antes da chamada do processo gerado pela função ```geraChegadas()```:
 
 <!---
 pq vc define "tempo_medio_chegadas" e "numeroMaxChegadas" em lugares diferente do código?
@@ -34,7 +34,7 @@ import simpy  # biblioteca de simulação
 
 TEMPO_MEDIO_CHEGADAS = 1  #tempo entre chegadas sucessivas de clientes
 
-def criaChegadas(env, numeroMaxChegadas):
+def geraChegadas(env, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas):
@@ -47,7 +47,7 @@ random.seed(1000)   # semente do gerador de números aleatórios
 numeroMaxChegadas = 5 # número máximo de chegadas
 
 env = simpy.Environment() # cria o environment do modelo
-env.process(criaChegadas(env, numeroMaxChegadas))
+env.process(geraChegadas(env, numeroMaxChegadas))
 env.run(until=10)```
 
 
@@ -56,11 +56,11 @@ env.run(until=10)```
 ##Desafio 3
 Modifique a função ```
 geraChegadas```
- de modo que as chegadas entre entidades sejam distribuídas segundo uma triangular de moda 1, menor valor 0,1 e maior valor 1,1.
+ de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
 
 Neste caso, precisamos verificar na documentação da biblioteca random, quais são nossas opções. A tabela a seguir, resume as distribuições disponíveis:
 
-| Função | Distribuição |
+| **Função** | **Distribuição** |
 | -- | -- |
 | random.random() | gera números aleatórios no intervalo [0.0, 1.0) |
 | random.uniform(a, b) | uniforme no intervalo [a, b] |
@@ -85,7 +85,7 @@ import simpy  # biblioteca de simulação
 
 TEMPO_MEDIO_CHEGADAS = 1  #tempo entre chegadas sucessivas de clientes
 
-def criaChegadas(env, numeroMaxChegadas):
+def geraChegadas(env, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas):
@@ -98,7 +98,7 @@ random.seed(1000)   # semente do gerador de números aleatórios
 numeroMaxChegadas = 5 # número máximo de chegadas
 
 env = simpy.Environment() # cria o environment do modelo
-env.process(criaChegadas(env, numeroMaxChegadas))
+env.process(geraChegadas(env, numeroMaxChegadas))
 env.run(until=10)```
 
 >Fique a vontade para implementar funções de geração de números aleatórios ao seu gosto. Note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão deste tipo de função!**
