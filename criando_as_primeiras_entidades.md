@@ -39,7 +39,8 @@ from __future__ import print_function # para compatibilidade da função print c
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
-Tudo no SimPy gira em torno de **processos** criandos por funções e todos os processos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da biliote . O programa principal começa com uma chamada ao SimPy, criando um *environment*  “env”:
+Tudo no SimPy gira em torno de **processos** criandos por funções e todos os processos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da função ```simpy.Environment()```. 
+Assim, o programa principal sempre começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -66,14 +67,14 @@ Ainda não. Limitei essa seção só no processo de chegadas, porque a linguagem
 Mas aprimorar o exemplo, ok.
 --->
 
-Se você executar o programa agora, nada acontece. No momento, você apenas criou um environment, mas não criou nenhum processo, portanto, ainda não existe um processo sendo executado.
+Se você executar o programa anterior, nada acontece. No momento, você apenas criou um *environment*, mas não criou nenhum processo, portanto, não existe ainda nenhum processo sendo executado.
 
 Vamos escrever uma função ```
-geraChegadas```
+geraChegadas()```
  que cria entidades no sistema enquanto durar a simulação.
 
-Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca random, bem detalhada na [documentação](https://docs.python.org/2/library/random.html), que possui a função:
-```
+Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca ```random```, bem detalhada na sua [documentação](https://docs.python.org/2/library/random.html), e que possui a função:
+```python
 random.expovariate(lambda)```
 
 Onde ```
@@ -85,7 +86,7 @@ random.expovariate (1/2)```
 Temos agora um gerador de números aleatórios. Falta informar ao SimPy que queremos nossas entidades segundo essa distribuição. Isso é feito pela chamada da palavra reservada ```
 yield```
  com a função do SimPy ```
-env.timeout```, que nada mais é do que uma função que causa um atraso de tempo, um *delay* do tempo fornecido para a função no *environmet* ```
+env.timeout(intervalo)```, que nada mais é do que uma função que causa um atraso de tempo, um *delay* do tempo fornecido para a função no *environmet* ```
 env```
  criado:
 
@@ -93,15 +94,15 @@ env```
 yield env.timeout(random.expovariate (1/2))
 ```
 
-Ou seja: estamos executando ```
-yield env.timeout```
+Na linha de código anterior estamos executando ```
+yield env.timeout()```
  para que o modelo retarde o processo num tempo aleatório gerado pela função ```
-random.expovariate```. Oportunamente, discutiremos mais a fundo qual a função do palavra yield (que não vem do SimPy, mas do Python). Por hora, considere que ela é uma maneira de **retornar** valores para o ```
+random.expovariate()```. Oportunamente, discutiremos mais a fundo qual o papel do palavra ```yield``` (*spoiler*: ela não é do SimPy, mas do originalmente do Python). Por hora, considere que ela é uma maneira de **retornar** valores para o ```
 env```
  criado.
 
 Colocando tudo junto na função ```
-geraChegadas```
+geraChegadas()```
 e lembrando que temos de passar ```
 env```
  como argumento da função, temos:
@@ -123,7 +124,7 @@ from __future__ import print_function # para compatibilidade da função print c
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-def criaChegadas(env):
+def geraChegadas(env):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while True:
@@ -135,14 +136,12 @@ env = simpy.Environment() # cria o environment do modelo```
 
 O código deve ser autoexplicativo: o laço ```
 while```
- é infinito enquanto dure a simulação; um contador, ```
-contaChegada```
-, guarda o total de entidades geradas e a função ```
-print```
-, imprime na tela o instante de chegada de cada cliente. Note apenas que, dentro do print, existe uma chamada para a **hora atual de simulação** ```
-env.now```.
+ é **infinito** enquanto dure a simulação; um contador, ```
+contaChegada```, armazena o total de entidades geradas e a função ```
+print```, imprime na tela o instante de chegada de cada cliente. Note apenas que, dentro do ```print```, existe uma chamada para a **hora atual de simulação** ```
+env.now()```.
 
-Se você executar, nada acontece novamente, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
+Se você executar o codigo anterior, nada acontece novamente, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -150,7 +149,7 @@ from __future__ import print_function # para compatibilidade da função print c
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-def criaChegadas(env):
+def geraChegadas(env):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while True:
@@ -160,7 +159,7 @@ def criaChegadas(env):
 
 random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-env.process(criaChegadas(env)) # cria o processo de chegadas
+env.process(geraChegadas(env)) # cria o processo de chegadas
 env.run(until=10) # roda a simulação por 10 unidades de tempo
 ```
 
@@ -168,7 +167,7 @@ Agora sim!
 
 Note que ```
 env.process(criaChegadas(env))```
- é um comando que **torna** a função criaChegadas um processo dentro do environment ```
+ é um comando que **torna** a função ```criaChegadas()``` um processo dentro do environment ```
 env```
 . Esse processo só começa a ser executado na linha seguinte, quando ```
 env.run(until=10)```
@@ -179,18 +178,18 @@ env```
 ## Conceitos desta seção
 | Conteúdo | Descrição |
 | -- | -- |
-| env = simpy.Environment() | cria um *environment* de simulação |
-| random.expovariate | gera números aleatórios exponencialmente distribuidos |
-| yield env.timeout(time) | gera um atraso dado por *time* |
-| random.seed(seed) | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
-| env.process(criaChegadas(env)) | inicia a função criaChegadas como um *processo* em env |
-| env.run(until=tempoSim) | executa a simulação (executa todos os processos criandos em env) pelo tempo tempoSim |
+| ```env = simpy.Environment()``` | cria um *environment* de simulação |
+| ```random.expovariate(lambda)``` | gera números aleatórios exponencialmente distribuidos, com taxa *lambda* |
+| ```yield env.timeout(time)``` | gera um atraso dado por *time* |
+| ```random.seed(seed)``` | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
+| ```env.process(geraChegadas(env))``` | inicia a função ```criaChegadas``` como um *processo* em ```env``` |
+| ```env.run(until=tempoSim)``` | executa a simulação (executa todos os processos criandos em ```env```) pelo tempo *tempoSim* |
 
 <!---
 Legal esta revisão (tabela)
 --->
 
-## Desafios (soluções no próximo post)
+## Desafios (soluções na próxima seção)
 **Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
 Modifique a função ```
 geraChegadas```
@@ -212,7 +211,7 @@ Isso seria tema de um post específico que você mesmo podia fazer! (obrigatoria
 
 **Desafio 3:** modifique a função ```
 geraChegadas```
- de modo que as chegadas entre entidades sejam distribuídas segundo uma triangular de moda 1, menor valor 0,1 e maior valor 1,1.
+ de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular triangular de moda 1, menor valor 0,1 e maior valor 1,1.
  
 <!---
 dar dica de como pesquisar na biblioteca do simPy
