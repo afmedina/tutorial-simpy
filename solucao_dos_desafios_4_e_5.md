@@ -33,7 +33,7 @@ def atendimentoServidor(env, nome, servidorRes):
     clientesFila += 1 # incrementa contador de novo cliente em fila
     print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' %(env.now, clientesFila))
     yield request # aguarda em fila até o acesso
-    print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
+    print('%s inicia o atendimento em: %.1f ' % (nome, env.now()))
     clientesFila -= 1 # decrementa contador de novo cliente em fila
 ```
 <!---
@@ -142,10 +142,10 @@ def atendimentoServidor(env, nome, servidorRes):
     request = servidorRes.request() # solicita o recurso servidorRes
     
     clientesFila += 1 # incrementa contador de novo cliente em fila
-    print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' %(env.now, clientesFila))
+    print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' %(env.now(), clientesFila))
     yield request # aguarda em fila até o acesso
     tempoFila = env.now()-chegada
-    print('%s inicia o atendimento em: %.1f. Tempo em fila: %.1f min ' % (nome, env.now, tempoFila))
+    print('%s inicia o atendimento em: %.1f. Tempo em fila: %.1f min ' % (nome, env.now(), tempoFila))
     clientesFila -= 1 # decrementa contador de novo cliente em fila
     
     # tempo de atendimento exponencial
