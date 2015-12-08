@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "-image-captions"
+        "-image-captions",
+        "video"
     ],
     "pluginsConfig": {}
 }
