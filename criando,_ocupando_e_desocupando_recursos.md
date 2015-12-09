@@ -2,7 +2,7 @@
 
 ## Criando
 
-Em SimPy, tudo é processo e, portanto, criar um recurso também é um processo. A função que cria recursos é ```simpy.Resource```, cuja sintaxe é: 
+Em SimPy, tudo é processo e, portanto, criar um recurso também é um processo. A função que cria recursos é ```simpy.Resource()```, cuja sintaxe é: 
 
 <!---
 "criar um recurso também é um processo"???
