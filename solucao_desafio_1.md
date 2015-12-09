@@ -6,7 +6,6 @@ O importante é que se você fez alguma que coisa que funcionou, acredito que é
 
 ```python
 # -*- coding: utf-8 -*-
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 
 
