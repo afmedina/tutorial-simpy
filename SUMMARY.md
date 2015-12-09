@@ -16,4 +16,5 @@
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
 * Interrupções de processos
 * Atributos e variáveis
+* Um exemplo de simulação e otimização
 
