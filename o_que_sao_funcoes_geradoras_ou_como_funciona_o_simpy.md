@@ -1,4 +1,4 @@
-``````# O que são funções geradoras? (Ou entendendo como funciona o SimPy)
+# O que são funções geradoras? (Ou entendendo como funciona o SimPy)
 
 ##Iterador
 Na programação voltada ao objeto, *iteradores* são métodos que permitem ao programador observar os valores dentro de um dado objeto.
