@@ -1,4 +1,4 @@
-# O que são funções geradoras? (Ou entendendo como funciona o SimPy)
+``````# O que são funções geradoras? (Ou entendendo como funciona o SimPy)
 
 ##Iterador
 Na programação voltada ao objeto, *iteradores* são métodos que permitem ao programador observar os valores dentro de um dado objeto.
@@ -87,5 +87,5 @@ Um evento típico do SimPy é o timeout() ou, mas usual: env.timeout(tempo).
 
 Para compreendermos a mecânica do SimPy (e da maioria dos softwares de simulação) é só questão de se reconhecer que os processos de um modelo de simulação nada mais são que eventos (ou atividades ou ações) que interagem entre si de diversas maneiras, tais como: congelando outro envento por tempo determinado, disparando novos eventos ou mesmo interrompendo certo evento já em execução.
 
-Quando um processo encontra um yield, o processo é suspenso até que o instante em que o evento deve ocorrer. O SimPy então *dispara* o envento no momento correto.
+Quando um processo encontra um ```yield```, o processo é suspenso até que o instante em que o evento deve ocorrer. O SimPy então *dispara* o evento no momento correto.
     
