@@ -85,7 +85,7 @@ Já sabemos que as entidades e eventos em SimPy são modeladas como **processos*
 
 Um evento típico do SimPy é o timeout() ou, mas usual: env.timeout(tempo).
 
-Para compreendermos a mecânica do SimPy (e da maioria dos softwares de simulação) é só questão de se reconhecer que os processos de um modelo de simulação nada mais são que eventos (ou atividades ou ações) que interagem entre si de diversas maneiras, tais como: congelando outro envento por tempo determinado, disparando novos eventos ou mesmo interrompendo certo evento já em execução.
+Para compreendermos a mecânica do SimPy (e da maioria dos softwares de simulação) é só questão de se reconhecer que os processos de um modelo de simulação nada mais são que eventos (ou atividades ou ações) que interagem entre si de diversas maneiras, tais como: congelando outro evento por tempo determinado, disparando novos eventos ou mesmo interrompendo certo evento já em execução.
 
 Quando um processo encontra um ```yield```, o processo é suspenso até que o instante em que o evento deve ocorrer. O SimPy então *dispara* o evento no momento correto.
     
