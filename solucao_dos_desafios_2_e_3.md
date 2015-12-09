@@ -8,7 +8,7 @@ geraChegadas```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
  
-Neste caso, o *script* em Python é autoexplicativo (apenas note que limitei o número de chegadas em 5 e fiz isso antes da chamada do processo gerado pela função ```geraChegadas()```:
+Neste caso, o *script* em Python é autoexplicativo, apenas note que limitei o número de chegadas em 5 e fiz isso antes da chamada do processo gerado pela função ```geraChegadas()```:
 
 <!---
 pq vc define "tempo_medio_chegadas" e "numeroMaxChegadas" em lugares diferente do código?
