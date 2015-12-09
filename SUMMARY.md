@@ -17,4 +17,5 @@
 * Interrupções de processos
 * Atributos e variáveis
 * Um exemplo de simulação e otimização
+* Simulação de Agentes em SimPy!
 
