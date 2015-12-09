@@ -37,14 +37,14 @@ Se você executou o programa anterior, deve ter notado que o ```yield``` funcion
 
 Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* ```for``` como no caso anterior ou, você pode chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
-Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do zumbi pelo plano:
+Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do zumbi:
 ```python
 import random
 
 def zombiePos():
     x, y, = 0, 0 # zombie initial position
     while True:
-        yield x, y
+        yield x, y,  "Brains!"
         x += random.randint(-1, 1)
         y += random.randint(-1, 1)
 
