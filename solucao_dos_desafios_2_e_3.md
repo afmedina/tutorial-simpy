@@ -32,13 +32,11 @@ from __future__ import print_function # para compatibilidade da função print c
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-TEMPO_MEDIO_CHEGADAS = 1  #tempo entre chegadas sucessivas de clientes
-
 def geraChegadas(env, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas):
-        yield env.timeout(random.expovariate(1/TEMPO_MEDIO_CHEGADAS))
+        yield env.timeout(random.expovariate(1/2))
         contaChegada += 1
         print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
 
@@ -82,8 +80,6 @@ A biblioteca NumPy, que veremos oportunamente, possui mais opções para distrib
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
-
-TEMPO_MEDIO_CHEGADAS = 1  #tempo entre chegadas sucessivas de clientes
 
 def geraChegadas(env, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
