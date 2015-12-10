@@ -2,6 +2,8 @@
 
 ## SimPy x funções geradoras
 
+Uma função geradora é uma classe especial de funções que tem como característica retornar, cada vez que são chamadas, valores em sequência. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo.
+
 Para compreendermos a mecânica do SimPy (e da maioria dos softwares de simulação) é só questão de se reconhecer que os processos de um modelo de simulação nada mais são que eventos (ou atividades ou ações) que interagem entre si de diversas maneiras, tais como: congelando outro evento por tempo determinado, disparando novos eventos ou mesmo interrompendo certo evento já em execução.
 
 Já sabemos que as entidades e eventos em SimPy são modelados como **processos** dentro de um dado **environment**. Cada processo é basicamente uma função iniciada por ```def``` como qualquer outra construída em Python, mas que contém a palavrinha mágica ```yield```. Assim, como descrito no item anterior, todo **processo** em SimPy é também uma **função geradora**.
