@@ -243,11 +243,11 @@ Por hora, e para não esticar demais a atividade, analise atentamente os resulta
 ## Conteúdos desta seção
 | **Conteúdo** | **Descrição** |
 | -- | -- |
-| meuRecurso = simpy.Resource(env, capacity=1) | cria um recurso em env com capacidade = 1 |
-| meuRequest = meuRecurso.request() | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) |
-| yield meuRequest | aguarda em fila a liberação do recurso |
-| meuRecurso.release(meuResquest) | libera meuRecurso a partir do meuResquest realizado |
-| env.process(função_geradora) | inicia o processo implementado na função_geradora |
+| ```meuRecurso = simpy.Resource(env, capacity=1)``` | cria um recurso em ```env``` com capacidade = 1 |
+|``` meuRequest = meuRecurso.request()``` | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) |
+| ```yield meuRequest``` | aguarda em fila a liberação do recurso |
+| ```meuRecurso.release(meuResquest)``` | libera ```meuRecurso``` a partir do ```meuResquest``` realizado |
+| ```env.process(função_geradora)``` | inicia o processo implementado na ```função_geradora``` |
 
 
 
