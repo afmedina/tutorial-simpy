@@ -14,7 +14,7 @@
 * [Criando lotes (ou agrupando) entidades durante a simulação](criando_lotes_ou_agrupando_entidades_durante_a_simulacao.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
-* Interrupções de processos
+* [Interrupções de processos](interrupcoes_de_processos.md)
 * Atributos e variáveis
 * Um exemplo de simulação e otimização
 * Simulação de Agentes em SimPy!
