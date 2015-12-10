@@ -158,7 +158,7 @@ random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
-env.process(geraChegadas(env, servidorRes))
+env.process(geraChegadas(env)
 env.run(until=10)
 
 ```
