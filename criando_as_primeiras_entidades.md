@@ -86,7 +86,7 @@ random.expovariate(1/2)```
 Temos agora um gerador de números aleatórios. Falta informar ao SimPy que queremos nossas entidades segundo essa distribuição. Isso é feito pela chamada da palavra reservada ```
 yield```
  com a função do SimPy ```
-env.timeout(intervalo)```, que nada mais é do que uma função que causa um atraso de tempo, um *delay* do tempo fornecido para a função no *environmet* ```
+env.timeout(intervalo)```, que nada mais é do que uma função que causa um atraso de tempo, um *delay* do tempo fornecido para a função no *enviroment* ```
 env```
  criado:
 
@@ -191,34 +191,18 @@ Legal esta revisão (tabela)
 --->
 
 ## Desafios (soluções na próxima seção)
-**Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
+**Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
 Modifique a função ```
 geraChegadas```
  de modo que ela receba como parâmetro o ```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
- 
-<!---
-a simulação vai continuar durando 10 minutos?
-
-uma coisa é simular um número fixo de chegadas, com tempo ilimitado
-
-outra coisa é limitar o tempo e deixar as chegadas ilimitadas
-
-uma terceira coisa é limitar o tempo e o número de chegadas...
-
-Isso seria tema de um post específico que você mesmo podia fazer! (obrigatoriamente deveria ser após o aluno ter feito um modelo completo)
---->
 
 **Desafio 3:** modifique a função ```
 geraChegadas```
- de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular triangular de moda 1, menor valor 0,1 e maior valor 1,1.
+ de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
  
-<!---
-dar dica de como pesquisar na biblioteca do simPy
 
-Boa pergunta! Não sei!
---->
 
 
 
