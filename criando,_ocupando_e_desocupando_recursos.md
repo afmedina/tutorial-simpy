@@ -1,4 +1,4 @@
-# Tutorial SimPy: criando, ocupando e liberando recursos
+# Resource: criando, ocupando e liberando recursos
 
 ## Criando
 
