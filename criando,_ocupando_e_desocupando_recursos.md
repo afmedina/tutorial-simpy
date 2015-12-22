@@ -17,7 +17,7 @@ Por exemplo, na simulação de uma fábrica, criamos os recursos "máquinas" que
 No SimPy, a sintaxe para criar um recurso é:
 --->
 
-```
+```python
 meuRecurso = simpy.Resource(env, capacity=1)```
 
 
