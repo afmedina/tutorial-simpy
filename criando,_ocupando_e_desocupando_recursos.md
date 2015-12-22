@@ -1,4 +1,4 @@
-# Resource: criando, ocupando e liberando recursos
+# Resources: criando, ocupando e liberando recursos
 
 ## Criando
 
