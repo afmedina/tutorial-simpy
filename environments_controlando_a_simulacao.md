@@ -1,2 +1,0 @@
-# Environments: controlando a simulação
-
