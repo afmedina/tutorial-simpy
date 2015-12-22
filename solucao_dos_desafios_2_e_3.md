@@ -60,18 +60,18 @@ Neste caso, precisamos verificar na documentação da biblioteca random, quais s
 
 | **Função** | **Distribuição** |
 | -- | -- |
-| random.random() | gera números aleatórios no intervalo [0.0, 1.0) |
-| random.uniform(a, b) | uniforme no intervalo [a, b] |
-| random.triangular(low, high, mode) | triangular com menor valor *low*, maior valor *high* e moda *mode* |
-| random.betavariate(alpha, beta) | beta com parâmetros *alpha* e *beta* |
-| random.expovariate(lambd) | exponencial com média 1/*lambd* |
-| random.gammavariate(alpha, beta) | gamma com parâmetros *alpha* e *beta* |
-| random.gauss(mu, sigma) | normal com média *mu* e desvio padrão *sigma* |
-| random.lognormvariate(mu, sigma) | lognormal com média *mu* e desvio padrão *sigma* |
-| random.normalvariate(mu, sigma) | equivalente à random.gauss, mas um pouco mais lenta |
-| random.vonmisesvariate(mu, kappa) | [distribuição de von Mises](http://en.wikipedia.org/wiki/Von_Mises_distribution) com parâmetros *mu* e *kappa* |
-| random.paretovariate(alpha) | pareto com parâmetro *alpha* |
-| random.weibullvariate(alpha, beta) | weibull com parâmetros *alpha* e *beta* |
+| ```random.random()``` | gera números aleatórios no intervalo [0.0, 1.0) |
+| ```random.uniform(a, b)``` | uniforme no intervalo [a, b] |
+| ```random.triangular(low, high, mode)``` | triangular com menor valor *low*, maior valor *high* e moda *mode* |
+| ```random.betavariate(alpha, beta)``` | beta com parâmetros *alpha* e *beta* |
+| ```random.expovariate(lambd)``` | exponencial com média 1/*lambd* |
+| ```random.gammavariate(alpha, beta)``` | gamma com parâmetros *alpha* e *beta* |
+| ```random.gauss(mu, sigma)``` | normal com média *mu* e desvio padrão *sigma* |
+| ```random.lognormvariate(mu, sigma)``` | lognormal com média *mu* e desvio padrão *sigma* |
+| ```random.normalvariate(mu, sigma)``` | equivalente à random.gauss, mas um pouco mais lenta |
+| ```random.vonmisesvariate(mu, kappa)``` | [distribuição de von Mises](http://en.wikipedia.org/wiki/Von_Mises_distribution) com parâmetros *mu* e *kappa* |
+| ```random.paretovariate(alpha)``` | pareto com parâmetro *alpha* |
+| ```random.weibullvariate(alpha, beta)``` | weibull com parâmetros *alpha* e *beta* |
 
 A biblioteca NumPy, que veremos oportunamente, possui mais opções para distribuições estatísticas. Por enquanto, o desafio 3 pode ser solucionado de maneira literal:
 
