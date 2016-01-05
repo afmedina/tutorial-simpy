@@ -20,11 +20,7 @@ Repare que, mesmo começando mais adiantado (pressupondo conhecimentos anteriore
 
 Inicialmente serão necessárias duas bibliotecas do Python: a ```random``` – biblioteca de geração de números aleatórios – e a ```simpy```, que é o próprio SimPy.
 
-Começaremos nosso primeiro programa em SimPy chamando as bibliotecas de interesse (adicionalmente, existe uma chamada para a ```
-future```
-, mas isso é apenas para manter a função ```
-print```
-, compatível com o Python 3):
+Começaremos nosso primeiro programa em SimPy chamando as bibliotecas de interesse:
 
 <!---
 não seria mais correto dizer que o programa é em Python? (ou Python / Simpy?)
@@ -35,7 +31,6 @@ Não sei...
 
 ```python
 # -*- coding: utf-8 -*-
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
@@ -194,7 +189,7 @@ Legal esta revisão (tabela)
 **Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
 Modifique a função ```
 geraChegadas```
- de modo que ela receba como parâmetro o ```
+ de modo que ela receba como parâmetro ```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
 
