@@ -14,7 +14,8 @@ names = ['Chewbacca', 'R2D2']
 def transfer(winner, looser, bankroll, tossCount):
     bankroll[winner] += 1
     bankroll[looser] -= 1
-    print("Vencedor: %s. Agora %s possui: $%d e %s possui: $%d" % (names[winner], names[0], bankroll[0], names[1],bankroll[1]))
+    print("\nVencedor: %s" % names[winner] )
+    print("%s possui: $%d e %s possui: $%d" % (names[0], bankroll[0], names[1],bankroll[1]))
     
 def coinToss(bankroll, tossCount):
     if random.uniform(0,1) < 0.5:
@@ -28,7 +29,7 @@ def run2Ruin(bankroll):
         tossCount += 1
         coinToss(bankroll,tossCount)
     winner = bankroll[1] > bankroll[0]
-    print("%s venceu depois de %d iterações, fim de jogo!" % (names[winner], tossCount))
+    print("\n%s venceu depois de %d iterações, fim de jogo!" % (names[winner], tossCount))
 
 bankroll = [5, 5]
 run2Ruin(bankroll)
