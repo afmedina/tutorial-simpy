@@ -1,4 +1,4 @@
-# O que são funções geradoras? (Ou entendendo como funciona o SimPy) - Parte I: ```yield```
+# O que são funções geradoras? (Ou entendendo como funciona o SimPy) - Parte I
 
 ##Iterador
 Na programação voltada ao objeto, *iteradores* são métodos que permitem ao programador observar os valores dentro de um dado objeto.
@@ -16,7 +16,7 @@ for,```
  lista = [1, 2, 3]
  for i in lista:
     print (i)```
-No exemplo, ```lista``` é um *objeto* e o comando ```for``` é um **iterador** permite vasculhar cada elemento dentro da lista, retornando sempre o elemento seguinte do objeto.
+No exemplo, ```lista``` é um *objeto* e o comando ```for``` é um **iterador** que permite vasculhar cada elemento dentro da lista, retornando sempre o elemento seguinte do objeto.
 
 ##Funções geradoras
 Elas existem e [estão entre nós há tempos](https://en.wikipedia.org/wiki/Generator_(computer_programming), nós é que não sabíamos...
@@ -37,7 +37,7 @@ Se você executou o programa anterior, deve ter notado que o ```yield``` funcion
 
 Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* ```for``` como no caso anterior. Outra possibilidade é você chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
-Exemplo: Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante de um dado zumbi:
+Exemplo: Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do zumbi:
 ```python
 import random
 
