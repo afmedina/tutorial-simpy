@@ -13,6 +13,7 @@ Um evento bastante elementar em SimPy é o ```timeout()``` ou, na sua forma mais
 
 ```python
 yield env.timeout(tempo_de_espera)```
+
 Imagine por um momento que você é a própria encarnação do SimPy, lidando com diversos eventos, processos, recursos etc. Repentinamente, você, Mr. SimPy, depara-se com a linha de código anterior. Mr. SimPy vai processar a linha em duas etapas principais:
 1. A palavra ```yield``` suspende imediatamente o processo ou, de outro modo, impede que a execução avance para linha seguinte (como esperado em qualquer toda função geradora);
 2. Com o processo suspenso, a função ```env.timeout(tempo_de_espera)``` é executada e só após o seu derradeiro término, o processamento retorna para a linha seguinte do programa. 
