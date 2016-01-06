@@ -97,6 +97,46 @@ env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env, numeroMaxChegadas))
 env.run(until=10)```
 
+### Tip
+Os modelos de simulação com muitos processos de chegadas e atendimento, tendem a utilizar muitas funções de distribuição de probabilidades, deixando, ao longo do processo de desenvolvimento, as coisas meio confusas.
+
+Uma dica bacana é criar uma função que armazene todas as distribuições do modelo em um único lugar. Como uma prateleira de distribuições.
+
+Por exemplo, imagine um modelo em SimPy que possui 3 processos: um exponecial com média 10 min, um triangular com parâmetros (10, 20, 30) min e um normal com média 0 e desvio 1 minuto. A função distribution() a seguir, armazena todos os geradores de números aleatórios em um único local:
+
+```python
+# -*- coding: utf-8 -*-
+import random
+
+def distributions(tipo):
+    return {
+        'arrival': random.expovariate(1/10),
+        'singing': random.triangular(10, 20, 30),
+        'applause': random.gauss(10, 1),
+    }.get(tipo, 0.0)```
+
+O exemplo a seguir testa como chamar a função:
+
+```python    
+#Teste
+    
+tipo = 'arrival'
+print(tipo, distributions(tipo))
+
+tipo = 'singing'
+print(tipo, distributions(tipo))
+
+tipo = 'applause'
+print(tipo, distributions(tipo))```
+
+Produz a saída:
+```python  
+arrival 6.231712146858156
+singing 22.192356552471104
+applause 10.411795571842426```
+
+Essa foi a nossa dica do dia!
+
 >Fique a vontade para implementar funções de geração de números aleatórios ao seu gosto. Note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão deste tipo de função!**
 
 
