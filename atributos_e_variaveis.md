@@ -16,18 +16,22 @@ contaVendas = 0
 
 def geraChegadas(env):
     #função que cria chegadas de entidades no sistema
-    contaEntidade = 0
+    contaEntidade = 0 # variável local = atributo da entidade
     while True:
         yield env.timeout(1)
         contaEntidade += 1
-        produtos = random.randint(1,3)
+        produtos = random.randint(1,3) # atributo
         print("Cliente %i chega em: %.1f quer %d produtos" 
         % (contaEntidade, env.now, produtos))
+        
+        # inicia o processo de atendimento do cliente de atibutos contaEntidade e produtos
         env.process(compra(env, "Cliente %d" % contaEntidade, produtos))
         
 def compra(env, nome, produtos):
     #função que realiza a venda para as entidades
-    global contaVendas
+    # nome e produtos, são atributo da entidade
+    
+    global contaVendas # variável global = variável do modelo
    
     for i in range(0,produtos):
         yield env.timeout(2)
