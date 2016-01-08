@@ -1,6 +1,6 @@
 # O que são funções geradoras? (Ou como funciona o SimPy?) - Parte II
 
-## SimPy x funções geradoras
+## SimPy vs. funções geradoras
 
 No episódio anterior...
 >Uma **função geradora** é uma classe especial de funções que têm como característica retornar, cada vez que são chamadas, valores em sequência. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo.
