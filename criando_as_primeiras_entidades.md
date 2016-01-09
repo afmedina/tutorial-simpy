@@ -30,7 +30,6 @@ Não sei...
 --->
 
 ```python
-# -*- coding: utf-8 -*-
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
 
@@ -38,7 +37,6 @@ Tudo no SimPy gira em torno de **processos** criandos por funções e todos os p
 Assim, o programa principal sempre começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```python
-# -*- coding: utf-8 -*-
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação
 
@@ -69,7 +67,6 @@ geraChegadas()```
  
 Assim, nosso código começa a ganhar corpo:
 ```python
-# -*- coding: utf-8 -*-
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação
 
@@ -127,7 +124,6 @@ uma alternativa seria gerar um número finito de chegadas (mais intuitivo) para 
 --->
 
 ```python
-# -*- coding: utf-8 -*-
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
@@ -151,7 +147,6 @@ env.now()```.
 Se você executar o codigo anterior, nada acontece novamente, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
 
 ```python
-# -*- coding: utf-8 -*-
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
