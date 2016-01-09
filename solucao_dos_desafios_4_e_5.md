@@ -6,7 +6,6 @@ Construa uma tabela com duas colunas: tempo de simulação e números de cliente
 Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Assim, criei a variável global ```clientesFila```, como mostra o ínicio do código alterado da seção anterior:
 
 ```python
-# -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
