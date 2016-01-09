@@ -2,7 +2,7 @@
 
 APOCALIPSE ZUMBI!
 
-<!--- desenvolver o texto a partir do tutorial dos zumbis:
+<!--- desenvolver o texto a partir do tutorial dos zumbis do REPAST:
 
 http://repast.sourceforge.net/docs/ReLogoGettingStarted.pdf
 
