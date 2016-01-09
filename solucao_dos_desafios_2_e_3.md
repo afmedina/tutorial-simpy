@@ -27,7 +27,6 @@ deveria, mas a seção anterior ficaria puxada. Como resolver?
 --->
 
 ```python
-# -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
@@ -76,7 +75,6 @@ Neste caso, precisamos verificar na documentação da biblioteca random, quais s
 A biblioteca NumPy, que veremos oportunamente, possui mais opções para distribuições estatísticas. Por enquanto, o desafio 3 pode ser solucionado de maneira literal:
 
 ```python
-# -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
@@ -105,7 +103,6 @@ Uma dica bacana é criar uma função que armazene todas as distribuições do m
 Por exemplo, imagine um modelo em SimPy que possui 3 processos: um exponecial com média 10 min, um triangular com parâmetros (10, 20, 30) min e um normal com média 0 e desvio 1 minuto. A função distribution() a seguir, armazena todos os geradores de números aleatórios em um único local:
 
 ```python
-# -*- coding: utf-8 -*-
 import random
 
 def distributions(tipo):
