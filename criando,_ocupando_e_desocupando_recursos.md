@@ -81,7 +81,6 @@ servidorRes``` com capacidade de atender 1 cliente por vez.
 --->
  
 ```python
-# -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
@@ -124,7 +123,6 @@ servidorRes```
  para executar todo o processo de atendimento.
 
 ```python
-# -*- coding: utf-8 -*-
 from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
