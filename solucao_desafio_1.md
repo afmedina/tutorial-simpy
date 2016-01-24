@@ -1,4 +1,4 @@
-# Tutorial SimPy: solução do desafio 1
+# Solução do desafio 1
 
 O código a seguir é uma possível solução para o desafio 1 da seção anterior. Naturalmente é possível deixá-lo mais claro, eficiente, obscuro, elegante, rápido ou lento, como todo código de programação.
 
