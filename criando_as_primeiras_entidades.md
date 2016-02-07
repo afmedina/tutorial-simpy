@@ -13,10 +13,13 @@ explicar dois processos básicos: geração (arrival) e extinção (dispose) de 
 
 o primeiro exemplo pode ser determinínstico (uma chegada exatamente a cada 5 min), depois o aleatório (exercício)
 
+
+R:
 Se fosse um livro de simulação... Mas acho que a maioria vem aqui já sabendo esse básico e quer aprender logo a linguagem
 
-Repare que, mesmo começando mais adiantado (pressupondo conhecimentos anteriores) a quantidade de informação é grande e longe de ser óvbia
+Repare que, mesmo começando mais adiantado (pressupondo conhecimentos anteriores) a quantidade de informação é grande e longe de ser óbvia
 --->
+### Chamada das bibliotecas random e simpy
 
 Inicialmente serão necessárias duas bibliotecas do Python: a ```random``` – biblioteca de geração de números aleatórios – e a ```simpy```, que é o próprio SimPy.
 
@@ -32,6 +35,8 @@ Não sei...
 ```python
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação```
+
+### Criando um evironment de simulação
 
 Tudo no SimPy gira em torno de **processos** criandos por funções e todos os processos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da função ```simpy.Environment()```. 
 Assim, o programa principal sempre começa com uma chamada ao SimPy, criando um *environment*  “env”:
@@ -59,11 +64,13 @@ Ainda não. Limitei essa seção só ao processo de chegadas, porque a linguagem
 Mas aprimorar o exemplo, ok.
 --->
 
-Se você executar o programa anterior, nada acontece. No momento, você apenas criou um *environment*, mas não criou nenhum processo, portanto, não existe ainda nenhum processo sendo executado.
+Se você executar o programa anterior, nada acontece. No momento, você apenas criou um *environment*, mas não criou nenhum processo, portanto, não existe nenhum evento a ser simulado pelo SimPy.
+
+### Criando um processo dentro do environment
 
 Vamos escrever uma função ```
 geraChegadas()```
- que cria entidades no sistema enquanto durar a simulação, a partir de três parâmetros de entrada: o environment, o nome da entidade (ou tipo) e a taxa de chegadas de entidades por unidade de tempo.
+ que cria entidades no sistema enquanto durar a simulação, a partir de três parâmetros de entrada: o *environment*, o nome da entidade (ou tipo) e a taxa de chegadas de entidades por unidade de tempo.
  
 Assim, nosso código começa a ganhar corpo:
 ```python
@@ -77,7 +84,7 @@ def geraChegadas(env, nome, lambda):
 env = simpy.Environment() # cria o environment do modelo
 ```
 
-Inicialmente, precisamos de gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca ```random```, bem detalhada na sua [documentação](https://docs.python.org/2/library/random.html), e que possui a função:
+Inicialmente, precisamos gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca ```random```, bem detalhada na sua [documentação](https://docs.python.org/2/library/random.html), e que possui a função:
 ```python
 random.expovariate(lambda)```
 
@@ -88,7 +95,7 @@ lambda```
 lambda = 1/2
 random.expovariate(lambda)```
 
-Temos agora um gerador de números aleatórios. Falta informar ao SimPy que queremos nossas entidades segundo essa distribuição. Isso é feito pela chamada da palavra reservada ```
+Temos agora um gerador de números aleatórios. Falta informar ao SimPy que queremos nossas entidades surgindo no sistema segundo a distribuição definida. Isso é feito pela chamada da palavra reservada ```
 yield```
  com a função do SimPy ```
 env.timeout(intervalo)```, que nada mais é do que uma função que causa um atraso de tempo, um *delay* do tempo fornecido para a função no *enviroment* ```
@@ -102,7 +109,7 @@ yield env.timeout(random.expovariate (lambda))
 Na linha de código anterior estamos executando ```
 yield env.timeout()```
  para que o modelo retarde o processo num tempo aleatório gerado pela função ```
-random.expovariate()```. Oportunamente, discutiremos mais a fundo qual o papel do palavra ```yield``` (*spoiler*: ela não é do SimPy, mas do originalmente do Python). Por hora, considere que ela é uma maneira de **retornar** valores para o ```
+random.expovariate()```. Oportunamente, discutiremos mais a fundo qual o papel do palavra ```yield``` (*spoiler*: ela não é do SimPy, mas originalmente do próprio Python). Por hora, considere que ela é uma maneira de **retornar** valores para o ```
 env```
  criado.
 
@@ -112,16 +119,7 @@ e lembrando que temos de passar ```
 env```
  como argumento da função, temos:
  
-<!---
-nome da função: cria ou gera chegadas?
 
-a rigor, você não criou a entidade, não faltou um env.process(...)?
-
-explicar que "while true" é um loop infinito, que vai gerar chegadas indefinidamente , enquanto durar a simulação
-
-uma alternativa seria gerar um número finito de chegadas (mais intuitivo) para começar
-
---->
 
 ```python
 import random # gerador de números aleatórios
