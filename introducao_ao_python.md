@@ -9,7 +9,7 @@ Não, pq precisa instalar antes.
 
 Se você nunca teve contato com a linguagem, aviso que não pretendemos construir uma "introdução" ou "tutorial" para o Python, simplesmente porque isso é o que mais existe disponível na internet. 
 
-Procure um tutorial rápido (já vi um até de 10 minutos!) e mãos à obra! Nada mais fácil do que aprender o básico de Python.
+Procure um tutorial rápido (existem tutoriais de 10 minutos!) e mãos à obra! Nada mais fácil do que aprender o básico de Python.
 
 Sugestões:
 
