@@ -8,14 +8,13 @@ O importante é que se você fez alguma que coisa que funcionou, acredito que é
 # -*- coding: utf-8 -*-
 import random # gerador de números aleatórios
 
-
 names = ['Chewbacca', 'R2D2']
 
 def transfer(winner, looser, bankroll, tossCount):
     bankroll[winner] += 1
     bankroll[looser] -= 1
-    print("\nVencedor: %s" % names[winner] )
-    print("%s possui: $%d e %s possui: $%d" % (names[0], bankroll[0], names[1],bankroll[1]))
+    print("\nVencedor: %s" % names[winner])
+    print("%s possui: $%d e %s possui: $%d" % (names[0], bankroll[0], names[1], bankroll[1]))
     
 def coinToss(bankroll, tossCount):
     if random.uniform(0,1) < 0.5:
@@ -36,5 +35,5 @@ run2Ruin(bankroll)
 ```
 
 ### Teste seus conhecimentos:
-1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia novos números aleatórios, tornando imprevisível o resultado do programam a cada rodada. Utilize a função `random.seed()` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
+1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia um novo números aleatórios ente 0 e 1, tornando imprevisível o resultado do programam. Utilize a função `random.seed()` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
 2. Acrescente um laço no programa principal de modo que o jogo possa ser repetido até um número pré definido de vezes. *Simule* 100 partidas e verifique em quantas cada um dos jogadores venceu. 
