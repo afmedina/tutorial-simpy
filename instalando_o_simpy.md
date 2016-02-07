@@ -5,11 +5,11 @@ Nossa jornada começa pela instalação de alguns programas e bibliotecas úteis
 3.	SimPy 3.0.8
 4.	NumPy
 
-Um breve preâmbulo das nossas escolhas: no momento da elaboração deste tutorial, o Python já está na versão 3.5.0, mas o Anaconda (explicado adiante) ainda fornece a versão 3.4. Para o SimPy, você pode utilizar as versões mais atuais do Python.
+Um breve preâmbulo das nossas escolhas: no momento da elaboração deste tutorial, o Python já está na versão 3.5.0, mas o Anaconda (explicado adiante) ainda fornece a versão 3.4. Se você já possui uma instalação com o Python 3.5, pode instalar o SimPy sem problemas, pois ele é compatível com as versões mais recentes do Python.
 
-Pip é um instalador de bibliotecas, facilita muito a vida do programador. 
+Pip é um instalador de bibliotecas e facilita muito a vida do programador. 
 
-O SimPy é o mais atual (e já sabemos que a versão 3 traz grandes alterações em relação à 2).
+O SimPy 3.0.8 é o mais atual no momento em que este tutorial é escrito (e já sabemos que a versão 3 traz grandes alterações em relação à 2).
 
 Quanto ao NumPy, vamos aproveitar o embalo para instalá-lo, pois será muito útil nos nossos modelos de simulação.
 
@@ -26,9 +26,9 @@ Se esta é a sua primeira vez, nossa sugestão: não perca tempo e instale a dis
 
 ![Anaconda logo](https://github.com/afmedina/tutorial-simpy/blob/master/Anaconda_Logo180.png?raw=true)
 	 
-Por meio do Anaconda, tudo é mais fácil, limpo e já se instalam mais de 200 pacotes verificados em toda sorte de compatibilidade, para que você não tenha trabalho algum. (Entre os pacotes instalados está o [NumPy](http://www.numpy.org/) que, como explicado, será muito útil no desenvolvimento dos seus modelos).
+Por meio do Anaconda, tudo é mais fácil, limpo e o processo já instala mais de 200 pacotes verificados por toda sorte de compatibilidade, para que você não tenha trabalho algum. (Entre os pacotes instalados está o [NumPy](http://www.numpy.org/) que, como explicado, será muito útil no desenvolvimento dos seus modelos).
 
-Atualmente eles disponibilizam as versões 2.7 e 3.4 do Python (em 32 e 64 bit) na [página de downloads](http://continuum.io/downloads).
+Atualmente eles disponibilizam as versões 2.7, 3.4 e 3.5 do Python (em 32 e 64 bit) na [página de downloads](http://continuum.io/downloads).
 
 Baixe o arquivo com a versão desejada (mais uma vez: SimPy roda nas duas versões) e siga as instruções do instalador.
 ##Passo 2: Instalando o Pip (para quem não instalou o Anaconda)
@@ -55,7 +55,7 @@ A mensagem de ```
 Sucessfully```
  indica que você já está pronto para o SimPy. Mas, antes disso, tenho uma sugestão para você:
 ##Passo 4: Instalando um Ambiente Integrado de Desenvolvimento (IDE) para aumentar a produtividade no Python
-Os IDEs, para quem não conhece, são interfaces que facilitam a vida do programador. Geralmente possuem editor de texto avançado, recursos de verificação de erros, estados de variáveis, processamento passo-a-passo etc.
+Os IDEs, para quem não conhece, são interfaces que facilitam a vida do programador. Geralmente possuem editor de texto avançado, recursos de verificação de erros, monitoram os estados de variáveis, permitem o processamento passo-a-passo etc.
 
 Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já está configurado e pronto para o uso. Geralmente (a depender da sua versão do Sistema Operacional) ele aparece como um ícone na área de trabalho. Se não localizar o ícone, procure por **Spyder** no seu computador (repare no *y*) ou digite em uma janela de cmd o comando `spyder`.
 
