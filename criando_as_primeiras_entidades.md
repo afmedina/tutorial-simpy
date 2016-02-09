@@ -1,6 +1,6 @@
 #Primeiro passo em SimPy: criando entidades
 
-Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão será construir uma função que gere entidades  com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min.
+Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão será construir uma função que gere entidades  com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min. Vamos simular o sistema por 10 minutos apenas.
 
 <!---
 sugiro incluir um módulo inicial com o básico de simulação
@@ -142,8 +142,8 @@ def geraChegadas(env, nome, taxa):
         yield env.timeout(random.expovariate(1/taxa))
         contaChegada += 1
         print("%s %i chega em: %.1f " % (nome, contaChegada, env.now))
-
-env = simpy.Environment() # cria o environment do modelo
+        
+random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env, "Cliente", 2))) # cria o processo de chegadas
 ```
@@ -151,10 +151,13 @@ O código deve ser autoexplicativo: o laço ```
 while```
  é **infinito** enquanto dure a simulação; um contador, ```
 contaChegada```, armazena o total de entidades geradas e a função ```
-print```, imprime na tela o instante de chegada de cada cliente. Note apenas que, dentro do ```print```, existe uma chamada para a **hora atual de simulação** ```
-env.now()```.
+print```, imprime na tela o instante de chegada de cada cliente. Note que, dentro do ```print```, existe uma chamada para a **hora atual de simulação** ```
+env.now```. 
+Por fim, uma chamada a função ```random.seed()``` garante que os números aleatórios a cada execução do programa serão os mesmos.
+###Executando o modelo por um tempo determinado com ```env.run(until)```
 
-Se você executar o codigo anterior, nada acontece novamente, pois falta chamarmos a função e informarmos ao SimPy qual o tempo de simulação. A chamada da função nos relembra que tudo em SimPy é gerar processos:
+Se você executar o codigo anterior, nada acontece novamente, pois falta informarmos ao SimPy qual o tempo de simulação. Isto é feito pelo comando: ```env.run(until=tempo_desejado_de_simulação)```
+No exemplo proposto, o tempo de simulação deve ser de 10 min.
 
 ```python
 import random # gerador de números aleatórios
