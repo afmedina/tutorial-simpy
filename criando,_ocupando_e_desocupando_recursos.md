@@ -64,7 +64,7 @@ meuRecurso.release(meuResquest)
 
 ## Juntando tudo em um exemplo: a fila M/M/1
 
-A fila M/M/1 (ver...) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
+A fila M/M/1 (ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
 
 Partindo da função ```
 geraChegadas``` codificada na seção anterior
@@ -81,7 +81,6 @@ servidorRes``` com capacidade de atender 1 cliente por vez.
 --->
  
 ```python
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
@@ -140,7 +139,7 @@ def geraChegadas(env):
         
 
 def atendimentoServidor(env, nome, servidorRes):
-
+    #função que ocupa o servidor e realiza o atendimento
     request = servidorRes.request() # solicita o recurso servidorRes
     
     yield request # aguarda em fila até o acesso e ocupa o servidorRes
@@ -154,7 +153,6 @@ def atendimentoServidor(env, nome, servidorRes):
 random.seed(1000)   # semente do gerador de números aleatórios
 
 env = simpy.Environment() # cria o environment do modelo
-
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
 env.process(geraChegadas(env)
 env.run(until=10)
