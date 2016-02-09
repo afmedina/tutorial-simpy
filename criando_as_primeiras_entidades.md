@@ -92,7 +92,7 @@ A chamada ao processo é sempre feita após a criação do env, então basta acr
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação
 
-def geraChegadas(env, nome, lambda):
+def geraChegadas(env, nome, taxa):
     #função que cria chegadas de entidades no sistema
     pass
     
@@ -163,17 +163,17 @@ No exemplo proposto, o tempo de simulação deve ser de 10 min.
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-def geraChegadas(env, nome, lambda):
+def geraChegadas(env, nome, taxa):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while True:
-        yield env.timeout(random.expovariate(lambda))
+        yield env.timeout(random.expovariate(1/taxa))
         contaChegada += 1
         print("%s %i chega em: %.1f " % (nome, contaChegada, env.now))
 
 random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-env.process(geraChegadas(env, "Cliente", (1/2))) # cria o processo de chegadas
+env.process(geraChegadas(env, "Cliente", 2)) # cria o processo de chegadas
 env.run(until=10) # roda a simulação por 10 unidades de tempo
 ```
 
