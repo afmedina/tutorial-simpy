@@ -83,6 +83,8 @@ def geraChegadas(env, nome, lambda):
     
 env = simpy.Environment() # cria o environment do modelo
 ```
+Precisamos informar ao SimPy que a função ```geraChegadas()``` é, de fato, um processo que deve ser executado ao longo de toda a simulação. Um processo é criado dentro do ```environment```, pelo comando:
+```env.process(função_processo)```
 
 Inicialmente, precisamos gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca ```random```, bem detalhada na sua [documentação](https://docs.python.org/2/library/random.html), e que possui a função:
 ```python
@@ -158,6 +160,16 @@ random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env, "Cliente", (1/2))) # cria o processo de chegadas
 env.run(until=10) # roda a simulação por 10 unidades de tempo
+```
+
+Ao executar o programa, temos a saída:
+```
+Cliente 1 chega em: 3.0 
+Cliente 2 chega em: 5.2 
+Cliente 3 chega em: 5.4 
+Cliente 4 chega em: 6.3 
+Cliente 5 chega em: 7.6 
+Cliente 6 chega em: 9.1 
 ```
 
 Agora sim!
