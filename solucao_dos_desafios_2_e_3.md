@@ -19,6 +19,9 @@ Precisa corrigir mesmo. Em Python, o usual é ctes em maiúsculas e na parte de 
 
 sugestão: trocar o "while" por "for i=1 to n"
 
+
+
+R:
 não gosto do for nesse caso
 
 random.seed foi comentado?
@@ -33,21 +36,16 @@ import simpy  # biblioteca de simulação
 def geraChegadas(env, nome, taxa, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
-    while (contaChegada < numeroMaxChegadas):
+    while (contaChegada < numeroMaxChegadas:
         yield env.timeout(random.expovariate(1/taxa))
         contaChegada += 1
-        print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
+        print("%s %i chega em: %.1f " % (nome, contaChegada, env.now))
 
 random.seed(1000)   # semente do gerador de números aleatórios
-
-numeroMaxChegadas = 5 # número máximo de chegadas
-
 env = simpy.Environment() # cria o environment do modelo
-env.process(geraChegadas(env, numeroMaxChegadas))
-env.run(until=10)```
-
-
-
+env.process(geraChegadas(env, "Cliente", 2, 5)) # cria o processo de chegadas
+env.run(until=10) # roda a simulação por 10 unidades de tempo
+```
 
 ##Desafio 3
 Modifique a função ```
