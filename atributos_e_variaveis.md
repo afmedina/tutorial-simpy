@@ -2,9 +2,9 @@
 
 Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence a entidade, enquanto a variável ao modelo. De outro modo, se um cliente chega a uma loja é compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o número de produtos. Afinal, o atributo "número de produtos" é um valor diferente para cada cliente.
 
-Por outo lado, em determinado momento do dia, podemos totalizar o total de produtos vendidos até aquele momento, pela soma do atributos "numero de produtos" de cada cliente. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
+Por outo lado, em determinado momento do dia, podemos totalizar o total de produtos vendidos até aquele instante, pela soma do atributos "numero de produtos" de cada cliente. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
 
-Em SimPy a coisa é mais trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável. 
+Em SimPy a coisa é mais trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. 
 
 Por exemplo, imaginemos a chegada de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
 
