@@ -72,32 +72,29 @@ Neste caso, precisamos verificar na documentação da biblioteca random, quais s
 A biblioteca NumPy, que veremos oportunamente, possui mais opções para distribuições estatísticas. Por enquanto, o desafio 3 pode ser solucionado de maneira literal:
 
 ```python
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-def geraChegadas(env, numeroMaxChegadas):
+def geraChegadas(env, nome, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
-    while (contaChegada < numeroMaxChegadas):
+    while (contaChegada < numeroMaxChegadas:
         yield env.timeout(random.triangular(0.1,1,1.1))
         contaChegada += 1
-        print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
+        print("%s %i chega em: %.1f " % (nome, contaChegada, env.now)))
 
 random.seed(1000)   # semente do gerador de números aleatórios
-
-numeroMaxChegadas = 5 # número máximo de chegadas
-
 env = simpy.Environment() # cria o environment do modelo
-env.process(geraChegadas(env, numeroMaxChegadas))
-env.run(until=10)```
+env.process(geraChegadas(env, "Cliente, 5))
+env.run(until=10)
+```
 
 ### Tip
-Os modelos de simulação com muitos processos de chegadas e atendimento, tendem a utilizar muitas funções de distribuição de probabilidades, deixando, ao longo do processo de desenvolvimento, as coisas meio confusas.
+Os modelos de simulação com muitos processos de chegadas e atendimento, tendem a utilizar diversas funções diferentes de distribuição de probabilidades, deixando, ao longo do processo de desenvolvimento, as coisas meio confusas.
 
 Uma dica bacana é criar uma função que armazene todas as distribuições do modelo em um único lugar. Como uma prateleira de distribuições.
 
-Por exemplo, imagine um modelo em SimPy que possui 3 processos: um exponecial com média 10 min, um triangular com parâmetros (10, 20, 30) min e um normal com média 0 e desvio 1 minuto. A função distribution() a seguir, armazena todos os geradores de números aleatórios em um único local:
+Por exemplo, imagine um modelo em SimPy que possui 3 processos: um exponecial com média 10 min, um triangular com parâmetros (10, 20, 30) min e um normal com média 0 e desvio 1 minuto. A função ```distribution()``` a seguir, armazena todos os geradores de números aleatórios em um único local:
 
 ```python
 import random
@@ -133,4 +130,17 @@ Essa foi a nossa dica do dia!
 
 >Fique a vontade para implementar funções de geração de números aleatórios ao seu gosto. Note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão deste tipo de função!**
 
+Uma última observação:
+>Atenção à eficiência do código. Como a finalidade é didática, as chamadas as funções de geração de números aleatórios respeitam a lógica do aprendizado. Contudo, tais chamadas não são exatamente eficientes... Você consegue descobrir qual das duas chamadas a seguir é a mais eficiente e por quê?
+
+```python
+while True:
+    yield env.timeout(random.expovariate(1/2))```
+
+Ou:
+```python
+while True:
+    yield env.timeout(random.expovariate(0.5))```
+
+**Resposta: **note que no primeiro caso, a cada novo número gerado, é realizada uma operação de divisão. No segundo caso, isso não ocorre, deixanso o tempo de processamento mais rápido.
 
