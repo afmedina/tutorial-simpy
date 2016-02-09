@@ -163,8 +163,8 @@ env.run(until=10) # roda a simulação por 10 unidades de tempo
 Agora sim!
 
 Note que ```
-env.process(criaChegadas(env))```
- é um comando que **torna** a função ```criaChegadas()``` um processo dentro do environment ```
+env.process(geraChegadas(env))```
+ é um comando que **torna** a função ```geraChegadas()``` um processo dentro do environment ```
 env```
 . Esse processo só começa a ser executado na linha seguinte, quando ```
 env.run(until=10)```
