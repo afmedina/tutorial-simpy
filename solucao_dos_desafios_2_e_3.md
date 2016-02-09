@@ -27,15 +27,14 @@ deveria, mas a seção anterior ficaria puxada. Como resolver?
 --->
 
 ```python
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-def geraChegadas(env, numeroMaxChegadas):
+def geraChegadas(env, nome, taxa, numeroMaxChegadas):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas):
-        yield env.timeout(random.expovariate(1/2))
+        yield env.timeout(random.expovariate(1/taxa))
         contaChegada += 1
         print("Cliente %i chega em: %.1f " % (contaChegada, env.now()))
 
