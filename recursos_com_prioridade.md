@@ -106,11 +106,125 @@ Paciente 4 com pulseira verde inicia o atendimento em 18.8
 ```
 Percebemos que o paciente 5 chegou depois do 3 e do 4, mas iniciou seu atendimento assim que um médico terminou seu atendimento (exatamente aquele que atendia ao Paciente 1).
 ## Recursos que podem ser interrompidos: ```PreemptiveResource```
-Considere, no exemplo anterior, que o paciente de pulseira vermelha tem uma prioridade tal que ele interrompe o atendimento atual do médico e imediatamente é atendido. Neste caso, o recurso é criado pelo comando:
+Considere, no exemplo anterior, que o paciente de pulseira vermelha tem uma prioridade tal que ele interrompe o atendimento atual do médico e imediatamente é atendido. A recursos com [preemptividade](https://pt.wikipedia.org/wiki/Preemptividade) são recursos que aceitam a interrupção da tarefa em execução para iniciar outra de maior prioridade. 
+
+Um recurso capaz de ser interrompida é criado pelo comando:
 ```
 medicos = simpy.PreemptiveResource(env, capacity=capacidade)
 ```
+O cuidado aqui é que quando um recurso é requisitado por um processo de menor prioridade ele causa uma interrupção no Python, o que obriga a utilização de lógica do tipo ```try:...except```. O SimPy retornará uma interrupção do tipo simpy.Interrupt, como mostrado no exemplo a seguir (note a lógica de try...except dentro da função atendimento):
 
+```python
+import simpy
+import random
 
+def sorteiaPulseira():
+    #retorna a cor da pulseira e sua prioridade
+    r = random.random()
+    if r <= .70:
+        return "pulseira verde", 3
+    elif r <= .90:
+        return "pulseira amarela", 2
+    return "pulseira vermelha", 1
+    
+def chegadaPacientes(env, medicos):
+    #gera pacientes exponencialmente distribuídos
+    #sortei a pulseira
+    #inicia processo de atendimento
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/5))
+        i += 1
+        pulseira, prio = sorteiaPulseira()
+        print("Paciente %s chega em %.1f com %s" %(i, env.now, pulseira))
+        env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, medicos))
 
+def atendimento(env, paciente, pulseira, prio, medicos):
+    #ocupa um médico e realiza o atendimento do paciente
+    with medicos.request(priority=prio) as req:
+        yield req
+        print("%s com %s inicia o atendimento em %.1f" %(paciente, pulseira, env.now))
+        try:
+            yield env.timeout(random.expovariate(1/9))
+            print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
+        except simpy.Interrupt:
+            #caso o simpy receba uma interrupção execute:
+            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
 
+random.seed(100)       
+env = simpy.Environment()
+medicos = simpy.PreemptiveResource(env, capacity=2) # cria os médicos
+chegadas = env.process(chegadaPacientes(env, medicos))
+env.run(until=20)
+```
+
+Como resultado, o programa retorna a seguinte saída:
+
+```
+Paciente 1 chega em 0.8 com pulseira verde
+Paciente 1 com pulseira verde inicia o atendimento em 0.8
+Paciente 2 chega em 8.2 com pulseira amarela
+Paciente 2 com pulseira amarela inicia o atendimento em 8.2
+Paciente 3 chega em 11.0 com pulseira verde
+Paciente 4 chega em 11.4 com pulseira verde
+Paciente 5 chega em 11.7 com pulseira vermelha
+Paciente 1 com pulseira verde foi interrompido por paciente de maior prioridade em 11.7
+Paciente 5 com pulseira vermelha inicia o atendimento em 11.7
+Paciente 5 com pulseira vermelha termina o atendimento em 15.3
+Paciente 3 com pulseira verde inicia o atendimento em 15.3
+Paciente 3 com pulseira verde termina o atendimento em 18.7
+Paciente 4 com pulseira verde inicia o atendimento em 18.7
+```
+
+Note como agora o Paciente 5 interrompe o atendimento do Paciente 1, como desejado. 
+
+Contudo, a implementação anterior está cheia de limitações: pacientes com pulseira amarela não deveriam interromper o atendimento, mas na implementação proposta eles devem interromper o atendimento de pacientes de pulseira verde. Para este caso, o request possui um argumento que liga ou desliga a opção de preemptividade:
+```
+with medicos.request(priority=prio, preempt=preempt) as req:
+```
+O argumento ```preempt``` do ```request``` pode assumir o valor ```True``` ou ```False```, ligando ou desligando a preemptividade.
+
+O programa alterado para interromper apenas no caso de pulseiras vermelhas, ficaria:
+
+```python
+import simpy
+import random
+
+def sorteiaPulseira():
+    #retorna a cor da pulseira e sua prioridade
+    r = random.random()
+    if r <= .70:
+        return "pulseira verde", 3, False
+    elif r <= .90:
+        return "pulseira amarela", 2, False
+    return "pulseira vermelha", 1, True
+    
+def chegadaPacientes(env, medicos):
+    #gera pacientes exponencialmente distribuídos
+    #sorteia a pulseira
+    #inicia processo de atendimento
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/5))
+        i += 1
+        pulseira, prio, preempt = sorteiaPulseira()
+        print("Paciente %s chega em %.1f com %s" %(i, env.now, pulseira))
+        env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, preempt, medicos))
+
+def atendimento(env, paciente, pulseira, prio, preempt, medicos):
+    #ocupa um médico e realiza o atendimento do paciente
+    with medicos.request(priority=prio, preempt=preempt) as req:
+        yield req
+        print("%s com %s inicia o atendimento em %.1f" %(paciente, pulseira, env.now))
+        try:
+            yield env.timeout(random.expovariate(1/9))
+            print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
+        except simpy.Interrupt:
+            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
+
+random.seed(100)       
+env = simpy.Environment()
+medicos = simpy.PreemptiveResource(env, capacity=2) # cria os médicos
+chegadas = env.process(chegadaPacientes(env, medicos))
+env.run(until=20)
+```
