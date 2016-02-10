@@ -283,6 +283,8 @@ tempoFila```
  
 <!---
 o tempo de permanência é um atributo da entidade, conceito que vale a pena explicar...
+
+R: não é livro de simulação, hein...
  --->
 
 
