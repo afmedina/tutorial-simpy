@@ -9,7 +9,7 @@ A interrupção de um processo em SimPy é realizada por meio de um comando ```I
 
 ## Criando quebras de equipamento
 
- Voltando ao exemplo do X-wing, considere que a cada 10 horas o R2D2, interrompe a viagem para uma manutenção de 5 hora e que a viagem toda levaria (sem as paralizações) 50 horas.
+ Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2, interrompe a viagem para uma manutenção de 5 hora e que a viagem toda levaria (sem as paralizações) 50 horas.
 
 Inicialmente, devemos criar uma função que representa a viagem:
 
@@ -118,10 +118,18 @@ Alguns aspectos importantes do código anterior:
 2. Como a execução ```env.run()``` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o ```while duracaoViagem > 0``` torna-se falso. Note que esse while deve existir nos dois processos em execução, caso contrário o programa seria executado indefinidamente.
 3. Dentro da função paradaTecnica a variável global ```viajando``` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas.
 
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| ```processVar = env.process(função_processo(env))``` | armazena o processo da função_processo na variável ```processVar``` |
+| ```processVar.interrupt()``` | interrompe o processo armazenado na variável ```processVar``` |
+| ```try:...except simpy.Interrupt``` | lógica ```try...except``` necessária para interrupção do processo |
+
+
 ##Desafios
 
-Considere que existam dois tipos de paradas: uma do R2D2 e outra do canhão de combate. A parada do canhão de combate ocorre sempre depois de 25 horas de viagem (em quebra ou não) e seu reparo dura 2 horas. Contudo, para não perder tempo, a manutenção do canhão só é realizada quando o R2D2 quebra.
+**Desafio** Considere que existam dois tipos de paradas: uma do R2D2 e outra do canhão de combate. A parada do canhão de combate ocorre sempre depois de 25 horas de viagem (em quebra ou não) e seu reparo dura 2 horas. Contudo, para não perder tempo, a manutenção do canhão só é realizada quando o R2D2 quebra.
 
-Você não acha que pode viajar pelo espaço infinito sem encontrar alguns TEs das forças imperiais, não é mesmo? Considere que a cada 25 horas, você se depara com um TE imperial. O ataque dura 30 minutos e, se nesse tempo você não estiver com o canhão funcionando, a sua próxima viagem é para o encontro com o mestre Yoda. 
+**Desafio** Você não acha que pode viajar pelo espaço infinito sem encontrar alguns TEs das forças imperiais, não é mesmo? Considere que a cada 25 horas, você se depara com um TE imperial. O ataque dura 30 minutos e, se nesse tempo você não estiver com o canhão funcionando, a sua próxima viagem é para o encontro com o mestre Yoda. 
 
 Dica: construa uma função executaCombate que controla todo o processo de combate. Você vai precisar também de uma variável global que informe se o X-Wing está ou não em combate.
