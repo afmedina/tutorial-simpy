@@ -9,9 +9,9 @@ A interrupção de um processo em SimPy é realizada por meio de um comando ```I
 
 ## Criando quebras de equipamento
 
-Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 hora e que a viagem toda levaria (sem as paralizações) 50 horas.
+Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 horas e que a viagem toda levaria (sem as paralizações) 50 horas.
 
-Inicialmente, devemos criar uma função que representa a viagem:
+Inicialmente, devemos criar uma função que represente a viagem:
 
 ```python
 import simpy
@@ -46,14 +46,14 @@ env = simpy.Environment()
 viagem = env.process(viagem(env, 5))
 env.run()```
 
-O importante no programa anterior é notar a lógica ```try:...except:```. O ```except``` aguarda um comando novo, o ```simpy.Interrupt``` que nada mais é que uma interrupção causada por algum outro processo do environment.
+O importante no programa anterior é notar a lógica ```try:...except:```. O ```except``` aguarda um comando novo, o ```simpy.Interrupt``` que nada mais é do que uma interrupção causada por algum outro processo do ```Environment```.
 
 Quando executado, o programa fornece uma viagem tranquila:
 ```
 Viagem iniciada em 0
 Viagem concluida em 30, duração total da viagem 30
 ```
-Portanto, resta agora criar um processo que cria a interrupção da viagem. Note, na penúltima linha, que temos o processo em execução armazenado na variável ```viagem```. O que devemos fazer é interrompê-lo de 10 em 10 horas. Para tanto, a função paradaTecnica a seguir verifica se o processo de viagem está em andamento e paraliza a operação depois de 10 horas:
+Portanto, resta agora criar um processo que cria a interrupção da viagem. Note, na penúltima linha, que temos o processo em execução armazenado na variável ```viagem```. O que devemos fazer é interrompê-lo de 10 em 10 horas. Para tanto, a função ```paradaTecnica``` a seguir verifica se o processo de viagem está em andamento e paraliza a operação depois de 10 horas:
 
 ```python
 import simpy
@@ -114,9 +114,9 @@ Falha do R2D2 em 50, tempo de viagem estimado 0
 Viagem concluida em 55, duração total da viagem 55
 ```
 Alguns aspectos importantes do código anterior:
-1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. 
-2. Como a execução ```env.run()``` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o ```while duracaoViagem > 0``` torna-se falso. Note que esse while deve existir nos dois processos em execução, caso contrário o programa seria executado indefinidamente.
-3. Dentro da função paradaTecnica a variável global ```viajando``` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas.
+1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. É por meio de variáveis globais que um processo "sabe" o que está ocorrendo no outro.
+2. Como a execução ```env.run()``` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o ```while duracaoViagem > 0``` torna-se falso. Note que esse ```while``` deve existir nos dois processos em execução, caso contrário o programa seria executado indefinidamente;
+3. Dentro da função ```paradaTecnica``` a variável global ```viajando``` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal, o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas e veja o que acontece.
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
