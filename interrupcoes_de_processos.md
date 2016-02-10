@@ -1,4 +1,4 @@
-# Interrupções de processos: ```PreemptiveResource```
+# Interrupções de recursos: ```PreemptiveResource```
 
 Você está todo feliz e contente atravessando a galáxia no seu X-Wing quando... PIMBA! Seu [dróide astromecânico](https://pt.wikipedia.org/wiki/R2-D2) pifou e você deve interromper a viagem para consertá-lo.
 
