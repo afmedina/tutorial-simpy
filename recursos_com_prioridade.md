@@ -2,7 +2,7 @@
 
 Além do recurso como definido nas seções anteriores, o SimPy possui recursos com prioridade e "peemptivos", isto é: recursos que podem ser interrompidos por outros processos.
 
-## Recursos com prioridade: PriorityResource
+## Recursos com prioridade: ```PriorityResource```
 
 Um recurso normal pode ter uma fila de entidades desejando ocupá-lo para executar determinado processo. Existindo a fila, o recurso será ocupado respeitando a ordem de chegada das entidades (ou a regra FIFO).
 
@@ -105,6 +105,11 @@ Paciente 3 com pulseira verde termina o atendimento em 18.8
 Paciente 4 com pulseira verde inicia o atendimento em 18.8
 ```
 Percebemos que o paciente 5 chegou depois do 3 e do 4, mas iniciou seu atendimento assim que um médico terminou seu atendimento (exatamente aquele que atendia ao Paciente 1).
+## Recursos que podem ser interrompidos: ```PreemptiveResource```
+Considere, no exemplo anterior, que o paciente de pulseira vermelha tem uma prioridade tal que ele interrompe o atendimento atual do médico e imediatamente é atendido. Neste caso, o recurso é criado pelo comando:
+```
+medicos = simpy.PreemptiveResource(env, capacity=capacidade)
+```
 
 
 
