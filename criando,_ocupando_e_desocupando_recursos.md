@@ -61,6 +61,22 @@ recurso.release(request):```
 ```python
 meuRecurso.release(meuResquest)
 ```
+Uma função que ocupa um dado recurso para executar um processo, teria, portanto, a seguinte estrutura:
+
+```python
+import simpy
+
+def processoRecurso(env, tempo, resource):
+    #função que ocupa o recurso e realiza o atendimento
+    request = resource.request() # solicita o recurso servidorRes
+    yield request # aguarda em fila até o acesso e ocupa o servidorRes
+    yield env.timeout(tempo) # aguarda o tempo de execução do processo
+    yield resource.release(request) # libera o recurso servidorRes
+
+env = simpy.Environment()
+res = simpy.Resource(env, capacity=1)
+
+```
 
 ## Juntando tudo em um exemplo: a fila M/M/1
 
@@ -231,6 +247,7 @@ Cliente 9 inicia o atendimento em: 6.5
 Cliente 9 termina o atendimento em: 6.8.
 Cliente 10 chega em: 9.7 
 Cliente 10 inicia o atendimento em: 9.7```
+
 
 Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, que eles serão destrinchados nas seções seguintes. 
 
