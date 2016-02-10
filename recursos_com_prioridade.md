@@ -235,7 +235,7 @@ env.run(until=20)
 |``` meuRequest = meuRecurso.request(env, priority=prio)``` | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
 | ```meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)``` | cria um recurso em ```env``` que pode ser interrompido por entidades de prioridade maior|
 |``` meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)``` | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
-| ```simpy.Interrupt``` | chamada de interrupção utilizada na lógica try:...except: |
+| ```try:...except simpy.Interrupt:``` | chamada de interrupção utilizada na lógica try:...except: |
 
 ##Desafios
 **Desafio**: acrescente ao último programa proposto o cálculo do tempo de atendimento decorrido para o paciente que foi interrompido por outro e imprima o resultado na tela.
