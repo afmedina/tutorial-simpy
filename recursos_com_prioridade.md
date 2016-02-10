@@ -228,7 +228,16 @@ medicos = simpy.PreemptiveResource(env, capacity=2) # cria os médicos
 chegadas = env.process(chegadaPacientes(env, medicos))
 env.run(until=20)
 ```
+## Conteúdos desta seção
+| **Conteúdo** | **Descrição** |
+| -- | -- |
+| ```meuRecurso = simpy.PriorityResource(env, capacity=1)``` | cria um recurso em ```env``` com prioridade de atendimento e capacidade = 1 |
+|``` meuRequest = meuRecurso.request(env, priority=prio)``` | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
+| ```meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)``` | cria um recurso em ```env``` que pode ser interrompido por entidades de prioridade maior|
+|``` meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)``` | solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
+| ```simpy.Interrupt``` | chamada de interrupção utilizada na lógica try:...except: |
 
 ##Desafios
 **Desafio**: acrescente ao último programa proposto o cálculo do tempo de atendimento decorrido para o paciente que foi interrompido por outro e imprima o resultado na tela.
+
 **Desafio**: quando um paciente é interrompido, ele deseja retornar ao antedimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a númeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
