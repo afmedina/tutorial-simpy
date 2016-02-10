@@ -11,9 +11,9 @@
 * [Solução dos desafios 4 e 5](solucao_dos_desafios_4_e_5.md)
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Atributos e variáveis](atributos_e_variaveis.md)
-   * Solução dos desafios 6 e 7
 * [Recursos com prioridade](recursos_com_prioridade.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
+* Solução dos desafios 6 e 7
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
