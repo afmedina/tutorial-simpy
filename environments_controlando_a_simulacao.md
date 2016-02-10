@@ -83,7 +83,5 @@ chegadas = [env.process(geraChegada(env, "p1", 5)), env.process(geraChegada(env,
 env.run(until=chegadas[1])
 ```
 
-
-
 ## Environment.now(): instante atual da simulação
 
