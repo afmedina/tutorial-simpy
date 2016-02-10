@@ -10,7 +10,6 @@
 * [Criando, ocupando e desocupando recursos](criando,_ocupando_e_desocupando_recursos.md)
 * [Solução dos desafios 4 e 5](solucao_dos_desafios_4_e_5.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
-* [Interrupções de processos](interrupcoes_ dfde_processos.md)
 * [Interrupções de processos](interrupcoes_de_p dsrocessos.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
