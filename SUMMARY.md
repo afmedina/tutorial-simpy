@@ -8,12 +8,12 @@
 * [Criando as primeiras entidades](criando_as_primeiras_entidades.md)
 * [Solução dos desafios 2 e 3](solucao_dos_desafios_2_e_3.md)
 * [Criando, ocupando e desocupando recursos](criando,_ocupando_e_desocupando_recursos.md)
-* [Interrupções de processos](interrupcoes_de_processos.md)
-   * Recursos com prioridade
 * [Recursos com prioridade](recursos_com_prioridade.md)
 * [Solução dos desafios 4 e 5](solucao_dos_desafios_4_e_5.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
+* [Interrupções de processos](interrupcoes_de_processos.md)
+   * Recursos com prioridade
 * [O que são funções geradoras? (Ou como funciona o SimPy?) - Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
 * [Criando lotes (ou agrupando) entidades durante a simulação](criando_lotes_ou_agrupando_entidades_durante_a_simulacao.md)
