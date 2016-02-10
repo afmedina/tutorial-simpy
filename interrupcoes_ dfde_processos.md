@@ -1,2 +1,0 @@
-# Interrupções de processos
-
