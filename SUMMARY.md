@@ -11,6 +11,7 @@
 * [Solução dos desafios 4 e 5](solucao_dos_desafios_4_e_5.md)
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Atributos e variáveis](atributos_e_variaveis.md)
+   * Solução dos desafios 6 e 7
 * [Recursos com prioridade](recursos_com_prioridade.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
