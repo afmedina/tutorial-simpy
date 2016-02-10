@@ -9,7 +9,7 @@ A interrupção de um processo em SimPy é realizada por meio de um comando ```I
 
 ## Criando quebras de equipamento
 
-Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2, interrompe a viagem para uma manutenção de 5 hora e que a viagem toda levaria (sem as paralizações) 50 horas.
+Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 hora e que a viagem toda levaria (sem as paralizações) 50 horas.
 
 Inicialmente, devemos criar uma função que representa a viagem:
 
