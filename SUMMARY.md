@@ -13,7 +13,7 @@
 * [Atributos e variáveis](atributos_e_variaveis.md)
 * [Recursos com prioridade](recursos_com_prioridade.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
-* Solução dos desafios 6 e 7
+* [Solução dos desafios 6 e 7](solucao_dos_desafios_6_e_7.md)
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
