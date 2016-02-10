@@ -11,13 +11,13 @@ Incialmente, vamos trabalhar com um modelo simples que gera chegadas de eventos 
 ```python
 import simpy
 
-def geraChegada(env):
+def geraChegada(env, p):
     while True:
-        print("Nova chegada en %s" %(env.now))
+        print("%s: ova chegada en %s" %(p, env.now))
         yield env.timeout(1)
         
 env = simpy.Environment()
-chegadas = env.process(geraChegada(env))
+chegadas = env.process(geraChegada(env, "p1"))
 env.run(until = 5)
 ```
 
@@ -28,13 +28,13 @@ Quando não se fornece o tempo de simulação (ou ele não é conhecido a priori
 ```python
 import simpy
 
-def geraChegada(env):
-    for i in range(0,5):
-        print("Nova chegada en %s" %(env.now))
+def geraChegada(env, p, numEntidades):
+    for i in range(0,numEntidades):
+        print("%s: nova chegada en %s" %(p, env.now))
         yield env.timeout(1)
         
 env = simpy.Environment()
-chegadas = env.process(geraChegada(env))
+chegadas = env.process(geraChegada(env, "p1", 5))
 env.run()
 ```
 Note, contudo, que se um modelo de simulação tem diversos processos ocorrendo ao mesmo tempo, o término da simulação só é garantido quando todos os processos terminarem. 
@@ -83,5 +83,28 @@ chegadas = [env.process(geraChegada(env, "p1", 5)), env.process(geraChegada(env,
 env.run(until=chegadas[1])
 ```
 
-## Environment.now(): instante atual da simulação
+## Simulação passo a passo: ```peek``` & ```step```
+
+O SimPy permite a simulação passo a passao por meio de dois comandos:
+* peek(): retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito (float('inf'));
+* step(): processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna EmptySchedule.
+
+A maneira usual de realizar a simulação passo a passo é por meio de um laço ```while```, como no exemplo a seguir (derivado do primeiro exemplo desta seção):
+
+```python
+import simpy
+
+def geraChegada(env, p):
+    while True:
+        print("%s: nova chegada em %s" %(p, env.now))
+        yield env.timeout(1)
+        
+env = simpy.Environment()
+chegadas = env.process(geraChegada(env, "p1"))
+until = 5
+while env.peek() < until:
+    env.step()
+```
+
+
 
