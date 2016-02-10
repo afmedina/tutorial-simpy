@@ -12,7 +12,6 @@
 * [Recursos com prioridade](recursos_com_prioridade.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
-   * [Recursos com prioridade](xrecursos_com_prioridade.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy?) - Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
