@@ -16,10 +16,10 @@
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? (Ou como funciona o SimPy?) - Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
+* [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
 * [Criando lotes (ou agrupando) entidades durante a simulação](criando_lotes_ou_agrupando_entidades_durante_a_simulacao.md)
-* [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
 
