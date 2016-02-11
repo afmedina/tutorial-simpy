@@ -38,7 +38,6 @@ def compra(env, nome, produtos):
         contaVendas += 1
         print("%s chega em: %.1f e compra %d produtos" % (nome, env.now, produtos))
 
-
 random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env)) # cria o processo de chegadas
