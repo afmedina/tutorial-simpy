@@ -107,6 +107,31 @@ env = simpy.Environment()
 chegadas = env.process(geraChegada(env, "p1"))
 env.run()
 ```
+O programa anterior leva 411 amostras para atingir o intervalo desejado:
+
+```
+...
+Média atual: 10.20. Amplitude atual: 0.51
+p1: nova chegada em 402
+Média atual: 10.20. Amplitude atual: 0.50
+p1: nova chegada em 403
+Média atual: 10.18. Amplitude atual: 0.50
+p1: nova chegada em 404
+Média atual: 10.19. Amplitude atual: 0.50
+p1: nova chegada em 405
+Média atual: 10.21. Amplitude atual: 0.50
+p1: nova chegada em 406
+Média atual: 10.21. Amplitude atual: 0.50
+p1: nova chegada em 407
+Média atual: 10.19. Amplitude atual: 0.50
+p1: nova chegada em 408
+Média atual: 10.19. Amplitude atual: 0.50
+p1: nova chegada em 409
+Média atual: 10.17. Amplitude atual: 0.50
+p1: nova chegada em 410
+Média atual: 10.18. Amplitude atual: 0.50
+Intervalo de confiança atingido depois de 411 valores! [9.68, 10.68]
+```
 
 Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no ```numpy``` e no ```scipy.stats```. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um problema para você...
 
