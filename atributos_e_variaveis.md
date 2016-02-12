@@ -1,8 +1,8 @@
 # Atributos e variáveis: diferenças em SimPy
 
-Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence a entidade, enquanto a variável ao modelo. De outro modo, se um cliente chega a uma loja é compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o número de produtos. Afinal, o atributo "número de produtos" é um valor diferente para cada cliente.
+Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence a entidade, enquanto a variável ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o seu número de produtos. Note que o atributo "número de produtos" é um valor diferente para cada cliente, possui um valor exclusivo.
 
-Por outo lado, em determinado momento do dia, podemos totalizar o total de produtos vendidos até aquele instante, pela soma do atributos "numero de produtos" de cada cliente. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
+Por outo lado, em determinado momento do dia, podemos totalizar o total de produtos vendidos até aquele instante, pela soma dos atributos "número de produtos" de cada cliente. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
 
 Em SimPy a coisa é mais trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. 
 
@@ -24,7 +24,7 @@ def geraChegadas(env):
         print("Cliente %i chega em: %.1f quer %d produtos" 
         % (contaEntidade, env.now, produtos))
         
-        # inicia o processo de atendimento do cliente de atibutos contaEntidade e produtos
+        # inicia o processo de atendimento do cliente de atributos contaEntidade e produtos
         env.process(compra(env, "Cliente %d" % contaEntidade, produtos))
         
 def compra(env, nome, produtos):
@@ -44,7 +44,7 @@ env.process(geraChegadas(env)) # cria o processo de chegadas
 env.run(until=10) # roda a simulação por 10 unidades de tempo
 print("Total vendido: %d produtos" % contaVendas)```
 
-A execução do programa, apresenta como resposta:
+A execução do programa apresenta como resposta:
 
 ```python
 Cliente 1 chega em: 1.0 quer 2 produtos
