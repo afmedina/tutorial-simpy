@@ -73,12 +73,13 @@ res = simpy.Resource(env, capacity=1)
 ```
 
 ##Status do recurso
-O SimPy fornece alguns parâmetros para você acompanhar o status do recurso:
+O SimPy fornece alguns parâmetros para você acompanhar o status do recurso criado (```res```, no caso:
 * ```res.capacity```: capacidade do recurso;
 * ```res.count```: quantas unidades de capacidade estão ocupadas no momento;
-* ``` res.queue```: quais entidades (no caso, requisições) estão em fila no momento;
-* ```res.users```: quais entidades (no caso, requisições) estão em atendimento no momento.
-* 
+* ``` res.queue```: quais entidades (no caso, requisições) estão em fila no momento. O **número** de entidades em fila do recurso é obtido diretamento com o comando len(res.queue);
+* ```res.users```: quais entidades (no caso, requisições) estão em atendimento no momento. O **número** de entidades em processo do recurso é obtido diretamento com o comando len(res.users).
+
+
 ## Juntando tudo em um exemplo: a fila M/M/1
 
 A fila M/M/1 (ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
