@@ -24,9 +24,7 @@ sugestão: trocar o "while" por "for i=1 to n"
 R:
 não gosto do for nesse caso
 
-random.seed foi comentado?
 
-deveria, mas a seção anterior ficaria puxada. Como resolver?
 --->
 
 ```python
@@ -106,7 +104,7 @@ def distributions(tipo):
         'applause': random.gauss(10, 1),
     }.get(tipo, 0.0)```
 
-O exemplo a seguir testa como chamar a função:
+O próximo exemplo testa como chamar a função:
 
 ```python    
 #Teste
@@ -131,7 +129,7 @@ Essa foi a nossa dica do dia!
 >Fique a vontade para implementar funções de geração de números aleatórios ao seu gosto. Note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão deste tipo de função!**
 
 Uma última observação:
->Atenção à eficiência do código. Como a finalidade é didática, as chamadas as funções de geração de números aleatórios respeitam a lógica do aprendizado. Contudo, tais chamadas não são exatamente eficientes... Você consegue descobrir qual das duas chamadas a seguir é a mais eficiente e por quê?
+>Atenção à eficiência do código. Como a finalidade deste texto é prioritariamente didática, as chamadas às funções de geração de números aleatórios respeitam a lógica do aprendizado. Contudo, tais chamadas não são exatamente eficientes... Você consegue descobrir qual das duas chamadas a seguir é a mais eficiente e por quê?
 
 ```python
 while True:
@@ -142,5 +140,5 @@ Ou:
 while True:
     yield env.timeout(random.expovariate(0.5))```
 
-**Resposta: **note que, no primeiro caso, a cada novo número gerado é realizada uma operação de divisão. No segundo caso, isso não ocorre, deixanso o tempo de processamento mais rápido.
+**Resposta: **note que, no primeiro caso, a cada novo número gerado é realizada uma operação de divisão. No segundo caso, isso não ocorre, deixando o tempo de processamento bem mais rápido.
 
