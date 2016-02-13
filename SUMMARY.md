@@ -8,7 +8,7 @@
 * [Criando as primeiras entidades](criando_as_primeiras_entidades.md)
 * [Solução dos desafios 2 e 3](solucao_dos_desafios_2_e_3.md)
 * [Criando, ocupando e desocupando recursos](criando,_ocupando_e_desocupando_recursos.md)
-* Exemplo Fila M/M/1
+* [Exemplo Fila M/M/1](exemplo_fila_mm1.md)
 * [Solução dos desafios 4 e 5](solucao_dos_desafios_4_e_5.md)
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Solução dos desafios 6 e 7](solucao_dos_desafios_6_e_7.md)
