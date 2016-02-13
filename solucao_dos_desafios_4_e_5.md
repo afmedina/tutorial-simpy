@@ -1,7 +1,7 @@
 # Solução dos desafios 4 e 5
 
 ## Desafio 4 
-Construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+Imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
 Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Assim, criei a variável global ```clientesFila```, como mostra o ínicio do código alterado da seção anterior:
 
@@ -18,10 +18,6 @@ clientesFila = 0```
 O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente sai da fila para iniciar seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função ```
 atendimentoServidor```
  da seção anterior:
- 
-<!---
-alternativa: monitorar o número de clientes no sistema, não apenas na fila
---->
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
@@ -38,11 +34,8 @@ def atendimentoServidor(env, nome, servidorRes):
     print('%s inicia o atendimento em: %.1f ' % (nome, env.now()))
     clientesFila -= 1 # decrementa contador de novo cliente em fila
 ```
-<!---
-precisa defnir novamente a variável "clientesFila"?
---->
 
-Repare que acrescentei duas chamadas à função ```print```, de modo  a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
+Repare que acrescentei duas chamadas à função ```print```, de modo a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
 clientesFila.```
 Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
 ```
