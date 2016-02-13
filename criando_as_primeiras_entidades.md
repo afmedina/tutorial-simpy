@@ -99,7 +99,7 @@ def geraChegadas(env, nome, taxa):
 env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env, "Cliente", 2))) # cria o processo de chegadas
 ```
-### Criando intervalos de tempo com ```env.timeout```
+### Criando intervalos de tempo com ```env.timeout(tempo)```
 Inicialmente, precisamos gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca ```random```, bem detalhada na sua [documentação](https://docs.python.org/2/library/random.html), e que possui a função:
 ```python
 random.expovariate(lambd)```
@@ -210,9 +210,6 @@ env```
 | ```env.run(until=tempoSim)``` | executa a simulação (executa todos os processos criandos em ```env```) pelo tempo *tempoSim* |
 | ```env.now``` | retorna o instante atual da simulação |
 
-<!---
-Legal esta revisão (tabela)
---->
 
 ## Desafios (soluções na próxima seção)
 **Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
