@@ -29,27 +29,22 @@ env```
 ## Ocupando
 
 É interessante notar que ocupar um recurso no SimPy é feito em duas etapas:
-1. Solicitar o recurso desejado com um ```
-request()```
-e
-2. Aguardar o acesso ao recurso com um ```
-yield```
-
-<!---
-é isso mesmo?
-
-uma coisa é entrar na fila (request), outra é ocupar o recurso (yield), depois tem o delay (outro yield) e finamlmente a liberação (release).
-
-por analogia com o Arena (Seize, Delay, Release), não seria melhor juntar tudo (Request, Delay, Release)
---->
+1. **Requisitar** o recurso desejado com um ```
+req = recurso.request()``` (o que é equivalente a entrar na fila para de acesso ao recurso);
+1. **Ocupar** o recurso com um ```
+yield req```
 
 Assim, uma chamada ao recurso ```
 meuRecurso```
  ficaria:
 
 ```python
-meuRequest = meuRecurso.request() # solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso)
-yield meuRequest # aguarda em fila a liberação do recurso```
+# solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) e entra em fila de espera
+req = meuRecurso.request()
+
+# depois de liberado o acesso, ocupa o recurso
+yield req
+```
 
 Se pode parecer estranho que a ocupação de um recurso envolva duas linhas de código, o bom observador deve notar que isso pode dar flexibilidade em situção de lógica intrincada.
 
@@ -75,9 +70,15 @@ def processoRecurso(env, tempo, resource):
 
 env = simpy.Environment()
 res = simpy.Resource(env, capacity=1)
-
 ```
 
+##Status do recurso
+O SimPy fornece alguns parâmetros para você acompanhar o status do recurso:
+* ```res.capacity```: capacidade do recurso;
+* ```res.count```: quantas unidades de capacidade estão ocupadas no momento;
+* ``` res.queue```: quais entidades (no caso, requisições) estão em fila no momento;
+* ```res.users```: quais entidades (no caso, requisições) estão em atendimento no momento.
+* 
 ## Juntando tudo em um exemplo: a fila M/M/1
 
 A fila M/M/1 (ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
@@ -266,14 +267,7 @@ Por hora, e para não esticar demais a atividade, analise atentamente os resulta
 
 ## Desafios
 
-**Desafio 4:** para melhor compreensão do funcionamento do programa, construa uma tabela com duas colunas: tempo de simulação e números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
-
-<!---
-não entendi o desafio 4; criar uma tabela?
-
-monitorar o número de clientes na fila ok (criar uma var global)
-
---->
+**Desafio 4:** para melhor compreensão do funcionamento do programa, imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
 **Desafio 5:** calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
 chegada.```
@@ -281,11 +275,8 @@ chegada.```
 tempoFila```
  e apresente o resultado na tela.
  
-<!---
-o tempo de permanência é um atributo da entidade, conceito que vale a pena explicar...
-
-R: não é livro de simulação, hein...
- --->
+**Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos.
+ 
 
 
     
