@@ -55,7 +55,7 @@ A biblioteca *numpy* fornece um meio fácil de se estimar a média e o desvio pa
 
 Para o cálculo do intervalo de confiança, devemos lembrar que, para amostras pequenas, a sua expressão é dada por:
 
-$$\left[ \bar{x} - t_{{1-\alpha}, n-1} \frac{s}{\sqrt{n}}, \bar{x} + t_{{1-\alpha}, n-1} \frac{s}{\sqrt{n}} \right] $$
+$$\left[ \bar{x} - t_{{1-\alpha} n-1} \frac{s}{\sqrt{n}}, \bar{x} + t_{{1-\alpha}, n-1} \frac{s}{\sqrt{n}} \right]$$
 
 
 A biblioteca import scipy.stats possui diversas funções estatísticas, dentre elas, a distribuição t de student, necessária para o cálculo do intervalo de confiança. Como está será uma operação rotineira nos nossos modelos de simulação, o ideal é encapsular o código em uma função específica:
