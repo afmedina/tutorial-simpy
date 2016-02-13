@@ -1,4 +1,4 @@
-# Solução dos desafios 4 e 5
+# Solução dos desafios 4, 5 e 6
 
 ## Desafio 4 
 Imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
