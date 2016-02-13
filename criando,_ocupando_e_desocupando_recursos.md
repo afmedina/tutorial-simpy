@@ -51,22 +51,22 @@ Se pode parecer estranho que a ocupação de um recurso envolva duas linhas de c
 ## Desocupando
 
 Recurso criado e ocupado é liberado com a função ```
-recurso.release(request):```
+meuRecurso.release(req):```
 
 ```python
-meuRecurso.release(meuResquest)
+meuRecurso.release(req)
 ```
 Uma função que ocupa um dado recurso para executar um processo, teria, portanto, a seguinte estrutura:
 
 ```python
 import simpy
 
-def processoRecurso(env, tempo, resource):
+def processoRecurso(env, tempo, res):
     #função que ocupa o recurso e realiza o atendimento
-    request = resource.request() # solicita o recurso servidorRes
+    request = res.request() # solicita o recurso servidorRes
     yield request # aguarda em fila até o acesso e ocupa o servidorRes
     yield env.timeout(tempo) # aguarda o tempo de execução do processo
-    yield resource.release(request) # libera o recurso servidorRes
+    yield res.release(request) # libera o recurso servidorRes
 
 env = simpy.Environment()
 res = simpy.Resource(env, capacity=1)
