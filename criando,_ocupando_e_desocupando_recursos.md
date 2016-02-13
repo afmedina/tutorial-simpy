@@ -2,30 +2,23 @@
 
 ## Criando
 
-Em SimPy, tudo é processo e, portanto, criar um recurso também é um processo. A função que cria recursos é ```simpy.Resource()```, cuja sintaxe é: 
+Em simulação, é usual representarmos processos que consomem recursos normalmente limitados. Quando um recurso é requisitado e não está disponível, há formação de fila de espera pelo recurso.
 
-<!---
-"criar um recurso também é um processo"???
-
-alternativa:
-Em simulação, simulamos processos que consomem recursos normalmente limitados. Quando um recurso é requisitado e não está disponível, há formação de filas.
-
-Nos modelos de simulação, precisamos criar os recursos, que são ocupados e liberados ao longo da imsulção por entidades.
+Nos modelos de simulação, precisamos criar os recursos, que são ocupados e liberados ao longo da simulação por entidades.
 
 Por exemplo, na simulação de uma fábrica, criamos os recursos "máquinas" que serão utilizados nos processos de fabricação.
 
 No SimPy, a sintaxe para criar um recurso é:
---->
 
 ```python
 import simpy
 
 env = simpy.Environment()
-meuRecurso = simpy.Resource(env, capacity=1)```
+maquinas = simpy.Resource(env, capacity=2)``` # cria o recurso marquinas com capacidadde 2
 
 
 Se o parâmetro *capacity* não for fornecido, a função assume *capacity*=1. Note que ```
-res``` foi criando dentro do Environment ```
+maquinas``` foi criando dentro do Environment ```
 env```
 .
 
@@ -38,7 +31,7 @@ req = recurso.request()``` (o que é equivalente a entrar na fila para de acesso
 yield req```
 
 Assim, uma chamada ao recurso ```
-meuRecurso```
+maquinas```
  ficaria:
 
 ```python
@@ -89,18 +82,13 @@ O SimPy fornece alguns parâmetros para você acompanhar o status do recurso cri
 A fila M/M/1 (ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
 
 Partindo da função ```
-geraChegadas``` codificada na seção anterior
-, precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função ```
+geraChegadas```, codificada na seção anterior, precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função ```
 atendimentoServidor```
  responsável por manter os clientes em fila e realizar o atendimento.
  
 Inicialmente, vamos acrescentar a constante TEMPO_MEDIO_ATENDIMENTO e criar o recurso ```
 servidorRes``` com capacidade de atender 1 cliente por vez.
-:
 
-<!---
-"servidorRes"?
---->
  
 ```python
 import random # gerador de números aleatórios
