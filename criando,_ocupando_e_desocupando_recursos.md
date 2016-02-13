@@ -18,11 +18,14 @@ No SimPy, a sintaxe para criar um recurso é:
 --->
 
 ```python
+import simpy
+
+env = simpy.Environment()
 meuRecurso = simpy.Resource(env, capacity=1)```
 
 
 Se o parâmetro *capacity* não for fornecido, a função assume *capacity*=1. Note que ```
-meuRecurso``` foi criando dentro do Environment ```
+res``` foi criando dentro do Environment ```
 env```
 .
 
@@ -42,9 +45,10 @@ meuRecurso```
 # solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) e entra em fila de espera
 req = meuRecurso.request()
 
-# depois de liberado o acesso, ocupa o recurso
+# depois de solicitado o acesso, ocupa o recurso
 yield req
 ```
+Enquanto a entidade estiver em fila aguardando a liberação do recurso, ela permanece no comando ```yield req```. Assim que ela finalmente ocupa o recurso, a execução passa para a linha seguinte.
 
 Se pode parecer estranho que a ocupação de um recurso envolva duas linhas de código, o bom observador deve notar que isso pode dar flexibilidade em situção de lógica intrincada.
 
