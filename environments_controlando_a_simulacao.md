@@ -2,7 +2,7 @@
 
 Em SimPy, o Environment é quem coordena a execução do seu programa. Ele avança o relógio de simulação, planeja a ordem de execução dos eventos e processa cada evento planejado no instante esperado pelo programa.
 
-## Environment.run(): controle de execução
+## ```Environment.run()```: controle de execução
 
 A maneira mais usual de controle de execução de um modelo de simulação é fornecendo o tempo de duração da simulação. O SimPy, contudo, vai além e permite que alguns outros modos de se controlar a simulação. 
 
