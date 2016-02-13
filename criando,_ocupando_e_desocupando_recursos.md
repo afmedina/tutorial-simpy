@@ -1,4 +1,4 @@
-# Resources: criando, ocupando e desocupando recursos
+# ```Resources```: criando, ocupando e desocupando recursos
 
 ## Criando
 
@@ -203,7 +203,7 @@ Peça 4 libera o recurso em 10
         Entidades em processamento:  []
         Número de entidades em fila: 0 e em processamento: 0
         ```
-
+Esta seção para por aqui. Na continuação, construiremos um exemplo completo com geração de entidades e ocupação de recursos.
 
 ## Conteúdos desta seção
 | **Conteúdo** | **Descrição** |
