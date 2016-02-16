@@ -49,11 +49,9 @@ Planejamos este texto em formato de seções compactas, de modo que elas sejam c
 
 Pretendemos publicar um novo post sempre que já se tenha o próximo post elaborado, de modo a facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post. A ideia é trabalhar com os leitores e colaboradores para corrigir e enriquecer o texto de modo que, ao final da jornada, tenhamos todos um bom ebook sobre SimPy.
 
-
-
 O plano é caminhar pela seguinte sequência de aprendizado:
 
-- Introdução ao SimPy
+- Introdução ao SimPy;
 - Instalação
 - Conceitos básicos: entidades, recursos, filas etc.
 - Conceitos avançados: prioridade de recursos, compartilhamento de recursos, controle de filas *Store* de recursos etc.
