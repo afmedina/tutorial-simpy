@@ -39,5 +39,5 @@ run2Ruin(bankroll)    #inicia o jogo
 ```
 
 ### Teste seus conhecimentos:
-1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia um novo números aleatórios ente 0 e 1, tornando imprevisível o resultado do programam. Utilize a função `random.seed()` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
+1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia um novo números aleatórios ente 0 e 1, tornando imprevisível o resultado do programa. Utilize a função `random.seed()` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
 2. Acrescente um laço no programa principal de modo que o jogo possa ser repetido até um número pré definido de vezes. *Simule* 100 partidas e verifique em quantas cada um dos jogadores venceu. 
