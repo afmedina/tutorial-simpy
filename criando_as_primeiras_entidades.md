@@ -21,38 +21,23 @@ import simpy # biblioteca de simulação
 
 random.seed(1000)         # semente do gerador de números aleatórios
 ```
-Note a linha final``` random.seed(1000)```, ela garante que a geração de números aleatórios sempre começará pela mesma semente.Na prática,a sequência de números gerados geradas será sempre a mesma, facilitando o processo de verificação do programa.
+Note a linha final``` random.seed(1000)```, ela garante que a geração de números aleatórios sempre começará pela mesma semente. Na prática,a sequência de números gerados será sempre a mesma, facilitando o processo de verificação do programa.
 
 
 ### Criando um ```evironment``` de simulação
 
 Tudo no SimPy gira em torno de **processos** criandos por funções e todos os processos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da função ```simpy.Environment()```. 
-Assim, o programa principal sempre começa com uma chamada ao SimPy, criando um *environment*  “env”:
+Assim, todo programa principal sempre começa com uma chamada ao SimPy, criando um *environment*  “env”:
 
 ```python
 import random # gerador de números aleatórios
 import simpy # biblioteca de simulação
 
+random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo na variável env
 ```
-<!---
-"env" é o nome do ambiente?
-Poderia ser: "fab", "hosp", "porto"?
 
-Isso ainda estou aprendendo. Nunca tentei um modelo com dois env ainda
---->
-
-<!---
-Sugestão: simular chegadas (e partidas) em uma praça pública
-Pessoas chegam, ficam um tempo e vão embora
-Quantas pessoas teremos na praça?
-
-Ainda não. Limitei essa seção só ao processo de chegadas, porque a linguagem não é nada fácil
-
-Mas aprimorar o exemplo, ok.
---->
-
-Se você executar o programa anterior, nada acontece. No momento, você apenas criou um *environment*, mas não criou nenhum processo, portanto, não existe nenhum evento a ser simulado pelo SimPy.
+Se você executar o programa anterior, nada acontece. No momento, você apenas criou um *environment*, mas não criou nenhum processo, portanto, não existe ainda nenhum evento a ser simulado pelo SimPy.
 
 ### Criando um processo dentro do ```environment```
 
@@ -68,7 +53,8 @@ import simpy # biblioteca de simulação
 def geraChegadas(env, nome, taxa):
     #função que cria chegadas de entidades no sistema
     pass
-    
+
+random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 ```
 Precisamos informar ao SimPy que a função ```geraChegadas()``` é, de fato, um processo que deve ser executado ao longo de toda a simulação. Um processo é criado dentro do ```environment```, pelo comando:
@@ -84,6 +70,7 @@ def geraChegadas(env, nome, taxa):
     #função que cria chegadas de entidades no sistema
     pass
     
+random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env, "Cliente", 2))) # cria o processo de chegadas
 ```
@@ -96,7 +83,7 @@ Onde ```
 lambd```
  é a taxa de ocorrência dos eventos ou, matematicamente, o inverso do tempo médio entre eventos sucessivos. No caso, se eu quero que as chegadas sejam entre intervalos médios de 2 min, a função ficaria:
 ```python
-random.expovariate(lambd=1/2)```
+random.expovariate(lambd=1.0/2.0)```
 
 A linha anterior é nosso gerador de números aleatórios exponencialmente distribuídos. O próximo passo é informar ao SimPy que queremos nossas entidades surgindo no sistema segundo a distribuição definida. Isso é feito pela chamada da palavra reservada ```
 yield```
@@ -106,7 +93,7 @@ env```
  criado:
 
 ```python
-yield env.timeout(random.expovariate(1/2))
+yield env.timeout(random.expovariate(1.0/2.0))
 ```
 Na linha de código anterior estamos executando ```
 yield env.timeout()```
@@ -114,11 +101,14 @@ yield env.timeout()```
 random.expovariate()```. Oportunamente, discutiremos mais a fundo qual o papel do palavra ```yield``` (*spoiler*: ela não é do SimPy, mas originalmente do próprio Python). Por hora, considere que ela é uma maneira de **criar eventos** dentro do ```
 env```.
 
+
+> Atenção: uma função criada no Python (com o comando ```def```) só é tratada como um **processo** para o SimPy, caso ela contenha ao menos uma linha de código com o comando ```yield```. Mais adiante, a seção "O que são funções geradoras" explica em mais detalhe o funcionamento do ```yield```.
+
+
+
 Colocando tudo junto na função ```
 geraChegadas()```, temos:
  
-
-
 ```python
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
@@ -127,7 +117,7 @@ def geraChegadas(env, nome, taxa):
     #função que cria chegadas de entidades no sistema
     contaChegada = 0
     while True:
-        yield env.timeout(random.expovariate(1/taxa))
+        yield env.timeout(random.expovariate(1.0/taxa))
         contaChegada += 1
         print("%s %i chega em: %.1f " % (nome, contaChegada, env.now))
         
@@ -144,7 +134,7 @@ env.now```.
 Por fim, uma chamada a função ```random.seed()``` garante que os números aleatórios a cada execução do programa serão os mesmos.
 ###Executando o modelo por um tempo determinado com ```env.run(until=tempo_de_simulacao)```
 
-Se você executar o codigo anterior, nada acontece novamente, pois falta informarmos ao SimPy qual o tempo de simulação. Isto é feito pelo comando: ```env.run(until=tempo_desejado_de_simulação)```
+Se você executar o codigo anterior, nada acontece novamente, pois falta informarmos ao SimPy qual o tempo de simulação. Isto é feito pelo comando: ```env.run(until=tempo_de_simulação)```
 No exemplo proposto, o tempo de simulação deve ser de 10 min.
 
 ```python
@@ -194,7 +184,7 @@ env```
 | ```random.expovariate(lambd)``` | gera números aleatórios exponencialmente distribuidos, com taxa *lambd* |
 | ```yield env.timeout(time)``` | gera um atraso dado por *time* |
 | ```random.seed(seed)``` | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
-| ```env.process(geraChegadas(env))``` | inicia a função ```criaChegadas``` como um *processo* em ```env``` |
+| ```env.process(geraChegadas(env))``` | inicia a função ```geraChegadas``` como um *processo* em ```env``` |
 | ```env.run(until=tempoSim)``` | executa a simulação (executa todos os processos criandos em ```env```) pelo tempo *tempoSim* |
 | ```env.now``` | retorna o instante atual da simulação |
 
