@@ -78,9 +78,6 @@ Cliente 10 chega em: 9.7
 9.69: chegada de novo cliente em fila. Clientes em fila: 1
 Cliente 10 inicia o atendimento em: 9.7 
 ```
-
-
-
 > **Desafio 5**: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
 chegada.```
  Ao final do atendimento, armazene o tempo de fila, numa variável ```
@@ -193,17 +190,16 @@ Cliente 10 chega em: 9.7
 9.69: chegada de novo cliente em fila. Clientes em fila: 1
 Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0 ```
 
-
 > **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
 
 A dificuldade do Desafio da Lavanderia é na ocupação e desocupação dos recursos da lavanderia. Se você ocupá-los/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados. 
 
 Como se trata de um modelo com vários processos e distribuições, vamos seguir a Dica da seção "Solução dos desafios 2 e 3" e construir uma função para armazenar as distribuições do problema, organizando nosso código:
 
+```python
 import random
 import simpy
 
-```python
 def distributions(tipo):
     #função que armazena as distribuições utilizadas no modelo
     return {
@@ -215,7 +211,7 @@ def distributions(tipo):
     }.get(tipo, 0.0)
 ```
 
-Como já destacado, a dificuldade é representar a sequência correta do clinete: um cliente chega, ocupa uma lavadora, lava, ocupa um cesto, libera uma lavadora, ocupa uma secadora, libera o cesto, seca e libera a secadora. Se a sequência foi bem compreendida, a máscara a seguir dever ser fácil de ser preenchida:
+Como já destacado, a dificuldade é representar a sequência correta de processos do cliente: ele chega, ocupa uma lavadora, lava, ocupa um cesto, libera uma lavadora, ocupa uma secadora, libera o cesto, seca e libera a secadora. Se a sequência foi bem compreendida, a máscara a seguir dever ser fácil de ser preenchida:
 
 ```python
 import random
@@ -290,7 +286,8 @@ def chegadaClientes(env, lavadoras, cestos, secadoras):
     while True:
         contaClientes += 1
         yield env.timeout(distributions('chegadas'))
-        print("Cliente %s chega em %.1f" %(contaClientes, env.now))
+        print("Cliente %s chega em %.1f" 
+        %(contaClientes, env.now))
         #chamada do processo de lavagem e secagem
         env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
         
