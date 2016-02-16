@@ -2,11 +2,11 @@
 
 ## Criando
 
-Em simulação, é usual representarmos processos que consomem recursos normalmente limitados. Quando um recurso é requisitado e não está disponível, há formação de fila de espera pelo recurso.
+Em simulação, é usual representarmos processos que consomem recursos normalmente limitados, tais como: máquinas de usinagem, operários em uma fábrica, empilhadeiras em um depósito etc. Quando um recurso é requisitado e não está disponível, há formação de fila de espera pelo recurso. 
 
 Nos modelos de simulação, precisamos criar os recursos, que são ocupados e liberados ao longo da simulação por entidades.
 
-Por exemplo, na simulação de uma fábrica, criamos os recursos "máquinas" que serão utilizados nos processos de fabricação.
+Por exemplo, na simulação de uma fábrica, são necessários recursos "máquinas" que serão utilizados nos processos de fabricação.
 
 No SimPy, a sintaxe para criar um recurso é:
 
@@ -14,7 +14,7 @@ No SimPy, a sintaxe para criar um recurso é:
 import simpy
 
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2)``` # cria o recurso marquinas com capacidadde 2
+maquinas = simpy.Resource(env, capacity=2) # cria o recurso marquinas com capacidadde 2
 ```
 
 Se o parâmetro *capacity* não for fornecido, a função assume *capacity*=1. Note que
@@ -22,7 +22,7 @@ Se o parâmetro *capacity* não for fornecido, a função assume *capacity*=1. N
 .
 
 ## Ocupando
-Como comentado ao início da seção, s processos usuais em simulação consomem recursos. Assim, ocupar um recurso em um processo, exige a codificção de uma função específica em que um dos argumentos deve ser o recurso a ser utilzado. O trecho de código a seguir, exemplifica o que discutimos:
+Como comentado ao início da seção, os processos usuais em simulação consomem recursos. Assim, ocupar um recurso em um processo exige a codificação de uma função específica em que um dos argumentos deve ser o próprio recurso a ser utilzado. O trecho de código a seguir, exemplifica para o caso das máquinas já criadas:
 
 ```python
 import simpy
@@ -32,7 +32,7 @@ def processo(env, entidade, maquinas):
     pass
     
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=1)    #cria recurso maquinas com capacidade 2
+maquinas = simpy.Resource(env, capacity=2)    #cria recurso maquinas com capacidade 2
 ```
 
 É interessante notar que ocupar um recurso no SimPy é feito em duas etapas:
@@ -59,14 +59,15 @@ def processoRecurso(env, entidade, maquinas):
 env = simpy.Environment()
 maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
 ```
-Enquanto a entidade estiver em fila aguardando a liberação do recurso, ela permanece no comando ```yield req```. Assim que ela finalmente ocupa o recurso, a execução passa para a linha seguinte.
+
+> Enquanto a entidade estiver em fila aguardando a liberação do recurso, ela permanece no comando ```yield req```. Quando ela finalmente ocupa o recurso, a execução passa para a linha seguinte (comando ```print```, no caso do exemplo).
+
+
 
 Se pode parecer estranho que a ocupação de um recurso envolva duas linhas de código, o bom observador deve notar que isso pode dar flexibilidade em situção de lógica intrincada.
 
-Vamos iniciar montar 
-
 ## Desocupando
-Recurso criado e ocupado é liberado com a função ```release(req)```. COnsiderando, por exemplo, que as máquinas processam peças em 5 minutos, nossa função ```processo``` ficaria:
+Recurso criado e ocupado é liberado com a função ```release(req)```. Considerando, por exemplo, que o processamento das peças leva 5 minutos nas máquina, nossa função ```processo``` ficaria:
 
 ```python
 import simpy
