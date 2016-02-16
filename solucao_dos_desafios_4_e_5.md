@@ -3,13 +3,13 @@
 
 > **Desafio 4**: imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
-Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Assim, criei a variável global ```clientesFila```, como mostra o ínicio do código alterado da seção anterior:
+Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. A variável global ```clientesFila``` armazenará este valor, como mostra o ínicio do código alterado da seção anterior:
 
 ```python
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-TEMPO_MEDIO_CHEGADAS = 1.0  # tempo entre chegadas sucessivas de clientes
+TEMPO_MEDIO_CHEGADAS = 1.0    # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
 clientesFila = 0```
@@ -99,17 +99,17 @@ SimPy:
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
-    chegada = env.now() # armazena o instante de chegada do cliente
+    chegada = env.now               # armazena o instante de chegada do cliente
     request = servidorRes.request() # solicita o recurso servidorRes```
 
 
 Agora, inciado o atendimento (logo após o ```yield```
- que ocupa o recurso), a variável ```tempoFila``` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável chegada:
+ que ocupa o recurso), a variável ```tempoFila``` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável ```chegada```:
 ```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
-    chegada = env.now() # armazena o instante de chegada do cliente
+    chegada = env.now               # armazena o instante de chegada do cliente
     request = servidorRes.request() # solicita o recurso servidorRes
     
     clientesFila += 1 # incrementa contador de novo cliente em fila
@@ -118,17 +118,10 @@ def atendimentoServidor(env, nome, servidorRes):
     
     yield request # aguarda em fila até o acesso
     
-    tempoFila = env.now()-chegada
+    tempoFila = env.now - chegada
 ```
 
-<!---
-"chegada" é um atributo da entidade cliente, explicar!
-(como uma varíavel só pode armazenar diferentes valores, um para cada cliente?)
-
-Resp: pq cada entidade cria um processo diferente quando chama atendimentoServido(). chegada, no caso, é local.
---->
-
-Para imprimir o resultado, vou simplesmente alterar a chamada à função ```print``` na linha seguinte, de modo que o código final da função ```
+Para imprimir o resultado, basta simplesmente alterar a chamada à função ```print``` na linha seguinte, de modo que o código final da função ```
 atendimentoServidor```
  fica:
 ```python
@@ -157,7 +150,7 @@ def atendimentoServidor(env, nome, servidorRes):
     yield servidorRes.release(request) # libera o recurso servidorRes
 ```
     
-A execução do programa mostra na tela o tempo de espera de cada cliente.
+Agora, a execução do programa mostra na tela o tempo de espera de cada cliente:
 
 ```
 Cliente 1 chega em: 1.5 
