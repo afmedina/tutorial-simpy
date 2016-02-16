@@ -11,6 +11,7 @@
 * [Exemplo Fila M/M/1](exemplo_fila_mm1.md)
 * [Solução dos desafios 4 ,5 e 6](solucao_dos_desafios_4_e_5.md)
 * [Atributos e variáveis](atributos_e_variaveis.md)
+* Solução dos desafios 7 e 8 (atributos)
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Solução dos desafios 7 e 8](solucao_dos_desafios_6_e_7.md)
 * [Recursos com prioridade](recursos_com_prioridade.md)
@@ -24,5 +25,4 @@
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
-* Solução dos desafios 7 e 8 (atributos)
 
