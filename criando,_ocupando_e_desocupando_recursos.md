@@ -1,4 +1,4 @@
-# ```Resources```: criando, ocupando e desocupando recursos
+# Criando, ocupando e desocupando recursos
 
 ## Criando
 
