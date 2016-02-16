@@ -2,23 +2,6 @@
 
 Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Nossa primeira missão será construir uma função que gere entidades  com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min. Vamos simular o sistema por 10 minutos apenas.
 
-<!---
-sugiro incluir um módulo inicial com o básico de simulação
-lá, definir entidades, recursos e processos
-dar exemplos de entidades: clientes, peças, navios etc
-recursos: posto de atendimento, máquina, berço etc
-processos: atendimento, usinagem, carga/descarga etc
-
-explicar dois processos básicos: geração (arrival) e extinção (dispose) de entidades
-
-o primeiro exemplo pode ser determinínstico (uma chegada exatamente a cada 5 min), depois o aleatório (exercício)
-
-
-R:
-Se fosse um livro de simulação... Mas acho que a maioria vem aqui já sabendo esse básico e quer aprender logo a linguagem
-
-Repare que, mesmo começando mais adiantado (pressupondo conhecimentos anteriores) a quantidade de informação é grande e longe de ser óbvia
---->
 ### Chamada das bibliotecas ```random``` e ```simpy```
 
 Inicialmente serão necessárias duas bibliotecas do Python: a ```random``` – biblioteca de geração de números aleatórios – e a ```simpy```, que é o próprio SimPy.
