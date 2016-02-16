@@ -1,12 +1,11 @@
 # Solução dos desafios 4, 5 e 6
 
 
-> Desafio 4: imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+> **Desafio 4**: imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
 
 Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. Assim, criei a variável global ```clientesFila```, como mostra o ínicio do código alterado da seção anterior:
 
 ```python
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
@@ -35,7 +34,7 @@ def atendimentoServidor(env, nome, servidorRes):
     clientesFila -= 1 # decrementa contador de novo cliente em fila
 ```
 
-Repare que acrescentei duas chamadas à função ```print```, de modo a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
+Repare que foram acrescentadas duas chamadas à função ```print```, de modo a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável ```
 clientesFila.```
 Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
 ```
@@ -82,7 +81,7 @@ Cliente 10 inicia o atendimento em: 9.7
 
 
 
-> Desafio 5: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
+> **Desafio 5**: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável ```
 chegada.```
  Ao final do atendimento, armazene o tempo de fila, numa variável ```
 tempoFila```
@@ -200,3 +199,7 @@ Cliente 9 termina o atendimento em: 6.8.
 Cliente 10 chega em: 9.7 
 9.69: chegada de novo cliente em fila. Clientes em fila: 1
 Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0 ```
+
+
+> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos.
+
