@@ -14,7 +14,7 @@ No SimPy, a sintaxe para criar um recurso é:
 import simpy
 
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2) # cria o recurso marquinas com capacidadde 2
+maquinas = simpy.Resource(env, capacity=2) #cria recurso marquinas com capacidadde 2
 ```
 
 Se o parâmetro *capacity* não for fornecido, a função assume *capacity*=1. Note que
@@ -32,7 +32,7 @@ def processo(env, entidade, maquinas):
     pass
     
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2)    #cria recurso maquinas com capacidade 2
+maquinas = simpy.Resource(env, capacity=2) #cria recurso maquinas com capacidade 2
 ```
 
 É interessante notar que ocupar um recurso no SimPy é feito em duas etapas:
