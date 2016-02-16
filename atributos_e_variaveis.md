@@ -1,10 +1,10 @@
 # Atributos e variáveis: diferenças em SimPy
 
-Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence a entidade, enquanto a variável ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o seu número de produtos. Note que o atributo "número de produtos" é um valor diferente para cada cliente, possui um valor exclusivo.
+Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence a entidade, enquanto a variável ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o seu número de produtos. Note que o atributo "número de produtos" é um valor diferente para cada cliente, ou seja: é um valor exclusivo do cliente.
 
 Por outo lado, em determinado momento do dia, podemos totalizar o total de produtos vendidos até aquele instante, pela soma dos atributos "número de produtos" de cada cliente. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
 
-Em SimPy a coisa é mais trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Isso não é uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca. É uma característica do Python que, no caso, exige a construção de funções específicas para cada processo (e entidades, que contém atributos, executam esses processos). 
+Em SimPy a coisa é mais trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Isso não é uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca. É uma característica do Python que exige a construção de uma função específica para cada processo gerado (e são as entidades que contém atributos, quem executam tais processos). 
 
 Usuários de pacotes comerciais (Simul8, GPSS, Arena etc.) estão acostumados a informar ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo.
 
@@ -26,7 +26,8 @@ def geraChegadas(env):
         print("Cliente %i chega em: %.1f quer %d produtos" 
         % (contaEntidade, env.now, produtos))
         
-        # inicia o processo de atendimento do cliente de atributos contaEntidade e produtos
+        # inicia o processo de atendimento do cliente de atributos contaEntidade
+        #e do número de produtos
         env.process(compra(env, "Cliente %d" % contaEntidade, produtos))
         
 def compra(env, nome, produtos):
@@ -75,4 +76,5 @@ Total vendido: 12 produtos```
 
 ##Desafios
 **Desafio 7**: retome o problema da lavanderia (Desafio 6). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
+
 **Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Altere o programa para que ele calcule os tempo de espera por cestos, secadoras e o tempo total no sistema.
