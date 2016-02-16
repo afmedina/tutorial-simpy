@@ -11,7 +11,7 @@
 * [Exemplo Fila M/M/1](exemplo_fila_mm1.md)
 * [Solução dos desafios 4 ,5 e 6](solucao_dos_desafios_4_e_5.md)
 * [Atributos e variáveis](atributos_e_variaveis.md)
-* Solução dos desafios 7 e 8 (atributos)
+* [Solução dos desafios 7 e 8 (atributos)](solucao_dos_desafios_7_e_8_atributos.md)
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Solução dos desafios 7 e 8](solucao_dos_desafios_6_e_7.md)
 * [Recursos com prioridade](recursos_com_prioridade.md)
