@@ -1,5 +1,5 @@
 # Instalando o SimPy
-Nossa jornada começa pela instalação de alguns programas e bibliotecas úteis para o SimPy. Selecionamos, para começar o tutorial, os seguintes pacotes:
+Nossa jornada começa por um tutorial de instalação de alguns programas e bibliotecas úteis para o SimPy. Selecionamos, para começar o tutorial, os seguintes pacotes:
 1.	Python 3.4
 2.	Pip
 3.	SimPy 3.0.8
@@ -9,7 +9,12 @@ Um breve preâmbulo das nossas escolhas: no momento da elaboração deste tutori
 
 Pip é um instalador de bibliotecas e facilita muito a vida do programador. 
 
-O SimPy 3.0.8 é o mais atual no momento em que este tutorial é escrito (e já sabemos que a versão 3 traz grandes alterações em relação à 2).
+O SimPy 3.0.8 é o mais atual no momento em que este tutorial é escrito e traz grandes modificações em relação à versão 2.0.
+
+
+> Atenção: existe um vasto material disponível na Internet para o SimPy. Contudo, um cuidado especial deve ser tomado: grande parte deste material refere-se a versão 2.0, que possui diferenças críticas em relação à versão mais atual.
+
+
 
 Quanto ao NumPy, vamos aproveitar o embalo para instalá-lo, pois será muito útil nos nossos modelos de simulação.
 
@@ -57,7 +62,7 @@ Sucessfully```
 ##Passo 4: Instalando um Ambiente Integrado de Desenvolvimento (IDE) para aumentar a produtividade no Python
 Os IDEs, para quem não conhece, são interfaces que facilitam a vida do programador. Geralmente possuem editor de texto avançado, recursos de verificação de erros, monitoram os estados de variáveis, permitem o processamento passo-a-passo etc.
 
-Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já está configurado e pronto para o uso. Geralmente (a depender da sua versão do Sistema Operacional) ele aparece como um ícone na área de trabalho. Se não localizar o ícone, procure por **Spyder** no seu computador (repare no *y*) ou digite em uma janela de cmd o comando `spyder`.
+Se você instalou o Anaconda, então já ganhou um dos bons: o Spyder, que já está configurado e pronto para o uso. Geralmente (a depender da sua versão do Sistema Operacional) ele aparece como um ícone na área de trabalho. Se não localizar o ícone, procure por **Spyder** no seu computador (repare no *"y"*) ou digite em uma janela de cmd o comando `spyder`.
 
 Aberto, o Spyder fica como a figura a seguir (repare na janela superior-direita, um tutorial de uso):
 ![IDE Spider](https://github.com/afmedina/tutorial-simpy/blob/master/instalacao%20spyder800.png?raw=true)
