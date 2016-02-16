@@ -194,8 +194,164 @@ Cliente 10 chega em: 9.7
 Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0 ```
 
 
-> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos.
+> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
 
+A dificuldade do Desafio da Lavanderia é na ocupação e desocupação dos recursos da lavanderia. Se você ocupá-los/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados. 
+
+Como se trata de um modelo com vários processos e distribuições, vamos seguir a Dica da seção "Solução dos desafios 2 e 3" e construir uma função para armazenar as distribuições do problema, organizando nosso código:
+
+import random
+import simpy
+
+```python
+def distributions(tipo):
+    #função que armazena as distribuições utilizadas no modelo
+    return {
+        'chegadas': random.expovariate(1.0/5.0),
+        'lavar': 20,
+        'carregar': random.uniform(1, 4),
+        'descarregar': random.uniform(1, 2),
+        'secar': random.uniform(9, 12),
+    }.get(tipo, 0.0)
+```
+
+Como já destacado, a dificuldade é representar a sequência correta do clinete: um cliente chega, ocupa uma lavadora, lava, ocupa um cesto, libera uma lavadora, ocupa uma secadora, libera o cesto, seca e libera a secadora. Se a sequência foi bem compreendida, a máscara a seguir dever ser fácil de ser preenchida:
+
+```python
+import random
+import simpy
+
+def distributions(tipo):
+    #função que armazena as distribuições utilizadas no modelo
+    return {
+        'chegadas': random.expovariate(1.0/5.0),
+        'lavar': 20,
+        'carregar': random.uniform(1, 4),
+        'descarregar': random.uniform(1, 2),
+        'secar': random.uniform(9, 12),
+    }.get(tipo, 0.0)
+    
+def chegadaClientes(env, lavadoras, cestos, secadoras):
+    #função que gera a chegada de clientes
+    pass
+    
+    #chamada do processo de lavagem e secagem
+    pass
+        
+def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
+    #função que processa a operação de cada cliente dentro da lavanderia
+   
+    #ocupa a lavadora
+    pass
+    
+    #antes de retirar da lavadora, pega um cesto
+    pass
+    
+    #libera a lavadora, mas não o cesto
+    pass
+    
+    #ocupa a secadora antes de liberar o cesto
+    pass
+    
+    #libera o cesto mas não a secadora
+    pass
+    
+    #pode liberar a secadora
+    pass
+
+random.seed(10)
+env = simpy.Environment()
+lavadoras = simpy.Resource(env, capacity = 3)
+cestos = simpy.Resource(env, capacity = 2)
+secadoras = simpy.Resource(env, capacity = 1)
+env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
+env.run(until = 40)
+```
+O programa a seguir apresenta uma possível solução já com diversos comandos de impressão:
+
+```python
+import random
+import simpy
+
+def distributions(tipo):
+    #função que armazena as distribuições utilizadas no modelo
+    return {
+        'chegadas': random.expovariate(1.0/5.0),
+        'lavar': 20,
+        'carregar': random.uniform(1, 4),
+        'descarregar': random.uniform(1, 2),
+        'secar': random.uniform(9, 12),
+    }.get(tipo, 0.0)
+    
+def chegadaClientes(env, lavadoras, cestos, secadoras):
+    #função que gera a chegada de clientes
+    contaClientes = 0
+    
+    while True:
+        contaClientes += 1
+        yield env.timeout(distributions('chegadas'))
+        print("Cliente %s chega em %.1f" %(contaClientes, env.now))
+        #chamada do processo de lavagem e secagem
+        env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
+        
+def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
+    #função que processa a operação de cada cliente dentro da lavanderia
+   
+    #ocupa a lavadora
+    req1 = lavadoras.request()
+    yield req1
+    print("%s ocupa lavadora em %.1f" %(cliente, env.now))
+    yield env.timeout(distributions('lavar'))
+    
+    #antes de retirar da lavadora, pega um cesto
+    req2 = cestos.request()
+    yield req2
+    print("%s ocupa cesto em %.1f" %(cliente, env.now))
+    yield env.timeout(distributions('carregar'))
+    
+    #libera a lavadora, mas não o cesto
+    lavadoras.release(req1)
+    print("%s desocupa lavadora em %.1f" %(cliente, env.now))
+    
+    #ocupa a secadora antes de liberar o cesto
+    req3 = secadoras.request()
+    yield req3
+    print("%s ocupa secadora em %.1f" %(cliente, env.now))
+    yield env.timeout(distributions('descarregar'))
+    
+    #libera o cesto mas não a secadora
+    cestos.release(req2)
+    print("%s desocupa cesto em %.1f" %(cliente, env.now))
+    yield env.timeout(distributions('secar'))
+    
+    #pode liberar a secadora
+    print("%s desocupa secadora em %.1f" %(cliente, env.now))
+    secadoras.release(req3)
+
+random.seed(10)
+env = simpy.Environment()
+lavadoras = simpy.Resource(env, capacity = 3)
+cestos = simpy.Resource(env, capacity = 2)
+secadoras = simpy.Resource(env, capacity = 1)
+env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
+env.run(until = 40)
+```
+A execução do programa fornece como saída:
+
+```
+Cliente 1 chega em 4.2
+Cliente 1 ocupa lavadora em 4.2
+Cliente 2 chega em 12.6
+Cliente 2 ocupa lavadora em 12.6
+Cliente 1 ocupa cesto em 24.2
+Cliente 1 desocupa lavadora em 27.2
+Cliente 1 ocupa secadora em 27.2
+Cliente 1 desocupa cesto em 28.8
+Cliente 2 ocupa cesto em 32.6
+Cliente 2 desocupa lavadora em 36.3
+Cliente 1 desocupa secadora em 38.7
+Cliente 2 ocupa secadora em 38.7
+```
 
 #Teste seus conhecimentos:
 1. A fila M/M/1 possui expressões analíticas conhecidas. Por exemplo, o tempo médio de permanência no sistema é dado pela expressão: $$W = \frac{1} {\mu - \lambda}$$. Valide seu modelo, ou seja, calcule o resultado esperado para a expressão e compare com o resultado obtido pelo seu programa.
