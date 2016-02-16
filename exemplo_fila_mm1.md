@@ -3,11 +3,11 @@
 A fila M/M/1 (ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou 1 cliente chega por min) e o tempo médio de atendimento é de 0,5 min (ou 2 clientes atendidos por minuto no servidor).
 
 Partindo da função ```
-geraChegadas```, codificada na seção anterior, precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função ```
+geraChegadas```, codificada na seção "Criando as primeiras entidades", precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função ```
 atendimentoServidor```
  responsável por manter os clientes em fila e realizar o atendimento.
  
-Inicialmente, vamos acrescentar a constante TEMPO_MEDIO_ATENDIMENTO e criar o recurso ```
+Inicialmente, vamos acrescentar as constantes TEMPO_MEDIO_CHEGADAS e TEMPO_MEDIO_ATENDIMENTO, para armazenar os parâmetros das distribuições dos processos de chegada e atendimento da fila. Adicionalmente, vamos criar o recurso ```
 servidorRes``` com capacidade de atender 1 cliente por vez.
 
  
@@ -15,7 +15,7 @@ servidorRes``` com capacidade de atender 1 cliente por vez.
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-TEMPO_MEDIO_CHEGADAS = 1.0  # tempo entre chegadas sucessivas de clientes
+TEMPO_MEDIO_CHEGADAS = 1.0    # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
 def geraChegadas(env):
@@ -26,21 +26,19 @@ def geraChegadas(env):
         contaChegada += 1
         print('Cliente %d chega em: %.1f ' % (contaChegada, env.now))
         
-random.seed(1000)   # semente do gerador de números aleatórios
-
+random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
-env.process(geraChegadas(env, servidorRes))
+env.process(geraChegadas(env))
 env.run(until=10)
 ```
-Se você executar o script anterior, o recurso é criado, mas nada acontece, afinal, não existe nenhum processo requisitando o recurso criado.
+Se você executar o script anterior, o recurso é criado, mas nada acontece, afinal, não existe ainda nenhum processo requisitando o recurso.
 
-Precisamos criar uma função que realize o atendimento em 4 etapas:
-1. Solicitar um servidor
-2. Ocupar o servidor
-3. Executar o atendimento por um tempo com média 0.5
-4. Liberar o servidor para o próximo cliente
+Precisamos, portanto, construir uma nova função que realize o *processo* de atendimento. Usualmente, um processo qualquer tem ao menos as 4 etapas a seguir:
+1. Solicitar o servidor;
+2. Ocupar o servidor;
+3. Executar o atendimento por um tempo com distribuição conhecida;
+4. Liberar o servidor para o próximo cliente.
 
 A função ```
 atendimentoServidor```
@@ -53,11 +51,10 @@ servidorRes```
  para executar todo o processo de atendimento.
 
 ```python
-from __future__ import print_function # para compatibilidade da função print com o Python 3
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-TEMPO_MEDIO_CHEGADAS = 1.0  # tempo entre chegadas sucessivas de clientes
+TEMPO_MEDIO_CHEGADAS = 1.0    # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
 def geraChegadas(env):
@@ -80,25 +77,23 @@ def atendimentoServidor(env, nome, servidorRes):
     
     yield servidorRes.release(request) # libera o recurso servidorRes
     
-    
 random.seed(1000)   # semente do gerador de números aleatórios
-
 env = simpy.Environment() # cria o environment do modelo
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
 env.process(geraChegadas(env)
 env.run(until=10)
 
 ```
-Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador nota que não existe conexão entre elas. Em SimPy, *e eu vou sempre repetir isso*, **tudo é processo dentro de um *environment***. Assim, o atendimento é um processo que deve ser iniciado por cada cliente gerado na função ```
+Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, *e vamos  repetir isso a exaustão*, **tudo é processo dentro de um *environment***. Assim, o atendimento é um *processo* que deve ser iniciado por cada cliente *gerado* pela função ```
 criaChegadas.``` Isto é feito por uma chamada a função```
  env.process(função de atendimento).```
 
 A função ```
 geraChegadas```
  deve ser alterada, portanto, para receber como parâmetro o recurso ```
-servidorRes```
- criado no corpo do programa e para gerar o processo de antendimento por meio da chamada à função ```
-env.process:```
+servidorRes```,
+ criado no corpo do programa e para iniciar o processo de antendimento por meio da chamada à função ```
+env.process```, como representado a seguir:
 
 ```python
 def geraChegadas(env, servidorRes):
@@ -110,7 +105,8 @@ def geraChegadas(env, servidorRes):
         print('Cliente %d chega em: %.1f ' % (contaChegada, env.now))
         
         # inicia o processo de atendimento
-        env.process(atendimentoServidor(env, "Cliente %d" % contaChegada, servidorRes))
+        env.process(atendimentoServidor(env, "Cliente %d" 
+        % contaChegada, servidorRes))
 ```
 
 Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entedermos melhor a função ```
@@ -178,5 +174,5 @@ chegada.```
 tempoFila```
  e apresente o resultado na tela.
  
-**Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos.
+**Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo de simulação que represente o processo anterior.
  
