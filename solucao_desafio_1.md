@@ -10,18 +10,21 @@ import random # gerador de números aleatórios
 names = ['Chewbacca', 'R2D2']   #jogadores
 
 def transfer(winner, looser, bankroll, tossCount):
+    #função que transfere o dinheiro do winner para o looser 
     bankroll[winner] += 1
     bankroll[looser] -= 1
     print("\nVencedor: %s" % names[winner])
     print("%s possui: $%d e %s possui: $%d" % (names[0], bankroll[0], names[1], bankroll[1]))
     
 def coinToss(bankroll, tossCount):
+    #função que sorteia a moeda e chama a transfer
     if random.uniform(0,1) < 0.5:
         transfer(1, 0, bankroll, tossCount)
     else:
         transfer(0, 1, bankroll, tossCount)
 
 def run2Ruin(bankroll):
+    #função que executa o jogo até a ruina de um dos jogadores
     tossCount = 0
     while bankroll[0] > 0 and bankroll[1] > 0:
         tossCount += 1
@@ -29,8 +32,8 @@ def run2Ruin(bankroll):
     winner = bankroll[1] > bankroll[0]
     print("\n%s venceu depois de %d iterações, fim de jogo!" % (names[winner], tossCount))
 
-bankroll = [5, 5]
-run2Ruin(bankroll)
+bankroll = [5, 5]     #dinheiro disponível para cada jogador
+run2Ruin(bankroll)    #inicia o jogo
 ```
 
 ### Teste seus conhecimentos:
