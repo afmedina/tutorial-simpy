@@ -14,7 +14,8 @@ def transfer(winner, looser, bankroll, tossCount):
     bankroll[winner] += 1
     bankroll[looser] -= 1
     print("\nVencedor: %s" % names[winner])
-    print("%s possui: $%d e %s possui: $%d" % (names[0], bankroll[0], names[1], bankroll[1]))
+    print("%s possui: $%d e %s possui: $%d" 
+    % (names[0], bankroll[0], names[1], bankroll[1]))
     
 def coinToss(bankroll, tossCount):
     #função que sorteia a moeda e chama a transfer
@@ -25,12 +26,13 @@ def coinToss(bankroll, tossCount):
 
 def run2Ruin(bankroll):
     #função que executa o jogo até a ruina de um dos jogadores
-    tossCount = 0
+    tossCount = 0     #contador de lançamentos
     while bankroll[0] > 0 and bankroll[1] > 0:
         tossCount += 1
         coinToss(bankroll,tossCount)
     winner = bankroll[1] > bankroll[0]
-    print("\n%s venceu depois de %d iterações, fim de jogo!" % (names[winner], tossCount))
+    print("\n%s venceu depois de %d iterações, fim de jogo!" 
+    % (names[winner], tossCount))
 
 bankroll = [5, 5]     #dinheiro disponível para cada jogador
 run2Ruin(bankroll)    #inicia o jogo
