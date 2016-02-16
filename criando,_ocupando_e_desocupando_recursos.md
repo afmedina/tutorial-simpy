@@ -48,7 +48,7 @@ maquinas```
 ```python
 import simpy
 
-def processoRecurso(env, entidade, maquinas):
+def processo(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
     req = maquinas.request()                #solicita o recurso e ocupa a fila
@@ -60,7 +60,7 @@ env = simpy.Environment()
 maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
 ```
 
-> Enquanto a entidade estiver em fila aguardando a liberação do recurso, ela permanece no comando ```yield req```. Quando ela finalmente ocupa o recurso, a execução passa para a linha seguinte (comando ```print```, no caso do exemplo).
+> Enquanto a entidade estiver em fila aguardando a liberação do recurso, ela permanece na linha do comando ```yield req```. Quando ela finalmente ocupa o recurso, a execução passa para a linha seguinte (comando ```print```, no caso do exemplo).
 
 
 
@@ -72,7 +72,7 @@ Recurso criado e ocupado é liberado com a função ```release(req)```. Consider
 ```python
 import simpy
 
-def processoRecurso(env, entidade, maquinas):
+def processo(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
     req = maquinas.request()                #solicita o recurso e ocupa a fila
@@ -88,12 +88,12 @@ def processoRecurso(env, entidade, maquinas):
 env = simpy.Environment()
 maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
 ```
-Para testarmos nossa função, vamos executar o processo para apenas 4 peças e analisar o resultado O código a seguir possui um laço for que chama a função criada 4 vezes:
+Para testarmos nossa função, vamos executar o processo para apenas 4 peças e analisar o resultado. O código a seguir possui um laço ```for``` que chama a função ```processo``` 4 vezes no mesmo instante:
 
 ```python
 import simpy
 
-def processoRecurso(env, entidade, maquinas):
+def processo(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
     req = maquinas.request()                #solicita o recurso e ocupa a fila
@@ -109,7 +109,7 @@ def processoRecurso(env, entidade, maquinas):
 env = simpy.Environment()
 maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
 for i in range(1,5):
-    env.process(processoRecurso(env, "Peça %s" %i, maquinas))
+    env.process(processo(env, "Peça %s" %i, maquinas))
 env.run()
 ```
 
@@ -129,14 +129,15 @@ Peça 4 ocupa recurso em 5
 Peça 3 libera o recurso em 10
 Peça 4 libera o recurso em 10
 ```
-Pela simulação, notamos que as quatro peças chegaram no instante 0, mas como a capacidade do recurso é para apenas 2 peças simultâneas, as peças 4 e 5 tiveram que aguardar em fila a liberação das máquinas.
+A saída da simulação permite concluir que as quatro peças chegaram no instante 0, mas como a capacidade do recurso era para apenas 2 peças simultâneas, as peças 4 e 5 tiveram que aguardar em fila até a liberação das máquinas.
 
 ##Status do recurso
-O SimPy fornece alguns parâmetros para você acompanhar o status do recurso criado (```res```, no caso:
+O SimPy fornece alguns parâmetros para você acompanhar o status do recursos criados no modelo. Para um recurso ```res``` definido no programa, podem ser estraídos os seguintes parâmentros durante a simulação:
+
 * ```res.capacity```: capacidade do recurso;
-* ```res.count```: quantas unidades de capacidade estão ocupadas no momento;
-* ``` res.queue```: lista de entidades (no caso, requisições) estão em fila no momento. Como res.queue é uma lista, o **número** de entidades em fila do recurso é obtido diretamento com o comando len(res.queue);
-* ```res.users```: lista de entidades (no caso, requisições) estão em atendimento no momento. Com res.users é uma lista, o **número** de entidades em processo do recurso é obtido diretamento com o comando len(res.users).
+* ```res.count```: quantas unidades de capacidade do recurso estão ocupadas no momento;
+* ```res.queue```: lista de objetos (no caso, requisições) que estão em fila no momento. Como res.queue é uma lista, o **número** de entidades em fila do recurso é obtido diretamente com o comando ```len(res.queue)```;
+* ```res.users```: lista de objetos (no caso, requisições) que estão em atendimento no momento. Como res.users é uma lista, o **número** de entidades em processo no recurso é obtido diretamente com o comando ```len(res.users)```.
 
 Ao exemplo anterior acrescentamos uma pequena função - ```printStatus``` - que imprime na tela todos os parâmetros anteriores de um recurso:
 
@@ -162,7 +163,8 @@ def printStatus(res):
     print ("\tCapacidade: %i \tQuantidade ocupada: %i" %(res.capacity,  res.count))
     print ("\tEntidades (request) aguardando fila: ", res.queue)
     print ("\tEntidades em processamento: ", res.users)
-    print ("\tNúmero de entidades em fila: %i e em processamento: %i" % (len(res.queue), len(res.queue)))
+    print ("\tNúmero de entidades em fila: %i e em processamento: %i"
+    % (len(res.queue), len(res.queue)))
     
     
 env = simpy.Environment()
@@ -172,7 +174,7 @@ for i in range(1,5):
 env.run()
 ```
 
-Quando executado, o programa fornece:
+Quando executado, o programa anterior fornece como saída:
 
 ```
 Peça 1 chega em 0
@@ -204,7 +206,7 @@ Peça 4 libera o recurso em 10
         Entidades em processamento:  []
         Número de entidades em fila: 0 e em processamento: 0
         ```
-Esta seção para por aqui. Na continuação, construiremos um exemplo completo com geração de entidades e ocupação de recursos.
+Esta seção para por aqui. Na continuação, construiremos um exemplo completo com geração de entidades e ocupação de recursos, de modo a cruzar tudo o que vimos até aqui sobre o SimPy.
 
 ## Conteúdos desta seção
 | **Conteúdo** | **Descrição** |
