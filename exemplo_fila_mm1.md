@@ -159,8 +159,24 @@ Cliente 9 termina o atendimento em: 6.8.
 Cliente 10 chega em: 9.7 
 Cliente 10 inicia o atendimento em: 9.7```
 
+##Uma representação alternativa para a ocupação e desocupação de recursos
+A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço ```[with](http://effbot.org/zone/python-with-statement.htm)```:
 
-Existem muitos conceitos a serem discutidos sobre o script anterior e, garanto, que eles serão destrinchados nas seções seguintes. 
+```python
+def atendimentoServidor(env, nome, servidorRes):
+    with servidorRes.request() as req # solicita o recurso servidorRes
+      yield req # aguarda em fila até o acesso
+      print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
+    
+      # tempo de atendimento exponencial
+      yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
+
+      print('%s termina o atendimento em: %.1f.' % (nome, env.now)) 
+```
+
+No script anterior a ocupação e desocupação é garantida dentro do ```with```, deixando o código mais compacto e legível. Contudo, a aplicação é limitada a problemas de ocupação e desocupação simples de servidores (veja um contra-exemplo no Desafio 6).
+
+Existem muitos conceitos a serem discutidos sobre os scripts anteriores e, garanto, que eles serão destrinchados nas seções seguintes. 
 
 Por hora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
 
