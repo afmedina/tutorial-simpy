@@ -25,5 +25,5 @@
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
-* Solução dos desafios 11 e 12
+* [Solução dos desafios 11 e 12](solucao_dos_desafios_11_e_12.md)
 
