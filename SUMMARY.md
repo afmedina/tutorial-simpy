@@ -15,6 +15,7 @@
 * [Environments: controlando a simulação](environments_controlando_a_simulacao.md)
 * [Solução dos desafios 9 e 10](solucao_dos_desafios_6_e_7.md)
 * [Recursos com prioridade](recursos_com_prioridade.md)
+* [Solução dos desafios 11 e 12](solucao_dos_desafios_11_e_12.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
@@ -25,5 +26,4 @@
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
-* [Solução dos desafios 11 e 12](solucao_dos_desafios_11_e_12.md)
 
