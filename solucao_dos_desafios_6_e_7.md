@@ -1,6 +1,7 @@
 # Solução dos desafios 9 e 10
 
-**Desafio 9**: Considere que cada entidade gerada no primeiro exemplo desta seção tem um peso em gramas dado por uma distribuição normal de média 10 e desvio padrão igual a 5. Crie um critério de parada para quando a média dos pesos das entidades geradas esteja no intervalo entre 9,5 e 10,5.
+
+> **Desafio 9**: Considere que cada entidade gerada no primeiro exemplo desta seção tem um peso em gramas dado por uma distribuição normal de média 10 e desvio padrão igual a 5. Crie um critério de parada para quando a média dos pesos das entidades geradas esteja no intervalo entre 9,5 e 10,5.
 
 Este primeiro desafio envolve poucas modificações no programa original. Acrescentamos três variáveis novas: ```media```, ```contador``` e ```pesoTotal```; o laço while foi substituido pelo critério de parada e algumas linhas foram acrescentadas para o cálculo da média de peso até a última entidade gerada. O peso de cada entidade é sorteado pela função random.normalvariate(mu, sigma) da bliblioteca random.
 
@@ -41,7 +42,10 @@ Média atual 11.75
 p1: nova chegada em 6
 Média atual 10.49
 ```
-**Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca ```numpy``` para isso (consulte o [stackoverflow](http://stackoverflow.com/)!).
+
+> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca ```numpy``` para isso (consulte o [stackoverflow](http://stackoverflow.com/)!).
+
+
 
 Esta situação exige um pouco mais no processo de codificação, contudo é algo muito utilizado em modelos de simulação de eventos discretos.
 
