@@ -17,6 +17,7 @@
 * [Recursos com prioridade](recursos_com_prioridade.md)
 * [Solução dos desafios 11 e 12](solucao_dos_desafios_11_e_12.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
+* [Solução dos desafios 13 e 14](solucao_dos_desafios_13_e_14.md)
 * [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
@@ -26,5 +27,4 @@
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
-* [Solução dos desafios 13 e 14](solucao_dos_desafios_13_e_14.md)
 
