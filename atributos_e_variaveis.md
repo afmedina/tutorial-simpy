@@ -1,6 +1,6 @@
 # Atributos e variáveis: diferenças em SimPy
 
-Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence a entidade, enquanto a variável ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o seu número de produtos. Note que o atributo "número de produtos" é um valor diferente para cada cliente, ou seja: é um valor exclusivo do cliente.
+Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence à entidade, enquanto a variável pertence ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o seu número de produtos. Note que o atributo "número de produtos" é um valor diferente para cada cliente, ou seja: é um valor exclusivo do cliente.
 
 Por outo lado, em determinado momento do dia, podemos totalizar o total de produtos vendidos até aquele instante, pela soma dos atributos "número de produtos" de cada cliente. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
 
@@ -45,7 +45,8 @@ random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env)) # cria o processo de chegadas
 env.run(until=10) # roda a simulação por 10 unidades de tempo
-print("Total vendido: %d produtos" % contaVendas)```
+print("Total vendido: %d produtos" % contaVendas)
+```
 
 A execução do programa apresenta como resposta:
 
@@ -73,6 +74,11 @@ Cliente 7 chega em: 9.0 e compra 2 produtos
 Cliente 9 chega em: 9.0 quer 3 produtos
 
 Total vendido: 12 produtos```
+
+##Atributos em modelos orientados ao objeto
+Para aqueles que programam com classes e objetos, o atributo é naturalmente o atributo da entidade (ou do processo). A vantagem é que podemos criar atributos em recursos também, basta que o recurso seja criado dentro de uma classe. Por exemplo, a fila M/M/1 poderia ser modelada com o servidor de atendimento como uma classe:
+
+
 
 ##Desafios
 **Desafio 7**: retome o problema da lavanderia (Desafio 6). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
