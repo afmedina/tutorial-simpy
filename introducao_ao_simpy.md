@@ -10,7 +10,7 @@ Este tutorial será desenvolvido em posts da seção **blog** e a ideia é elabo
 Com **SimPy** é possível de se construir, além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, e como você notará ao longo deste texto, essas possibilidades estão mais associadas ao Python do que propriamente a recursos do SimPy.
 ## Por que utilizar o SimPy?
 
-Talvez a pergunta correta seja por que utiliza o Python? 
+Talvez a pergunta correta seja: "por que utilizar o Python?" 
 
 Python é hoje uma das linguagens mais utilizadas no meio científico e uma breve pesquisa pela Internet vai sugerir artigos, posts e intermináveis discussões sobre os porquês desse sucesso todo. Podemos resumir a coisa toda em 3 grandes razões:
 
