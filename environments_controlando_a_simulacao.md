@@ -2,7 +2,7 @@
 
 Em SimPy, o Environment é quem coordena a execução do seu programa. Ele avança o relógio de simulação, planeja a ordem de execução dos eventos e processa cada evento planejado no instante esperado pelo programa.
 
-## ```Environment.run()```: controle de execução
+## ```Environment.run():``` controle de execução
 
 A maneira mais usual de controle de execução de um modelo de simulação é fornecendo o tempo de duração da simulação. O SimPy, contudo, vai além e permite que alguns outros modos de se controlar a simulação. 
 
@@ -86,8 +86,8 @@ env.run(until=chegadas[1])
 ## Simulação passo a passo: ```peek``` & ```step```
 
 O SimPy permite a simulação passo a passao por meio de dois comandos:
-* peek(): retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito (float('inf'));
-* step(): processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna EmptySchedule.
+* ```peek()```: retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito (float('inf'));
+* ```step()```: processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna EmptySchedule.
 
 A maneira usual de realizar a simulação passo a passo é por meio de um laço ```while```, como no exemplo a seguir (derivado do primeiro exemplo desta seção):
 
