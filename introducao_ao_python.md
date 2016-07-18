@@ -16,7 +16,6 @@ Sugestões:
 1. Um curso muito bom no Udacity (20 horas): [Programming Foundations with Python](https://www.udacity.com/course/programming-foundations-with-python--ud036) (clicando no botão azul “Access course materials”, você faz o curso de graça, mas sem receber o certificado). A vantagem do Udacity é que você pode começar o curso a hora que quiser;
 2. Outro curso muito bom é o da CodeAcademy (13 horas): [Python](https://www.codecademy.com/pt-BR/learn/python);
 2.	Um tutorial muito rápido (1 hora): [Python in One Easy Lesson](http://cs.stanford.edu/people/nick/python-in-one-easy-lesson/);
-3.	Um tutorial completo: [;
 4.	Outro curso muito bom, este no Coursera: [Introdução à Programação Interativa em Python (Parte 1)](https://pt.coursera.org/course/interactivepython1).
 5.	Eu tenho sempre na minha mesa um ótimo livro de Python: Summerfield, Mak. Programming in Python 3: a complete introduction. Addison-Wesley Professional. 2012. Este livro já foi traduzido para o Português e pode ser encontrado na [amazon](http://www.amazon.com.br/Programa%C3%A7%C3%A3o-Em-Python-Mark-Summerfield/dp/8576083841/ref=sr_1_7?s=books&ie=UTF8&qid=1448738880&sr=1-7&keywords=python).
 
