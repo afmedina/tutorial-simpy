@@ -8,8 +8,6 @@ geraChegadas```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
 
-
- 
 Neste caso, o *script* em Python é autoexplicativo, apenas note que limitei o número de chegadas em 5 e fiz isso antes da chamada do processo gerado pela função ```geraChegadas()```:
 
 ```python
@@ -34,7 +32,6 @@ env.run(until=10) # roda a simulação por 10 unidades de tempo
 > **Desafio 3:** modifique a função ```
 geraChegadas```
  de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
-
 
 
 Neste caso, precisamos verificar na documentação da biblioteca random, quais são nossas opções. A tabela a seguir, resume as distribuições disponíveis:
@@ -89,13 +86,11 @@ def distributions(tipo):
         'arrival': random.expovariate(1/10),
         'singing': random.triangular(10, 20, 30),
         'applause': random.gauss(10, 1),
-    }.get(tipo, 0.0)```
+    }.get(tipo, 0.0)
+```
 
 O próximo exemplo testa como chamar a função:
-
-```python    
-#Teste
-    
+```python 
 tipo = 'arrival'
 print(tipo, distributions(tipo))
 
@@ -103,13 +98,15 @@ tipo = 'singing'
 print(tipo, distributions(tipo))
 
 tipo = 'applause'
-print(tipo, distributions(tipo))```
+print(tipo, distributions(tipo))
+```
 
  O qual produz a saída:
-```python  
+```python 
 arrival 6.231712146858156
 singing 22.192356552471104
-applause 10.411795571842426```
+applause 10.411795571842426
+```
 
 Essa foi a nossa dica do dia!
 
@@ -120,12 +117,13 @@ Uma última observação:
 
 ```python
 while True:
-    yield env.timeout(random.expovariate(1.0/2.0))```
-
+    yield env.timeout(random.expovariate(1.0/2.0))
+```
 Ou:
 ```python
 while True:
-    yield env.timeout(random.expovariate(0.5))```
+    yield env.timeout(random.expovariate(0.5))
+```
 
 **Resposta: **note que, no primeiro caso, a cada novo número gerado é realizada uma operação de divisão. No segundo caso, isso não ocorre, deixando o tempo de processamento bem mais rápido.
 
