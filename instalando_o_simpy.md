@@ -5,22 +5,17 @@ Nossa jornada começa por um tutorial de instalação de alguns programas e bibl
 3.	SimPy 3.0.8
 4.	NumPy
 
-Um breve preâmbulo das nossas escolhas: no momento da elaboração deste tutorial, o Python já está na versão 3.5.0, mas o Anaconda (explicado adiante) ainda fornece a versão 3.4. Se você já possui uma instalação com o Python 3.5, pode instalar o SimPy sem problemas, pois ele é compatível com as versões mais recentes do Python.
+Um breve preâmbulo das nossas escolhas: no momento da elaboração deste tutorial, o **Python** já está na versão 3.5.0, mas o **Anaconda** (explicado adiante) ainda fornece a versão 3.4. Se você já possui uma instalação com o Python 3.5, pode instalar o SimPy sem problemas, pois ele é compatível com as versões mais recentes do Python.
 
-Pip é um instalador de bibliotecas e facilita muito a vida do programador. 
+**Pip** é um instalador de bibliotecas e facilita muito a vida do programador. 
 
-O SimPy 3.0.8 é o mais atual no momento em que este tutorial é escrito e traz grandes modificações em relação à versão 2.0.
+O **SimPy** 3.0.8 é o mais atual no momento em que este tutorial é escrito e traz grandes modificações em relação à versão 2.0.
 
-
-> Atenção: existe um vasto material disponível na Internet para o SimPy. Contudo, um cuidado especial deve ser tomado: grande parte deste material refere-se a versão 2.0, que possui diferenças críticas em relação à versão mais atual.
-
+> Atenção: existe vasto material disponível na Internet para o SimPy. Contudo, um cuidado especial deve ser tomado: grande parte deste material refere-se a versão 2.0, que possui diferenças críticas em relação à versão mais atual. Este texto é para a versão 3 em diante.
 
 
-Quanto ao NumPy, vamos aproveitar o embalo para instalá-lo, pois será muito útil nos nossos modelos de simulação.
+Quanto ao **NumPy**, vamos aproveitar o embalo para instalá-lo, pois será muito útil nos nossos modelos de simulação. Basicamente, NumPy acrescenta um tipo de dados (*n-dimensional array*) que facilita a codificação de modelos de simulação, particularmente na análise de dados de saída do modelo.
 
-<!---
-o numPy traz funções e constantes matemáticas que não esetão disponíveis no Python como...
---->
 
 ##Passo 1: Anaconda, the easy way
 Atenção:
