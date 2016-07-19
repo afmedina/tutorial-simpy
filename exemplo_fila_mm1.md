@@ -116,7 +116,7 @@ def atendimentoServidor(env, nome, servidorRes):
 ```
 
 Agora execute o script e voilá!
-
+```python
     Cliente 1 chega em: 1.5 
     Cliente 1 inicia o atendimento em: 1.5 
     Cliente 1 termina o atendimento em: 1.6.
@@ -148,7 +148,7 @@ Agora execute o script e voilá!
     Cliente 10 inicia o atendimento em: 9.7
 ```
 ##Uma representação alternativa para a ocupação e desocupação de recursos
-A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço with:
+A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço `with`:
 ```python
     def atendimentoServidor(env, nome, servidorRes):
         with servidorRes.request() as req # solicita o recurso servidorRes
