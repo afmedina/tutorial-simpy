@@ -12,7 +12,8 @@ import simpy  # biblioteca de simulação
 TEMPO_MEDIO_CHEGADAS = 1.0    # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
-clientesFila = 0```
+clientesFila = 0
+```
 
 O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente sai da fila para iniciar seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função ```
 atendimentoServidor```
@@ -97,11 +98,11 @@ def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
     
     chegada = env.now               # armazena o instante de chegada do cliente
-    request = servidorRes.request() # solicita o recurso servidorRes```
+    request = servidorRes.request() # solicita o recurso servidorRes
+```
+Agora, inciado o atendimento (logo após o `yield`
+ que ocupa o recurso), a variável `tempoFila` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável `chegada`:
 
-
-Agora, inciado o atendimento (logo após o ```yield```
- que ocupa o recurso), a variável ```tempoFila``` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável ```chegada```:
 ```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
@@ -188,7 +189,8 @@ Cliente 9 inicia o atendimento em: 6.5. Tempo em fila: 0.5
 Cliente 9 termina o atendimento em: 6.8.
 Cliente 10 chega em: 9.7 
 9.69: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0 ```
+Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0
+```
 
 > **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
 
