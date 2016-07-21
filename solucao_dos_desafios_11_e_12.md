@@ -2,7 +2,7 @@
 
 > **Desafio 11**: acrescente ao último programa proposto o cálculo do tempo de atendimento decorrido para o paciente que foi interrompido por outro e imprima o resultado na tela.
 
-```python 
+```python
 import simpy
 import random
 
@@ -14,7 +14,7 @@ def sorteiaPulseira():
     elif r <= .90:
         return "pulseira amarela", 2, False
     return "pulseira vermelha", 1, True
-    
+
 def chegadaPacientes(env, medicos):
     #gera pacientes exponencialmente distribuídos
     #sorteia a pulseira
@@ -39,7 +39,8 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
         except simpy.Interrupt:
             tempoAtendimento -= env.now-inicioAtendimento #recalcula o tempo de atendimento
-            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
+            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" 
+                    %(paciente, pulseira, env.now))
             print("%s ainda precisa de %.1f minutos de atendimento" %(paciente, tempoAtendimento))
 
 random.seed(100)       
@@ -47,11 +48,11 @@ env = simpy.Environment()
 medicos = simpy.PreemptiveResource(env, capacity=2) # cria os médicos
 chegadas = env.process(chegadaPacientes(env, medicos))
 env.run(until=20)    
- ``` 
+```
 
 > **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao antedimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a númeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
 
-```python 
+```py
 import simpy
 import random
 
@@ -63,7 +64,7 @@ def sorteiaPulseira():
     elif r <= .90:
         return "pulseira amarela", 20, False
     return "pulseira vermelha", 1, True
-    
+
 def chegadaPacientes(env, medicos):
     #gera pacientes exponencialmente distribuídos
     #sorteia a pulseira
@@ -88,7 +89,8 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
         except simpy.Interrupt:
             tempoAtendimento -= env.now-inicioAtendimento #recalcula o tempo de atendimento
-            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
+            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" 
+                    %(paciente, pulseira, env.now))
             print("%s ainda precisa de %.1f minutos de atendimento" %(paciente, tempoAtendimento))
             prio -= 1 #aumenta a prioridade
             env.process(atendimento(env, paciente, pulseira, prio, preempt, medicos))
@@ -98,4 +100,5 @@ env = simpy.Environment()
 medicos = simpy.PreemptiveResource(env, capacity=2) # cria os médicos
 chegadas = env.process(chegadaPacientes(env, medicos))
 env.run(until=20)
-``` 
+```
+
