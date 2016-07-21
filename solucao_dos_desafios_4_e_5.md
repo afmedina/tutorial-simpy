@@ -12,8 +12,9 @@ TEMPO_MEDIO_CHEGADAS = 1.0    # tempo entre chegadas sucessivas de clientes
 TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
 
 clientesFila = 0
- ``` 
-O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente sai da fila para iniciar seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função  ``` atendimentoServidor ```  da seção anterior:
+```
+
+O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente sai da fila para iniciar seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função  `atendimentoServidor`  da seção anterior:
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
@@ -34,7 +35,7 @@ def atendimentoServidor(env, nome, servidorRes):
 Repare que foram acrescentadas duas chamadas à função `print`, de modo a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável `clientesFila.`
 Executado o código, descobrimos que no instante 5,5 min, temos 2 clientes em fila:
 
-```
+```py
 Cliente 1 chega em: 1.5 
 1.50: chegada de novo cliente em fila. Clientes em fila: 1
 Cliente 1 inicia o atendimento em: 1.5 
@@ -80,11 +81,11 @@ Cliente 10 inicia o atendimento em: 9.7
 >  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`
 >  e apresente o resultado na tela.
 
-A ideia deste desafio é que você se acostume com esse cálculo tão trivial mas ao mesmo tempo tão importante dentro dos modelos de simulação: o tempo de permanência de uma entidade em algum local (neste caso, o local é a fila).
+A ideia deste desafio é que você se acostume com esse cálculo tão trivial mas ao mesmo tempo tão importante dentro dos modelos de simulação: o tempo de permanência de uma entidade em algum local \(neste caso, o local é a fila\).
 
 O caso é similar ao do cronometrista que deve disparar seu cronômetro na chegada do cliente e pará-lo ao início do antendimento.
 
-Assim, ao chegar para atendimento no servidor, criamos uma variável local (isto é: um *atributo*) `chegada` que armazena o instante atual fornecido pelo comando `env.now` do SimPy:
+Assim, ao chegar para atendimento no servidor, criamos uma variável local \(isto é: um _atributo_\) `chegada` que armazena o instante atual fornecido pelo comando `env.now` do SimPy:
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
@@ -95,7 +96,8 @@ def atendimentoServidor(env, nome, servidorRes):
     request = servidorRes.request() # solicita o recurso servidorRes
 ```
 
-Inciado o atendimento (logo após o ```yield``` que ocupa o recurso), a variável local (ou o *atributo*)```tempoFila``` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado no atributo ```chegada```:
+Inciado o atendimento \(logo após o `yield` que ocupa o recurso\), a variável local \(ou o _atributo_\)`tempoFila` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado no atributo `chegada`:
+
 ```python
 def atendimentoServidor(env, nome, servidorRes):
     global clientesFila
@@ -142,7 +144,8 @@ def atendimentoServidor(env, nome, servidorRes):
 ```
 
 Quando executado, o programa mostra na tela o tempo de espera de cada cliente:
-    ```
+
+```
     Cliente 1 chega em: 1.5 
     1.50: chegada de novo cliente em fila. Clientes em fila: 1
     Cliente 1 inicia o atendimento em: 1.5. Tempo em fila: 0.0 
@@ -184,13 +187,13 @@ Quando executado, o programa mostra na tela o tempo de espera de cada cliente:
     Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0
 ```
 
->**Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
+> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar \(ou aguarda em fila\). A lavagem consome 20 minutos \(constante\). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
 
-A dificuldade do desafio da Lavanderia está na ocupação e desocupação dos recursos da lavanderia. Se você ocupá-los/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados. 
+A dificuldade do desafio da Lavanderia está na ocupação e desocupação dos recursos da lavanderia. Se você ocupá-los\/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados.
 
 Como se trata de um modelo com vários processos e distribuições, vamos seguir a Dica da seção "Solução dos desafios 2 e 3" e construir uma função para armazenar as distribuições do problema, organizando nosso código:
 
-    ```python
+```python
     import random
     import simpy
 
@@ -203,7 +206,8 @@ Como se trata de um modelo com vários processos e distribuições, vamos seguir
             'descarregar': random.uniform(1, 2),
             'secar': random.uniform(9, 12),
         }.get(tipo, 0.0)
- ``` 
+```
+
 Como já destacado, a dificuldade é representar a sequência correta de processos do cliente: ele chega, ocupa uma lavadora, lava, ocupa um cesto, libera uma lavadora, ocupa uma secadora, libera o cesto, seca e libera a secadora. Se a sequência foi bem compreendida, a máscara a seguir dever ser fácil de ser preenchida:
 
 ```python
