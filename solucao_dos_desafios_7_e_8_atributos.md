@@ -100,13 +100,16 @@ env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
 env.process(monitor(env, lavadoras, cestos, secadoras))
 env.run(until = 60000)
 
-util = integraMonitor(lavadorasUtilList, lavadoras), integraMonitor(cestosUtilList, cestos), integraMonitor(secadorasUtilList, secadoras)
+util = integraMonitor(lavadorasUtilList, lavadoras), 
+                     integraMonitor(cestosUtilList, cestos), integraMonitor(secadorasUtilList, secadoras)
 taxaChegadas = 1.0/5.0
 print("Ocupações: lavadoras %.2f cestos %.2f secadoras %.2f" %(util[0][0], util[1][0], util[2][0]))
 print("Filas: lavadoras %.2f cestos %.2f secadoras %.2f" %(util[0][1], util[1][1], util[2][1]))
-print("Espera: lavadoras %.2f cestos %.2f secadoras %.2f" %(util[0][1]/taxaChegadas, util[1][1]/taxaChegadas, util[2][1]/taxaChegadas))
+print("Espera: lavadoras %.2f cestos %.2f secadoras %.2f" 
+        %(util[0][1]/taxaChegadas, util[1][1]/taxaChegadas, util[2][1]/taxaChegadas))
 print (tempoEsperaLavadora/contaClientes)
-print("Fila de clientes ao final da simulação: lavadoras %.2f cestos %.2f secadoras %.2f" %(len(lavadoras.queue), len(cestos.queue), len(secadoras.queue)))
+print("Fila de clientes ao final da simulação: lavadoras %.2f cestos %.2f secadoras %.2f" 
+         %(len(lavadoras.queue), len(cestos.queue), len(secadoras.queue)))
 ```
 
 **Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Altere o programa para que ele calcule os tempo de espera por cestos, secadoras e o tempo total no sistema.
