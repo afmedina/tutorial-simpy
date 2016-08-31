@@ -4,7 +4,7 @@ Você está todo feliz e contente atravessando a galáxia no seu X-Wing quando..
 
 Nesta seção iremos interromper processos já em execução e depois retomar a operação inicial. A aplicação mais óbvia é para a quebra de equipamentos durante a operação, como no caso do R2D2.
 
-A interrupção de um processo em SimPy é realizada por meio de um comando ```Interrupt``` no processo já iniciado. O cuidado aqui é que quando um recurso é interrompido por outro processo ele causa uma interrupção no Python, o que obriga a utilização de lógica do timpo ```try:...except```.
+A interrupção de um processo em SimPy é realizada por meio de um comando ```Interrupt``` aplicado ao processo já iniciado. O cuidado aqui é que quando um recurso é interrompido por outro processo ele causa uma interrupção, de fato, no Python, o que nos obriga a utilização de lógicas do tipo ```try:...except```, o que não deixa de ser uma boa coisa, dada a facilidade de uso deste tipo de lógica.
 
 
 ## Criando quebras de equipamento
@@ -54,7 +54,8 @@ Quando executado, o programa fornece uma viagem tranquila:
 Viagem iniciada em 0
 Viagem concluida em 30, duração total da viagem 30
 ```
-Portanto, resta agora criar um processo que cria a interrupção da viagem. Note, na penúltima linha, que temos o processo em execução armazenado na variável ```viagem```. O que devemos fazer é interrompê-lo de 10 em 10 horas. Para tanto, a função ```paradaTecnica``` a seguir verifica se o processo de viagem está em andamento e paraliza a operação depois de 10 horas:
+A viagem é tranquila, pois não criamos ainda nosso "gerador de interrupções", que nada mais é do que um processo em SimPy que cria a interrupção da viagem. 
+Note, na penúltima linha do código anterior, que o processo em execução foi armazenado na variável ```viagem```. O que devemos fazer é interrompê-lo de 10 em 10 horas. Para tanto, a função ```paradaTecnica``` a seguir verifica se o processo de viagem está em andamento e paraliza a operação depois de 10 horas:
 
 ```python
 import simpy
@@ -115,7 +116,8 @@ Falha do R2D2 em 50, tempo de viagem estimado 0
 Viagem concluida em 55, duração total da viagem 55
 ```
 Alguns aspectos importantes do código anterior:
-1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. É por meio de variáveis globais que um processo "sabe" o que está ocorrendo no outro.
+
+1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. É por meio de variáveis globais que um processo "sabe" o que está ocorrendo no outro;
 2. Como a execução ```env.run()``` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o ```while duracaoViagem > 0``` torna-se falso. Note que esse ```while``` deve existir nos dois processos em execução, caso contrário o programa seria executado indefinidamente;
 3. Dentro da função ```paradaTecnica``` a variável global ```viajando``` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal, o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas e veja o que acontece.
 
@@ -134,6 +136,6 @@ Alguns aspectos importantes do código anterior:
 
 > **Desafio 14** Você não acha que pode viajar pelo espaço infinito sem encontrar alguns TEs das forças imperiais, não é mesmo? Considere que a cada 25 horas, você se depara com um TE imperial. O ataque dura 30 minutos e, se nesse tempo você não estiver com o canhão funcionando, a sua próxima viagem é para o encontro com o mestre Yoda. 
 
-Dica: construa uma função executaCombate que controla todo o processo de combate. Você vai precisar também de uma variável global que informe se o X-Wing está ou não em combate.
+Dica: construa uma função `executaCombate `que controla todo o processo de combate. Você vai precisar também de uma variável global que informe se o X-Wing está ou não em combate.
 
 
