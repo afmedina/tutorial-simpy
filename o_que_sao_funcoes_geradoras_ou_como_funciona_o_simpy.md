@@ -15,7 +15,8 @@ for,```
 ```python
  lista = [1, 2, 3]
  for i in lista:
-    print (i)```
+    print (i)
+```
 No exemplo, ```lista``` é um *objeto* e o comando ```for``` é um **iterador** que permite vasculhar cada elemento dentro da lista, retornando sempre o elemento seguinte do objeto.
 
 ##Funções geradoras
@@ -30,7 +31,8 @@ def seqNum():
         n += 1
 
 for i in seqNum():
-    print(i)```
+    print(i)
+```
 
 
 Se você executou o programa anterior, deve ter notado que o ```yield``` funciona como um ```return``` dentro da função, mas com o **superpoder** de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função **não** executa o corpo inteiro da função! Isto significa que, numa segunda chamada à função, a execução retoma a partir da linha seguinte ao ```yield``` e o próximo valor de *n* será o anterior incrementado de 1.
@@ -56,10 +58,12 @@ print(next(zombie))
 ```
 Diferentemente do caso anterior, criamos um zumbi a partir da linha:
 ```python
-zombie = zombiePos()```
+zombie = zombiePos()
+```
 Cada novo passo do pobre infeliz é obtido pelo comando:
 ```python
-next(zombie))```
+next(zombie))
+```
 
 O bacana, no caso, é que podemos criar 2 zumbis passeando pela relva:
 
@@ -77,5 +81,6 @@ zombie1 = zombiePos()
 zombie2 = zombiePos()
 print(next(zombie1), next(zombie2))
 print(next(zombie1), next(zombie2))
-print(next(zombie1), next(zombie2))```
+print(next(zombie1), next(zombie2))
+```
 
