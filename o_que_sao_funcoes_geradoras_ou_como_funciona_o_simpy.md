@@ -111,4 +111,4 @@ print(next(zombie1), next(zombie2))
 (0, 1, 'Brains!') (1, -2, 'Brains!')
 
 ```
-
+Obs: fica como exercício, construir uma lógica que impeça um zumbi de ocupar o mesmo espaço que outro.
