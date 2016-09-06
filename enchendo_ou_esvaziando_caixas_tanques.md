@@ -12,7 +12,7 @@ env = simpy.Environment()
 tanque = simpy.Container(env, capacity=1000, init=500)
 ```
 
-O container possui três comandos importantes:
+O `container `possui três comandos importantes:
 
 * Para encher: `tanque.put(quantidade)`
 * Para esvaziar: `tanque.get(quantidade)`
