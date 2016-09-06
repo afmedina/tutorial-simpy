@@ -16,7 +16,9 @@ for,```
  lista = [1, 2, 3]
  for i in lista:
     print (i)
-
+```
+Quando executado, o programa fornece a seguinte saída
+```
 1
 2
 3
@@ -35,7 +37,10 @@ def seqNum():
         n += 1
 
 for i in seqNum():
-    print(i)
+```
+
+Quando executado, o programa fornece a seguinte saída
+```
 0
 1
 2
@@ -57,7 +62,7 @@ Isto significa que, numa segunda chamada à função, a execução retoma a part
 
 Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* ```for``` como no caso anterior. Outra possibilidade é você chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
-Exemplo: Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do morto-vivo:
+Exemplo: Que tal uma função que nos diga a posição atual de um zumbi que só pode andar uma casa por fez no plano? A função geradora a seguir acompanha o andar cambeleante do morto-vivo:
 ```python
 import random
 
@@ -73,7 +78,9 @@ zombie = zombiePos()
 print(next(zombie))
 print(next(zombie))
 print(next(zombie))
-
+```
+Quando executado, vemos nosso zumbi caminhando uma posição por vez (algumas vezes ele fica no mesmo lugar...):
+```
 (0, 0, 'Brains!')
 (1, 0, 'Brains!')
 (2, 1, 'Brains!')
@@ -100,15 +107,18 @@ def zombiePos():
         x += random.randint(-1, 1)
         y += random.randint(-1, 1)
         
-zombie1 = zombiePos()
-zombie2 = zombiePos()
-print(next(zombie1), next(zombie2))
-print(next(zombie1), next(zombie2))
-print(next(zombie1), next(zombie2))
+zombie1, zumbie2  = zombiePos(), zombiePos()
 
-(0, 0, 'Brains!') (0, 0, 'Brains!')
-(0, 1, 'Brains!') (1, -1, 'Brains!')
-(0, 1, 'Brains!') (1, -2, 'Brains!')
+print("zumbi 1", next(zombie1), "zumbi 2", next(zombie2))
+print("zumbi 1", next(zombie1), "zumbi 2", next(zombie2))
+print("zumbi 1", next(zombie1), "zumbi 2", next(zombie2))
+```
+Quando executado:
+```
+zumbi 1 (0, 0, 'Brains!') zumbi 2 (0, 0, 'Brains!')
+zumbi 1 (0, 0, 'Brains!') zumbi 2 (0, 1, 'Brains!')
+zumbi 1 (-1, 0, 'Brains!') zumbi 2 (1, 2, 'Brains!')
+
 
 ```
 Obs: fica como exercício, construir uma lógica que impeça um zumbi de ocupar o mesmo espaço que outro.
