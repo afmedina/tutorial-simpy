@@ -13,7 +13,9 @@ Por exemplo, considere um consultório de pronto atendimento de um hospital em q
 No caso do exemplo, os médicos são nossos recursos, mas eles respeitam a prioridade. Um médico ou recurso deste tipo, é sempre criado pelo comando:
 `medicos = simpy.PriorityResource(env, capacity=capacidade_desejada)`
 
-Para solução do exemplo, o programa aqui proposta terá 3 funções: uma para sorteio do tipo de pulseira e outras duas para processamento das chegas e pedidos. Como uma máscara inicial, teríamos:
+Para solução do exemplo, o programa aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira e outras duas para processamento das chegas e pedidos. 
+
+Como uma máscara inicial, teríamos:
 
 ```python
 import simpy
@@ -244,7 +246,7 @@ env.run(until=20)
 ## Conteúdos desta seção
 
 | **Conteúdo** | **Descrição** |
-| :--- | :--- |
+| --- | --- |
 | `meuRecurso = simpy.PriorityResource(env, capacity=1)` | cria um recurso em `env` com prioridade de atendimento e capacidade = 1 |
 | `meuRequest = meuRecurso.request(env, priority=prio)` | solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
 | `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)` | cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior |
