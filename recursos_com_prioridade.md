@@ -190,7 +190,7 @@ Paciente 4 com pulseira verde inicia o atendimento em 18.7
 
 Note como agora o Paciente 5 interrompe o atendimento do Paciente 1, como desejado.
 
-Contudo, a implementação anterior está cheia de limitações: pacientes com pulseira amarela não deveriam interromper o atendimento, mas na implementação proposta eles devem interromper o atendimento de pacientes de pulseira verde. Para estas situações, o `request `possui um argumento que liga ou desliga a opção de preemptividade:
+Contudo, a implementação anterior está cheia de limitações: pacientes com pulseira amarela não deveriam interromper o atendimento, mas na implementação proposta eles devem interromper o atendimento de pacientes de pulseira verde. Para estas situações, o `request`possui um argumento que liga ou desliga a opção de preemptividade:
 
 ```py
 with medicos.request(priority=prio, preempt=preempt) as req:
@@ -247,11 +247,11 @@ env.run(until=20)
 
 | **Conteúdo** | **Descrição** |
 | --- | --- |
-| `meuRecurso = simpy.PriorityResource(env, capacity=1)` |
-| `meuRequest = meuRecurso.request(env, priority=prio)` | solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
-| `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)` | cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior |
-| `meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)` | solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
-| `try:...except simpy.Interrupt:` | chamada de interrupção utilizada na lógica try:...except: |
+| `meuRecurso = simpy.PriorityResource(env, capacity=1)` | Cria um recurso com prioridade e capacidade = 1
+| `meuRequest = meuRecurso.request(env, priority=prio)` | Solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
+| `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)` | Cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior |
+| `meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)` | Solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
+| `try:...except simpy.Interrupt:` | Chamada de interrupção utilizada na lógica try:...except: |
 
 ## Desafios
 
