@@ -24,5 +24,5 @@ Portanto, quuando um processo encontra um `yield`, ele é suspenso até o instan
 
 Naturalmente, quando num modelo de simulação temos muito eventos interpostos, cabe ao SimPy coordenar os disparos e suspensões dos eventos corretamente ao longo da simulação, respeitando um calendário único do programa - é nesta parte que você deve se emocionar com a habilidade dos programadores que codificaram o calendário de eventos dentro do SimPy...
 
-Em resumo, SimPy é um controlador de eventos, gerados pelo seu programa. Ele recebe seus eventos, ordena pelo momento de execução correto \(ou prioridade, quando existem eventos simultâneos\) e armazena uma lista de eventos dentro do environment. Se uma função dispara um novo evento, o SimPy adiciona o evento na lista de eventos, de modo ordenado pelo momento de execução \(ou da prioridade daquele evento sobre os outros\).
+Em resumo, SimPy é um controlador de eventos, gerados pelo seu programa. Ele recebe seus eventos, ordena pelo momento de execução correto \(ou prioridade, quando existem eventos simultâneos no tempo\) e armazena uma lista de eventos dentro do environment. Se uma função dispara um novo evento, cabe ao SimPy adicionar o evento na lista de eventos, de modo ordenado pelo momento de execução \(ou da prioridade daquele evento sobre os outros\).
 
