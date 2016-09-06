@@ -13,7 +13,7 @@ Por exemplo, considere um consultório de pronto atendimento de um hospital em q
 No caso do exemplo, os médicos são nossos recursos, mas eles respeitam a prioridade. Um médico ou recurso deste tipo, é sempre criado pelo comando:
 `medicos = simpy.PriorityResource(env, capacity=capacidade_desejada)`
 
-Para solução do exemplo, o programa aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira e outras duas para processamento das chegas e pedidos. 
+Para solução do exemplo, o programa aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira e outras duas para processamento das chegas e pedidos.
 
 Como uma máscara inicial, teríamos:
 
@@ -117,7 +117,7 @@ Percebemos que o paciente 5 chegou depois do 3 e do 4, mas iniciou seu atendimen
 
 Considere, no exemplo anterior, que o paciente de pulseira vermelha tem uma prioridade tal que ele interrompe o atendimento atual do médico e imediatamente é atendido. A recursos com [preemptividade](https://pt.wikipedia.org/wiki/Preemptividade) são recursos que aceitam a interrupção da tarefa em execução para iniciar outra de maior prioridade.
 
-Um recurso capaz de ser interrompida é criado pelo comando:
+Um recurso capaz de ser interrompido é criado pelo comando:
 
 ```py
 medicos = simpy.PreemptiveResource(env, capacity=capacidade)
@@ -190,7 +190,7 @@ Paciente 4 com pulseira verde inicia o atendimento em 18.7
 
 Note como agora o Paciente 5 interrompe o atendimento do Paciente 1, como desejado.
 
-Contudo, a implementação anterior está cheia de limitações: pacientes com pulseira amarela não deveriam interromper o atendimento, mas na implementação proposta eles devem interromper o atendimento de pacientes de pulseira verde. Para este caso, o request possui um argumento que liga ou desliga a opção de preemptividade:
+Contudo, a implementação anterior está cheia de limitações: pacientes com pulseira amarela não deveriam interromper o atendimento, mas na implementação proposta eles devem interromper o atendimento de pacientes de pulseira verde. Para estas situações, o `request `possui um argumento que liga ou desliga a opção de preemptividade:
 
 ```py
 with medicos.request(priority=prio, preempt=preempt) as req:
@@ -234,7 +234,7 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             yield env.timeout(random.expovariate(1/9))
             print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
         except simpy.Interrupt:
-            print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
+            print("%s com %s interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
 
 random.seed(100)       
 env = simpy.Environment()
@@ -247,7 +247,7 @@ env.run(until=20)
 
 | **Conteúdo** | **Descrição** |
 | --- | --- |
-| `meuRecurso = simpy.PriorityResource(env, capacity=1)` | cria um recurso em `env` com prioridade de atendimento e capacidade = 1 |
+| `meuRecurso = simpy.PriorityResource(env, capacity=1)` |
 | `meuRequest = meuRecurso.request(env, priority=prio)` | solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
 | `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)` | cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior |
 | `meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)` | solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
