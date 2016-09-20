@@ -50,7 +50,7 @@ Quando executado, o programa anterior retorna:
 3
 ```
 
-Note que a função retorna a sequência de números de 0 a 10 ```yield``` funciona como um ```return``` dentro da função, mas com o **superpoder** de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função `seqNum `no loop `for`, **não** executa o corpo inteiro da função `seqNum`.
+Note que a função retorna a sequência de números de 1 a 3 ```yield``` funciona como um ```return``` dentro da função, mas com o **superpoder** de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função `seqNum `no loop `for`, **não** executa o corpo inteiro da função `seqNum`.
 A primeira fez que o loop `for `chamou a função `seqNum()` o código é executado até a linha do `yield n`, que retona o valor `1` (afinal, n=1 neste momento).
 
 A segunda fez que o loop `for `chama a função, ela não recomeça da primeira linha, de fato, ela é executada a partir da **linha seguinte ao comando `yield`** e retorna o valor `2`, pois `n` foi incrementado nessa segunda passagem.
