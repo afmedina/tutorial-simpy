@@ -116,54 +116,50 @@ def atendimentoServidor(env, nome, servidorRes):
 ```
 
 Agora execute o script e voilá!
-
-```py
-Cliente 1 chega em: 1.5 
-Cliente 1 inicia o atendimento em: 1.5 
-Cliente 1 termina o atendimento em: 1.6.
-Cliente 2 chega em: 2.6 
-Cliente 2 inicia o atendimento em: 2.6 
-Cliente 2 termina o atendimento em: 2.9.
-Cliente 3 chega em: 3.0 
-Cliente 3 inicia o atendimento em: 3.0 
-Cliente 4 chega em: 3.8 
-Cliente 5 chega em: 4.0 
-Cliente 3 termina o atendimento em: 5.0.
-Cliente 4 inicia o atendimento em: 5.0 
-Cliente 6 chega em: 5.1 
-Cliente 4 termina o atendimento em: 5.2.
-Cliente 5 inicia o atendimento em: 5.2 
-Cliente 5 termina o atendimento em: 5.3.
-Cliente 6 inicia o atendimento em: 5.3 
-Cliente 7 chega em: 5.7 
-Cliente 6 termina o atendimento em: 5.8.
-Cliente 7 inicia o atendimento em: 5.8 
-Cliente 8 chega em: 6.0 
-Cliente 9 chega em: 6.0 
-Cliente 7 termina o atendimento em: 6.2.
-Cliente 8 inicia o atendimento em: 6.2 
-Cliente 8 termina o atendimento em: 6.5.
-Cliente 9 inicia o atendimento em: 6.5 
-Cliente 9 termina o atendimento em: 6.8.
-Cliente 10 chega em: 9.7 
-Cliente 10 inicia o atendimento em: 9.7
-```
-
-## Uma representação alternativa para a ocupação e desocupação de recursos
-
-A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço [`with`](/(http://effbot.org/zone/python-with-statement.htm))`:`
-
 ```python
-def atendimentoServidor(env, nome, servidorRes):
-    with servidorRes.request() as req # solicita o recurso servidorRes
-      yield req # aguarda em fila até o acesso
-      print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
-
-      # tempo de atendimento exponencial
-      yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
-
-      print('%s termina o atendimento em: %.1f.' % (nome, env.now)) 
+    Cliente 1 chega em: 1.5 
+    Cliente 1 inicia o atendimento em: 1.5 
+    Cliente 1 termina o atendimento em: 1.6.
+    Cliente 2 chega em: 2.6 
+    Cliente 2 inicia o atendimento em: 2.6 
+    Cliente 2 termina o atendimento em: 2.9.
+    Cliente 3 chega em: 3.0 
+    Cliente 3 inicia o atendimento em: 3.0 
+    Cliente 4 chega em: 3.8 
+    Cliente 5 chega em: 4.0 
+    Cliente 3 termina o atendimento em: 5.0.
+    Cliente 4 inicia o atendimento em: 5.0 
+    Cliente 6 chega em: 5.1 
+    Cliente 4 termina o atendimento em: 5.2.
+    Cliente 5 inicia o atendimento em: 5.2 
+    Cliente 5 termina o atendimento em: 5.3.
+    Cliente 6 inicia o atendimento em: 5.3 
+    Cliente 7 chega em: 5.7 
+    Cliente 6 termina o atendimento em: 5.8.
+    Cliente 7 inicia o atendimento em: 5.8 
+    Cliente 8 chega em: 6.0 
+    Cliente 9 chega em: 6.0 
+    Cliente 7 termina o atendimento em: 6.2.
+    Cliente 8 inicia o atendimento em: 6.2 
+    Cliente 8 termina o atendimento em: 6.5.
+    Cliente 9 inicia o atendimento em: 6.5 
+    Cliente 9 termina o atendimento em: 6.8.
+    Cliente 10 chega em: 9.7 
+    Cliente 10 inicia o atendimento em: 9.7
 ```
+##Uma representação alternativa para a ocupação e desocupação de recursos
+A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço `with`:
+```python
+    def atendimentoServidor(env, nome, servidorRes):
+        with servidorRes.request() as req # solicita o recurso servidorRes
+          yield req # aguarda em fila até o acesso
+          print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
+
+          # tempo de atendimento exponencial
+          yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
+
+          print('%s termina o atendimento em: %.1f.' % (nome, env.now))
+ ``` 
 
 No script anterior a ocupação e desocupação é garantida dentro do `with`, deixando o código mais compacto e legível. Contudo, a aplicação é limitada a problemas de ocupação e desocupação simples de servidores \(veja um contra-exemplo no Desafio 6\).
 
