@@ -17,13 +17,13 @@ Quando você percorre uma lista com o comando ```
 for,```
  por exemplo, está intrinsecamente utilizando um iterador:
 ```python
- lista = [1, 2, 3]
+ lista = [10, 20, 30]
  for i in lista:
     print (i)
 
-1
-2
-3
+10
+20
+30
 ```
 No exemplo, ```lista``` é um *objeto* e o comando ```for``` é um **iterador** que permite vasculhar cada elemento dentro da lista, retornando sempre o elemento seguinte do objeto.
 
@@ -32,23 +32,27 @@ Elas existem e [estão entre nós há tempos](https://en.wikipedia.org/wiki/Gene
 
 Uma **função geradora** é uma classe especial de funções que têm como característica retornar, cada vez que é chamada, valores em sequência. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo.
 
-Por exemplo, cada vez que a função a seguir é chamada, ela retorna um novo número da sequência entre 0 e 10:
+O comando `yield `funciona, a primeira vez que a função é chamada, algo semelhante a um `return`, mas com um **superpoder:** toda vez que a função é chamada novamente, a execução começa a partir da linha seguinte ao `yield`.
+
+Por exemplo, podemos imprimir os mesmo números da lista anterior, chamando 3 vezes a função `seqNum()`, definida a seguir:
 ```python
 def seqNum():
-    n = 1
-    while n <= 3:
-        yield n
-        n += 1
+    n = 10
+    yield n
+    n += 10
+    yield n
+    n += 10
+    yield n
 
 for i in seqNum():
-    print(i)
+ print(i)
+
+10
+20
+30
 ```
-Quando executado, o programa anterior retorna:
-```
-1
-2
-3
-```
+
+Note que a _função geradora_ `seqNum `é um _objeto_ e que o loop `for` permite acessar os elementos retornados por cada `yield`.
 
 Note que a função retorna a sequência de números de 1 a 3 ```yield``` funciona como um ```return``` dentro da função, mas com o **superpoder** de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função `seqNum `no loop `for`, **não** executa o corpo inteiro da função `seqNum`.
 A primeira fez que o loop `for `chamou a função `seqNum()` o código é executado até a linha do `yield n`, que retona o valor `1` (afinal, n=1 neste momento).
