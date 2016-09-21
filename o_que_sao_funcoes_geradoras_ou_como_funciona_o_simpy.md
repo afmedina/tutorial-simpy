@@ -5,7 +5,7 @@ O comando `yield `é quem, como você já deve ter notado, dá o _ritmo_ do seu 
 Começaremos pelo conceito de Iterador.
 
 ##Iterador
-Na programação voltada ao objeto, *iteradores* são métodos que permitem ao programador observar os valores dentro de um dado objeto.
+Na programação voltada ao objeto, *iteradores* são _métodos_ que permitem ao programa observar os valores dentro de um dado objeto.
 
 <!---
 esta seção está bem confusa, rever
@@ -28,9 +28,9 @@ for,```
 No exemplo, ```lista``` é um *objeto* e o comando ```for``` é um **iterador** que permite vasculhar cada elemento dentro da lista, retornando sempre o elemento seguinte do objeto.
 
 ##Funções geradoras
-Elas existem e [estão entre nós há tempos](https://en.wikipedia.org/wiki/Generator_(computer_programming), nós é que não sabíamos...
+Elas existem e [estão entre nós há tempos](https://en.wikipedia.org/wiki/Generator_(computer_programming)...
 
-Uma **função geradora** é uma classe especial de funções que têm como característica retornar, cada vez que é chamada, valores em sequência. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo.
+Uma **função geradora** é uma classe especial de função que tem como característica retornar, cada vez que é chamada, valores em sequência. O que torna uma função qualquer uma *função geradora* é a presença do comando ```yield``` em seu corpo.
 
 O comando `yield `funciona, a primeira vez que a função é chamada, algo semelhante a um `return`, mas com um **superpoder:** toda vez que a função é chamada novamente, a execução começa a partir da linha seguinte ao `yield`.
 
@@ -54,12 +54,11 @@ for i in seqNum():
 
 Note que a _função geradora_ `seqNum `é um _objeto_ e que o loop `for` permite acessar os elementos retornados por cada `yield`.
 
-Note que a função retorna a sequência de números de 1 a 3 ```yield``` funciona como um ```return``` dentro da função, mas com o **superpoder** de aguardar o retorno do fluxo de controle do programa ali mesmo na linha do ```yield```, ou seja: a segunda chamada da função `seqNum `no loop `for`, **não** executa o corpo inteiro da função `seqNum`.
-A primeira fez que o loop `for `chamou a função `seqNum()` o código é executado até a linha do `yield n`, que retona o valor `1` (afinal, n=1 neste momento).
+A primeira fez que o loop `for `chamou a função `seqNum()` o código é executado até a linha do `yield n`, que retona o valor `10` (afinal, n=10 neste momento).
 
-A segunda fez que o loop `for `chama a função, ela não recomeça da primeira linha, de fato, ela é executada a partir da **linha seguinte ao comando `yield`** e retorna o valor `2`, pois `n` foi incrementado nessa segunda passagem.
+A segunda fez que o loop `for `chama a função, ela não recomeça da primeira linha, de fato, ela é executada a partir da **linha seguinte ao comando `yield`** e retorna o valor `20`, pois `n` foi incrementado nessa segunda passagem.
 
-Isto significa que, numa segunda chamada à função, a execução retoma a partir da linha seguinte ao ```yield``` e o próximo valor de *n* será o anterior incrementado de 1.
+Na terceira chamada à função, a execução retoma a partir da linha seguinte ao segundo ```yield``` e o próximo valor de *n* será o anterior incrementado de 10.
 
 Uma função geradora é, de fato, um *iterador* e você normalmente vai utilizá-la dentro de algum *loop* ```for``` como no caso anterior. Outra possibilidade é você chamá-la diretamente pelo comando ```next``` do Python, como será visto no próximo exemplo.  
 
@@ -68,7 +67,7 @@ Exemplo: Que tal uma função que nos diga a posição atual de um Zumbi que só
 import random
 
 def zombiePos():
-    x, y, = 0, 0 # zombie initial position
+    x, y, = 0, 0 # posição inicial do zumbie
     while True:
         yield x, y,  "Brains!"
         x += random.randint(-1, 1)
@@ -108,3 +107,10 @@ print(next(zombie1), next(zombie2))
 print(next(zombie1), next(zombie2))
 ```
 
+Na seção a seguir discutiremos o papel da função geradora em um modelo de simulação. Por ora, sugerimos as seguintes fontes de consulta caso você procure um maior aprofundamento sobre o `yield` e as funções geradoras:
+
+*[PEP 225 - Descritivo técnico do yield no Python](https://www.python.org/dev/peps/pep-0255/ "PEP 255")
+
+*[Utilizando Geradores na Python Brasil](http://wiki.python.org.br/UsandoGenerators)
+
+*Uma boa explicação na StackOverflow: [What does the yield keyword do?](http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do)
