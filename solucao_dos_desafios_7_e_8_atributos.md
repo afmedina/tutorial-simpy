@@ -77,6 +77,7 @@ def monitor(env, lavadoras, cestos, secadoras, intervalo = 5):
          lavadorasUtilList.append((env.now, lavadoras.count, len(lavadoras.queue)))
          cestosUtilList.append((env.now, lavadoras.count, len(cestos.queue)))
          secadorasUtilList.append((env.now, lavadoras.count, len(secadoras.queue)))
+
 def integraMonitor(resList, res):
      # estima a ocupação média de cada recurso
      sum1, sum2, sum3 = 0, 0, 0
