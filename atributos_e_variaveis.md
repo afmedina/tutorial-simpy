@@ -76,14 +76,14 @@ Cliente 9 chega em: 9.0 quer 3 produtos
 Total vendido: 12 produtos
 ```
 
-É importante destacar no exemplo, que que o cliente \(entidade\) gerado pela função `geraChegadas `é enviado para a função `compra `com seu atributo -`produtos`-, como se nota na linha que em que o cliente chama o processo de compra:
+É importante destacar no exemplo, que o cliente \(entidade\) gerado pela função `geraChegadas`é enviado para a função `compra`com seu atributo `produtos` como se nota na linha que em que o cliente chama o processo de compra:
 `env.process(compra(env, "Cliente %d" % contaEntidade, produtos))`
 
 ## Atributos em modelos orientados ao objeto
 
 Para aqueles que programam com classes e objetos, o atributo é naturalmente o atributo da entidade \(ou do processo\). Uma facilidade que a programação voltada ao objeto possui é que podemos criar atributos para recursos também. Neste caso, basta que o recurso seja criado dentro de uma classe.
 
-Por exemplo, a fila M\/M\/1 poderia ser modelada com um classe `Servidor`, em que um dos seus atributos é o próprio `Resource` do SimPy, como mostra o código a seguir:
+Por exemplo, a fila M\/M\/1 poderia ser modelada por uma classe `Servidor`, em que um dos seus atributos é o próprio `Resource` do SimPy, como mostra o código a seguir:
 
 ```python
 import random
