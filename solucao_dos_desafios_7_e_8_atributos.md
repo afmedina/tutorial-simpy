@@ -81,8 +81,8 @@ def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
 random.seed(10)
 env = simpy.Environment()
 lavadoras = simpy.Resource(env, capacity = 3)
-cestos = simpy.Resource(env, capacity = 2)
-secadoras = simpy.Resource(env, capacity = 1)
+cestos = simpy.Resource(env, capacity = 20)
+secadoras = simpy.Resource(env, capacity = 10)
 env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
 
 env.run(until = 600)             
@@ -92,5 +92,29 @@ print("Espera por lavadoras: %.2f Clientes atendidos: %i" %(tempoEsperaLavadora/
 
 **Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
 
+Para a solução do desafio, basta acrescetar uma linha ao final do programa principal:
+
+```python
+random.seed(10)
+env = simpy.Environment()
+lavadoras = simpy.Resource(env, capacity = 3)
+cestos = simpy.Resource(env, capacity = 20)
+secadoras = simpy.Resource(env, capacity = 10)
+env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
+
+env.run(until = 60000)
+
+print("Espera por lavadoras: %.2f Clientes atendidos: %i" %(tempoEsperaLavadora/contaLavadora, contaLavadora))
+print("Fila de clientes ao final da simulação: lavadoras %.2f   cestos %.2f secadoras %.2f" %(len(lavadoras.queue), len(cestos.queue), len(secadoras.queue)))`
+```
+Quando simulado por 60.000 minutos, o resultado fornece 3.929 clientes esperando por lavadoras. Temos aí um caso clássico de fila infinita, isto é: a taxa de atendimento das lavadoras é menor que a taxa de chegada de clientes. Assim, se 1 cliente ocupa em média 20 minutos na lavadora,  a taxa de adendimento em cada lavadora é de $$\mu=$$ 0.05 clientes/min (=1 cliente /20 min), enquanto a taxa de chegadas de clientes na lavandeira é de $$\lambda=$$0.20 clientes/min (= 1 cliente/5 min). Assim, para termos um sistema equilibrado, precisaríamos de um número de lavadoras de modo a garantir que a taxa de atendimento da soma das lavadoras seja maior que a taxa de chegadas de clientes no sistema ou:
+
+$$\rho=\frac{\lambda}{n*\mu} < 1 \to n > \frac{\lambda}{\mu} = \frac{0.20}{0.05}=4$$
+
+Assim, precisamos de 5 (ou mais) lavadoras **apenas para eliminar o gargalo na lavagem**. Simulando o sistema com 5 lavadoras, temos:
+```python
+Espera por lavadoras: 10223.25 Clientes atendidos: 7995
+Fila de clientes ao final da simulação: lavadoras 3929.00   cestos 0.00 secadoras 0.00
+```
 
 
