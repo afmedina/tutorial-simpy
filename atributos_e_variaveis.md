@@ -14,7 +14,7 @@ Por exemplo, imaginemos a chegada de clientes numa loja. Queremos que cada clien
 import random # gerador de números aleatórios
 import simpy  # biblioteca de simulação
 
-contaVendas = 0
+contaVendas = 0  #variável global que manrca o número de vendas realizadas
 
 def geraChegadas(env):
     #função que cria chegadas de entidades no sistema
@@ -128,7 +128,7 @@ def geraClientes(env, intervalo, servidor):
 random.seed(100)
 
 env = simpy.Environment()
-servidor = Servidor(env, 1, 1)       #cria o objeto servidor (que é um recurso)
+servidor = Servidor(env, 1, 1)               #cria o objeto servidor (que é um recurso)
 env.process(geraClientes(env, 3, servidor))
 
 env.run(until=10)

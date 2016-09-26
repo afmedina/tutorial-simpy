@@ -10,7 +10,6 @@ import simpy
 
 tempoEsperaLavadora = 0 # conta tempo de espera total por lavadora
 contaLavadora = 0 # conta clientes que entraram na lavadora
-
 contaClientes = 0 # conta clientes que chegaram no sistema
 
 def distributions(tipo):
@@ -22,7 +21,7 @@ def distributions(tipo):
         'descarregar': random.uniform(1, 2),
         'secar': random.uniform(9, 12),
     }.get(tipo, 0.0)
-    
+
 def chegadaClientes(env, lavadoras, cestos, secadoras):
     #função que gera a chegada de clientes
     global contaClientes
@@ -32,53 +31,53 @@ def chegadaClientes(env, lavadoras, cestos, secadoras):
         yield env.timeout(distributions('chegadas'))
         print("Cliente %s chega em %.1f" %(contaClientes, env.now))
         env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
-        
+
 def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
     #função que processa a operação de cada cliente dentro da lavanderia
     global utilLavadora, tempoEsperaLavadora, contaLavadora
-    
+
     #marca chegada no sistema
     chegada = env.now
-    
+
     #ocupa a lavadora
     req1 = lavadoras.request()
     yield req1
     print("%s ocupa lavadora em %.1f" %(cliente, env.now))
-    
+
     # marca o tempo de espera em fila por lavadora e totaliza
     tempoEspera = env.now - chegada
     tempoEsperaLavadora += tempoEspera
-    
+
     yield env.timeout(distributions('lavar'))
     contaLavadora += 1
-    
+
     #antes de retirar da lavadora, pega um cesto
     req2 = cestos.request()
     yield req2
     print("%s ocupa cesto em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('carregar'))
-    
+
     #libera a lavadora, mas não o cesto
     lavadoras.release(req1)
     print("%s desocupa lavadora em %.1f" %(cliente, env.now))
-    
+
     #ocupa a secadora antes de liberar o cesto
     req3 = secadoras.request()
     yield req3
     print("%s ocupa secadora em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('descarregar'))
-    
+
     #libera o cesto mas não a secadora
     cestos.release(req2)
     print("%s desocupa cesto em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('secar'))
-    
+
     #pode liberar a secadora
     print("%s desocupa secadora em %.1f" %(cliente, env.now))
     secadoras.release(req3)
 
 
-        
+
 random.seed(10)
 env = simpy.Environment()
 lavadoras = simpy.Resource(env, capacity = 3)
@@ -86,12 +85,12 @@ cestos = simpy.Resource(env, capacity = 2)
 secadoras = simpy.Resource(env, capacity = 1)
 env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
 
-env.run(until = 60000)
+env.run(until = 600)             
 
 print("Espera por lavadoras: %.2f Clientes atendidos: %i" %(tempoEsperaLavadora/contaLavadora, contaLavadora))
 ```
 
-**Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído? 
+**Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
 
 
 
