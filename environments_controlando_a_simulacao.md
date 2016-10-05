@@ -127,7 +127,7 @@ O SimPy permite a simulação passo a passo por meio de dois comandos:
 * `peek()`: retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito `(float('inf'))`;
 * `step()`: processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna `EmptySchedule`.
 
-Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca tqdm ...
+Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca [tqdm](https://pypi.python.org/pypi/tqdm) ...
 
 ```python
 import simpy
