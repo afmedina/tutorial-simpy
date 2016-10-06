@@ -52,7 +52,7 @@ env.run()
 
 Note que se um modelo de simulação tem diversos processos ocorrendo ao mesmo tempo, o término da simulação só é garantido quando todos os processos programados terminarem.
 
-O próximo programa amplia o exemplo anterior, de modo que dois processos são executados ao mesmo tempo, um com 3 entidades e outro com 5 entidades. Note que os processos foram armazendos em uma lista:
+O próximo programa amplia o exemplo anterior, de modo que dois processos são executados ao mesmo tempo, um com 3 entidades e outro com 5 entidades. Note que os processos também podem se armazendos em uma lista:
 
 ```python
 import simpy
@@ -85,7 +85,7 @@ Neste caso, a simulação termina apenas quando o processo de 5 entidades termin
 
 ## Parada por fim de execução de processo específico
 
-Uma quarta alternativa de controle de execução é pelo término do próprio processo de execução. Partindo do exemplo anterior, podemos parar a simulação quando o processo que gera 3 entidades termina. Isto é possível com a opção `env.run(until=processo)`:
+Uma outra alternativa de controle de execução é pelo término do próprio processo de execução. Partindo do exemplo anterior, podemos parar a simulação quando o processo que gera 3 entidades termina. Isto é possível com a opção `env.run(until=processo)`:
 
 ```python
 import simpy
@@ -127,14 +127,13 @@ O SimPy permite a simulação passo a passo por meio de dois comandos:
 * `peek()`: retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito `(float('inf'))`;
 * `step()`: processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna `EmptySchedule`.
 
-Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca [tqdm](https://pypi.python.org/pypi/tqdm) ...
+Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca [tqdm](https://pypi.python.org/pypi/tqdm) para gerar uma barra de progresso simples (talvez você tenha de instalar a biblioteca tqdm - veja no link como proceder):
 
 ```python
 import simpy
+from tqdm import tqdm               #carrega função tqdm
 
-from tqdm import tqdm
-
-def geraChegada(env, p):
+def geraChegada(env, p):            #gera chegadas em intervalos ctes
     while True:
         yield env.timeout(1)
 
@@ -142,14 +141,19 @@ env = simpy.Environment()
 chegadas = env.process(geraChegada(env, "p1"))
 
 until = 1000000
-with tqdm(total=until) as pbar:
+
+
+# lógica de controle da simulação
+with tqdm(total=until) as pbar:     #cria barra de tamanho until
     while env.peek() < until:
        delay = env.now
        env.step()
        delay = env.now - delay
-       pbar.update(delay)
+       pbar.update(delay)           #atualiza a barra pelo intervalo
 
 ```
+Existem outras possibilidades de uso do step(). Por exemplo, o Spyder (IDE sugerida para desenvolvimento dos programas deste livro) possui opções de controle de execução passo-a-passo no menu _Debug_. Assim, podemos colocar um Breakpoint na linha env.step() do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum _bug_.
+
 
 ## Desafios
 
