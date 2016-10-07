@@ -127,13 +127,14 @@ O SimPy permite a simulação passo a passo por meio de dois comandos:
 * `peek()`: retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito `(float('inf'))`;
 * `step()`: processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna `EmptySchedule`.
 
-Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca [tqdm](https://pypi.python.org/pypi/tqdm) para gerar uma barra de progresso simples (talvez você tenha de instalar a biblioteca tqdm - veja no link como proceder):
+Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca [pyprind](https://github.com/rasbt/pyprind) para gerar uma barra de progresso simples \(talvez você tenha de instalar a biblioteca pyprind - veja no link como proceder\):
 
 ```python
 import simpy
-from tqdm import tqdm               #carrega função tqdm
+import pyprind
 
-def geraChegada(env, p):            #gera chegadas em intervalos ctes
+def geraChegada(env, p):
+#gera chegadas em intervalos ctes            
     while True:
         yield env.timeout(1)
 
@@ -142,18 +143,31 @@ chegadas = env.process(geraChegada(env, "p1"))
 
 until = 1000000
 
+#cria barra de tamanho until     
+pbar = pyprind.ProgBar(until, monitor = True)
 
-# lógica de controle da simulação
-with tqdm(total=until) as pbar:     #cria barra de tamanho until
-    while env.peek() < until:
-       delay = env.now
-       env.step()
-       delay = env.now - delay
-       pbar.update(delay)           #atualiza a barra pelo intervalo
+while env.peek() < until:            
+   delay = env.now
+   env.step()
+   delay = env.now - delay
+   #atualiza a barra pelo intervalo de tempo processado
+   pbar.update(delay)
+
+#imprime estatísticas da CPU   
+print(pbar)  
 
 ```
-Existem outras possibilidades de uso do step(). Por exemplo, o Spyder (IDE sugerida para desenvolvimento dos programas deste livro) possui opções de controle de execução passo-a-passo no menu _Debug_. Assim, podemos colocar um Breakpoint na linha env.step() do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum _bug_.
 
+    0%                          100%
+    [##############################] | ETA: 00:00:00
+    Title:
+     Started: 10/07/2016 09:58:23
+     Finished: 10/07/2016 09:58:32
+     Total time elapsed: 00:00:00
+     CPU %: 98.80
+     Memory %: 0.32`
+
+Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo no menu _Debug_. Assim, podemos colocar um _Breakpoint _na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum _bug_.
 
 ## Desafios
 
