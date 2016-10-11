@@ -2,7 +2,7 @@
 
 Em SimPy, o `Environment`é quem coordena a execução do seu programa. Ele avança o relógio de simulação, planeja a ordem de execução dos eventos e executa cada evento planejado pelo programa no instante correto.
 
-## `Environment.run():` controle de execução
+## `Environment.run(until=tempo_simulação):` controle de execução
 
 A maneira mais usual de controle de execução de um modelo de simulação é fornecendo o tempo de duração da simulação. O SimPy, contudo, vai além e permite alguns outros modos de se controlar a simulação.
 
@@ -18,7 +18,7 @@ def geraChegada(env, p):
 
 env = simpy.Environment()
 chegadas = env.process(geraChegada(env, "p1"))
-env.run(until = 5)        # execute até o instante 5
+env.run(until=5)        # execute até o instante 5
 ```
 
 Quando executado, o programa anterior fornece:
@@ -32,6 +32,44 @@ p1: nova chegada em 4
 ```
 
 No programa anterior, a última linha informa ao SimPy que a simulação deve ser executada até o instante 5 \(implicitamente o SimPy assume que o instante inicial é 0\). Esta é a maneira mais usual: o tempo de simulação é um parâmetro de entrada.
+
+O interessante no modelo anterior é que podemos acrescentar se quisermos executar até o instate 10, podemos acrescentar mais uma linha `env.run(until=10)` informando que a execução **continua de onde está **\(instante 5\) e termina em 10. Por exemplo, vamos modificar o modelo anterior de modo que nos primeiros 5 minutos o intervalo entre geração de chegadas seja de 1 minuto e, depois, até o instante 10, o intervalo seja de 2 minutos. Para isso, criamos uma variável global intervalo que armazena o intervalo entre chegadas, como mostra o código a seguir:
+
+```python
+import simpy
+
+intervalo = 1
+
+def geraChegada(env, p):
+ global intervalo
+
+ while True:
+     print("%s: Nova chegada em %s" %(p, env.now))
+     yield env.timeout(intervalo)
+
+env = simpy.Environment()
+chegadas = env.process(geraChegada(env, "p1"))
+env.run(until=5)   # execute até o instante 5
+
+print("\nModificando o intervalo entre chegadas para 2")
+intervalo = 2
+env.run(until=10)  # execute até o instante 10
+```
+
+Depois de executado, o programa anterior fornece:
+
+```python
+p1: Nova chegada em 0
+p1: Nova chegada em 1
+p1: Nova chegada em 2
+p1: Nova chegada em 3
+p1: Nova chegada em 4
+
+Modificando o intervalo entre chegadas para 2
+p1: Nova chegada em 5
+p1: Nova chegada em 7
+p1: Nova chegada em 9
+```
 
 ## Parada por execução de todos os processo programados
 
@@ -167,7 +205,7 @@ print(pbar)
      CPU %: 98.80
      Memory %: 0.32`
 
-Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu Debug. Assim, podemos colocar um breakpoint na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
+Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para _[debugging ](https://pythonhosted.org/spyder/debugging.html)_ no menu Debug. Assim, podemos colocar um breakpoint na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
 
 ## Desafios
 
