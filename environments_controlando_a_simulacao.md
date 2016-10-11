@@ -167,7 +167,7 @@ print(pbar)
      CPU %: 98.80
      Memory %: 0.32`
 
-Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para _[debugging ](https://pythonhosted.org/spyder/debugging.html)_no menu _Debug_. Assim, podemos colocar um breakpoint na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
+Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu Debug. Assim, podemos colocar um breakpoint na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
 
 ## Desafios
 
