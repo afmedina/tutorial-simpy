@@ -138,7 +138,7 @@ Média atual: 10.18. Amplitude atual: 0.50
 Intervalo de confiança atingido depois de 411 valores! [9.68, 10.68]
 ```
 
-Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um problema para você :\|
+Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um problema para você :\(
 
-A questão aqui é a demanda que os modelos de simulação usualmente têm para o processamento estatístico de valores armazenados ao longo da simulação. Com o `numpy` é tudo mais fácil, principalmente quando se considera o suporte dado pelos usuários da [stackoverflow!](http://stackoverflow.com/search?q=numpy)
+A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores ao longo da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários da [stackoverflow.](http://stackoverflow.com/search?q=numpy)
 
