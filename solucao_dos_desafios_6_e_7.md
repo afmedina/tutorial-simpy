@@ -27,7 +27,7 @@ env.run()
 
 Quando executado, o programa apresenta como resultado:
 
-```py
+```python
 p1: nova chegada em 0
 Média atual 4.42
 p1: nova chegada em 1
@@ -115,7 +115,7 @@ env.run()
 
 O programa anterior leva 411 amostras para atingir o intervalo desejado:
 
-```py
+```python
 Média atual: 10.20. Amplitude atual: 0.51
 p1: nova chegada em 402
 Média atual: 10.20. Amplitude atual: 0.50
