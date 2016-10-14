@@ -8,12 +8,12 @@ Um recurso normal pode ter uma fila de entidades desejando ocupá-lo para execut
 
 Contudo, existem situações em que algumas entidades possuem _prioridades_ sobre as outras, de modo que elas desrespeitam a regra do primeiro a chegar é o primeiro a ser atendido.
 
-Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa \(pulseira verde\), 20% de prioridade intermediária \(pulseira amarela\) e 10% de prioridade alta \(pulseira vermelha\). Existem 2 médicos que realizam o atendimento, sempre primeiro verificando a ordem de prioridade do paciente e depois a sua ordem na fila. Os pacientes chegam entre intervalos exponencialmente distribuídos com média de 5 minutos e o atendimento é também exponencial, com média de 9 minutos por paciente.
+Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa \(pulseira verde\), 20% de prioridade intermediária \(pulseira amarela\) e 10% de prioridade alta \(pulseira vermelha\). Existem 2 médicos que realizam o atendimento, que sempre verificam a ordem de prioridade do paciente e depois a sua ordem na fila. Os pacientes chegam entre intervalos exponencialmente distribuídos com média de 5 minutos e o atendimento é também exponencialmente distribuído, com média de 9 minutos por paciente.
 
-No caso do exemplo, os médicos são nossos recursos, mas eles respeitam a prioridade. Um médico ou recurso deste tipo, é sempre criado pelo comando:
+No exemplo, os médicos são recursos, mas também respeitam uma regra específica de prioridade. Um médico ou recurso deste tipo, é criado pelo comando:
 `medicos = simpy.PriorityResource(env, capacity=capacidade_desejada)`
 
-Para solução do exemplo, o programa aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira e outras duas para processamento das chegas e pedidos.
+Para a solução do exemplo, o programa aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira, uma para geração de chegadas de pacientes e outra para atendimento dos pacientes.
 
 Como uma máscara inicial, teríamos:
 
@@ -37,12 +37,12 @@ def atendimento(env, paciente, pulseira, prio, medicos):
 
 random.seed(100)       
 env = simpy.Environment()
-medicos = simpy.PriorityResource(env, capacity=2) # cria os médicos
+medicos = simpy.PriorityResource(env, capacity=2) # cria os 2 médicos
 chegadas = env.process(chegadaPacientes(env, medicos))
 env.run(until=20)       
 ```
 
-O preenchimento da máscara pode ser feito de diversas maneira, a nossa abordagem foi a seguinte:
+O preenchimento da máscara pode ser feito de diversas maneiras, um possibilidade seria:
 
 ```python
 import simpy
@@ -50,27 +50,31 @@ import random
 
 def sorteiaPulseira():
     #retorna a cor da pulseira e sua prioridade
-    r = random.random()
-    if r <= .70:
+    r = random.random()                 #sorteia número aleatório ente 0 e 1
+    if r <= .70:                        #70% é pulseira verde
         return "pulseira verde", 3
-    elif r <= .90:
+    elif r <= .90:                      #20% (=90-70) é pulseira amarela
         return "pulseira amarela", 2
-    return "pulseira vermelha", 1
+    return "pulseira vermelha", 1       #10% (=100-90) é pulseira vermelha
 
 def chegadaPacientes(env, medicos):
     #gera pacientes exponencialmente distribuídos
-    #sorteia a pulseira
-    #inicia processo de atendimento
+
     i = 0
     while True:
         yield env.timeout(random.expovariate(1/5))
         i += 1
+
+        #sorteia a pulseira
         pulseira, prio = sorteiaPulseira()
         print("Paciente %s chega em %.1f com %s" %(i, env.now, pulseira))
+
+        #inicial o processo de atendimento
         env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, medicos))
 
 def atendimento(env, paciente, pulseira, prio, medicos):
     #ocupa um médico e realiza o atendimento do paciente
+
     with medicos.request(priority=prio) as req:
         yield req
         print("%s com %s inicia o atendimento em %.1f" %(paciente, pulseira, env.now))
@@ -91,7 +95,7 @@ with medicos.request(priority=prio) as req:
 ...
 ```
 
-Para o SimPy, quando menor o valor fornecido para `priority`, maior a prioridade daquela entidade. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde \(de menor prioridade\) e 1 para a vermelha \(de maior prioridade\).
+Para o SimPy, **quando menor o valor fornecido** para `priority`, **maior a prioridade** daquela entidade. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde \(de menor prioridade\) e 1 para a vermelha \(de maior prioridade\).
 
 Quando o programa anterior é executado, fornece como saída:
 
@@ -115,7 +119,7 @@ Percebemos que o paciente 5 chegou depois do 3 e do 4, mas iniciou seu atendimen
 
 ## Recursos que podem ser interrompidos: `PreemptiveResource`
 
-Considere, no exemplo anterior, que o paciente de pulseira vermelha tem uma prioridade tal que ele interrompe o atendimento atual do médico e imediatamente é atendido. A recursos com [preemptividade](https://pt.wikipedia.org/wiki/Preemptividade) são recursos que aceitam a interrupção da tarefa em execução para iniciar outra de maior prioridade.
+Considere, no exemplo anterior, que o paciente de pulseira vermelha tem uma prioridade tal que ele interrompe o atendimento atual do médico e imediatamente é atendido. Os recursos com [preemptividade](https://pt.wikipedia.org/wiki/Preemptividade) são recursos que aceitam a interrupção da tarefa em execução para iniciar outra de maior prioridade.
 
 Um recurso capaz de ser interrompido é criado pelo comando:
 
@@ -123,7 +127,9 @@ Um recurso capaz de ser interrompido é criado pelo comando:
 medicos = simpy.PreemptiveResource(env, capacity=capacidade)
 ```
 
-O cuidado aqui é que quando um recurso é requisitado por um processo de menor prioridade ele causa uma interrupção no Python, o que obriga a utilização de lógica do tipo `try:...except`. O SimPy retornará uma interrupção do tipo simpy.Interrupt, como mostrado no exemplo a seguir \(note a lógica de try...except dentro da função atendimento\):
+O cuidado aqui é que quando um recurso é requisitado por um processo de menor prioridade ele causa uma interrupção no Python, o que obriga a utilização de lógica do tipo `try:...except`. 
+
+O SimPy retornará uma interrupção do tipo `simpy.Interrupt`, como mostrado no exemplo a seguir \(note a lógica de try...except dentro da função atendimento\):
 
 ```python
 import simpy
@@ -247,7 +253,7 @@ env.run(until=20)
 
 | **Conteúdo** | **Descrição** |
 | --- | --- |
-| `meuRecurso = simpy.PriorityResource(env, capacity=1)` | Cria um recurso com prioridade e capacidade = 1
+| `meuRecurso = simpy.PriorityResource(env, capacity=1)` | Cria um recurso com prioridade e capacidade = 1 |
 | `meuRequest = meuRecurso.request(env, priority=prio)` | Solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
 | `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)` | Cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior |
 | `meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)` | Solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
