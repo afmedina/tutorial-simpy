@@ -22,8 +22,8 @@ def geraChegadas(env):
         contaChegada += 1
         print('Cliente %d chega em: %.1f ' % (contaChegada, env.now))
 
-random.seed(1000)         # semente do gerador de números aleatórios
-env = simpy.Environment() # cria o environment do modelo
+random.seed(1000)             # semente do gerador de números aleatórios
+env = simpy.Environment()     # cria o environment do modelo
 servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
 env.process(geraChegadas(env))
 env.run(until=10)
@@ -61,6 +61,7 @@ def geraChegadas(env):
 
 def atendimentoServidor(env, nome, servidorRes):
     #função que ocupa o servidor e realiza o atendimento
+
     request = servidorRes.request() # solicita o recurso servidorRes
 
     yield request # aguarda em fila até o acesso e ocupa o servidorRes
@@ -151,7 +152,7 @@ Agora execute o script e voilá!
 A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço `with`:
 ```python
     def atendimentoServidor(env, nome, servidorRes):
-        with servidorRes.request() as req # solicita o recurso servidorRes
+        with servidorRes.request() as req: # solicita o recurso servidorRes
           yield req # aguarda em fila até o acesso
           print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
 
@@ -166,6 +167,12 @@ No script anterior a ocupação e desocupação é garantida dentro do `with`, d
 Existem muitos conceitos a serem discutidos sobre os scripts anteriores e, garanto, que eles serão destrinchados nas seções seguintes.
 
 Por hora, e para não esticar demais a atividade, analise atentamente os resultados da execução do script e avance para cima dos nossos desafios.
+
+## Conteúdos desta seção
+| **Conteúdo** | **Descrição** |
+| -- | -- |
+| ```with servidorRes.request() as req:``` | forma compacta de representar a sequência de ocupação e desocupação do recurso: `request()`, `yield` e `release()`. Tudo que está dentro do with é realizado com o recurso ocupado |
+
 
 ## Desafios
 
