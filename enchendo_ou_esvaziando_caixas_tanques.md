@@ -15,9 +15,11 @@ tanque = simpy.Container(env, capacity=1000, init=500)
 
 O `container`possui três comandos importantes:
 
-* Para encher: `tanque.put(quantidade)`
-* Para esvaziar: `tanque.get(quantidade)`
+* Para encher uma certa `quantidade`: `tanque.put(quantidade)`
+* Para esvaziar uma certa `quantidade`: `tanque.get(quantidade)`
 * Para obter o nível atual: `tanque.level`
+
+Caso não acha espaço suficiente no `container` para executar o comando `put`, então o SimPy aguarda até que exista espaço suficiente no `container` para executar o comando. Do mesmo modo, caso não acha carga suficiente no `container` para executar o comando `get`, o SimPy aguarda até que a carga esteja disponível na sua totalidade para executar o comando.
 
 O código a seguir enche o tanque com mais 100 litros, imprime na tela o nível atual do tanque e, ao final, esvazia 200 litros do tanque:
 
@@ -38,9 +40,10 @@ env.run()
 ```
 | Conteúdo | Descrição |
 | --- | --- |
-| meuContainer = simpy.Container(env, capacity=cap, init=volInicial) | cria um container com capacidade máxima cap e com carga incial igual a volInicial |
-| meuContainer.put(quantidade) | adiciona quantidade ao meuContainer
-
+| `meuContainer = simpy.Container(env, capacity=cap, init=volInicial)` | cria um `container `com capacidade máxima `cap `e com carga incial igual a `volInicial `|
+| `meuContainer.put(quantidade)` | adiciona `quantidade `ao `meuContainer`. Caso a quantidade seja maior que o espaço disponível no `container`, então o SimPy aguarda até que exista espaço suficiente para transferir a quantidade toda. |
+| `meuContainer.get(quantidade)` | retira `quantidade `do `meuContainer`. Caso a quantidade seja menor que a carga disponível, então o SimPy aguarda até que exista no mínimo carga igual a quantidade no container |
+| `meuContainer.level` | retorna o nível de carga ou estoque dentro do `meuContainer `|
 
 ## Desafios
 
