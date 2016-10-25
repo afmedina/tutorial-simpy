@@ -2,7 +2,7 @@
 
 Um tipo especial de recurso no SimPy é o `conteiner`. Intuitivamente, um `conteiner` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de líquido ou uma caixa de laranjas.
 
-A sua utilização é bem simples, por exemplo, podemos modelar um tanque de 1.000 litros de capacidade, com um estoque inicial de 500 litros, por meio do seguinte código:
+A sua utilização é bem simples, por exemplo, podemos modelar um tanque de 1.000 unidades (litros, por exemplo) de capacidade, com um estoque inicial de 500 unidades, por meio do seguinte código:
 
 ```python
 import simpy
@@ -18,7 +18,11 @@ O `container `possui três comandos importantes:
 * Para esvaziar: `tanque.get(quantidade)`
 * Para obter o nível atual: `tanque.level`
 
-O código a seguir, enche o tanque com mais 100 litros, imprime na tela o nível atual do tanque e esvazia 200 litros do tanque:
+#Esvaziando um container
+
+Considere que um posto de gasolina possui um tanque com capacidade de 1000 litros de combustível. Incialmente o tanque contém 500 litros armazenado. Os automóveis chegam em intervalos exponencialmente distribuídos com média de 30 minutos entre si. O veículo solicita a quantidade de combustível uniformemente distribuída no intervalo [30,110] litros. A taxa de enchimento do veículo é de 20 l/min.
+
+Construa um modelo que represente o esvaziamento do tanque do posto de gasolina
 
 ```python
 import simpy
