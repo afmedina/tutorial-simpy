@@ -48,12 +48,12 @@ Média atual 10.49
 
 Esta situação exige um pouco mais no processo de codificação, contudo é algo muito utilizado em modelos de simulação de eventos discretos.
 
-Como agora queremos o Intervalo de Confiança de uma dada amostra, os valores dos pesos serão armazenados em uma lista \(chamada `pesos`, no caso do desafio\).
+Como agora queremos o Intervalo de Confiança de uma dada amostra, os valores dos pesos serão armazenados em uma lista \(`pesosList`, no caso do desafio\).
 
-A biblioteca _numpy_ fornece um meio fácil de se estimar a média e o desvio padrão de uma amostra de valores armazenada numa lista:
+A biblioteca [_numpy_ ](http://www.numpy.org/)fornece um meio fácil de se estimar a média e o desvio padrão de uma amostra de valores armazenada numa lista:
 
-* `numpy.mean(pesos)`: estima a média da lista `pesos`;
-* `numpy.std(pesos)`: estima o desvio-padrão da lista `pesos`
+* `numpy.mean(pesosList)`: estima a média da lista `pesosList`;
+* `numpy.std(pesosList)`: estima o desvio-padrão da lista `pesosList`
 
 Para o cálculo do intervalo de confiança, devemos lembrar que, para amostras pequenas, a sua expressão é dada por:
 
@@ -63,7 +63,7 @@ $$
 $$
 
 
-A biblioteca import scipy.stats possui diversas funções estatísticas, dentre elas, a distribuição t de student, necessária para o cálculo do intervalo de confiança. Como está será uma operação rotineira nos nossos modelos de simulação, o ideal é encapsular o código em uma função específica:
+A biblioteca _[scipy.stats](https://docs.scipy.org/doc/scipy/reference/stats.html)_ possui diversas funções estatísticas, dentre elas, a distribuição t de student, necessária para o cálculo do intervalo de confiança. Como está será uma operação rotineira nos nossos modelos de simulação, o ideal é encapsular o código em uma função específica:
 
 ```python
 def intervaloConfMedia(a, conf=0.95):
@@ -75,7 +75,7 @@ def intervaloConfMedia(a, conf=0.95):
 
 A função anterior calcula a média e amplitude de um intervalo de confiança, a partir da lista de valores e do nível de confiança desejado.
 
-O novo programa ficaria:
+O novo programa então ficaria:
 
 ```python
 import random
@@ -90,21 +90,21 @@ def intervaloConfMedia(a, conf=0.95):
     return media, h
 
 def geraChegada(env, p):
-    pesos = []       #lista para armazenar os valores de pesos gerados
+    pesosList = []       #lista para armazenar os valores de pesos gerados
     while True:
         print("%s: nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
-        pesos.append(random.normalvariate(10, 5)) # adiciona à lista o peso da entidade atual
+        pesosList.append(random.normalvariate(10, 5)) # adiciona à lista o peso da entidade atual
 
         #cálculo da amplitude do intervalo de confiança, como nível de significância = 95%
-        if len(pesos) > 1:           
-            media, amplitude = intervaloConfMedia(pesos, 0.95)
+        if len(pesosList) > 1:           
+            media, amplitude = intervaloConfMedia(pesosList, 0.95)
             print("Média atual: %.2f. Amplitude atual: %.2f" %(media, amplitude))
 
             #se a amplitude atende ao critério estabelecido, interronpe o processo
             if amplitude < 0.5:
-                print("Intervalo de confiança atingido depois de %s valores! 
-                [%.2f, %.2f]" % (len(pesos), media-amplitude, media+amplitude))
+                print("Intervalo de confiança atingido após %s valores! 
+                [%.2f, %.2f]" % (len(pesosList), media-amplitude, media+amplitude))
                 break #termina o laço while
 
 random.seed(100)
@@ -140,5 +140,7 @@ Intervalo de confiança atingido depois de 411 valores! [9.68, 10.68]
 
 Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um problema para você :\(
 
-A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores ao longo da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários da [stackoverflow.](http://stackoverflow.com/search?q=numpy)
+A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores ao seja durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários da [stackoverflow.](http://stackoverflow.com/search?q=numpy) 
+
+Como sugestão, habitue-se a construir funções padronizadas para monitaramento e cálculos estatísticos, de modo que você pode reaproveitá-las em novos programas. Em algum momento, inclusive, você pode [criar sua própria biblioteca](http://stackoverflow.com/questions/15746675/how-to-write-a-python-module) de funções para análise de saída de modelos de simulação e compartilhar com a comunidade de software livre.
 

@@ -2,7 +2,7 @@
 
 >**Desafio 15:** considere, no exemplo anterior, que a taxa de enchimento do tanque é de 1 litro\/min e a de esvaziamento é de 2 litros\/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento. Crie duas funções diferentes, uma para encher e outra para evaziar o tanque.
 
->**Desafio 16:** continuando o exemplo, crie uma função que de 5 em 5 minutos retira 100 litros do tanque. Crie uma função "sensor" capaz de identificar quando o tanque fica abaixo de 200 litros. Nesse momento, a função deve chamar um processo capaz de enchimer o tanque até a sua capacidade máxima.
+>**Desafio 16:** continuando o exemplo, crie uma função que de 5 em 5 minutos retira 100 litros do tanque. Crie uma função "sensor" capaz de identificar quando o tanque fica abaixo de 200 litros. Nesse momento, a função deve chamar um processo capaz de encher o tanque até a sua capacidade máxima.
 
 ##Teste seus conhecimentos
 1. Modifique o programa anterior para que o tanque nunca execute simultâneamente as operações de enchimento e esvaziamento.
