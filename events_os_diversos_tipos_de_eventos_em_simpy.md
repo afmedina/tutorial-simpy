@@ -3,5 +3,5 @@
 ## Criando um evento isolado
 
 
-## Aguardando um evento ocorrer para disparar outro 
+## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
