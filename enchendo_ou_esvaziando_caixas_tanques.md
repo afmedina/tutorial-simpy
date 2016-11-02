@@ -254,9 +254,18 @@ Este processo garante que o sensor estará operante ao longo de toda a simulaç�
 15 Novo veículo de 0.10 m3.      Nível atual:  99.8 m3
 15 Tanque esvaziado de 0.10 m3.  Nível atual:  99.7 m3
 ```
-Observações:
-Note que o enchimento ou esvaziamento dos tanques é instântaneo, isto é: não existe nenhuma taxa de enchimento ou esvaziamento associada aos processos. Cabe ao programador modelar situações em que a taxa de transferência é relevante (veja o Desafio 15, a seguir).
-O tanque pode ser esvaziado ou enchido simultâneamente. Novamente cabe ao programador modelar a situação em que isto não se verifica (veja o Desafio 16, a seguir).
+
+>Observação 1. Note que o enchimento ou esvaziamento dos tanques é instântaneo, isto é: não existe nenhuma taxa de enchimento ou esvaziamento associada aos processos. Cabe ao programador modelar situações em que a taxa de transferência é relevante (veja o Desafio 15, a seguir).
+
+>Observação 2: O tanque pode ser esvaziado ou enchido simultâneamente. Novamente cabe ao programador modelar a situação em que isto não se verifica (veja o Desafio 16, a seguir).
+
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| ```meuContainer = simpy.Container(env, capacity=capacity, init=init``` | cria um *container* com capacidade capacity e quantidade inicial de init|
+| `yield meuContainer.put(quantidade)` | adiciona uma dada `quantidade `ao `meuContainer`, se houver espaço suficiente, caso contrário aguarda até que o espaço esteja disponível|
+| `yield meuContainer.get(quantidade)` | retira uma dada `quantidade `ao `meuContainer`, se houver quantidade suficiente, caso contrário aguarda até que a quantidade esteja disponível|
+| `meuContainer.level` | retorna a quantidade diponível atualmente em `meuContainer`|
 
 ## Desafios
 
