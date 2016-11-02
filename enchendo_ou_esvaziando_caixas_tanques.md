@@ -1,4 +1,4 @@
-# Container: enchendo ou esvaziando caixas, tanques ou objetos
+# Enchendo ou esvaziando caixas, tanques ou objetos com `Container()`
 
 Um tipo especial de recurso no SimPy é o `conteiner`. Intuitivamente, um `conteiner` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de líquido ou uma caixa de laranjas.
 
@@ -18,7 +18,7 @@ O `container`possui três comandos importantes:
 * Para esvaziar: `tanque.get(quantidade)`
 * Para obter o nível atual: `tanque.level`
 
-## Enchendo um container `yield container.put(quantidade)`
+## Enchendo o meu container `yield meuContainer.put(quantidade)`
 
 Considere que um posto de gasolina possui um tanque com capacidade de 100 $$m^3$$ \(ou 100.000 litros\) de combustível. Incialmente o tanque contém 50 $$m^3$$ armazenado.
 
@@ -51,7 +51,7 @@ A saída do programa é bastante simple, afinal o processo de enchimento do tanq
 ```
 Se você iniciar o tanque do posto a sua plena capacidade (100 $$m^3$$), deve o caminhão tenta abastecer, mas não consegue por falta de espaço, virtualmente aguardando espaço no tanque na linha `yield tanque.put(qtd)` dentro da função `enchimentoTanque`.
 
-##Esvaziando um container: `yield container.get(quantidade)`
+##Esvaziando o meu container: `yield meuContainer.get(quantidade)`
 Considere agora que o posto atende automóveis que chegam em intervalos constantes de 5 minutos entre si e que cada veículo abastece 100 litros ou 0.10 $$m^3$$.
 
 Partindo do modelo anterior, vamos criar duas funções: uma para gerar os veículos e outra para transferir o combustível do tanque para o veículo. A nossa máscara de modelagem ficaria:
