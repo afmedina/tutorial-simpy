@@ -81,7 +81,7 @@ env = simpy.Environment()
 tanque = simpy.Container(env, capacity=100, init=50)
 env.process(chegadasVeiculos(env, tanque))
 
-env.run(until = 500)
+env.run(until = 20)
 ```
 
 A função `chegadasVeiculos `gera os veículos que buscam abastecimento no posto e chama o função esvaziamentoTanque que provoca o esvaziamento do tanque do posto na quantidade do tanque do veículo:
@@ -158,7 +158,7 @@ env = simpy.Environment()
 tanque = simpy.Container(env, capacity=100, init=50)
 env.process(chegadasVeiculos(env, tanque))
 
-env.run(until = 500)
+env.run(until = 200)
 ```
 Quando executado:
 ```
@@ -239,6 +239,11 @@ env.process(sensorTanque(env, tanque))
 
 env.run(until = 20)
 ```
+Note a criação do processo do sensorTanque na penúltima linha do programa:
+```python
+env.process(sensorTanque(env, tanque))
+```
+Este processo garante que o sensor estará operante ao longo de toda a simulação. Quando executado, o programa anterior retorna:
 
  
 ## Desafios
