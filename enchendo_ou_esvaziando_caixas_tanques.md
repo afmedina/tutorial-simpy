@@ -244,8 +244,20 @@ Note a criação do processo do sensorTanque na penúltima linha do programa:
 env.process(sensorTanque(env, tanque))
 ```
 Este processo garante que o sensor estará operante ao longo de toda a simulação. Quando executado, o programa anterior retorna:
+```
+0 Novo caminhão com 50.0 m3.     Nível atual:  50.0 m3
+0 Tanque enchido com 50.0 m3.    Nível atual: 100.0 m3
+5 Novo veículo de 0.10 m3.       Nível atual: 100.0 m3
+5 Tanque esvaziado de 0.10 m3.   Nível atual:  99.9 m3
+10 Novo veículo de 0.10 m3.      Nível atual:  99.9 m3
+10 Tanque esvaziado de 0.10 m3.  Nível atual:  99.8 m3
+15 Novo veículo de 0.10 m3.      Nível atual:  99.8 m3
+15 Tanque esvaziado de 0.10 m3.  Nível atual:  99.7 m3
+```
+Observações:
+Note que o enchimento ou esvaziamento dos tanques é instântaneo, isto é: não existe nenhuma taxa de enchimento ou esvaziamento associada aos processos. Cabe ao programador modelar situações em que a taxa de transferência é relevante (veja o Desafio 15, a seguir).
+O tanque pode ser esvaziado ou enchido simultâneamente. Novamente cabe ao programador modelar a situação em que isto não se verifica (veja o Desafio 16, a seguir).
 
- 
 ## Desafios
 
 > **Desafio 15:** considere, no exemplo anterior, que a taxa de enchimento do tanque é de 1 litro\/min e a de esvaziamento é de 2 litros\/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento. Crie duas funções diferentes, uma para encher e outra para evaziar.
