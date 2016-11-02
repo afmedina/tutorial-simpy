@@ -100,28 +100,7 @@ def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
     print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    print("%d Tanque esvaziado de %3.2f.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
-```
-
-
-Os automóveis chegam em intervalos exponencialmente distribuídos com média de 30 minutos entre si. O veículo solicita a quantidade de combustível uniformemente distribuída no intervalo \[30,110\] litros. A taxa de enchimento do veículo é de 20 l\/min.
-
-Construa um modelo que represente o esvaziamento do tanque do posto de gasolina
-
-```python
-import simpy
-
-def exemploTanque(env, tanque):
-    yield tanque.put(100)      #coloca 100 litros no tanque
-    print("Nível atual do tanque %d" % tanque.level)
-    yield tanque.get(200)      #retira 200 litros do tanque
-    print("Nível atual do tanque %d" % tanque.level)
-
-env = simpy.Environment()
-#cria um tanque de 1000 litros, com 500 litros no início da simulação
-tanque = simpy.Container(env, capacity=1000, init=500)
-env.process(exemploTanque(env,tanque))
-env.run()
+    print("%d Veículo atendido de %3.2f.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
 ```
 
 O programa completo fica:
@@ -144,7 +123,7 @@ def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
     print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    print("%d Tanque esvaziado de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
 
 def enchimentoTanque(env, qtd, tanque):  
     # enche o tanque
@@ -163,11 +142,11 @@ env.run(until = 200)
 Quando executado:
 ```
 5 Novo veículo de 0.10 m3.       Nível atual:  50.0 m3
-5 Tanque esvaziado de 0.10 m3.   Nível atual:  49.9 m3
+5 Veículo atendido de 0.10 m3.   Nível atual:  49.9 m3
 10 Novo veículo de 0.10 m3.      Nível atual:  49.9 m3
-10 Tanque esvaziado de 0.10.     Nível atual:  49.8 m3
+10 Veículo atendido de 0.10.     Nível atual:  49.8 m3
 15 Novo veículo de 0.10 m3.      Nível atual:  49.8 m3
-15 Tanque esvaziado de 0.10 m3.  Nível atual:  49.7 m3
+15 Veículo atendido de 0.10 m3.  Nível atual:  49.7 m3
 
 ```
 ## Criando um sensor para o nível atual do `container`
@@ -222,7 +201,7 @@ def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
     print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    print("%d Tanque esvaziado de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
 
 def enchimentoTanque(env, qtd, tanque):  
     # enche o tanque
@@ -248,11 +227,11 @@ Este processo garante que o sensor estará operante ao longo de toda a simulaç�
 0 Novo caminhão com 50.0 m3.     Nível atual:  50.0 m3
 0 Tanque enchido com 50.0 m3.    Nível atual: 100.0 m3
 5 Novo veículo de 0.10 m3.       Nível atual: 100.0 m3
-5 Tanque esvaziado de 0.10 m3.   Nível atual:  99.9 m3
+5 Veículo atendido de 0.10 m3.   Nível atual:  99.9 m3
 10 Novo veículo de 0.10 m3.      Nível atual:  99.9 m3
-10 Tanque esvaziado de 0.10 m3.  Nível atual:  99.8 m3
+10 Veículo atendido de 0.10 m3.  Nível atual:  99.8 m3
 15 Novo veículo de 0.10 m3.      Nível atual:  99.8 m3
-15 Tanque esvaziado de 0.10 m3.  Nível atual:  99.7 m3
+15 Veículo atendido de 0.10 m3.  Nível atual:  99.7 m3
 ```
 
 >Observação 1. Note que o enchimento ou esvaziamento dos tanques é instântaneo, isto é: não existe nenhuma taxa de enchimento ou esvaziamento associada aos processos. Cabe ao programador modelar situações em que a taxa de transferência é relevante (veja o Desafio 15, a seguir).
