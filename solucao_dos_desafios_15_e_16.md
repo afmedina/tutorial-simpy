@@ -92,8 +92,10 @@ Como resultado, o modelo fornece:
 15 Novo veículo de 0.10 m3.      Nível atual:  99.8 m3
 15 Veículo atendido de 0.10 m3.  Nível atual:  99.7 m3
 ```
-O leitor atento deve ter notado que o caminhão de reabastecimento enche o tanque *antes* mesmo de aguardar o bombeamento, pois a saída do programa indica que um caminhão chegou no instante 0 e que no instante 5, o tanque já possui 100 $$m^3$$ à disposição.
+O leitor atento deve ter notado que o caminhão de reabastecimento enche o tanque *antes* mesmo de aguardar o bombeamento, pois a saída do programa indica que um caminhão chegou no instante 0 e que no instante 5, o tanque já possui 100 $$m^3$$ à disposição:
 
+```0 Novo caminhão com 50.0 m3.     Nível atual:  50.0 m35 Novo veículo de 0.10 m3.       Nível atual: 100.0 m3
+```
 A situação inicialmente *estranha* ainda é reforçada pelo fim da operação de enchimento do tanque no instante 10:
 
 `10 Tanque enchido com 50.0 m3.`
