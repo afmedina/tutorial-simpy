@@ -262,14 +262,14 @@ Este processo garante que o sensor estará operante ao longo de toda a simulaç�
 ## Conceitos desta seção
 | Conteúdo | Descrição |
 | -- | -- |
-| ```meuContainer = simpy.Container(env, capacity=capacity, init=init``` | cria um *container* com capacidade capacity e quantidade inicial de init|
+| ```meuContainer = simpy.Container(env, capacity=capacity, init=init``` | cria um *container* `meuContainer `com capacidade `capacity `e quantidade inicial de `init`|
 | `yield meuContainer.put(quantidade)` | adiciona uma dada `quantidade `ao `meuContainer`, se houver espaço suficiente, caso contrário aguarda até que o espaço esteja disponível|
 | `yield meuContainer.get(quantidade)` | retira uma dada `quantidade `ao `meuContainer`, se houver quantidade suficiente, caso contrário aguarda até que a quantidade esteja disponível|
 | `meuContainer.level` | retorna a quantidade diponível atualmente em `meuContainer`|
 
 ## Desafios
 
-> **Desafio 15:** considere, no exemplo anterior, que a taxa de enchimento do tanque é de 1 litro\/min e a de esvaziamento é de 2 litros\/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento. Crie duas funções diferentes, uma para encher e outra para evaziar.
+> **Desafio 15:** considere, no exemplo do posto, que a taxa de enchimento do tanque é de 1 litro/min e a de esvaziamento é de 2 litros/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento, bem como forneça o tempo que o veículo aguardou na fila por atendimento.
 > 
-> **Desafio 16:** continuando o exemplo, crie uma função que de 5 em 5 minutos retira 100 litros do tanque. Crie uma função "sensor" capaz de identificar quando o tanque fica abaixo de 200 litros. Nesse momento, a função deve chamar um processo de enchimento do tanque até sua capacidade máxima.
+> **Desafio 16:** continuando o exemplo, modifique o modelo de modo que ele represente a situação em que o tanque não pode ser enchido e esvaziado simultâneamente.
 
