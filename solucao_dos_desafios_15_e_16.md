@@ -94,7 +94,9 @@ Como resultado, o modelo fornece:
 ```
 O leitor atento deve ter notado que o caminhão de reabastecimento enche o tanque *antes* mesmo de aguardar o bombeamento, pois a saída do programa indica que um caminhão chegou no instante 0 e que no instante 5, o tanque já possui 100 $$m^3$$ à disposição.
 
-A situação inicialmente *estranha* ainda é reforçada pelo fim da operação de enchimento do tanque no instante 10.
+A situação inicialmente *estranha* ainda é reforçada pelo fim da operação de enchimento do tanque no instante 10 ("`10 Tanque enchido com 50.0 m3.`"). Isto significa que o produto estava disponível nos tanques *antes* mesmo de ter sido bombeado para o mesmo. 
+Fica como desafio ao leitor *atento* encontrar uma solução para o problema (dica: que tal pensar em um tanque virtual
+?
 
 > **Desafio 16:** continuando o exemplo, modifique o modelo de modo que ele represente a situação em que o tanque não pode ser enchido e esvaziado simultâneamente.
 
