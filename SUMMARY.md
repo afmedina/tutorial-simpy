@@ -18,7 +18,7 @@
 * [Solução dos desafios 11 e 12](solucao_dos_desafios_11_e_12.md)
 * [Interrupções de processos](interrupcoes_de_processos.md)
 * [Solução dos desafios 13 e 14](solucao_dos_desafios_13_e_14.md)
-* [Enchendo ou esvaziando caixas, tanques ou... Ora, enchendo coisas!](enchendo_ou_esvaziando_caixas_tanques.md)
+* [Enchendo ou esvaziando tanques, caixas ou estoques](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Solução dos desafios 15 e 16](solucao_dos_desafios_15_e_16.md)
 * [Selecionando um recurso específico para um processo](selecionando_um_recurso_especifico_para_um_processo.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)

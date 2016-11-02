@@ -18,7 +18,7 @@ O `container `possui três comandos importantes:
 * Para esvaziar: `tanque.get(quantidade)`
 * Para obter o nível atual: `tanque.level`
 
-#Esvaziando um container
+#Enchendo um container
 
 Considere que um posto de gasolina possui um tanque com capacidade de 1000 litros de combustível. Incialmente o tanque contém 500 litros armazenado. Os automóveis chegam em intervalos exponencialmente distribuídos com média de 30 minutos entre si. O veículo solicita a quantidade de combustível uniformemente distribuída no intervalo [30,110] litros. A taxa de enchimento do veículo é de 20 l/min.
 
@@ -28,7 +28,7 @@ Construa um modelo que represente o esvaziamento do tanque do posto de gasolina
 import simpy
 
 def exemploTanque(env, tanque):
-    yield tanque.put(100)     #coloca 100 litros no tanque
+    yield tanque.put(100)      #coloca 100 litros no tanque
     print("Nível atual do tanque %d" % tanque.level)
     yield tanque.get(200)      #retira 200 litros do tanque
     print("Nível atual do tanque %d" % tanque.level)
