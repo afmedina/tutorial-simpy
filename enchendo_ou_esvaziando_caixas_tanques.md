@@ -134,7 +134,7 @@ TANQUE_VEICULO = 0.10       # capacidade do veículo
 TEMPO_CHEGADAS = 5          # tempo entre chegadas sucessivas de veículos
 
 def chegadasVeiculos(env, tanque):
-    #gera chegadas de veículos por produto
+    # gera chegadas de veículos por produto
     while True:
         yield env.timeout(TEMPO_CHEGADAS)
         # carrega veículo
@@ -171,26 +171,76 @@ Quando executado:
 
 ```
 ## Criando um sensor para o nível atual do `container`
-Ainda no exemplo do posto, vamos chamar um caminhão de reabastecimento sempre que o tanque atingir o nível de 5 $$m^3$$. Para isso, vamos criar uma função `sensorTanque `que reconheça o instante em que o nível do tanque abaixou do valor desejado e, portanto, envie um caminhão de reabastecimento.
+Ainda no exemplo do posto, vamos chamar um caminhão de reabastecimento sempre que o tanque atingir o nível de 50 $$m^3$$. Para isso, vamos criar uma função `sensorTanque `que reconheça o instante em que o nível do tanque abaixou do valor desejado e, portanto, envie um caminhão de reabastecimento.
 
 Incialmente, para identificar se o nível do tanque abaixou além no nível mínimo, precisamos verificar o nível atual. Contudo, esse processo de verificação não é contínuo no tempo e deve ter o seu intervalo entre verificações pré-definido no modelo.
 
-Assim, são necessários dois parâmetros: um para o nível mínimo e outro para o intervalo entre verificações do nível do tanque. Uma possível codificação para a função sensorTanque seria:
+Assim, são necessários dois parâmetros: um para o nível mínimo e outro para o intervalo entre verificações do nível do tanque. Uma possível codificação para a função `sensorTanque `seria:
 ```python
-NIVEL_MINIMO = 5            # nível mínimo de reabastecimento do tanque
+NIVEL_MINIMO = 50           # nível mínimo de reabastecimento do tanque
 TEMPO_CONTROLE = 1          # tempo entre verificações do nível do tanque
 
 def sensorTanque(env, tanque):
     # quando o tanque baixar se certo nível, dispara o enchimento
     while True:
         if tanque.level <= NIVEL_MINIMO:
-            #dispara pedido de enchimento
+            # dispara pedido de enchimento
             yield env.process(enchimentoTanque(env, TANQUE_CAMINHAO, tanque))
-        #aguarda um tempo para fazer a nova chegagem do nível do tanque
+        # aguarda um tempo para fazer a nova chegagem do nível do tanque
         yield env.timeout(TEMPO_CONTROLE)
 ```
+A função `sensorTanque `é um loop infinito (`while True`) que a cada 1 minuto (configurável na constante `TEMPO_CONTROLE`) verifica se o nível do tanque está abaixo ou igual ao nível mínimo (configurável na constante `NIVEL_MINIMO`).
 
+O modelo completo agora seria:
+```python
+import simpy
+import random        
 
+TANQUE_CAMINHAO = 50        # capacidade de abastecimento do caminhão
+TANQUE_VEICULO = 0.10       # capacidade do veículo
+TEMPO_CHEGADAS = 5          # tempo entre chegadas sucessivas de veículos
+NIVEL_MINIMO = 50           # nível mínimo de reabastecimento do tanque
+TEMPO_CONTROLE = 1          # tempo entre verificações do nível do tanque
+
+def sensorTanque(env, tanque):
+    # quando o tanque baixar se certo nível, dispara o enchimento
+    while True:
+        if tanque.level <= NIVEL_MINIMO:
+            # dispara pedido de enchimento
+            yield env.process(enchimentoTanque(env, TANQUE_CAMINHAO, tanque))
+        # aguarda um tempo para fazer a nova chegagem do nível do tanque
+        yield env.timeout(TEMPO_CONTROLE)
+        
+def chegadasVeiculos(env, tanque):
+    # gera chegadas de veículos por produto
+    while True:
+        yield env.timeout(TEMPO_CHEGADAS)
+        # carrega veículo
+        env.process(esvaziamentoTanque(env, TANQUE_VEICULO, tanque))
+        
+def esvaziamentoTanque(env, qtd, tanque):
+    # esvazia o tanque
+    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    yield tanque.get(qtd)
+    print("%d Tanque esvaziado de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+
+def enchimentoTanque(env, qtd, tanque):  
+    # enche o tanque
+    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    yield tanque.put(qtd)
+    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+
+random.seed(150)            
+env = simpy.Environment()
+#cria um tanque de 100 m3, com 50 m3 no início da simulação
+tanque = simpy.Container(env, capacity=100, init=50)
+env.process(chegadasVeiculos(env, tanque))
+env.process(sensorTanque(env, tanque))
+
+env.run(until = 20)
+```
+
+ 
 ## Desafios
 
 > **Desafio 15:** considere, no exemplo anterior, que a taxa de enchimento do tanque é de 1 litro\/min e a de esvaziamento é de 2 litros\/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento. Crie duas funções diferentes, uma para encher e outra para evaziar.
