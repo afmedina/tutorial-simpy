@@ -106,6 +106,8 @@ Isto significa que o produto estava disponível nos tanques *antes* mesmo de ter
 Fica como desafio ao leitor *atento* encontrar uma solução para o problema (dica: que tal pensar em um tanque virtual?
 
 > **Desafio 16:** continuando o exemplo, modifique o modelo de modo que ele represente a situação em que o tanque não pode ser enchido e esvaziado simultâneamente.
+Neste caso, o tanque quando bombeando para um sentido (encher ou esvaziar), fica impedido de ser utilizado no outro sentido. Este tipo de situação é bem comum em operações envolvendo tanques de produtos químicos.
+Uma possível solução para o problema é utilizar um `Store` para armazenar o `Container `que representa o tanque. Assim, quando um caminhão de reabastecimento chega ele *retira* do Store o tanque e, caso um veículo chegue nesse instante, não conseguirá abastecer pois não encontrará nenhum tanque no Store.
 
 ##Teste seus conhecimentos
 1. Modifique o problema para considerar que existam 3 bombas de combustível no posto, capazes de atender aos veículos simultâneamente do mesmo tanque.
