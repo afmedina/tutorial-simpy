@@ -9,22 +9,26 @@ Vamos aprender sobre o `Store` a partir de um exemplo bem simples: uma barbearia
 Incialmente, vamos considerar que os clientes são atribuídos ao barbeiro que estiver livre, indistintamente. Se todos os barbeiros estiverem ocupados, o cliente aguarda em fila. 
 
 O comando que constrói um conjunto de objetos é o:
-meuStore = simpy.Store(env, capacity=capacidade)
-Para manipular a Store, temos três comandos:
-meuStore.items: adiciona objetos ao meuStore;
-meuStore.get(): retira o primeiro objeto disponível de meuStore;
-meuStore.put(umObjeto): coloca um objeto no meuStore.
 
-Assim, vamos criar um Store que armazenará o nome dos barbeiros: 0, 1, 2:
+`meuStore = simpy.Store(env, capacity=capacidade)`
+
+Para manipular a Store, temos três comandos:
+* `meuStore.items:` adiciona objetos ao meuStore;
+* `meuStore.get():` retira o primeiro objeto disponível de meuStore;
+* `meuStore.put(umObjeto):` coloca um objeto no meuStore.
+
+Assim, vamos criar um `Store `que armazenará o nome dos barbeiros: 0, 1, 2:
+```python
 env = simpy.Environment()
+
 #cria 3 barbeiros diferentes
 barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
 
 #cria um Store para armazenar os barbeiros
 barbeariaStore = simpy.Store(env, capacity=3)
 barbeariaStore.items = [0, 1, 2]
-
-No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma Store chamada barbeariaStore de capacidade 3 e adicionamos, na linha seguinte, um lista com trÊs números.
+```
+No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma Store chamada barbeariaStore de capacidade 3 e adicionamos, na linha seguinte, um lista com três números.
 
 Resumindo, nosso Store contém apenas os números 0, 1 e 2.
 
@@ -58,6 +62,38 @@ barbeariaStore.items = [0, 1, 2]
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20) 
+```
+A função para gerar clientes é semelhante a tantas outras que já fizemos neste livro:
+```python
+def chegadaClientes(env, barbeariaStore):
+    # gera clientes exponencialmente distribuídos
+    # encaminha para o processo de atendimento
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
+        i += 1
+        print("%5.1f Cliente %i chega." %(env.now, i))
+        env.process(atendimento(env, i, barbeariaStore))
+```
+A função de atendimento, traz a novidade de que primeiro devemos *retirar* um objeto do `Store `e, ao final do atendimento, devolvê-lo ao `Store`:
+
+```python
+def atendimento(env, cliente, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    chegada = env.now
+    barbeiroNum = yield barbeariaStore.get()
+    espera = env.now - chegada
+    print("%5.1f Cliente %i incia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroNum, espera))
+    with barbeirosList[barbeiroNum].request() as req:
+        yield req
+        yield env.timeout(random.normalvariate(*TEMPO_CORTE))
+        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroNum))
+    barbeariaStore.put(barbeiroNum)
+```
+Quando estamos retirando um objeto do barbeariaStore, estamos apenas retirando o nome (ou identificador) do barbeiro disponível. Para ocuparmos o recurso (ou barbeiro) corretamente, utilizamos o identificador como índice da lista barbeiroList.
+
+```python
+
 ```
 
 
