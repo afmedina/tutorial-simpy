@@ -4,7 +4,7 @@ O SimPy possui um ferramenta para armazenamento de objetos - como recursos, por 
 
 Vamos aprender sobre o `Store` a partir de um exemplo bem simples: uma barbearia com três barbeiros. Quando você chega a uma barbearia e tem uma ordem de preferência entre os barbeiros, isto é: barbeiro 1 vem antes do 2, que vem antes do 3, precisará selecionar seu _recurso_ barbeiro na ordem certa. 
 
-## Construindo um conjunto de barbeiros com `Store()`
+## Construindo um conjunto de objetos com `Store()`
 
 Incialmente, vamos considerar que os clientes são atribuídos ao barbeiro que estiver livre, indistintamente. Se todos os barbeiros estiverem ocupados, o cliente aguarda em fila. 
 
