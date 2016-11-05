@@ -152,5 +152,5 @@ Como saída, o programa anterior fornece:
  14.5 Cliente 5 incia.          Barbeiro 0 ocupado.     Tempo de fila: 0.0
  17.8 Cliente 3 termina.        Barbeiro 2 liberado.
 ```
-
+## Selecionando um objeto específico com `FilterStore()`
 
