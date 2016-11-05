@@ -90,11 +90,67 @@ def atendimento(env, cliente, barbeariaStore):
         print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroNum))
     barbeariaStore.put(barbeiroNum)
 ```
-Quando estamos retirando um objeto do barbeariaStore, estamos apenas retirando o nome (ou identificador) do barbeiro disponível. Para ocuparmos o recurso (ou barbeiro) corretamente, utilizamos o identificador como índice da lista barbeiroList.
+Quando estamos retirando um objeto do `barbeariaStore`, estamos apenas retirando o nome (ou identificador) do barbeiro disponível. Para ocuparmos o recurso (ou barbeiro) corretamente, utilizamos o identificador como índice da lista `barbeiroList`. Assim, temporariamente, o barbeiro retirado do Store fica indisponível para outros clientes, pois a linha:
+
 
 ```python
+import simpy
+import random
 
+TEMPO_CHEGADAS = 5      # intervalo entre chegadas de clientes
+TEMPO_CORTE = [10, 2]   # tempo médio de corte 
+
+def chegadaClientes(env, barbeariaStore):
+    # gera clientes exponencialmente distribuídos
+    # encaminha para o processo de atendimento
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
+        i += 1
+        print("%5.1f Cliente %i chega." %(env.now, i))
+        env.process(atendimento(env, i, barbeariaStore))
+
+def atendimento(env, cliente, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    chegada = env.now
+    barbeiroNum = yield barbeariaStore.get()
+    espera = env.now - chegada
+    print("%5.1f Cliente %i incia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroNum, espera))
+    with barbeirosList[barbeiroNum].request() as req:
+        yield req
+        yield env.timeout(random.normalvariate(*TEMPO_CORTE))
+        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroNum))
+    barbeariaStore.put(barbeiroNum)
+    
+random.seed(100)            
+env = simpy.Environment()
+
+#cria 3 barbeiros diferentes
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+
+#cria um Store para armazenar os barbeiros
+barbeariaStore = simpy.Store(env, capacity=3)
+barbeariaStore.items = [0, 1, 2]
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 20)   
 ```
-
+Como saída, o programa anterior fornece:
+```python
+  0.8 Cliente 1 chega.
+  0.8 Cliente 1 incia.          Barbeiro 0 ocupado.     Tempo de fila: 0.0
+  3.8 Cliente 2 chega.
+  3.8 Cliente 2 incia.          Barbeiro 1 ocupado.     Tempo de fila: 0.0
+ 10.4 Cliente 3 chega.
+ 10.4 Cliente 3 incia.          Barbeiro 2 ocupado.     Tempo de fila: 0.0
+ 12.7 Cliente 2 termina.        Barbeiro 1 liberado.
+ 13.9 Cliente 1 termina.        Barbeiro 0 liberado.
+ 14.2 Cliente 4 chega.
+ 14.2 Cliente 4 incia.          Barbeiro 1 ocupado.     Tempo de fila: 0.0
+ 14.5 Cliente 5 chega.
+ 14.5 Cliente 5 incia.          Barbeiro 0 ocupado.     Tempo de fila: 0.0
+ 17.8 Cliente 3 termina.        Barbeiro 2 liberado.
+```
 
 
