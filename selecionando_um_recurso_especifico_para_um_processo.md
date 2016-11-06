@@ -57,11 +57,11 @@ random.seed(100)
 env = simpy.Environment()
 
 #cria 3 barbeiros diferentes
-barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+**barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]**
 
 #cria um Store para armazenar os barbeiros
-barbeariaStore = simpy.Store(env, capacity=3)
-barbeariaStore.items = [0, 1, 2]
+**barbeariaStore = simpy.Store(env, capacity=3)
+barbeariaStore.items = [0, 1, 2]**
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
@@ -164,7 +164,7 @@ Como saída, o programa anterior fornece:
  17.8 Cliente 3 termina.        Barbeiro 2 liberado.
 ```
 
-No caso do exemplo, o `Store`armazenou basicamente uma lista de números \[1,2,3\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os barbeiros se chamam João, José e Mário, poderíamos montar o barberirosStore com os próprios nomes:
+No caso do exemplo, o `Store`armazenou basicamente uma lista de números \[1,2,3\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os barbeiros se chamam João, José e Mário, poderíamos montar o `barberirosStore`com os próprios nomes:
 
 ```python
 random.seed(100)            
@@ -183,8 +183,8 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20)  
 ```
-
 O exemplo anterior apenas reforça que `Store` é um local para se armazenar objetos de qualquer tipo \(semelhante ao `dict` do Python\).
+>Observação:`Store` opera segundo uma regra FIFO _(Firt-in-First-out_), ou seja: o primeiro objeto a entrar no Store por meio de um `.put()` será o primeiro objeto a sair dele com um `.get()`.
 
 ## Selecionando um objeto específico com `FilterStore()`
 
