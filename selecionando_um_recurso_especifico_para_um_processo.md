@@ -14,8 +14,8 @@ O comando que constrói um conjunto de objetos é o:
 
 Para manipular a Store, temos três comandos:
 * `meuStore.items:` adiciona objetos ao meuStore;
-* `meuStore.get():` retira o primeiro objeto disponível de meuStore;
-* `meuStore.put(umObjeto):` coloca um objeto no meuStore.
+* `yield meuStore.get():` retira o primeiro objeto disponível de `meuStore` ou, caso o meuStore esteja vazio, aguarda até que algum objeto esteja disponível;
+* `yield meuStore.put(umObjeto):` coloca um objeto no `meuStore `ou, caso o meuStore esteja cheio, aguarda um espaço vazio para colocar o objeto.
 
 Assim, vamos criar um `Store `que armazenará o nome dos barbeiros: 0, 1, 2:
 ```python
@@ -152,5 +152,91 @@ Como saída, o programa anterior fornece:
  14.5 Cliente 5 incia.          Barbeiro 0 ocupado.     Tempo de fila: 0.0
  17.8 Cliente 3 termina.        Barbeiro 2 liberado.
 ```
+No caso do exemplo, o `Store`armazenou basicamente uma lista de números [1,2,3], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário (em Python) para manipular os nomes reais dos barbeiros. Por exemplo, se os barbeiros se chamam João, José e Mário, poderíamos montar o barberirosStore com os próprios nomes:
+
+```python
+random.seed(100)            
+env = simpy.Environment()
+
+#cria 3 barbeiros diferentes e armazena em um dicionário
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+barbeirosNomes = ['João', 'José', 'Mario']
+barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
+
+#cria um Store para armazenar os barbeiros
+barbeariaStore = simpy.Store(env, capacity=3)
+barbeariaStore.items = barbeirosNomes
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 20)  
+```
+O exemplo anterior apenas reforça que `Store` é um local para se armazenar objetos de qualquer tipo (semelhante ao `dict` do Python).
+
 ## Selecionando um objeto específico com `FilterStore()`
 
+Considere agora o caso bastante comum em que precisamos selecionar um recurso específico (segundo alguma regra) dentro de um conjunto de recursos disponíveis. Por exemplo, na barbearia cada cliente tem um barbeiro preferido e, se ele não está disponível, o cliente prefere aguardar sua liberação.
+Vamos assumir neste caso, que a preferência é uniformemente distribuída entre os barbeiros. 
+Neste caso, o SimPy tem um comando específico para construir um conjunto de objetos filtrável:
+```python
+meuFilterStore = simpy.FilterStore(env, capacity=capacidade)
+```
+A grande diferença para o `Store` é que o podemos utilizar uma [função anônima do Python](http://pt.stackoverflow.com/questions/50422/como-declarar-uma-fun%C3%A7%C3%A3o-an%C3%B4nima-no-python) dentro do comando `.get()`. 
+Incialmente, vamos criar um `FilterStore `de barbeiros:
+```python
+random.seed(150)            
+env = simpy.Environment()
+
+#cria 3 barbeiros diferentes
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+
+#cria um Store para armazenar os barbeiros
+barbeariaStore = simpy.FilterStore(env, capacity=3)
+barbeariaStore.items = [0, 1, 2]
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 20)  
+```
+A função geradora de clientes tem uma ligeira modificação, pois agora tempos de atribuir a cada cliente um barbeiro específico segundo uma distribuição uniforme:
+```python
+import simpy
+import random
+
+TEMPO_CHEGADAS = 5          # intervalo entre chegadas de clientes
+TEMPO_CORTE = [10, 5]       # tempo médio de corte 
+PREF_BARBEIRO = [0, 2]      # preferênncia de barbeiros
+
+def chegadaClientes(env, barbeariaStore):
+    # gera clientes exponencialmente distribuídos
+    # sorteia o barbeiro
+    # inicia processo de atendimento
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
+        i += 1
+        barbeiroEscolhido = random.randint(*PREF_BARBEIRO)
+        print("%5.1f Cliente %i chega.\t\tBarbeiro %i escolhido." %(env.now, i, barbeiroEscolhido))
+        env.process(atendimento(env, i, barbeiroEscolhido, barbeariaStore))
+```
+Na função anterior, o *atributo* `barbeiroEscolhido` armazena o número do barbeiro sorteado e envia a informação para a função que representa o processo de atendimento.
+A função `atendimento` utilizará uma função anônima para buscar o barbeiro certo no `FilterStore` criado:
+
+```python
+def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    chegada = env.now
+    barbeiroNum = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+    espera = env.now - chegada
+    print("%5.1f Cliente %i incia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroEscolhido, espera))
+    with barbeirosList[barbeiroNum].request() as req:
+        yield req
+        yield env.timeout(random.normalvariate(*TEMPO_CORTE))
+        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroEscolhido))
+    barbeariaStore.put(barbeiroNum)
+```
+Para selecionar o número certo do barbeiro, existe uma função `lambda` inserida dentro do `.get()`:
+```python
+barbeiroNum = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+```
+Esta função percorre os objetos dentro da barbeariaStore até encontrar um que tenha o número respectivo. 
