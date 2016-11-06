@@ -239,4 +239,4 @@ Para selecionar o número certo do barbeiro, existe uma função `lambda` inseri
 ```python
 barbeiroNum = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
 ```
-Esta função percorre os objetos dentro da barbeariaStore até encontrar um que tenha o número respectivo. 
+Esta função percorre os objetos dentro da `barbeariaStore `até encontrar um que tenha o número respectivo. (Desafio: como você 
