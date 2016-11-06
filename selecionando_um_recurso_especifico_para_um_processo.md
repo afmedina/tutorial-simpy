@@ -83,7 +83,7 @@ def atendimento(env, cliente, barbeariaStore):
     chegada = env.now
     barbeiroNum = yield barbeariaStore.get()
     espera = env.now - chegada
-    print("%5.1f Cliente %i incia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroNum, espera))
+    print("%5.1f Cliente %i inicia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroNum, espera))
     with barbeirosList[barbeiroNum].request() as req:
         yield req
         yield env.timeout(random.normalvariate(*TEMPO_CORTE))
@@ -115,7 +115,7 @@ def atendimento(env, cliente, barbeariaStore):
     chegada = env.now
     barbeiroNum = yield barbeariaStore.get()
     espera = env.now - chegada
-    print("%5.1f Cliente %i incia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroNum, espera))
+    print("%5.1f Cliente %i inicia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" %(env.now, cliente, barbeiroNum, espera))
     with barbeirosList[barbeiroNum].request() as req:
         yield req
         yield env.timeout(random.normalvariate(*TEMPO_CORTE))
@@ -139,17 +139,17 @@ env.run(until = 20)
 Como saída, o programa anterior fornece:
 ```python
   0.8 Cliente 1 chega.
-  0.8 Cliente 1 incia.          Barbeiro 0 ocupado.     Tempo de fila: 0.0
+  0.8 Cliente 1 inicia.         Barbeiro 0 ocupado.     Tempo de fila: 0.0
   3.8 Cliente 2 chega.
-  3.8 Cliente 2 incia.          Barbeiro 1 ocupado.     Tempo de fila: 0.0
+  3.8 Cliente 2 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 0.0
  10.4 Cliente 3 chega.
- 10.4 Cliente 3 incia.          Barbeiro 2 ocupado.     Tempo de fila: 0.0
+ 10.4 Cliente 3 inicia.         Barbeiro 2 ocupado.     Tempo de fila: 0.0
  12.7 Cliente 2 termina.        Barbeiro 1 liberado.
  13.9 Cliente 1 termina.        Barbeiro 0 liberado.
  14.2 Cliente 4 chega.
- 14.2 Cliente 4 incia.          Barbeiro 1 ocupado.     Tempo de fila: 0.0
+ 14.2 Cliente 4 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 0.0
  14.5 Cliente 5 chega.
- 14.5 Cliente 5 incia.          Barbeiro 0 ocupado.     Tempo de fila: 0.0
+ 14.5 Cliente 5 inicia.         Barbeiro 0 ocupado.     Tempo de fila: 0.0
  17.8 Cliente 3 termina.        Barbeiro 2 liberado.
 ```
 No caso do exemplo, o `Store`armazenou basicamente uma lista de números [1,2,3], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário (em Python) para manipular os nomes reais dos barbeiros. Por exemplo, se os barbeiros se chamam João, José e Mário, poderíamos montar o barberirosStore com os próprios nomes:
