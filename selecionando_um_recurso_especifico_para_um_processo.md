@@ -17,8 +17,9 @@ Para manipular a Store, temos três comandos:
 * `meuStore.items:` adiciona objetos ao meuStore;
 * `yield meuStore.get():` retira o primeiro objeto disponível de `meuStore` ou, caso o meuStore esteja vazio, aguarda até que algum objeto esteja disponível;
 * `yield meuStore.put(umObjeto):` coloca um objeto no `meuStore`ou, caso o meuStore esteja cheio, aguarda um espaço vazio para colocar o objeto.
+> Observação: se a capacidade não for fornecida, o simpy assumirá que a capacidade do Store é ilimitada.
 
-Assim, vamos criar um `Store`que armazenará o nome dos barbeiros: 0, 1, 2:
+Assim, para a barbearia, vamos criar um `Store`que armazenará o nome dos barbeiros: 0, 1, 2:
 
 ```python
 env = simpy.Environment()
@@ -183,8 +184,10 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20)  
 ```
+
 O exemplo anterior apenas reforça que `Store` é um local para se armazenar objetos de qualquer tipo \(semelhante ao `dict` do Python\).
->Observação:`Store` opera segundo uma regra FIFO _(Firt-in-First-out_), ou seja: o primeiro objeto a entrar no Store por meio de um `.put()` será o primeiro objeto a sair dele com um `.get()`.
+
+> Observação:`Store` opera segundo uma regra FIFO _\(Firt-in-First-out_\), ou seja: o primeiro objeto a entrar no Store por meio de um `.put()` será o primeiro objeto a sair dele com um `.get()`.
 
 ## Selecionando um objeto específico com `FilterStore()`
 
@@ -264,6 +267,7 @@ barbeiroNum = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolh
 
 Esta função percorre os objetos dentro da `barbeariaStore`até encontrar um que tenha o número do respectivo barbeiro desejado pelo cliente. Note que também poderíamos ter optado por uma construção alternativa utilizando o nome dos barbeiros e não os números - neste caso, uma alternativa seria seguir o exemplo da seção anterior e utilizar um dicionário para associar o nome dos barbeiros aos respectivos recursos.
 Quando executado, o modelo anterior fornece:
+
 ```python
   8.7 Cliente 1 chega.          Barbeiro 1 escolhido.
   8.7 Cliente 1 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 0.0
@@ -273,4 +277,12 @@ Quando executado, o modelo anterior fornece:
  15.5 Cliente 1 termina.        Barbeiro 1 liberado.
  15.5 Cliente 3 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 3.0
 ```
+Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado atendendo o cliente 1, assim ele foi obrigado a esperar em fila por 3 minutos.
+
+## Criando um `Store` com prioridade: `PriorityStore()`
+Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no Store será o primeiro a sair do Store. É possível quebrar essa regra por meio do `PriorityStore`:
+```python
+meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
+```
+Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece. 
 
