@@ -262,5 +262,15 @@ Para selecionar o número certo do barbeiro, existe uma função `lambda` inseri
 barbeiroNum = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
 ```
 
-Esta função percorre os objetos dentro da `barbeariaStore`até encontrar um que tenha o número do respectivo barbeiro desejado pelo cliente.
+Esta função percorre os objetos dentro da `barbeariaStore`até encontrar um que tenha o número do respectivo barbeiro desejado pelo cliente. Note que também poderíamos ter optado por uma construção alternativa utilizando o nome dos barbeiros e não os números - neste caso, uma alternativa seria seguir o exemplo da seção anterior e utilizar um dicionário para associar o nome dos barbeiros aos respectivos recursos.
+Quando executado, o modelo anterior fornece:
+```python
+  8.7 Cliente 1 chega.          Barbeiro 1 escolhido.
+  8.7 Cliente 1 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 0.0
+  9.7 Cliente 2 chega.          Barbeiro 0 escolhido.
+  9.7 Cliente 2 inicia.         Barbeiro 0 ocupado.     Tempo de fila: 0.0
+ 12.4 Cliente 3 chega.          Barbeiro 1 escolhido.
+ 15.5 Cliente 1 termina.        Barbeiro 1 liberado.
+ 15.5 Cliente 3 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 3.0
+```
 
