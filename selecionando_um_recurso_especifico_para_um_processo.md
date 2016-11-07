@@ -17,7 +17,9 @@ Para manipular a Store, temos três comandos:
 * `meuStore.items:` adiciona objetos ao meuStore;
 * `yield meuStore.get():` retira o primeiro objeto disponível de `meuStore` ou, caso o meuStore esteja vazio, aguarda até que algum objeto esteja disponível;
 * `yield meuStore.put(umObjeto):` coloca um objeto no `meuStore`ou, caso o meuStore esteja cheio, aguarda um espaço vazio para colocar o objeto.
-> Observação: se a capacidade não for fornecida, o simpy assumirá que a capacidade do Store é ilimitada.
+
+  > Observação: se a capacidade não for fornecida, o simpy assumirá que a capacidade do Store é ilimitada.
+
 
 Assim, para a barbearia, vamos criar um `Store`que armazenará o nome dos barbeiros: 0, 1, 2:
 
@@ -32,11 +34,11 @@ barbeariaStore = simpy.Store(env, capacity=3)
 barbeariaStore.items = [0, 1, 2]
 ```
 
-No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma Store chamada barbeariaStore de capacidade 3 e adicionamos, na linha seguinte, um lista com três números.
+No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma `Store `chamada `barbeariaStore `de capacidade 3 e adicionamos, na linha seguinte, um lista com três números.
 
-Resumindo, nosso Store contém apenas os números 0, 1 e 2.
+Resumindo, nosso `Store `contém apenas os números 0, 1 e 2.
 
-Vamos considerar que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de minutos para cortar o cabelo.
+Vamos considerar que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de 5 minutos para cortar o cabelo.
 
 Uma possível máscara para o problema seria:
 
@@ -58,11 +60,11 @@ random.seed(100)
 env = simpy.Environment()
 
 #cria 3 barbeiros diferentes
-**barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]**
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
 
 #cria um Store para armazenar os barbeiros
-**barbeariaStore = simpy.Store(env, capacity=3)
-barbeariaStore.items = [0, 1, 2]**
+barbeariaStore = simpy.Store(env, capacity=3)
+barbeariaStore.items = [0, 1, 2]
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
@@ -277,12 +279,16 @@ Quando executado, o modelo anterior fornece:
  15.5 Cliente 1 termina.        Barbeiro 1 liberado.
  15.5 Cliente 3 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 3.0
 ```
+
 Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado atendendo o cliente 1, assim ele foi obrigado a esperar em fila por 3 minutos.
 
 ## Criando um `Store` com prioridade: `PriorityStore()`
+
 Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no Store será o primeiro a sair do Store. É possível quebrar essa regra por meio do `PriorityStore`:
+
 ```python
 meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 ```
-Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece. 
+
+Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece.
 
