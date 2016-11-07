@@ -11,7 +11,7 @@ A ideia é construir, ao final da jornada de posts, o eBook "Introdução ao Sim
 
 Portanto, não se trata de um livro de Simulação, mas sim de um livro sobre uma das linguagens mais facinantes de simulação de eventos discretos.
 
-Nossa sugestão inicial: reflita sobre um projeto de simulação que gostaria de desenvolver em SimPy e, a cada seção vencida do livro, desenvolva em paralelo seu próprio projeto a partir do conteúdo aprendido. E se ficar bacana, nos informe que criaremos um "banco de modelos de simulação em SimPy" onde as solução criativas para grandes problemas lógicos serão compartilhadas entre usuários.
+Nossa sugestão inicial: reflita sobre um projeto de simulação que gostaria de desenvolver em SimPy e, a cada seção vencida do livro, desenvolva em paralelo seu próprio projeto a partir do conteúdo aprendido. E, se ficar bacana, nos informe que criaremos um "banco de modelos de simulação em SimPy" onde as solução criativas para grandes problemas lógicos serão compartilhadas entre usuários.
 
 Este tutorial é produto do trabalho colaborativo entre colegas que ensinam, pesquisam ou utilizam profissionalmente ferramentas de Simulação no seu dia-a-dia: 
 
