@@ -44,7 +44,8 @@ Contras:
 * Não inclui um ambiente visual de desenvolvimento.
 
 
-## Um breve histórico do SimPy 
+## Um breve histórico do SimPy
+<....>
 
 ## Desenvolvimento deste livro
 
