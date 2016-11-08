@@ -6,7 +6,7 @@ Inaugurando a seção de tutoriais do site, começaremos com uma introdução ao
 
 Este tutorial será desenvolvido em posts da seção **blog** e a ideia é elaborar textos curtos, para que o leitor, a cada post, tenha uma visão clara do conteúdo apresentado, construindo o conhecimento de maneira sólida e respeitando sua curva de aprendizado.
 
-**SimPy** \(_Simulation in Python_\) é um [_framework_](https://pt.wikipedia.org/wiki/Framework)[^1] para a construção de modelos de simulação de eventos discretos em Python e distribuído segundo a [licença MIT](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).  Ele se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques do mouse. Com o **SimPy**, cabe ao usuário construir um programa de computador que represente seu modelo. Excencialmente, **SimPy** é uma biblioteca de comandos que conferem ao Python  o poder de construir modelos de eventos discretos.
+**SimPy** \(_Simulation in Python_\) é um _[framework](https://pt.wikipedia.org/wiki/Framework)_[^1] para a construção de modelos de simulação de eventos discretos em Python e distribuído segundo a [licença MIT](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).  Ele se diferencia dos softwares usuais de simulação, pois não se trata de uma aplicação com objetos prontos, conectados entre si por simples cliques do mouse. Com o **SimPy**, cabe ao usuário construir um programa de computador que represente seu modelo. Excencialmente, **SimPy** é uma biblioteca de comandos que conferem ao Python  o poder de construir modelos de eventos discretos.
 
 Com **SimPy** é possível de se construir, além de modelos de simulação discreta, modelos de simulação em “Real Time”, modelos de agentes e até modelos de simulação contínua. De fato, e como você notará ao longo deste texto, essas possibilidades estão mais associadas ao Python do que propriamente a recursos do SimPy.
 
@@ -42,6 +42,9 @@ Contras:
 * Necessidade de se programar cada processo do modelo;
 * Exige conhecimento prévio em Python;
 * Não inclui um ambiente visual de desenvolvimento.
+
+
+## Um breve histórico do SimPy 
 
 ## Desenvolvimento deste livro
 
