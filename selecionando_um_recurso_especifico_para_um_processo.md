@@ -292,3 +292,16 @@ meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 
 Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece.
 
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| --- | --- |
+| `meuStore = simpy.Store(env, capacity=capacity` | cria um _Store_ `meuStore`com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
+| `yield meuStore.get()` | retira o primeiro objeto disponível de `meuStore` ou, caso o meuStore esteja vazio, aguarda até que algum objeto esteja disponível. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+
+
+
+
