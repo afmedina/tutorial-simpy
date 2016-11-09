@@ -295,10 +295,10 @@ Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no ca
 ## Conceitos desta seção
 | Conteúdo | Descrição |
 | --- | --- |
-| `meuStore = simpy.Store(env, capacity=capacity` | cria um _Store_ `meuStore`com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
+| `meuStore = simpy.Store(env, capacity=capacity` | cria um _Store_ `meuStore` - uma armazém de objetos - com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
 | `yield meuStore.get()` | retira o primeiro objeto disponível de `meuStore` ou, caso o meuStore esteja vazio, aguarda até que algum objeto esteja disponível. |
 | `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
-| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `meuFilterStore = simpy.FilterStore(env, capacity=capacity)` | cria um _Store_ `meuStore` - uma armazém de objetos filtráveis - com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
 | `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
 | `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
 
