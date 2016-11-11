@@ -284,17 +284,21 @@ Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado at
 
 ## Criando um `Store` com prioridade: `PriorityStore()`
 
-Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no Store será o primeiro a sair do Store. É possível quebrar essa regra por meio do `PriorityStore`:
+Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no `Store `será o primeiro a sair do `Store`. É possível quebrar essa regra por meio do `PriorityStore`:
 
 ```python
 meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 ```
-Para acrescentar objetos dentro do PriorityStore, o processo é semelhante aos anteriores, mas agora deveos acrescentar a _prioridade _do objeto:
+Para armazenar certo objeto com uma prioridade específica, o `PriorityStore` tem um comando especial, o `PriorityItem`. Se queremos acrescentar um objeto qualquer ao `meuPriorityStore `já criado, a sequência de passos seria:
 
 ```python
-meuPriorityStore.items(priority=priority, objeto)
+meuObjetoPriority = simpy.PriorityItem(priority=priority, meuObjeto)
+meuPriorityStore.put(meuObjetoPriority)
 ```
-Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece.
+>Observação: como no caso do `PriorityResource`, quanto menor o valor de `priority`, maior a preferência pelo objeto.
+
+Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a ordem de prioridades é a própria ordem alfabética. Assim, incialmente, vamos construir dois dicionários para armazenar essas informações sobre os barbeiros:
+
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
