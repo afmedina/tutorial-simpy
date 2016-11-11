@@ -289,7 +289,11 @@ Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a ent
 ```python
 meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 ```
+Para acrescentar objetos dentro do PriorityStore, o processo é semelhante aos anteriores, mas agora deveos acrescentar a _prioridade _do objeto:
 
+```python
+meuPriorityStore.items(priority=priority, objeto)
+```
 Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece.
 
 ## Conceitos desta seção
