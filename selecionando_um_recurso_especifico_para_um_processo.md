@@ -309,6 +309,9 @@ Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a 
 | `meuFilterStore = simpy.FilterStore(env, capacity=capacity)` | cria um _Store_ `meuStore` - uma armazém de objetos filtráveis - com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
 | `yield meuFilterStore.get(filter=<function <lambda>>)` | retira o 1° objeto do `meuFilterStore` que retorne True para a função anônima fornecida por filter.  |
 | `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
 
 
 
