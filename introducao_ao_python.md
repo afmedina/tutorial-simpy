@@ -40,18 +40,18 @@ Teste o programa com os parâmetros a seguir (você pode utilizar esse código c
 ```python
 import random # gerador de números aleatórios
 
-names = ['Chewbacca', 'R2D2']  #jogadores
+names = ['Chewbacca', 'R2D2']  # jogadores
 
 def transfer(winner, looser, bankroll, tossCount):
-    #função que transfere o dinheiro do winner para o looser 
+    # função que transfere o dinheiro do winner para o looser 
     pass
     
 def coinToss(bankroll, tossCount):
-    #função que sorteia a moeda e chama a transfer
+    # função que sorteia a moeda e chama a transfer
     pass
     
 def run2Ruin(bankroll):
-    #função que executa o jogo até a ruina de um dos jogadores
+    # função que executa o jogo até a ruina de um dos jogadores
     tossCount = 0     #contador de lançamentos
     pass
     
