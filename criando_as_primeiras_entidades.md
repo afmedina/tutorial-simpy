@@ -190,7 +190,6 @@ geraChegadas```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
 
-
 >**Desafio 3:** modifique a função ```
 geraChegadas```
  de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
