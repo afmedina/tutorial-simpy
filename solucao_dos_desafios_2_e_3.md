@@ -85,7 +85,7 @@ import random
 
 def distributions(tipo):
     return {
-        'arrival': random.expovariate(1/10),
+        'arrival': random.expovariate(1/10.0),
         'singing': random.triangular(10, 20, 30),
         'applause': random.gauss(10, 1),
     }.get(tipo, 0.0)
