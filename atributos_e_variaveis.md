@@ -2,22 +2,22 @@
 
 Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence à entidade, enquanto a variável pertence ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o **número de produtos** comprados. Note que o atributo "número de produtos" é um valor diferente para cada cliente, ou seja: é um valor exclusivo do cliente.
 
-Por outo lado, um parâmetro de saída importante seria o número total de produtos vendidos ao longo da simulação. O total de produtos é a soma dos atributos "número de produtos" de cada cliente que comprou algo na loja. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada novo cliente.
+Por outo lado, um parâmetro de saída importante seria o número total de produtos vendidos nesta loja ao longo da duração da simulação. O total de produtos é a soma dos atributos "número de produtos" de cada cliente que comprou algo na loja. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada nova compra, independentemente de quem é o cliente.
 
-Em SimPy a coisa é trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Não se trata de uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca. É decorrente da necessidade de se representar os processos do modelo de simulação por meio de **funções **que, por sua vez representam entidades executando alguma coisa.
+Em SimPy a coisa é trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Não se trata de uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca. É decorrente da necessidade de se representar os processos do modelo de simulação por meio de **funções** que, por sua vez representam entidades executando alguma coisa.
 
-Usuários de pacotes comerciais \(Simul8, Anylogic, GPSS, Arena etc.\) estão acostumados a informar ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo.
+Usuários de pacotes comerciais \(Simul8, Anylogic, GPSS, Arena etc.\) estão acostumados a informar explicitamente ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo e que os atributos de interesse devem ser transferidos de um processo ao outro por transferência de argumentos no cabeçalho das funções.
 
-Por exemplo, imaginemos a chegada de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
+Por exemplo, voltemos ao exemplo de chegadas de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
 
 ```python
-import random # gerador de números aleatórios
-import simpy  # biblioteca de simulação
+import random     # gerador de números aleatórios
+import simpy      # biblioteca de simulação
 
-contaVendas = 0  #variável global que manrca o número de vendas realizadas
+contaVendas = 0   # variável global que manrca o número de vendas realizadas
 
 def geraChegadas(env):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     contaEntidade = 0 # variável local = atributo da entidade
     while True:
         yield env.timeout(1)
@@ -27,11 +27,11 @@ def geraChegadas(env):
         % (contaEntidade, env.now, produtos))
 
         # inicia o processo de atendimento do cliente de atributos contaEntidade
-        #e do número de produtos
+        # e do número de produtos
         env.process(compra(env, "Cliente %d" % contaEntidade, produtos))
 
 def compra(env, nome, produtos):
-    #função que realiza a venda para as entidades
+    # função que realiza a venda para as entidades
     # nome e produtos, são atributo da entidade
 
     global contaVendas # variável global = variável do modelo
@@ -76,8 +76,10 @@ Cliente 9 chega em: 9.0 quer 3 produtos
 Total vendido: 12 produtos
 ```
 
-É importante destacar no exemplo, que o cliente \(entidade\) gerado pela função `geraChegadas`é enviado para a função `compra`com seu atributo `produtos` como se nota na linha que em que o cliente chama o processo de compra:
-`env.process(compra(env, "Cliente %d" % contaEntidade, produtos))`
+É importante destacar no exemplo, que o cliente \(ou entidade\) gerado(a) pela função `geraChegadas`é enviado para a função `compra`com seu atributo `produtos` como se nota na linha que em que o cliente chama o processo de compra:
+```python
+env.process(compra(env, "Cliente %d" % contaEntidade, produtos))
+```
 
 ## Atributos em modelos orientados ao objeto
 
@@ -90,8 +92,8 @@ import random
 import simpy
 
 class Servidor(object):
-    #cria a classe Servidor
-    #note que um dos atributos é o próprio Recurso do simpy
+    # cria a classe Servidor
+    # note que um dos atributos é o próprio Recurso do simpy
     def __init__(self, env, capacidade, duracao):
         #atributos do recurso
         self.env = env
@@ -104,10 +106,10 @@ class Servidor(object):
         print("%s atendido em %.1f" % (cliente, env.now))
 
 def processaCliente(env, cliente, servidor):
-    #função que processa o cliente
+    # função que processa o cliente
 
     print('%s chega em %.1f' % (cliente, env.now))
-    with servidor.res.request() as req: #note que o Resource é um atributo também
+    with servidor.res.request() as req: # note que o Resource é um atributo também
         yield req
 
         print('%s entra no servidor em %.1f' % (cliente, env.now))
