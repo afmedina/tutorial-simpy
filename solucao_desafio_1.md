@@ -5,12 +5,12 @@ O código a seguir é uma possível solução para o desafio 1 da seção anteri
 O importante é que se você fez alguma que coisa que funcionou, acredito que é o suficiente para começar com o SimPy.
 
 ```python
-import random # gerador de números aleatórios
+import random                   # gerador de números aleatórios
 
-names = ['Chewbacca', 'R2D2']   #jogadores
+names = ['Chewbacca', 'R2D2']   # jogadores
 
 def transfer(winner, looser, bankroll, tossCount):
-    #função que transfere o dinheiro do winner para o looser 
+    # função que transfere o dinheiro do winner para o looser 
     bankroll[winner] += 1
     bankroll[looser] -= 1
     print("\nVencedor: %s" % names[winner])
@@ -18,14 +18,14 @@ def transfer(winner, looser, bankroll, tossCount):
     % (names[0], bankroll[0], names[1], bankroll[1]))
     
 def coinToss(bankroll, tossCount):
-    #função que sorteia a moeda e chama a transfer
+    # função que sorteia a moeda e chama a transfer
     if random.uniform(0,1) < 0.5:
         transfer(1, 0, bankroll, tossCount)
     else:
         transfer(0, 1, bankroll, tossCount)
 
 def run2Ruin(bankroll):
-    #função que executa o jogo até a ruina de um dos jogadores
+    # função que executa o jogo até a ruina de um dos jogadores
     tossCount = 0     #contador de lançamentos
     while bankroll[0] > 0 and bankroll[1] > 0:
         tossCount += 1
@@ -34,8 +34,8 @@ def run2Ruin(bankroll):
     print("\n%s venceu depois de %d iterações, fim de jogo!" 
     % (names[winner], tossCount))
 
-bankroll = [5, 5]     #dinheiro disponível para cada jogador
-run2Ruin(bankroll)    #inicia o jogo
+bankroll = [5, 5]     # dinheiro disponível para cada jogador
+run2Ruin(bankroll)    # inicia o jogo
 ```
 
 ### Teste seus conhecimentos:
