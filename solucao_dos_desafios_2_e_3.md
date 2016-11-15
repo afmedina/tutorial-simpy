@@ -11,11 +11,11 @@ numeroMaxChegadas```
 Neste caso, o *script* em Python é autoexplicativo, apenas note que limitei o número de chegadas em 5 e fiz isso antes da chamada do processo gerado pela função ```geraChegadas()```:
 
 ```python
-import random # gerador de números aleatórios
-import simpy  # biblioteca de simulação
+import random     # gerador de números aleatórios
+import simpy      # biblioteca de simulação
 
 def geraChegadas(env, nome, taxa, numeroMaxChegadas):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas:
         yield env.timeout(random.expovariate(1/taxa))
@@ -24,7 +24,8 @@ def geraChegadas(env, nome, taxa, numeroMaxChegadas):
 
 random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-env.process(geraChegadas(env, "Cliente", 2, 5)) # cria o processo de chegadas
+# cria o processo de chegadas
+env.process(geraChegadas(env, "Cliente", 2, 5)) 
 env.run(until=10) # roda a simulação por 10 unidades de tempo
 ```
 
@@ -54,11 +55,11 @@ Neste caso, precisamos verificar na documentação da biblioteca random, quais s
 A biblioteca NumPy, que veremos oportunamente, possui mais opções para distribuições estatísticas. Por enquanto, o desafio 3 pode ser solucionado de maneira literal:
 
 ```python
-import random # gerador de números aleatórios
-import simpy  # biblioteca de simulação
+import random     # gerador de números aleatórios
+import simpy      # biblioteca de simulação
 
 def geraChegadas(env, nome, numeroMaxChegadas):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas:
         yield env.timeout(random.triangular(0.1,1,1.1))
@@ -67,6 +68,7 @@ def geraChegadas(env, nome, numeroMaxChegadas):
 
 random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
+# cria o processo de chegadas
 env.process(geraChegadas(env, "Cliente, 5))
 env.run(until=10)
 ```
@@ -129,5 +131,5 @@ while True:
 
 ##Teste seus conhecimentos:
 1. Acrescente ao programa incial, uma função ```distribution``` como a proposta na Dica do Dia e faça o tempo entre chegadas sucessivas de entidades chamar a função para obter o valor correto.
-2. Considere que 50% das entidades geradas durante a simulação são do sexo feminino e 50% do sexo masculino. Modifique o programa para que o ele sorteie o genêro dos clientes. Faça esse sorteio dentro da função ```distribution``` já criada.
+2. Considere que 50% das entidades geradas durante a simulação são do sexo feminino e 50% do sexo masculino. Modifique o programa para que ele sorteie o genêro dos clientes. Faça esse sorteio dentro da função ```distribution``` já criada.
 
