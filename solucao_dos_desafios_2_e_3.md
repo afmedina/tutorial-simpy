@@ -26,7 +26,7 @@ random.seed(1000)   # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
 # cria o processo de chegadas
 env.process(geraChegadas(env, "Cliente", 2, 5)) 
-env.run(until=10) # roda a simulação por 10 unidades de tempo
+env.run(until=10) # executa a simulação por 10 unidades de tempo
 ```
 
 
@@ -115,7 +115,7 @@ Essa foi a nossa dica do dia!
 >Fique a vontade para implementar funções de geração de números aleatórios ao seu gosto. Note, e isso é importante, que **praticamente todos os seus modelos de simulação em SimPy precisarão deste tipo de função!**
 
 Uma última observação:
->Atenção à eficiência do código. Como a finalidade deste texto é prioritariamente didática, as chamadas às funções de geração de números aleatórios respeitam a lógica do aprendizado. Contudo, tais chamadas não são exatamente eficientes... Você consegue descobrir qual das duas chamadas a seguir é a mais eficiente e por quê?
+>Atenção à eficiência do código. Como a finalidade deste texto é prioritariamente didática, as chamadas às funções de geração de números aleatórios respeitam a lógica do aprendizado. Contudo, tais chamadas não são exatamente eficientes... Por exemplo, você consegue descobrir qual das duas chamadas a seguir é a mais eficiente e por quê?
 
 ```python
 while True:
