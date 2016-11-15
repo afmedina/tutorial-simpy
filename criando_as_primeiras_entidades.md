@@ -168,7 +168,7 @@ env```
 env.run(until=10)```
  informa ao SimPy para que todo processo pertencente ao ```
 env```
- seja executado por um tempo de simulação igual a 10 minutos.
+ seja executado por um **tempo de simulação** igual a 10 minutos.
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
@@ -183,14 +183,15 @@ env```
 
 
 ## Desafios (soluções na próxima seção)
-**Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
+>**Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
 Modifique a função ```
 geraChegadas```
  de modo que ela receba como parâmetro ```
 numeroMaxChegadas```
  e limite a criação de entidades a este número.
 
-**Desafio 3:** modifique a função ```
+
+>**Desafio 3:** modifique a função ```
 geraChegadas```
  de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
  
