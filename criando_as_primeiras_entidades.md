@@ -135,7 +135,7 @@ import random             # gerador de números aleatórios
 import simpy              # biblioteca de simulação
 
 def geraChegadas(env, nome, taxa):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     contaChegada = 0
     while True:
         yield env.timeout(random.expovariate(1/taxa))
@@ -162,11 +162,11 @@ Agora sim!
 
 Note que ```
 env.process(geraChegadas(env))```
- é um comando que **torna** a função ```geraChegadas()``` um **processo** ou um **gerador de eventos** dentro do environment ```
+ é um comando que **torna** a função ```geraChegadas()``` um **processo** ou um **gerador de eventos** dentro do `Environment ````
 env```
 . Esse processo só começa a ser executado na linha seguinte, quando ```
 env.run(until=10)```
- informa ao SimPy para que todo processo pertencente ao ```
+ informa ao SimPy que todo processo pertencente ao ```Environment
 env```
  seja executado por um **tempo de simulação** igual a 10 minutos.
 
