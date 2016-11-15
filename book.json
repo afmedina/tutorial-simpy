@@ -11,7 +11,7 @@
 	"pluginsConfig": {},
 	"language": "pt",
 	"pdf": {
-        "fontSize": 12,
+        "fontSize": 80%,
 		"paperSize": "a4"
         
 	}
