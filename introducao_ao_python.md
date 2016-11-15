@@ -52,11 +52,11 @@ def coinToss(bankroll, tossCount):
     
 def run2Ruin(bankroll):
     # função que executa o jogo até a ruina de um dos jogadores
-    tossCount = 0     #contador de lançamentos
+    tossCount = 0     # contador de lançamentos
     pass
     
-bankroll = [5, 5]   #dinheiro disponível para cada jogador
-run2Ruin(bankroll)  #inicia o jogo
+bankroll = [5, 5]   # dinheiro disponível para cada jogador
+run2Ruin(bankroll)  # inicia o jogo
 ```
 
 A próxima seção apresenta uma possível resposta para o desafio e, na sequência, tudo enfim, começa.
