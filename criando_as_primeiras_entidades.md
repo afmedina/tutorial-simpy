@@ -51,7 +51,7 @@ import random             # gerador de números aleatórios
 import simpy              # biblioteca de simulação
 
 def geraChegadas(env, nome, taxa):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     pass
 
 random.seed(1000)         # semente do gerador de números aleatórios
@@ -67,40 +67,32 @@ import random             # gerador de números aleatórios
 import simpy              # biblioteca de simulação
 
 def geraChegadas(env, nome, taxa):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     pass
     
 random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-env.process(geraChegadas(env, "Cliente", 2))) # cria o processo de chegadas
+# cria o processo de chegadas
+env.process(geraChegadas(env, "Cliente", 2)))
 ```
-### Criando intervalos de tempo de espera com ```env.timeout(tempo)```
+### Criando intervalos de tempo de espera com ```env.timeout(tempo_de_espera)```
 Inicialmente, precisamos gerar intervalos de tempos aleatórios, exponencialmente distribuídos, para representar os tempos entre chegadas sucessivas das entidades. Para gerar chegadas com intervalos exponenciais, utilizaremos a biblioteca ```random```, bem detalhada na sua [documentação](https://docs.python.org/2/library/random.html), e que possui a função:
 ```python
 random.expovariate(lambd)
 ```
 
-Onde ```
-lambd```
- é a taxa de ocorrência dos eventos ou, matematicamente, o inverso do tempo médio entre eventos sucessivos. No caso, se eu quero que as chegadas sejam entre intervalos médios de 2 min, a função ficaria:
+Onde `lambd` é a taxa de ocorrência dos eventos ou, matematicamente, o inverso do tempo médio entre eventos sucessivos. No caso, se queremos que as chegadas ocorram entre intervalos médios de 2 min, a função ficaria:
 ```python
 random.expovariate(lambd=1.0/2.0)
 ```
-
-A linha anterior é nosso gerador de números aleatórios exponencialmente distribuídos. O próximo passo é informar ao SimPy que queremos nossas entidades surgindo no sistema segundo a distribuição definida. Isso é feito pela chamada da palavra reservada ```
-yield```
- com a função do SimPy ```
-env.timeout(intervalo)```, que nada mais é do que uma função que causa um atraso de tempo, um *delay* no tempo dentro do *enviroment* ```
-env```
- criado:
-
+A linha anterior é basicamente nosso gerador de números aleatórios exponencialmente distribuídos. O passo seguinte será informar ao SimPy que queremos nossas entidades surgindo no sistema segundo a distribuição definida. Isso é feito pela chamada da palavra reservada `yield` com a função do SimPy `env.timeout(intervalo)`, que nada mais é do que uma função que causa um atraso de tempo, um *delay* no tempo dentro do *enviroment* `env` criado:
 ```python
 yield env.timeout(random.expovariate(1.0/2.0))
 ```
-Na linha de código anterior estamos executando ```
-yield env.timeout()```
- para que o modelo retarde o processo num tempo aleatório gerado pela função ```
-random.expovariate()```. Oportunamente, discutiremos mais a fundo qual o papel do palavra ```yield``` (*spoiler*: ela não é do SimPy, mas originalmente do próprio Python). Por hora, considere que ela é uma maneira de **criar eventos** dentro do ```
+Na linha de código anterior estamos executando `yield env.timeout()` para que o modelo retarde o processo num tempo aleatório gerado pela função ```
+random.expovariate()```.
+
+Oportunamente, discutiremos mais a fundo qual o papel do palavra ```yield``` (*spoiler*: ela não é do SimPy, mas originalmente do próprio Python). Por hora, considere que ela é apenas uma maneira de **criar eventos** dentro do ```
 env```.
 
 
@@ -114,7 +106,7 @@ import random             # gerador de números aleatórios
 import simpy              # biblioteca de simulação
 
 def geraChegadas(env, nome, taxa):
-    #função que cria chegadas de entidades no sistema
+    # função que cria chegadas de entidades no sistema
     contaChegada = 0
     while True:
         yield env.timeout(random.expovariate(1.0/taxa))
@@ -123,7 +115,8 @@ def geraChegadas(env, nome, taxa):
         
 random.seed(1000)         # semente do gerador de números aleatórios
 env = simpy.Environment() # cria o environment do modelo
-env.process(geraChegadas(env, "Cliente", 2))) # cria o processo de chegadas
+# cria o processo de chegadas
+env.process(geraChegadas(env, "Cliente", 2))) 
 ```
 O código deve ser autoexplicativo: o laço ```
 while```
