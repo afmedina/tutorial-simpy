@@ -1,25 +1,27 @@
 # Armazenagem e seleção de objetos específicos com  `Store() e FilterStore()`
 
-O SimPy possui um ferramenta para armazenamento de objetos - como recursos, por exemplo - chamada `Store` e um comando de acesso a objetos específicos dentro do `Store` por meio de filtro, o `FilterStore`. O programador experiente vai notar a similaridade entre o `Store` e o [dicionário](http://www3.ifrn.edu.br/~jurandy/fdp/doc/aprenda-python/capitulo_10.html) do Python.
+O SimPy possui uma ferramenta para armazenamento de [objetos](http://wiki.python.org.br/ProgramacaoOrientadaObjetoPython#A2._Objetos_e_Tipos_de_dados) - como valores, recursos etc.  - chamada `Store` e um comando de acesso a objetos específicos dentro do `Store` por meio de filtro, o `FilterStore`. O programador experiente vai notar a similaridade entre o `Store` e o [dicionário](http://www3.ifrn.edu.br/~jurandy/fdp/doc/aprenda-python/capitulo_10.html) do Python.
 
-Vamos aprender sobre o `Store` a partir de um exemplo bem simples: uma barbearia com três barbeiros. Quando você chega a uma barbearia e tem uma ordem de preferência entre os barbeiros, isto é: barbeiro 1 vem antes do 2, que vem antes do 3, precisará selecionar seu _recurso_ barbeiro na ordem certa.
+Vamos descobrir o funcionamento do `Store` a partir de um exemplo bem simples: uma barbearia com três barbeiros. Quando você chega a uma barbearia e tem uma ordem de preferência entre os barbeiros, isto é: barbeiro 1 vem antes do 2, que vem antes do 3, precisará selecionar seu _recurso_ barbeiro na ordem certa.
 
 ## Construindo um conjunto de objetos com `Store()`
 
 Incialmente, vamos considerar que os clientes são atribuídos ao barbeiro que estiver livre, indistintamente. Se todos os barbeiros estiverem ocupados, o cliente aguarda em fila.
 
-O comando que constrói um conjunto de objetos é o:
+O comando que constrói um armazém de objetos é o `simpy.Store()`:
 
 `meuStore = simpy.Store(env, capacity=capacidade)`
 
-Para manipular a Store, temos três comandos:
+Para manipular o `Store`criado, temos três comandos à disposição:
 
 * `meuStore.items:` adiciona objetos ao meuStore;
 * `yield meuStore.get():` retira o primeiro objeto disponível de `meuStore` ou, caso o meuStore esteja vazio, aguarda até que algum objeto esteja disponível;
-* `yield meuStore.put(umObjeto):` coloca um objeto no `meuStore`ou, caso o meuStore esteja cheio, aguarda um espaço vazio para colocar o objeto.
-> Observação: se a capacidade não for fornecida, o simpy assumirá que a capacidade do Store é ilimitada.
+* `yield meuStore.put(umObjeto):` coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto.
 
-Assim, para a barbearia, vamos criar um `Store`que armazenará o nome dos barbeiros: 0, 1, 2:
+  > Observação: se a capacidade não for fornecida, o SimPy assumirá que a capacidade do Store é ilimitada.
+
+
+Para a barbearia, vamos criar um `Store`que armazenará o nome dos barbeiros, aqui denominados de 0, 1, 2:
 
 ```python
 env = simpy.Environment()
@@ -32,11 +34,11 @@ barbeariaStore = simpy.Store(env, capacity=3)
 barbeariaStore.items = [0, 1, 2]
 ```
 
-No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma Store chamada barbeariaStore de capacidade 3 e adicionamos, na linha seguinte, um lista com três números.
+No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma `Store`chamada `barbeariaStore`de capacidade 3 e adicionamos, na linha seguinte, um lista com os três números que representam os próprios barbeiros.
 
-Resumindo, nosso Store contém apenas os números 0, 1 e 2.
+Em resumo, nosso `Store`contém apenas os números 0, 1 e 2.
 
-Vamos considerar que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de minutos para cortar o cabelo.
+Vamos considerar que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de 5 minutos para cortar o cabelo.
 
 Uma possível máscara para o problema seria:
 
@@ -52,17 +54,17 @@ def chegadaClientes(env, barbeariaStore):
     # encaminha para o processo de atendimento
 
 def atendimento(env, cliente, barbeariaStore):
-    #ocupa um barbeiro específico e realiza o corte
+    # ocupa um barbeiro específico e realiza o corte
 
 random.seed(100)            
 env = simpy.Environment()
 
-#cria 3 barbeiros diferentes
-**barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]**
+# cria 3 barbeiros diferentes
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
 
-#cria um Store para armazenar os barbeiros
-**barbeariaStore = simpy.Store(env, capacity=3)
-barbeariaStore.items = [0, 1, 2]**
+# cria um Store para armazenar os barbeiros
+barbeariaStore = simpy.Store(env, capacity=3)
+barbeariaStore.items = [0, 1, 2]
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
@@ -87,7 +89,7 @@ A função de atendimento, traz a novidade de que primeiro devemos _retirar_ um 
 
 ```python
 def atendimento(env, cliente, barbeariaStore):
-    #ocupa um barbeiro específico e realiza o corte
+    # ocupa um barbeiro específico e realiza o corte
     chegada = env.now
     barbeiroNum = yield barbeariaStore.get()
     espera = env.now - chegada
@@ -120,7 +122,7 @@ def chegadaClientes(env, barbeariaStore):
         env.process(atendimento(env, i, barbeariaStore))
 
 def atendimento(env, cliente, barbeariaStore):
-    #ocupa um barbeiro específico e realiza o corte
+    # ocupa um barbeiro específico e realiza o corte
     chegada = env.now
     barbeiroNum = yield barbeariaStore.get()
     espera = env.now - chegada
@@ -135,10 +137,10 @@ def atendimento(env, cliente, barbeariaStore):
 random.seed(100)            
 env = simpy.Environment()
 
-#cria 3 barbeiros diferentes
+# cria 3 barbeiros diferentes
 barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
 
-#cria um Store para armazenar os barbeiros
+# cria um Store para armazenar os barbeiros
 barbeariaStore = simpy.Store(env, capacity=3)
 barbeariaStore.items = [0, 1, 2]
 
@@ -165,7 +167,7 @@ Como saída, o programa anterior fornece:
  17.8 Cliente 3 termina.        Barbeiro 2 liberado.
 ```
 
-No caso do exemplo, o `Store`armazenou basicamente uma lista de números \[1,2,3\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os barbeiros se chamam João, José e Mário, poderíamos montar o `barberirosStore`com os próprios nomes:
+No caso do exemplo, o `Store`armazenou basicamente uma lista de números \[0,1,2\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os nomes dos barbeiros são: João, José e Mário, poderíamos montar o `barberirosStore`com seus próprios nomes:
 
 ```python
 random.seed(100)            
@@ -193,7 +195,7 @@ O exemplo anterior apenas reforça que `Store` é um local para se armazenar obj
 
 Considere agora o caso bastante comum em que precisamos selecionar um recurso específico \(segundo alguma regra\) dentro de um conjunto de recursos disponíveis. Por exemplo, na barbearia cada cliente tem um barbeiro preferido e, se ele não está disponível, o cliente prefere aguardar sua liberação.
 Vamos assumir neste caso, que a preferência é uniformemente distribuída entre os barbeiros. 
-Neste caso, o SimPy tem um comando específico para construir um conjunto de objetos filtrável:
+Precisamos portanto, de um modo de selecionar um objeto específico dentro do `Store`. O SimPy tem um comando específico para construir um conjunto de objetos filtrável, o `FilterStore`:
 
 ```python
 meuFilterStore = simpy.FilterStore(env, capacity=capacidade)
@@ -277,12 +279,40 @@ Quando executado, o modelo anterior fornece:
  15.5 Cliente 1 termina.        Barbeiro 1 liberado.
  15.5 Cliente 3 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 3.0
 ```
+
 Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado atendendo o cliente 1, assim ele foi obrigado a esperar em fila por 3 minutos.
 
 ## Criando um `Store` com prioridade: `PriorityStore()`
-Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no Store será o primeiro a sair do Store. É possível quebrar essa regra por meio do `PriorityStore`:
+
+Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no `Store `será o primeiro a sair do `Store`. É possível quebrar essa regra por meio do `PriorityStore`:
+
 ```python
 meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 ```
-Os objetos carregados no PriorityStore devem ser ordenáveis. Por exemplo, no caso dos barbeiros "0, 1 e 2", a ordem de prioridade sempre será, primeiro o 0, depois o 1 e depois o 2. No caso dos nomes "João, José e Mário", a ordem alfabética prevalece. 
+Para armazenar certo objeto com uma prioridade específica, o `PriorityStore` tem um comando especial, o `PriorityItem`. Se queremos acrescentar um objeto qualquer ao `meuPriorityStore `já criado, a sequência de passos seria:
+
+```python
+meuObjetoPriority = simpy.PriorityItem(priority=priority, meuObjeto)
+meuPriorityStore.put(meuObjetoPriority)
+```
+>Observação: como no caso do `PriorityResource`, quanto menor o valor de `priority`, maior a preferência pelo objeto.
+
+Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a ordem de prioridades é a própria ordem alfabética. Assim, incialmente, vamos construir dois dicionários para armazenar essas informações sobre os barbeiros:
+
+
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| --- | --- |
+| `meuStore = simpy.Store(env, capacity=capacity` | cria um _Store_ `meuStore`: um armazém de objetos com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
+| `yield meuStore.get()` | retira o primeiro objeto disponível de `meuStore` ou, caso o `meuStore` esteja vazio, aguarda até que algum objeto esteja disponível. |
+| `yield meuStore.put(umObjeto)` | coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `meuFilterStore = simpy.FilterStore(env, capacity=capacity)` | cria um _Store_ `meuStore`: um armazém de objetos filtráveis com capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
+| `yield meuFilterStore.get(filter=<function <lambda>>)` | retira o 1° objeto do `meuFilterStore` que retorne True para a função anônima fornecida por filter.  |
+| `meuPriorityStore = simpy.PriorityStore(env, capacity=inf)` | cria um _PriorityStore_ `meuPriorityStore` - uma armazém de objetos com ordem de prioridade e capacidade `capacity`. Caso o parâmetro `capacity` não seja fornecido, o SimPy considera `capacity=inf`. |
+| `meuObjetoPriority = simpy.PriorityItem(priority=priority, meuObjeto)` | cria um objeto `meuObjetoPriority` a partir de um objeto `meuObjeto` existente, com prioridade para ser armazenado em um `PriorityStore`. A `priority `deve ser um objeto ordenável. |
+| `meuPriorityStore.put(meuObjetoPriority)` | coloca o objeto `meuObjetoPriority` no `PriorityStore` `meuPriorityStore` ou, caso o `meuPriorityStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
+| `yield meuPriorityStore.get()` | retorna o primeiro objeto disponível em `meuPriorityStore` respeitando a ordem de prioridade atribuída ao `PriorityItem` (objetos com valor menor de prioridade são escolhidos primeiro). Caso o `meuPriorityStore` esteja vazio, aguarda até que surja um espaço vazio para colocar o objeto. |
+
+
+
 
