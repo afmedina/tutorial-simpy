@@ -34,7 +34,7 @@ Construa três funções:
 3. ```run2Ruin(bankroll)```: mantém um loop permanente até que um dos jogadores entrem em ruina
 
 
-Teste o programa com os parâmetros a seguir (você pode utilizar esse código como um template):
+Teste o programa com os parâmetros a seguir (você pode utilizar esse código como uma máscara):
 
 
 ```python
