@@ -16,8 +16,8 @@ Não sei...
 --->
 
 ```python
-import random # gerador de números aleatórios
-import simpy # biblioteca de simulação
+import random             # gerador de números aleatórios
+import simpy              # biblioteca de simulação
 
 random.seed(1000)         # semente do gerador de números aleatórios
 ```
