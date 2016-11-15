@@ -1,7 +1,16 @@
 {
-    "plugins": [
-        "-image-captions",
-        "video"
-    ],
-    "pluginsConfig": {}
+
+	"plugins": [
+
+		"-image-captions",
+
+		"video"
+
+	],
+
+	"pluginsConfig": {},
+	"language": "pt",
+	"pdf": {
+		"paperSize": "a4"
+	}
 }
