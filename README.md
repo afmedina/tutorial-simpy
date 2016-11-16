@@ -17,5 +17,3 @@ Este tutorial é produto do trabalho colaborativo entre colegas que ensinam, pes
 
 Afonso C. Medina
 
-Marco A. Mesquita
-
