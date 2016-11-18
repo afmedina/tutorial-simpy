@@ -15,29 +15,29 @@ Inicialmente, devemos criar uma função que represente a viagem:
 ```python
 import simpy
 
-viajando = False    #variável global que avisa se o x-wing está operando
-duracaoViagem = 30  #variável global que marca a duração atual da viagem
+viajando = False    # variável global que avisa se o x-wing está operando
+duracaoViagem = 30  # variável global que marca a duração atual da viagem
 
 def viagem(env, tempoParada):
     #processo de viagem do x-wing
     global viajando
     global duracaoViagem
 
-    partida = env.now         #inicio da viagem
-    while duracaoViagem > 0:  #enquanto ainda durar a viagem, execute:
+    partida = env.now         # início da viagem
+    while duracaoViagem > 0:  # enquanto ainda durar a viagem, execute:
         try:
             viajando = True
             inicioViagem = env.now #(re)inicio da viagem
             print("Viagem iniciada em %s" %(env.now))
-            yield env.timeout(duracaoViagem) #tempo de viagem restante
+            yield env.timeout(duracaoViagem) # tempo de viagem restante
             duracaoViagem -= env.now-inicioViagem
         except simpy.Interrupt:
             #se o processo de viagem foi interrompido execute:
-            duracaoViagem -= env.now-inicioViagem #atualiza o tempo restante de viagem
+            duracaoViagem -= env.now-inicioViagem # atualiza o tempo restante de viagem
             print("Falha do R2D2 em %s, tempo de viagem estimado %s" %(env.now, duracaoViagem ))
-            yield env.timeout(tempoParada) #tempo de manutenção do R2D2
+            yield env.timeout(tempoParada) # tempo de manutenção do R2D2
 
-    #ao final avisa o término da viagem e sua duração
+    # ao final avisa o término da viagem e sua duração
     viajando = False
     print("Viagem concluida em %s, duração total da viagem %s" %(env.now, env.now-partida))
 
