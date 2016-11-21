@@ -1,7 +1,18 @@
 {
-    "plugins": [
-        "-image-captions",
-        "video"
-    ],
-    "pluginsConfig": {}
+
+	"plugins": [
+
+		"-image-captions",
+
+		"video"
+
+	],
+
+	"pluginsConfig": {},
+	"language": "pt",
+	"pdf": {
+        "fontSize": 11,
+		"paperSize": "a4"
+        
+	}
 }

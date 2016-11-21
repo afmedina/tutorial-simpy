@@ -5,7 +5,7 @@ A fila M\/M\/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra
 Partindo da função `geraChegadas`, codificada na seção "Criando as primeiras entidades", precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função `atendimentoServidor`
  responsável por manter os clientes em fila e realizar o atendimento.
 
-Inicialmente, vamos acrescentar as constantes TEMPO\_MEDIO\_CHEGADAS e TEMPO\_MEDIO\_ATENDIMENTO, para armazenar os parâmetros das distribuições dos processos de chegada e atendimento da fila. Adicionalmente, vamos criar o recurso `servidorRes` com capacidade de atender 1 cliente por vez.
+Inicialmente, vamos acrescentar as constantes `TEMPO_MEDIO_CHEGADAS` e `TEMPO_MEDIO_ATENDIMENTO`, para armazenar os parâmetros das distribuições dos processos de chegada e atendimento da fila. Adicionalmente, vamos criar o recurso `servidorRes` com capacidade de atender 1 cliente por vez.
 
 ```python
 import random # gerador de números aleatórios
@@ -79,7 +79,7 @@ env.run(until=10)
 
 ```
 
-Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, _e vamos  repetir isso a exaustão_, **tudo é processo dentro de um ****_environment_**. Assim, o atendimento é um _processo_ que deve ser iniciado por cada cliente _gerado_ pela função `criaChegadas.` Isto é feito por uma chamada a função`env.process(função de atendimento).`
+Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, _e vamos  repetir isso a exaustão_, **tudo é processo dentro de um `environment`**. Assim, o atendimento é um _processo_ que deve ser iniciado por cada cliente _gerado_ pela função `criaChegadas.` Isto é feito por uma chamada a função`env.process(função de atendimento).`
 
 A função `geraChegadas`
  deve ser alterada, portanto, para receber como parâmetro o recurso `servidorRes`,
@@ -99,11 +99,12 @@ def geraChegadas(env, servidorRes):
         % contaChegada, servidorRes))
 ```
 
-Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entedermos melhor a função `atendimentoServidor:`
+Antes de executar o script, vamos acrecentar algumas linhas de impressão na tela para entendermos melhor a função `atendimentoServidor:`
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
-    request = servidorRes.request() # solicita o recurso servidorRes
+    # solicita o recurso servidorRes
+    request = servidorRes.request()
 
     yield request # aguarda em fila até o acesso
     print('%s inicia o atendimento em: %.1f ' % (nome, env.now))
@@ -112,8 +113,8 @@ def atendimentoServidor(env, nome, servidorRes):
     yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
 
     print('%s termina o atendimento em: %.1f.' % (nome, env.now)) 
-
-    yield servidorRes.release(request) # libera o recurso servidorRes
+    # libera o recurso servidorRes
+    yield servidorRes.release(request) 
 ```
 
 Agora execute o script e voilá!

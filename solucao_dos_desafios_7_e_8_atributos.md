@@ -13,7 +13,7 @@ contaLavadora = 0 # conta clientes que entraram na lavadora
 contaClientes = 0 # conta clientes que chegaram no sistema
 
 def distributions(tipo):
-    #função que armazena as distribuições utilizadas no modelo
+    # função que armazena as distribuições utilizadas no modelo
     return {
         'chegadas': random.expovariate(1.0/5.0),
         'lavar': 20,
@@ -23,7 +23,7 @@ def distributions(tipo):
     }.get(tipo, 0.0)
 
 def chegadaClientes(env, lavadoras, cestos, secadoras):
-    #função que gera a chegada de clientes
+    # função que gera a chegada de clientes
     global contaClientes
     contaClientes = 0
     while True:
@@ -33,13 +33,13 @@ def chegadaClientes(env, lavadoras, cestos, secadoras):
         env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
 
 def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
-    #função que processa a operação de cada cliente dentro da lavanderia
+    # função que processa a operação de cada cliente dentro da lavanderia
     global utilLavadora, tempoEsperaLavadora, contaLavadora
 
-    #marca chegada no sistema
+    # marca chegada no sistema
     chegada = env.now
 
-    #ocupa a lavadora
+    # ocupa a lavadora
     req1 = lavadoras.request()
     yield req1
     print("%s ocupa lavadora em %.1f" %(cliente, env.now))
@@ -51,28 +51,28 @@ def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
     yield env.timeout(distributions('lavar'))
     contaLavadora += 1
 
-    #antes de retirar da lavadora, pega um cesto
+    # antes de retirar da lavadora, pega um cesto
     req2 = cestos.request()
     yield req2
     print("%s ocupa cesto em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('carregar'))
 
-    #libera a lavadora, mas não o cesto
+    # libera a lavadora, mas não o cesto
     lavadoras.release(req1)
     print("%s desocupa lavadora em %.1f" %(cliente, env.now))
 
-    #ocupa a secadora antes de liberar o cesto
+    # ocupa a secadora antes de liberar o cesto
     req3 = secadoras.request()
     yield req3
     print("%s ocupa secadora em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('descarregar'))
 
-    #libera o cesto mas não a secadora
+    # libera o cesto mas não a secadora
     cestos.release(req2)
     print("%s desocupa cesto em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('secar'))
 
-    #pode liberar a secadora
+    # pode liberar a secadora
     print("%s desocupa secadora em %.1f" %(cliente, env.now))
     secadoras.release(req3)
 

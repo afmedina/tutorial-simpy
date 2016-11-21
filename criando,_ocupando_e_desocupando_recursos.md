@@ -14,10 +14,10 @@ No SimPy, a sintaxe para criar um recurso é:
 import simpy
 
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2) #cria recurso marquinas com capacidadde 2
+maquinas = simpy.Resource(env, capacity=2) # cria recurso marquinas com capacidadde 2
 ```
 
-Se o parâmetro *capacity* não for fornecido, a função assume *capacity*=1. Note que
+Se o parâmetro `capacity` não for fornecido, a função assume `capacity=1`. Note que
 ```maquinas``` foi criando dentro do Environment ```env```
 .
 
@@ -32,7 +32,7 @@ def processo(env, entidade, maquinas):
     pass
     
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2) #cria recurso maquinas com capacidade 2
+maquinas = simpy.Resource(env, capacity=2) # cria recurso maquinas com capacidade 2
 ```
 
 É interessante notar que ocupar um recurso no SimPy é feito em duas etapas:
@@ -51,13 +51,13 @@ import simpy
 def processo(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
-    req = maquinas.request()                #solicita o recurso e ocupa a fila
+    req = maquinas.request()                # solicita o recurso e ocupa a fila
     
-    yield req                               #sai da fila e ocupa o recurso
+    yield req                               # sai da fila e ocupa o recurso
     print("%s ocupa recurso em %s" %(entidade, env.now))
 
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
+maquinas = simpy.Resource(env, capacity=2)  # cria recurso com capacidade 2
 ```
 
 > Enquanto a entidade estiver em fila aguardando a liberação do recurso, ela permanece na linha do comando ```yield req```. Quando ela finalmente ocupa o recurso, a execução passa para a linha seguinte (comando ```print```, no caso do exemplo).
@@ -75,18 +75,18 @@ import simpy
 def processo(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
-    req = maquinas.request()                #solicita o recurso e ocupa a fila
+    req = maquinas.request()                # solicita o recurso e ocupa a fila
     
-    yield req                               #sai da fila e ocupa o recurso
+    yield req                               # sai da fila e ocupa o recurso
     print("%s ocupa recurso em %s" %(entidade, env.now))
     
-    yield env.timeout(5)                    #executa o processo
+    yield env.timeout(5)                    # executa o processo
     
-    yield maquinas.release(req)             #libera o recurso
+    yield maquinas.release(req)             # libera o recurso
     print("%s libera o recurso em %s" %(entidade, env.now))
     
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
+maquinas = simpy.Resource(env, capacity=2)  # cria recurso com capacidade 2
 ```
 Para testarmos nossa função, vamos executar o processo para apenas 4 peças e analisar o resultado. O código a seguir possui um laço ```for``` que chama a função ```processo``` 4 vezes no mesmo instante:
 
@@ -96,18 +96,18 @@ import simpy
 def processo(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
-    req = maquinas.request()                #solicita o recurso e ocupa a fila
+    req = maquinas.request()                # solicita o recurso e ocupa a fila
     
-    yield req                               #sai da fila e ocupa o recurso
+    yield req                               # sai da fila e ocupa o recurso
     print("%s ocupa recurso em %s" %(entidade, env.now))
     
-    yield env.timeout(5)                    #executa o processo
+    yield env.timeout(5)                    # executa o processo
     
-    yield maquinas.release(req)             #libera o recurso
+    yield maquinas.release(req)             # libera o recurso
     print("%s libera o recurso em %s" %(entidade, env.now))
     
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
+maquinas = simpy.Resource(env, capacity=2)  # cria recurso com capacidade 2
 for i in range(1,5):
     env.process(processo(env, "Peça %s" %i, maquinas))
 env.run()
@@ -129,7 +129,7 @@ Peça 4 ocupa recurso em 5
 Peça 3 libera o recurso em 10
 Peça 4 libera o recurso em 10
 ```
-A saída da simulação permite concluir que as quatro peças chegaram no instante 0, mas como a capacidade do recurso era para apenas 2 peças simultâneas, as peças 4 e 5 tiveram que aguardar em fila até a liberação das máquinas.
+A saída da simulação permite concluir que as quatro peças chegaram no instante 0, mas como a capacidade do recurso era para apenas 2 peças simultâneas, as peças 3 e 4 tiveram que aguardar em fila até a liberação das máquinas no instante 5.
 
 ##Status do recurso
 O SimPy fornece alguns parâmetros para você acompanhar o status do recursos criados no modelo. Para um recurso ```res``` definido no programa, podem ser estraídos os seguintes parâmentros durante a simulação:
@@ -147,14 +147,14 @@ import simpy
 def processoRecurso(env, entidade, maquinas):
     # função que ocupa o recurso e realiza o atendimento
     print("%s chega em %s" %(entidade, env.now))
-    req = maquinas.request()                #solicita o recurso e ocupa a fila
+    req = maquinas.request()                # solicita o recurso e ocupa a fila
     
-    yield req                               #sai da fila e ocupa o recurso
+    yield req                               # sai da fila e ocupa o recurso
     print("%s ocupa recurso em %s" %(entidade, env.now))
     
-    yield env.timeout(5)                    #executa o processo
+    yield env.timeout(5)                    # executa o processo
     
-    yield maquinas.release(req)             #libera o recurso
+    yield maquinas.release(req)             # libera o recurso
     print("%s libera o recurso em %s" %(entidade, env.now))
     printStatus(maquinas)
 
@@ -168,7 +168,7 @@ def printStatus(res):
     
     
 env = simpy.Environment()
-maquinas = simpy.Resource(env, capacity=2)  #cria recurso com capacidade 2
+maquinas = simpy.Resource(env, capacity=2)  # cria recurso com capacidade 2
 for i in range(1,5):
     env.process(processoRecurso(env, "Peça %s" %i, maquinas))
 env.run()
