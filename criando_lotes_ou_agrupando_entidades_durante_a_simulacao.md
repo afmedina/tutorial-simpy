@@ -4,7 +4,7 @@ Uma situação bastante comum em modelos de simulação é o agrupamento de enti
 
 Vamos partir de um exemplo simples, em que uma célula de produção deve realizar a tarefa de montagem de um certo componente a partir do encaixe de 1 peça A com duas peças B. O operador da célula leva em média 5 minutos para montar o componente, segundo uma distribuição normal com desvio padrão de 1 minuto. Os processos de chegadas dos lotes A e B são distintos entre si, com tempos entre chegadas sucessivas uniformemente distribuidos no intervalo de 40 a 60 minutos.
 
-## Uma tática para agrupamento de lotes utilizando `Container`
+## Uma tática para agrupamento de lotes: utilizar o `Container`
 
 Uma maneira de resolver o problema é criar um ```Container``` para cada peça. Assim, criamos dois estoques, para as peças A e B, de modo que o componente só poderá iniciar sua montagem se cada estoque contiver ao menos o número de peças necessárias para sua montagem.
 
