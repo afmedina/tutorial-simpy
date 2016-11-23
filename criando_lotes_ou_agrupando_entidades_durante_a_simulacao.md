@@ -15,7 +15,7 @@ import random
 
 TEMPO_CHEGADAS = [40, 50]       # intervalo entre chegadas de peças
 TEMPO_MONTAGEM = [5, 1]         # intervalo entre chegadas de peças
-
+componentesProntos = 0          # variável para o total de componentes produzidos
 
 def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
     # gera lotes de pecas em intervalos uniformemente distribuídos
@@ -24,6 +24,7 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
         
 def montagem(env, pecasContainerDict, numA, numB):
     # montagem do componente
+    componentesProntos global
     pass
     
 random.seed(100)            
