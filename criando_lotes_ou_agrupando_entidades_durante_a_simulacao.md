@@ -24,7 +24,7 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
         
 def montagem(env, pecasContainerDict, numA, numB):
     # montagem do componente
-    componentesProntos global
+    global componentesProntos
     pass
     
 random.seed(100)            
@@ -44,6 +44,43 @@ env.run(until = 80)
 ```
 Na máscara anterior, foram criadas duas funções: ```chegaPecas```, que gera os lotes de peças A e B e armazena nos respectivos estoques e ```montagem```, que retira as peças do estoque e montam o componente.
 
-Note que criei um dicionário no Python para armazenar o Container de cada peça:
+Note que criei um dicionário no Python: ```pecasContainerDict```, para armazenar o ```Container``` de cada peça:
+```python
+#cria estoques de peças 
+pecasContainerDict = {}
+pecasContainerDict['A'] = simpy.Container(env)
+pecasContainerDict['B'] = simpy.Container(env)
+```
+A função de geração de peças de fato, gera lotes e armazena dentro do Container o número de peças do lote:
 
-
+```python
+def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
+    # gera lotes de pecas em intervalos uniformemente distribuídos
+    # encaminha para o estoque
+    while True:
+        pecasContainerDict[tipo].put(tamLote)
+        print("%5.1f Chegada de lote tipo %s: +%i peças."
+                %(env.now, tipo, tamLote))
+        yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
+```
+Note que, diferentemente das funções de geração de entidades criadas nas seções anteriores deste livro, a função ```chegadaPecas``` não encaminha a entidade criada para uma nova função, iniciando um novo processo (de atendimento, por exemplo). A função apenas armazena uma certa quantidade de peças, ```tamLote```, dentro do respectivo ```Container```  na linha:
+```pecasContainerDict[tipo].put(tamLote)```
+O processo de montagem também recorre ao artifício de um laço infinito, pois, basicamente, representa uma operação que está sempre pronta para executar a montagem, desde que existam o número de peças mínimas à disposição nos respectivos estoques:
+```python
+def montagem(env, pecasContainerDict, numA, numB):
+    # montagem do componente
+    global componentesProntos
+    while True:
+        chegada = env.now
+        yield pecasContainerDict['A'].get(numA)
+        yield pecasContainerDict['B'].get(numB)
+        espera = env.now - chegada
+        print("%5.1f Inicia montagem.\tEstoque A: %i\tEstoque B: %i\tEspera: %4.1f"
+                %(env.now, pecasContainerDict['A'].level, pecasContainerDict['B'].level, espera))
+        yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
+        # acumula componente montado
+        componentesProntos += 1
+        print("%5.1f Fim da montagem.\tEstoque A: %i\tEstoque B: %i\tComponentes: %i\t"
+            %(env.now, pecasContainerDict['A'].level, pecasContainerDict['B'].level,
+              componentesProntos))
+```
