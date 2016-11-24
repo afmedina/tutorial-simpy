@@ -173,5 +173,7 @@ Quando executado, o programa anterior fornece como saída:
  64.7 Fim da montagem.  Estoque A: 11   Estoque B: 2    Componentes: 9  
  64.7 Inicia montagem.  Estoque A: 10   Estoque B: 0    Espera:  0.0
  70.0 Fim da montagem.  Estoque A: 10   Estoque B: 0    Componentes: 10 
-
 ```
+##Agrupando lotes por atributo da entidade
+
+Do mesmo modo que agrupamos, podemos desagrupar
