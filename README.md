@@ -1,4 +1,4 @@
-#Modelagem de eventos discretos em SimPy: See me, Fell me, README
+#Modelagem de eventos discretos em SimPy: [See me, Fell me, README](https://www.youtube.com/watch?v=RC_MS-tG5vw)
 
 
 Este livro é um breve tutorial para quem deseja conhecer o ambiente **SimPy** (*Simulation in Python*) para construção de modelos de simulação de eventos discretos em *Python*. 
