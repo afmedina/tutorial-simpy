@@ -176,4 +176,118 @@ Quando executado, o programa anterior fornece como saída:
 ```
 ##Agrupando lotes por atributo da entidade
 
-Do mesmo modo que agrupamos, podemos desagrupar
+Outra situação bastante comum em modelos de simulação é quando precisamos agrupar entidades por atributo. Por exemplo, os componentes anteriores são de duas cores: brancos ou verdes, de modo que a célula de montagem agora deve pegar peças A e B com as cores corretas.
+
+Como agora existe um atributo (no caso, cor) que diferencia uma peça da outra, precisaremos de um ```FilterStore```, para garantir a escolha certa da peça no estoque. Adicionalmente - e isso não é algo trivial de se compreender - a função ```montagem``` não pode ser mais *passiva*, no sentido que aguarda as peças no estoque, como no exemplo anterior. Precisamo criar processos para que cada peça A que chega ao estoque inicie a busca uma peça B que tenha a mesma cor.
+
+Neste caso, a chegada de peças deve sortear uma cor. No exemplo seguinte, a cor é sorteada pelo comando ```[random.choice](https://docs.python.org/3/library/random.html#random.choice)```:
+```python
+def chegadaPecas(env, pecasFilterStoreDict, tipo):
+    # gera lotes de pecas em intervalos uniformemente distribuídos
+    # encaminha para o estoque
+    while True:
+        # sorteia a cor das peças
+        cor = random.choice(("branco", "verde"))
+        yield pecasFilterStoreDict[tipo].put(cor)
+        print("%5.1f Chegada de peça tipo %s.\tCor: %s."
+                %(env.now, tipo, cor))
+        if tipo == 'A':
+            # inicia processo de montagem
+            env.process(montagem(env, cor, pecasFilterStoreDict))
+        yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
+```
+Note, na função anterior, que sempre que a peça por do tipo 'A', é iniciado um novo processo de montagem. Portanto, toda peça A que chega ao estoque inicia um processo de montagem.
+
+A função montagem, a seguir, faz uma busca pelas peças A e B da mesma cor:
+```python
+def montagem(env, cor, pecasFilterStoreDict):
+    # montagem do componente
+    global componentesProntos
+    while True:
+        # marca o instante em que a célula está livre para a montagem
+        chegada = env.now
+        yield pecasFilterStoreDict['A'].get(lambda c: c==cor)
+        yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
+        # armazena o tempo de espera por peças e inicia a montagem
+        espera = env.now - chegada
+        print("%5.1f Inicia montagem.\t\tCor: %s\tEspera: %4.1f"
+                %(env.now, cor, espera))
+        yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
+        # acumula componente montado
+        componentesProntos += 1
+        print("%5.1f Fim da montagem.\t\tCor: %s\tComponentes: %i\t"
+            %(env.now, cor, componentesProntos))
+```
+Finalizando, precisamos criar o Environment, um FilterStore para cada tipo de peça e chamar a execução do modelo:
+```python
+random.seed(100)            
+env = simpy.Environment()
+
+#cria estoques de peças 
+pecasFilterStoreDict = {}
+pecasFilterStoreDict['A'] = simpy.FilterStore(env)
+pecasFilterStoreDict['B'] = simpy.FilterStore(env)
+
+# inicia processos de chegadas de pecas
+env.process(chegadaPecas(env, pecasFilterStoreDict, 'A'))
+env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
+
+env.run(until = 80) 
+```
+O modelo completo ficaria:
+```python
+import simpy
+import random
+
+TEMPO_CHEGADAS = [40, 50]       # intervalo entre chegadas de peças
+TEMPO_MONTAGEM = [5, 1]         # intervalo entre chegadas de peças
+
+componentesProntos = 0          # variável para o total de componentes produzidos
+
+def chegadaPecas(env, pecasFilterStoreDict, tipo):
+    # gera lotes de pecas em intervalos uniformemente distribuídos
+    # encaminha para o estoque
+    while True:
+        # sorteia a cor das peças
+        cor = random.choice(("branco", "verde"))
+        yield pecasFilterStoreDict[tipo].put(cor)
+        print("%5.1f Chegada de peça tipo %s.\tCor: %s."
+                %(env.now, tipo, cor))
+        if tipo == 'A':
+            # inicia processo de montagem
+            env.process(montagem(env, cor, pecasFilterStoreDict))
+        yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
+
+        
+def montagem(env, cor, pecasFilterStoreDict):
+    # montagem do componente
+    global componentesProntos
+    while True:
+        # marca o instante em que a célula está livre para a montagem
+        chegada = env.now
+        yield pecasFilterStoreDict['A'].get(lambda c: c==cor)
+        yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
+        # armazena o tempo de espera por peças e inicia a montagem
+        espera = env.now - chegada
+        print("%5.1f Inicia montagem.\t\tCor: %s\tEspera: %4.1f"
+                %(env.now, cor, espera))
+        yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
+        # acumula componente montado
+        componentesProntos += 1
+        print("%5.1f Fim da montagem.\t\tCor: %s\tComponentes: %i\t"
+            %(env.now, cor, componentesProntos))
+    
+random.seed(100)            
+env = simpy.Environment()
+
+#cria estoques de peças 
+pecasFilterStoreDict = {}
+pecasFilterStoreDict['A'] = simpy.FilterStore(env)
+pecasFilterStoreDict['B'] = simpy.FilterStore(env)
+
+# inicia processos de chegadas de pecas
+env.process(chegadaPecas(env, pecasFilterStoreDict, 'A'))
+env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
+
+env.run(until = 80) 
+```
