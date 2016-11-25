@@ -291,3 +291,15 @@ env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
 
 env.run(until = 80) 
 ```
+Quando executado, o programa anterior fornece como saída:
+```python
+  0.0 Chegada de peça tipo A.   Cor: branco.
+  0.0 Chegada de peça tipo B.   Cor: verde.
+ 44.5 Chegada de peça tipo A.   Cor: verde.
+ 44.5 Inicia montagem.          Cor: verde      Espera:  0.0
+ 47.7 Chegada de peça tipo B.   Cor: branco.
+ 47.7 Inicia montagem.          Cor: branco     Espera: 47.7
+ 49.0 Fim da montagem.          Cor: verde      Componentes: 1  
+ 52.6 Fim da montagem.          Cor: branco     Componentes: 2  
+
+```
