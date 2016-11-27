@@ -4,7 +4,7 @@
 
 
 
-> **Desafio 16:** existe 5% de chance de um barbeiro faltar num determinado dia. Neste caso, considere 3 novas situções:
+> **Desafio 16:** existe 5% de chance de um barbeiro faltar num determinado dia. Neste caso, considere 3 novas situações:
 
 * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
 
