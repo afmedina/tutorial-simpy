@@ -1,6 +1,6 @@
 # Solução dos desafios 17 e 18
 
-> **Desafio 15:** considere, no exemplo do posto, que a taxa de enchimento do tanque é de 5 $$m^3$$/min e a de esvaziamento é de 1 $$m^3$$/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento, bem como forneça o tempo que o veículo aguardou na fila por atendimento.
+> **Desafio 17:** considere, no exemplo do posto, que a taxa de enchimento do tanque é de 5 $$m^3$$/min e a de esvaziamento é de 1 $$m^3$$/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento, bem como forneça o tempo que o veículo aguardou na fila por atendimento.
 
 Neste caso, são criadas duas constantes:
 ```python
@@ -105,7 +105,7 @@ A situação inicialmente *estranha* ainda é reforçada pelo fim da operação 
 Isto significa que o produto estava disponível nos tanques *antes* mesmo de ter sido bombeado para o mesmo. 
 Fica como desafio ao leitor *atento* encontrar uma solução para o problema (dica: que tal pensar em um tanque virtual?
 
-> **Desafio 16:** continuando o exemplo, modifique o modelo de modo que ele represente a situação em que o tanque não pode ser enchido e esvaziado simultâneamente.
+> **Desafio 18:** continuando o exemplo, modifique o modelo de modo que ele represente a situação em que o tanque não pode ser enchido e esvaziado simultâneamente.
 
 Neste caso, o tanque quando bombeando para um sentido (encher ou esvaziar), fica impedido de ser utilizado no outro sentido. Este tipo de situação é bem comum em operações envolvendo tanques de produtos químicos.
 
