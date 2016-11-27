@@ -314,10 +314,11 @@ Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a 
 | `yield meuPriorityStore.get()` | retorna o primeiro objeto disponível em `meuPriorityStore` respeitando a ordem de prioridade atribuída ao `PriorityItem` (objetos com valor menor de prioridade são escolhidos primeiro). Caso o `meuPriorityStore` esteja vazio, aguarda até que surja um espaço vazio para colocar o objeto. |
 
 ## Desafios
->**Desafio 15**: uma barbearia possui quatro cadeiras, mas atualmente utiliza três delas. O barbeiro proprietário tem que lidar com as seguintes circunstâncias:
-Clientes escolhendo um barbeiro favorito
-Clientes impacientes (que saem do sistema)
-Barbeiros que faltam
+>**Desafio 15**: uma barbearia possui quatro cadeiras, mas atualmente utiliza três delas. O barbeiro proprietário tem que lidar com as seguintes situações:
+
+* Clientes escolhendo um barbeiro favorito
+* Clientes impacientes (que saem do sistema)
+* Barbeiros que faltam
 Na média, o tempo entre chegadas sucessivas de clientes é a minutos e leva-se b minutos para cortar o cabelo (ambos seguindo uma distribuição exponencial). Quarenta por cento dos clientes escolhem seu barbeiro favorito:
 - 30% preferem o barbeiro A
 - 10% preferem o barbeiro B
