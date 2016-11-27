@@ -47,6 +47,10 @@ Contras:
 ## Um breve histórico do SimPy
 <....>
 
+## Onde procurar ajuda sobre o SimPy
+Atualmente existem três fontes de consulta sobre o SimPy na internet:
+O próprio site do projeto http://simpy.readthedocs.io, com exemplos e uma detalhada descrição da da Interface de Programação de Aplicões (*Application Programming Interface* - API);
+A [lista de discussão](https://groups.google.com/forum/#!forum/python-simpy) de usuários bastante ativa;
 ## Desenvolvimento deste livro
 
 Planejamos este texto em formato de seções compactas, de modo que elas sejam curtas e didáticas – tendo por meta que cada seção não ultrapasse 500 palavras.
