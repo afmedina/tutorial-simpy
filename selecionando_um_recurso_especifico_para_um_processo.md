@@ -1,6 +1,6 @@
-# Armazenagem e seleção de objetos específicos com  `Store() e FilterStore()`
+# Armazenagem e seleção de objetos específicos com  `Store, FilterStore e PriorityStore`
 
-O SimPy possui uma ferramenta para armazenamento de [objetos](http://wiki.python.org.br/ProgramacaoOrientadaObjetoPython#A2._Objetos_e_Tipos_de_dados) - como valores, recursos etc.  - chamada `Store` e um comando de acesso a objetos específicos dentro do `Store` por meio de filtro, o `FilterStore`. O programador experiente vai notar a similaridade entre o `Store` e o [dicionário](http://www3.ifrn.edu.br/~jurandy/fdp/doc/aprenda-python/capitulo_10.html) do Python.
+O SimPy possui uma ferramenta para armazenamento de [objetos](http://wiki.python.org.br/ProgramacaoOrientadaObjetoPython#A2._Objetos_e_Tipos_de_dados) - como valores, recursos etc.  - chamada `Store` e um comando de acesso a objetos específicos dentro do `Store` por meio de filtro, o `FilterStore`. O programador experiente vai notar a similaridade da família `Store` e o [dicionário](http://www3.ifrn.edu.br/~jurandy/fdp/doc/aprenda-python/capitulo_10.html) do Python.
 
 Vamos descobrir o funcionamento do `Store` a partir de um exemplo bem simples: uma barbearia com três barbeiros. Quando você chega a uma barbearia e tem uma ordem de preferência entre os barbeiros, isto é: barbeiro 1 vem antes do 2, que vem antes do 3, precisará selecionar seu _recurso_ barbeiro na ordem certa.
 
@@ -313,6 +313,24 @@ Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a 
 | `meuPriorityStore.put(meuObjetoPriority)` | coloca o objeto `meuObjetoPriority` no `PriorityStore` `meuPriorityStore` ou, caso o `meuPriorityStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto. |
 | `yield meuPriorityStore.get()` | retorna o primeiro objeto disponível em `meuPriorityStore` respeitando a ordem de prioridade atribuída ao `PriorityItem` (objetos com valor menor de prioridade são escolhidos primeiro). Caso o `meuPriorityStore` esteja vazio, aguarda até que surja um espaço vazio para colocar o objeto. |
 
+## Desafios
+>**Desafio 15**: uma barbearia possui quatro cadeiras, mas atualmente utiliza três delas. O barbeiro proprietário tem que lidar com as seguintes circunstâncias:
+Clientes escolhendo um barbeiro favorito
+Clientes impacientes (que saem do sistema)
+Barbeiros que faltam
+Na média, o tempo entre chegadas sucessivas de clientes é a minutos e leva-se b minutos para cortar o cabelo (ambos seguindo uma distribuição exponencial). Quarenta por cento dos clientes escolhem seu barbeiro favorito:
+- 30% preferem o barbeiro A
+- 10% preferem o barbeiro B
+- Nenhum prefere o barbeiro C (o proprietário do salão)
+Há ainda 5% de chance de um barbeiro faltar num determinado dia. Assumir que:
+(1)	Se o barbeiro favorito faltar, o cliente vai embora
+(2)	O cliente que não possuir um barbeiro favorito, verá a fila de clientes: se houver mais de 6 clientes ele sairá da barbearia
+(3)	Um cliente aguardando o barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
+Os parâmetros a e b devem ser determinados a partir do arquivo entregue pelo professor.
+
+Tarefa:
+
+Dado a presente demanda, quantos barbeiros deve estar trabalhando na barbearia, se o proprietário quer que o tempo médio de espera seja inferior a vinte minutos? Faça as hipóteses adicionais que julgue necessário.
 
 
