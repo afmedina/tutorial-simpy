@@ -314,9 +314,8 @@ Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a 
 | `yield meuPriorityStore.get()` | retorna o primeiro objeto disponível em `meuPriorityStore` respeitando a ordem de prioridade atribuída ao `PriorityItem` (objetos com valor menor de prioridade são escolhidos primeiro). Caso o `meuPriorityStore` esteja vazio, aguarda até que surja um espaço vazio para colocar o objeto. |
 
 ## Desafios
->**Desafio 15**: considere que na barbearia, o proprietário tem que lidar com as seguintes situações:
-
-* 40% dos clientes escolhem seu barbeiro favorito, sendo que: 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C (o proprietário do salão).
+>**Desafio 15**: considere que na barbearia, o proprietário tem que lidar com a seguinte situação
+40% dos clientes escolhem seu barbeiro favorito, sendo que: 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C (o proprietário do salão).
 Há ainda 5% de chance de um barbeiro faltar num determinado dia. Assumir que:
 (1)	Se o barbeiro favorito faltar, o cliente vai embora
 (2)	O cliente que não possuir um barbeiro favorito, verá a fila de clientes: se houver mais de 6 clientes ele sairá da barbearia
