@@ -49,8 +49,8 @@ Contras:
 
 ## Onde procurar ajuda sobre o SimPy
 Atualmente existem três fontes de consulta sobre o SimPy na internet:
-* O próprio site do projeto http://simpy.readthedocs.io, com exemplos e uma detalhada descrição da da Interface de Programação de Aplicões (*Application Programming Interface* - API);
-* A [lista de discussão](https://groups.google.com/forum/#!forum/python-simpy) de usuários bastante ativa e
+* O próprio site do projeto http://simpy.readthedocs.io, com exemplos e uma detalhada descrição da da Interface de Programação de Aplicações (*Application Programming Interface* - API);
+* A [lista de discussão](https://groups.google.com/forum/#!forum/python-simpy) de usuários é bastante ativa, com respostas bem elaboradoras;
 * O Stack Overflow tem um número razoável de questões e exemplos, mas cuidados pois boa parte do material ainda refere-se à versão 2 do SimPy.
 
 ## Desenvolvimento deste livro
