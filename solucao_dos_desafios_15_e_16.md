@@ -1,4 +1,4 @@
-# Solução dos desafios 15 e 16
+# Solução dos desafios 17 e 18
 
 > **Desafio 15:** considere, no exemplo do posto, que a taxa de enchimento do tanque é de 5 $$m^3$$/min e a de esvaziamento é de 1 $$m^3$$/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento, bem como forneça o tempo que o veículo aguardou na fila por atendimento.
 
