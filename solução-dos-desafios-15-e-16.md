@@ -5,11 +5,8 @@
 
 
 > **Desafio 16:** existe 5% de chance de um barbeiro faltar num determinado dia. Neste caso, considere 3 novas situações:
-
 * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
-
 * O cliente que não possuir um barbeiro favorito, verá a fila de clientes: se houver mais de 6 clientes ele desiste e vai embora;
-
 * Um cliente aguardando o barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
 
