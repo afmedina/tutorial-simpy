@@ -20,4 +20,3 @@
 
 1. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 5 minutos?
 
-2. Quantas cadeiras seriam necessárias neste caso?
