@@ -155,6 +155,8 @@ Quando executado, o código anterior fornece:
 * O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
 * O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
+Como, neste caso, temos que identificar quantos clientes estão aguardando o respectivo barbeiro favorito, uma saída seria utilizar um dicionário para armazenar o número de clientes em fila (outra possibilidade seria um `Store` específico para a fila):
+
 ```python
 
 ```
@@ -178,5 +180,6 @@ Quando executado, o código anterior fornece:
 
 ## Teste seus conhecimentos
 
-1. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 5 minutos?
+1. Considere que a barbearia opera 6 horas por dia. Acrescente ao seu modelo às estatíticas de clientes atendidos, clientes que desistiram (e por qual razão), ocupação dos barbeiros e tempo médio de espera em fila por barbeiro.
+2. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 15 minutos?
 
