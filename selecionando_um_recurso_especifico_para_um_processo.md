@@ -316,10 +316,7 @@ Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a 
 ## Desafios
 >**Desafio 15**: considere que na barbearia, 40% dos clientes escolhem seu barbeiro favorito, sendo que, 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C (o proprietário do salão). Construa um modelo de simulação representativo deste sistema.
 
-> **Desafio 16:** existe 5% de chance de um barbeiro faltar num determinado dia. Neste caso, considere 3 novas situções:
-* Se o barbeiro favorito faltar, o respectivo cliente vai embora;
-* O cliente que não possuir um barbeiro favorito, verá a fila de clientes: se houver mais de 6 clientes ele desiste e vai embora;
-* Um cliente aguardando o barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
+> **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:* Se o barbeiro favorito faltar, o respectivo cliente vai embora;* O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;* O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
 
 
