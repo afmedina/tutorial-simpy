@@ -2,6 +2,8 @@
 
 >**Desafio 15**: considere que na barbearia, 40% dos clientes escolhem seu barbeiro favorito, sendo que, 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C (o proprietário do salão). Construa um modelo de simulação representativo deste sistema.
 
+Como existe preferência pelo barbeiro, naturalmente a escolha mais simples é trabalharmos com o `FilterStore`. O código a seguir, cria uma lista de barbeiros com os nomes, outra com os respectivos Resources, um dicionário para localizarmos o barbeiro por seu nome e, por fim, um `FilterStore `com os nomes dos barbeiros:
+
 ```python
 random.seed(50)            
 env = simpy.Environment()
@@ -19,6 +21,27 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20)  
 ```
+Quando um cliente chega, existe 40% de chance dele preferir o barbeiro A e 10% de preferir o barbeiro B. O código a seguir atribui o barbeiro utilizando-se da função `random`:
+```python
+def chegadaClientes(env, barbeariaStore):
+    # gera clientes exponencialmente distribuídos
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
+        i += 1
+        # tem preferência por barbeiro?
+        r = random.random()
+        if r <= 0.30:
+            barbeiroEscolhido ='Barbeiro A'
+        elif r <= 0.40:
+            barbeiroEscolhido = 'Barbeiro B'
+        else:
+            barbeiroEscolhido = 'Sem preferência'
+        print("%5.1f Cliente %i chega.\t\t%s." %(env.now, i, barbeiroEscolhido))
+        # inicia processo de atendimento
+        env.process(atendimento(env, i, barbeiroEscolhido, barbeariaStore))
+```
+
 
 > **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:
 * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
