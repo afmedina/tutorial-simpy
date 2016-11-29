@@ -345,7 +345,6 @@ Quando executado, o modelo anterior fornece:
  29.6 Cliente 3 chega.          Sem preferência.
  29.6 Cliente 3 inicia.         Barbeiro B ocupado.     Tempo de fila: 0.0
 ```
-
 ## Teste seus conhecimentos
 
 1. Considere que a barbearia opera 6 horas por dia. Acrescente ao seu modelo às estatíticas de clientes atendidos, clientes que desistiram (e por qual razão), ocupação dos barbeiros e tempo médio de espera em fila por barbeiro.
