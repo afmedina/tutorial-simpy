@@ -42,7 +42,114 @@ def chegadaClientes(env, barbeariaStore):
         env.process(atendimento(env, i, barbeiroEscolhido, barbeariaStore))
 ```
 
+Por fim, o processo de atendimento deve diferenciar os clientes que possuem um barbeiro favorito, pois neste caso temos que criar uma função anônima lambda para resgatar o barbeiro correto do FilterStore:
+```python
+def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    chegada = env.now
+    if barbeiroEscolhido != 'Sem preferência':
+        # retira do FilterStore o barbeiro escolhido no processo anterior
+        barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+    else:
+        # cliente sem preferência, retira o primeiro barbeiro do FilterStore
+        barbeiro = yield barbeariaStore.get()
+    espera = env.now - chegada
+    print("%5.1f Cliente %i inicia.\t\t%s ocupado.\tTempo de fila: %2.1f" 
+            %(env.now, cliente, barbeiro, espera))
+    # ocupa o recurso barbeiro
+    with barbeirosDict[barbeiro].request() as req:
+        yield req
+        tempoCorte = random.normalvariate(*TEMPO_CORTE)
+        yield env.timeout(tempoCorte)
+        print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
+    # devolve o barbeiro para o FilterStore
+    barbeariaStore.put(barbeiro)
+```
+Note, no código anterior, que, caso o cliente não tenha barbeiro preferido, o `get`do `FilterStore` é utilizado sem nenhuma função lambda dentro do parentesis. 
+Por fim, o código completo:
 
+
+```python
+import simpy
+import random
+
+TEMPO_CHEGADAS = 5          # intervalo entre chegadas de clientes
+TEMPO_CORTE = [10, 5]       # tempo médio de corte 
+
+def chegadaClientes(env, barbeariaStore):
+    # gera clientes exponencialmente distribuídos
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
+        i += 1
+        # tem preferência por barbeiro?
+        r = random.random()
+        if r <= 0.30:
+            barbeiroEscolhido ='Barbeiro A'
+        elif r <= 0.40:
+            barbeiroEscolhido = 'Barbeiro B'
+        else:
+            barbeiroEscolhido = 'Sem preferência'
+        print("%5.1f Cliente %i chega.\t\t%s." %(env.now, i, barbeiroEscolhido))
+        # inicia processo de atendimento
+        env.process(atendimento(env, i, barbeiroEscolhido, barbeariaStore))
+
+def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    chegada = env.now
+    if barbeiroEscolhido != 'Sem preferência':
+        # retira do FilterStore o barbeiro escolhido no processo anterior
+        barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+    else:
+        # cliente sem preferência, retira o primeiro barbeiro do FilterStore
+        barbeiro = yield barbeariaStore.get()
+    espera = env.now - chegada
+    print("%5.1f Cliente %i inicia.\t\t%s ocupado.\tTempo de fila: %2.1f" 
+            %(env.now, cliente, barbeiro, espera))
+    # ocupa o recurso barbeiro
+    with barbeirosDict[barbeiro].request() as req:
+        yield req
+        tempoCorte = random.normalvariate(*TEMPO_CORTE)
+        yield env.timeout(tempoCorte)
+        print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
+    # devolve o barbeiro para o FilterStore
+    barbeariaStore.put(barbeiro)
+    
+    
+random.seed(50)            
+env = simpy.Environment()
+
+# cria 3 barbeiros diferentes e armazena em um dicionário
+barbeirosNomes = ['Barbeiro A', 'Barbeiro B', 'Barbeiro C']
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
+
+# cria um FilterStore para armazenar os barbeiros
+barbeariaStore = simpy.FilterStore(env, capacity=3)
+barbeariaStore.items = barbeirosNomes
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 20)
+```
+Quando executado, o código anterior fornece:
+
+```python
+  3.4 Cliente 1 chega.          Barbeiro A.
+  3.4 Cliente 1 inicia.         Barbeiro A ocupado.     Tempo de fila: 0.0
+  8.5 Cliente 2 chega.          Sem preferência.
+  8.5 Cliente 2 inicia.         Barbeiro B ocupado.     Tempo de fila: 0.0
+  9.0 Cliente 3 chega.          Barbeiro A.
+  9.2 Cliente 1 termina.        Barbeiro A liberado.
+  9.2 Cliente 3 inicia.         Barbeiro A ocupado.     Tempo de fila: 0.3
+  9.8 Cliente 4 chega.          Sem preferência.
+  9.8 Cliente 4 inicia.         Barbeiro C ocupado.     Tempo de fila: 0.0
+ 11.8 Cliente 5 chega.          Sem preferência.
+ 13.7 Cliente 2 termina.        Barbeiro B liberado.
+ 13.7 Cliente 5 inicia.         Barbeiro B ocupado.     Tempo de fila: 1.9
+ 17.3 Cliente 3 termina.        Barbeiro A liberado.
+
+```
 > **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:
 * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
 * O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
@@ -51,6 +158,24 @@ def chegadaClientes(env, barbeariaStore):
 ```python
 
 ```
+
+
+```python
+
+
+
+```
+
+
+
+```python
+
+```
+
+```python
+
+```
+
 ## Teste seus conhecimentos
 
 1. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 5 minutos?
