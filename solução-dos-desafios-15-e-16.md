@@ -158,11 +158,70 @@ Quando executado, o código anterior fornece:
 Como, neste caso, temos que identificar quantos clientes estão aguardando o respectivo barbeiro favorito, uma saída seria utilizar um dicionário para armazenar o número de clientes em fila (outra possibilidade seria um `Store` específico para a fila):
 
 ```python
+random.seed(25)            
+env = simpy.Environment()
+
+# cria 3 barbeiros diferentes e armazena em um dicionário
+barbeirosNomes = ['Barbeiro A', 'Barbeiro B', 'Barbeiro C']
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
+
+# dicionário para armazenar o número de clientes em fila de favoritos 
+filaDict = dict(zip(barbeirosNomes, [0,0,0]))
+
+# falta de um barbeiro
+if random.random() <= 0.05:
+    barbeirosNomes.remove(random.choice((barbeirosNomes)))
+
+# cria um FilterStore para armazenar os barbeiros
+barbeariaStore = simpy.FilterStore(env, capacity=3)
+barbeariaStore.items = barbeirosNomes
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 20)   
+```
+Para garantir a falta de um barbeiro em 5% das simulações, foi novamente utilizado o comando `random.random` e adicionalmente o comando `[random.choice](https://docs.python.org/dev/library/random.html#random.choice)` que selecionada uniformemente um elemento da lista `barbeirosNomes`:
+```python
+if random.random() <= 0.05:
+    barbeirosNomes.remove(random.choice((barbeirosNomes)))
 
 ```
-
+Na linha anterior, além de sortearmos um dos barbeiros, ele é removido da lista de barbeiros, o que facilita o processo de desistência do cliente.
+O processo de chegadas de clientes não precisa ser modificado em relação ao código anterior, contudo, o processo de atendimento precisa armazenar o número de clientes em fila por barbeiro - para isso criamos um dicionário - e o número de clientes em fila total. Assim, criamos uma variável global que armazena o número total de clientes em fila. Uma possível codificação para a função de atendimento seria:
 
 ```python
+def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    global filaAtual
+    
+    chegada = env.now
+    if barbeiroEscolhido != 'Sem preferência':
+        if barbeiroEscolhido not in barbeirosNomes:
+            print("%5.1f Cliente %i desiste.\t%s ausente." 
+                %(env.now, cliente, barbeiroEscolhido))
+            env.exit()
+        if filaDict[barbeiroEscolhido] > 3:
+            print("%5.1f Cliente %i desiste.\t%s com mais de 3 clientes em fila." 
+                %(env.now, cliente, barbeiroEscolhido))
+            env.exit()
+        filaAtual += 1
+        filaDict[barbeiroEscolhido] = filaDict[barbeiroEscolhido] + 1
+        barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+    else:
+        if filaAtual <= 6:
+            filaAtual += 1
+            barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiro)
+    filaAtual -= 1
+    espera = env.now - chegada
+    print("%5.1f Cliente %i inicia.\t\t%s ocupado.\tTempo de fila: %2.1f" 
+            %(env.now, cliente, barbeiro, espera))
+    with barbeirosDict[barbeiro].request() as req:
+        yield req
+        tempoCorte = random.normalvariate(*TEMPO_CORTE)
+        yield env.timeout(tempoCorte)
+        print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
+    barbeariaStore.put(barbeiro)
 
 
 
