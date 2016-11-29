@@ -344,7 +344,6 @@ Quando executado, o modelo anterior fornece:
  26.6 Cliente 2 inicia.         Barbeiro A ocupado.     Tempo de fila: 12.3
  29.6 Cliente 3 chega.          Sem preferência.
  29.6 Cliente 3 inicia.         Barbeiro B ocupado.     Tempo de fila: 0.0
-
 ```
 
 ## Teste seus conhecimentos
