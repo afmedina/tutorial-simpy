@@ -185,11 +185,9 @@ Para garantir a falta de um barbeiro em 5% das simulações, foi novamente utili
 ```python
 if random.random() <= 0.05:
     barbeirosNomes.remove(random.choice((barbeirosNomes)))
-
 ```
 Na linha anterior, além de sortearmos um dos barbeiros, ele é removido da lista de barbeiros, o que facilita o processo de desistência do cliente.
 O processo de chegadas de clientes não precisa ser modificado em relação ao código anterior, contudo, o processo de atendimento precisa armazenar o número de clientes em fila por barbeiro - para isso criamos um dicionário - e o número de clientes em fila total. Assim, criamos uma variável global que armazena o número total de clientes em fila. Uma possível codificação para a função de atendimento seria:
-
 ```python
 def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     #ocupa um barbeiro específico e realiza o corte
@@ -222,9 +220,6 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
         yield env.timeout(tempoCorte)
         print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
     barbeariaStore.put(barbeiro)
-
-
-
 ```
 
 
