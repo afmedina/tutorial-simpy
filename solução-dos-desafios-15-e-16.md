@@ -191,36 +191,51 @@ O processo de chegadas de clientes não precisa ser modificado em relação ao c
 ```python
 def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     #ocupa um barbeiro específico e realiza o corte
-    global filaAtual
+    global filaAtual     # número de clientes em fila
     
     chegada = env.now
     if barbeiroEscolhido != 'Sem preferência':
-        if barbeiroEscolhido not in barbeirosNomes:
+        if barbeiroEscolhido not in barbeirosDict:
+            # caso o barbeiro tenha faltado, desiste do atendimento
             print("%5.1f Cliente %i desiste.\t%s ausente." 
                 %(env.now, cliente, barbeiroEscolhido))
             env.exit()
         if filaDict[barbeiroEscolhido] > 3:
+            # caso a fila seja maior do que 6, desiste do atendimento
             print("%5.1f Cliente %i desiste.\t%s com mais de 3 clientes em fila." 
                 %(env.now, cliente, barbeiroEscolhido))
             env.exit()
+        # cliente atual entra em fila e incrementa a fila do barbeiro favorito
         filaAtual += 1
         filaDict[barbeiroEscolhido] = filaDict[barbeiroEscolhido] + 1
         barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+        filaDict[barbeiroEscolhido] = filaDict[barbeiroEscolhido] - 1
     else:
-        if filaAtual <= 6:
+        # cliente sem preferência, verifica o tamanho total da fila
+        if filaAtual > 6:
+            # caso a fila seja maior do que 6, desiste do atendimento
+            print("%5.1f Cliente %i desiste.\tFila com mais de 6 clientes em fila." 
+                %(env.now, cliente))
+            env.exit()  
+        else:
+            # cliente entra em fila e pega o primeiro barbeiro livre
             filaAtual += 1
-            barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiro)
-    filaAtual -= 1
+            barbeiro = yield barbeariaStore.get()
+            
+    # cliente já tem barbeiro, então sai da fila 
+    filaAtual -= 1  
+
     espera = env.now - chegada
     print("%5.1f Cliente %i inicia.\t\t%s ocupado.\tTempo de fila: %2.1f" 
             %(env.now, cliente, barbeiro, espera))
+    # ocupa o recurso barbeiro
     with barbeirosDict[barbeiro].request() as req:
         yield req
         tempoCorte = random.normalvariate(*TEMPO_CORTE)
         yield env.timeout(tempoCorte)
         print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
-    barbeariaStore.put(barbeiro)
-```
+    # devolve o barbeiro para o FilterStore
+    barbeariaStore.put(barbeiro)```
 
 
 
