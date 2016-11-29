@@ -241,10 +241,112 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
 
 
 ```python
+import simpy
+import random
 
+TEMPO_CHEGADAS = 5          # intervalo entre chegadas de clientes
+TEMPO_CORTE = [10, 2]       # tempo médio de corte 
+filaAtual = 0               # armazena o tamanho atual da fila de clientes
+
+def chegadaClientes(env, barbeariaStore):
+    # gera clientes exponencialmente distribuídos
+    i = 0
+    while True:
+        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
+        i += 1
+        # tem preferência por barbeiro?
+        r = random.random()
+        if r <= 0.30:
+            barbeiroEscolhido = 'Barbeiro A'
+        elif r <= 0.40:
+            barbeiroEscolhido = 'Barbeiro B'
+        else:
+            barbeiroEscolhido = 'Sem preferência'
+        print("%5.1f Cliente %i chega.\t\t%s." %(env.now, i, barbeiroEscolhido))
+        # inicia processo de atendimento
+        env.process(atendimento(env, i, barbeiroEscolhido, barbeariaStore))
+
+def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    global filaAtual
+    
+    chegada = env.now
+    if barbeiroEscolhido != 'Sem preferência':
+        if barbeiroEscolhido not in barbeirosDict:
+            # caso o barbeiro tenha faltado, desiste do atendimento
+            print("%5.1f Cliente %i desiste.\t%s ausente." 
+                %(env.now, cliente, barbeiroEscolhido))
+            env.exit()
+        if filaDict[barbeiroEscolhido] > 3:
+            # caso a fila seja maior do que 6, desiste do atendimento
+            print("%5.1f Cliente %i desiste.\t%s com mais de 3 clientes em fila." 
+                %(env.now, cliente, barbeiroEscolhido))
+            env.exit()
+        # cliente atual entra em fila e incrementa a fila do barbeiro favorito
+        filaAtual += 1
+        filaDict[barbeiroEscolhido] = filaDict[barbeiroEscolhido] + 1
+        barbeiro = yield barbeariaStore.get(lambda barbeiro: barbeiro==barbeiroEscolhido)
+        filaDict[barbeiroEscolhido] = filaDict[barbeiroEscolhido] - 1
+    else:
+        # cliente sem preferência, verifica o tamanho total da fila
+        if filaAtual > 6:
+            # caso a fila seja maior do que 6, desiste do atendimento
+            print("%5.1f Cliente %i desiste.\tFila com mais de 6 clientes em fila." 
+                %(env.now, cliente))
+            env.exit()  
+        else:
+            # cliente entra em fila e pega o primeiro barbeiro livre
+            filaAtual += 1
+            barbeiro = yield barbeariaStore.get()
+            
+    # cliente já tem barbeiro, então sai da fila 
+    filaAtual -= 1  
+
+    espera = env.now - chegada
+    print("%5.1f Cliente %i inicia.\t\t%s ocupado.\tTempo de fila: %2.1f" 
+            %(env.now, cliente, barbeiro, espera))
+    # ocupa o recurso barbeiro
+    with barbeirosDict[barbeiro].request() as req:
+        yield req
+        tempoCorte = random.normalvariate(*TEMPO_CORTE)
+        yield env.timeout(tempoCorte)
+        print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
+    # devolve o barbeiro para o FilterStore
+    barbeariaStore.put(barbeiro)
+    
+random.seed(25)            
+env = simpy.Environment()
+
+# cria 3 barbeiros diferentes e armazena em um dicionário
+barbeirosNomes = ['Barbeiro A', 'Barbeiro B', 'Barbeiro C']
+
+# falta de um barbeiro
+if random.random() <= 0.05:
+    barbeirosNomes.remove(random.choice((barbeirosNomes)))
+    
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(len(barbeirosNomes))]
+barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
+
+# dicionário para armazenar o número de clientes em fila de favoritos 
+filaDict = {k:0 for k in barbeirosNomes}
+
+# cria um FilterStore para armazenar os barbeiros
+barbeariaStore = simpy.FilterStore(env, capacity=3)
+barbeariaStore.items = barbeirosNomes
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 30)   
 ```
-
+Quando executado, o modelo anterior fornece:
 ```python
+ 13.1 Cliente 1 chega.          Sem preferência.
+ 13.1 Cliente 1 inicia.         Barbeiro A ocupado.     Tempo de fila: 0.0
+ 14.3 Cliente 2 chega.          Barbeiro A.
+ 26.6 Cliente 1 termina.        Barbeiro A liberado.
+ 26.6 Cliente 2 inicia.         Barbeiro A ocupado.     Tempo de fila: 12.3
+ 29.6 Cliente 3 chega.          Sem preferência.
+ 29.6 Cliente 3 inicia.         Barbeiro B ocupado.     Tempo de fila: 0.0
 
 ```
 
