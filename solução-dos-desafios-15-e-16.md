@@ -74,7 +74,7 @@ import simpy
 import random
 
 TEMPO_CHEGADAS = 5          # intervalo entre chegadas de clientes
-TEMPO_CORTE = [10, 5]       # tempo médio de corte 
+TEMPO_CORTE = [10, 2]       # tempo médio de corte 
 
 def chegadaClientes(env, barbeariaStore):
     # gera clientes exponencialmente distribuídos
