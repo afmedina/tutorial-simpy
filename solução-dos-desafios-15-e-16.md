@@ -18,4 +18,4 @@
 ```
 ## Teste seus conhecimentos
 
-1. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário deseje que o tempo médio de espera seja inferior a vinte minutos?
+1. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 5 minutos?
