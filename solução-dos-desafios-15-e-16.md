@@ -163,15 +163,16 @@ env = simpy.Environment()
 
 # cria 3 barbeiros diferentes e armazena em um dicionário
 barbeirosNomes = ['Barbeiro A', 'Barbeiro B', 'Barbeiro C']
-barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
-barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
-
-# dicionário para armazenar o número de clientes em fila de favoritos 
-filaDict = dict(zip(barbeirosNomes, [0,0,0]))
 
 # falta de um barbeiro
 if random.random() <= 0.05:
     barbeirosNomes.remove(random.choice((barbeirosNomes)))
+    
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(len(barbeirosNomes))]
+barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
+
+# dicionário para armazenar o número de clientes em fila de favoritos 
+filaDict = {k:0 for k in barbeirosNomes}
 
 # cria um FilterStore para armazenar os barbeiros
 barbeariaStore = simpy.FilterStore(env, capacity=3)
@@ -179,7 +180,7 @@ barbeariaStore.items = barbeirosNomes
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
-env.run(until = 20)   
+env.run(until = 30)    
 ```
 Para garantir a falta de um barbeiro em 5% das simulações, foi novamente utilizado o comando `random.random` e adicionalmente o comando `[random.choice](https://docs.python.org/dev/library/random.html#random.choice)` que selecionada uniformemente um elemento da lista `barbeirosNomes`:
 ```python
