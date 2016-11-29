@@ -146,8 +146,6 @@ Quando executado, o código anterior fornece:
  11.8 Cliente 3 inicia.         Barbeiro A ocupado.     Tempo de fila: 2.8
  16.6 Cliente 2 termina.        Barbeiro B liberado.
  19.0 Cliente 4 termina.        Barbeiro C liberado.
-
-
 ```
 > **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:
 * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
