@@ -176,7 +176,7 @@ import simpy
 import pyprind
 
 def geraChegada(env, p):
-#gera chegadas em intervalos ctes            
+# gera chegadas em intervalos ctes            
     while True:
         yield env.timeout(1)
 
@@ -185,17 +185,17 @@ chegadas = env.process(geraChegada(env, "p1"))
 
 until = 1000000
 
-#cria barra de tamanho until     
+# cria barra de tamanho until     
 pbar = pyprind.ProgBar(until, monitor = True)
 
 while env.peek() < until:            
    delay = env.now
    env.step()
    delay = env.now - delay
-   #atualiza a barra pelo intervalo de tempo processado
+   # atualiza a barra pelo intervalo de tempo processado
    pbar.update(delay)
 
-#imprime estatísticas da CPU   
+# imprime estatísticas da CPU   
 print(pbar)  
 
 ```
