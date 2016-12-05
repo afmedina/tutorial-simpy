@@ -27,7 +27,7 @@ def viagem(env, tempoParada):
     while duracaoViagem > 0:  # enquanto ainda durar a viagem, execute:
         try:
             viajando = True
-            inicioViagem = env.now #(re)inicio da viagem
+            inicioViagem = env.now # (re)inicio da viagem
             print("Viagem iniciada em %s" %(env.now))
             yield env.timeout(duracaoViagem) # tempo de viagem restante
             duracaoViagem -= env.now-inicioViagem
@@ -91,8 +91,8 @@ def paradaTecnica(env, intervalo, viagem):
     #processo de paradas entre intervalo
     global duracaoViagem
     global viajando
-    while duracaoViagem > 0:         #este processo só ocorre durante a viagem
-        yield env.timeout(intervalo) #aguarda a próxima quebra do R2D2
+    while duracaoViagem > 0:         # este processo só ocorre durante a viagem
+        yield env.timeout(intervalo) # aguarda a próxima quebra do R2D2
         if viajando:                 # O R2D2 somente quebra durante a viagem
             viagem.interrupt()       # interrompe o processo viagem
             viajando = False
