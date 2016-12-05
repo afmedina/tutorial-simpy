@@ -56,5 +56,15 @@ Quando executado, o modelo anterior fornece:
 ```
 No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de fechamento do bar foi disparado. Isso é bom, mas pode ser ruim: note que o evento de fechamento é manipulado fora da função do processo do bar e isso pode deixar as coisas confusas no seu modelo, caso você não tome cuidado.
 
+O modelo ainda pode ser *tunado* para considerar o turno do dia seguinte, modificando-se a função `turno`:
+```python
+def turno(env):
+    global fechaBar
+    yield env.timeout(4)
+    # dispara o evento fechar o bar
+    fechaBar.succeed()
+    # 
+```
+
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
