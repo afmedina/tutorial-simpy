@@ -126,6 +126,8 @@ env = simpy.Environment()
 env.process(turno(env))
 env.run(until=20)
 ```
+## Aguardando múltiplos eventos ao mesmo tempo
+
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
