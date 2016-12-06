@@ -57,7 +57,7 @@ def turno(env):
         env.process(ponteElevatoria(env))
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
-        # dispara o evento de abertur da ponte
+        # dispara o evento de abertura da ponte
         abrePonte.succeed()
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
@@ -87,6 +87,45 @@ Quando executado, o modelo anterior fornece:
 ```
 No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de abertura da ponte foi disparado. Isso é bom, mas também pode ser ruim: note que o evento de abertura é manipulado **fora** da função do processo do bar e isso pode deixar as coisas confusas no seu modelo, caso você não tome o devido cuidado.
 
+O comando `succeed()` ainda pode enviar um valor, com a opção:
+```python
+meuEvento.succeed(value=valor)
+```
+Assim, poderíamos, por exemplo, enviar para a função `ponteElevatoria` o tempo previsto para que a ponte fique aberta de modo que a função que recebe o sinal de que o evento foi disparado, possa fazer uso do valor no seu processamento interno. O modelo a seguir, implenta tais modificações e sua interpretação é direta:
+```python
+import simpy
+
+def turno(env):
+    # abre e fecha a ponte
+    global abrePonte
+    
+    while True:
+        # cria evento para abertura da ponte
+        abrePonte = env.event()
+        # inicia o proce da ponte elvatória
+        env.process(ponteElevatoria(env))
+        # mantém a ponte fechada por 5 minutos
+        yield env.timeout(5)
+        # dispara o evento de abertura da ponte
+        abrePonte.succeed(value=5)
+        # mantém a ponte aberta por 5 minutos
+        yield env.timeout(5)
+    
+def ponteElevatoria(env):
+    # opera a ponte elevatória
+    global abrePonte
+
+    print('%2.0f A ponte está fechada =(' %(env.now))
+    # aguarda o evento para abertura da ponte
+    tempoAberta = yield abrePonte
+    print('%2.0f A ponte está  aberta =) e fecha em %2.0f minutos' %(env.now, tempoAberta))
+    
+env = simpy.Environment()
+
+# inicia o processo de controle do turno
+env.process(turno(env))
+env.run(until=20)
+```
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
