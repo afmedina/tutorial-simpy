@@ -42,38 +42,43 @@ Juntando tudo num modelo de abre/fecha um bar, teríamos:
 import simpy
 
 def turno(env):
-    # liga e desliga o turno de trabalho
-    global fechaBar
+    # abre e fecha a ponte
+    global abrePonte
     
     while True:
-        # cria evento para fechamento do bar
-        fechaBar = env.event()
-        # abre o bar
-        env.process(bar(env))
-        # mantém o bar aberto por 5 horas
+        # cria evento para abertura da ponte
+        abrePonte = env.event()
+        # inicia o proce da ponte elvatória
+        env.process(ponteElevatoria(env))
+        # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
-        # dispara o evento fechar o bar
-        fechaBar.succeed()
-        # mantém o bar fechado por 5 horas
+        # dispara o evento de abertur da ponte
+        abrePonte.succeed()
+        # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
     
-def bar(env):
-    # abre e fecha o bar
-    global fechaBar
+def ponteElevatoria(env):
+    # opera a ponte elevatória
+    global abrePonte
 
-    print('%2.0f O bar está aberto  =)' %(env.now))
-    # aguarda o evento para fechar o bar
-    yield fechaBar
-    print('%2.0f O bar está fechado =(' %(env.now))
+    print('%2.0f A ponte está fechada =(' %(env.now))
+    # aguarda o evento para abertura da ponte
+    yield abrePonte
+    print('%2.0f A ponte está aberta  =)' %(env.now))
     
 env = simpy.Environment()
+
+# inicia o processo de controle do turno
+env.process(turno(env))
+env.run(until=20)
 ```
 Quando executado, o modelo anterior fornece:
 ```
- 0 O bar está aberto  =)
- 5 O bar está fechado =(
-10 O bar está aberto  =)
-15 O bar está fechado =(
+ 0 A ponte está fechada =(
+ 5 A ponte está aberta  =)
+10 A ponte está fechada =(
+15 A ponte está aberta  =)
+
 ```
 No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de fechamento do bar foi disparado. Isso é bom, mas também pode ser ruim: note que o evento de fechamento é manipulado fora da função do processo do bar e isso pode deixar as coisas confusas no seu modelo, caso você não tome cuidado.
 
