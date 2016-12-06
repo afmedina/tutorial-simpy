@@ -36,7 +36,7 @@ def turno(env):
         # mantém o bar fechado por 5 horas
         yield env.timeout(5)
 ```
-Note, na função anterior, que o evento é criado, um tempo de 
+Note, na função anterior, que o evento é criado, o bar permace
 Juntando tudo num modelo de abre/fecha um bar, teríamos:
 ```python
 import simpy
