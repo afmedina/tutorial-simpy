@@ -4,13 +4,10 @@ Mas com todo o poder, vem também a responsabilidade!
 Atente-se para o fato de que, sem cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
 
 ## Criando um evento isolado
-Considere um problema simples de controle de turno de trabalho: um bar precisa abrir, operar por 4 horas e fechar. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo é criar um evento específico que informe ao bar que ele deve fechar.
+Considere um problema simples de controle de turno de trabalho: um bar precisa abrir, operar por 5 horas e fechar. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo nesta seção é criar um evento específico que informe ao bar que ele deve fechar.
 
 Em SimPy, um evento é criado pelo comando `env.event()`:
 ```python
-import simpy
-
-env = simpy.Environment()
 fechaBar = env.event()
 ```
 Criar o evento, não significa que ele foi executado. Para disparar o evento fechaBar e marcá-lo como bem sucedido, utilizamos a opção `succeed()`:
