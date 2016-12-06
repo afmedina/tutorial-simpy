@@ -25,34 +25,40 @@ Juntando tudo num modelo de abre/fecha um bar, teríamos:
 ```python
 import simpy
 
+def turno(env):
+    # liga e desliga o turno de trabalho
+    global fechaBar
+    
+    while True:
+        fechaBar = env.event()
+        env.process(bar(env))
+        yield env.timeout(5)
+        # dispara o evento fechar o bar
+        fechaBar.succeed()
+        # cria novo evento
+        yield env.timeout(5)
+    
 def bar(env):
     # abre e fecha o bar
     global fechaBar
 
-    print('%2.1f O bar está aberto' %(env.now))
-    # aguarda o envento para fechar o bar
+    print('%2.0f O bar está aberto  =)' %(env.now))
+    # aguarda o evento para fechar o bar
     yield fechaBar
-    print('%2.1f O bar está fechado' %(env.now))
-
-def turno(env):
-    global fechaBar
-    yield env.timeout(4)
-    # dispara o evento fechar o bar
-    fechaBar.succeed()
-
+    print('%2.0f O bar está fechado =(' %(env.now))
+    
 env = simpy.Environment()
 
-# cria o evento fechaBar
-fechaBar = env.event()
-
-env.process(bar(env))
+# inicia o processo de controle do turno
 env.process(turno(env))
-env.run()
+env.run(until=20)
 ```
 Quando executado, o modelo anterior fornece:
 ```
-0.0 O bar está aberto
-4.0 O bar está fechado
+ 0 O bar está aberto  =)
+ 5 O bar está fechado =(
+10 O bar está aberto  =)
+15 O bar está fechado =(
 ```
 No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de fechamento do bar foi disparado. Isso é bom, mas pode ser ruim: note que o evento de fechamento é manipulado fora da função do processo do bar e isso pode deixar as coisas confusas no seu modelo, caso você não tome cuidado.
 
