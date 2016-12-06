@@ -3,7 +3,7 @@ Nesta seção entramos num território de poder dentro do SimPy. A partir deste 
 Mas com todo o poder, vem também a responsabilidade!
 Atente-se para o fato de que, sem cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
 
-## Criando um evento isolado
+## Criando um evento isolado com `event`
 Considere um problema simples de controle de turno de abertura ou fechamento de uma ponte elevatória que abre, opera com veículos por 5 minutos e fecha para passagem de embarcações. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo nesta seção é criar um evento específico que informe ao bar que ele deve fechar.
 
 Em SimPy, um evento é criado pelo comando `env.event()`:
@@ -85,7 +85,8 @@ Quando executado, o modelo anterior fornece:
 15 A ponte está aberta  =)
 
 ```
-No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de fechamento do bar foi disparado. Isso é bom, mas também pode ser ruim: note que o evento de fechamento é manipulado fora da função do processo do bar e isso pode deixar as coisas confusas no seu modelo, caso você não tome cuidado.
+No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de abertura da ponte foi disparado. Isso é bom, mas também pode ser ruim: note que o evento de abertura é manipulado **fora** da função do processo do bar e isso pode deixar as coisas confusas no seu modelo, caso você não tome o devido cuidado.
+
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
