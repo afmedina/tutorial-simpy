@@ -53,7 +53,7 @@ def turno(env):
     while True:
         # cria evento para abertura da ponte
         abrePonte = env.event()
-        # inicia o proce da ponte elvatória
+        # inicia o processo da ponte elvatória
         env.process(ponteElevatoria(env))
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
@@ -102,7 +102,7 @@ def turno(env):
     while True:
         # cria evento para abertura da ponte
         abrePonte = env.event()
-        # inicia o proce da ponte elvatória
+        # inicia o processo da ponte elvatória
         env.process(ponteElevatoria(env))
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
