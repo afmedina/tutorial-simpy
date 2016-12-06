@@ -4,39 +4,44 @@ Mas com todo o poder, vem também a responsabilidade!
 Atente-se para o fato de que, sem cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
 
 ## Criando um evento isolado
-Considere um problema simples de controle de turno de trabalho: um bar precisa abrir, operar por 5 horas e fechar. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo nesta seção é criar um evento específico que informe ao bar que ele deve fechar.
+Considere um problema simples de controle de turno de abertura ou fechamento de uma ponte elevatória que abre, opera com veículos por 5 minutos e fecha para passagem de embarcações. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo nesta seção é criar um evento específico que informe ao bar que ele deve fechar.
 
 Em SimPy, um evento é criado pelo comando `env.event()`:
 ```python
-fechaBar = env.event()
+abrePonte = env.event()
 ```
-Criar o evento, não significa que ele foi executado. Para disparar o evento fechaBar e marcá-lo como bem sucedido, utilizamos a opção `succeed()`:
+Criar o evento, não significa que ele foi executado. Para disparar o evento `abrePonte `e marcá-lo como bem sucedido, utilizamos a opção `succeed()`:
 ```python
-fechaBar.succeed()
+abrePonte.succeed()
 ```
-A grande vantagem de se trabalhar com event() é que, em qualquer ponto do modelo, podemos lançar um comando que aguarda até que o evento criado seja disparado:
+A grande vantagem de se trabalhar com `event()` é que, em qualquer ponto do modelo, podemos lançar um comando que aguarda até que o evento criado seja disparado:
 ```python
-yield fechaBar   # aguarda até que o evento fechaBar seja disparado
+yield abrePonte   # aguarda até que o evento abrePonte seja disparado
 ```
-Incialmente, vamos criar uma função geradora que representa o processo de controle do turno de trabalho e responsável por gerar o evento de fechamento do bar:
+Incialmente, vamos criar uma função geradora que representa o processo de controle do turno de abertura/fechamento da ponte e responsável por gerar o evento que dispara o abertura da mesma:
 ```python
 def turno(env):
-    # liga e desliga o turno de trabalho
-    global fechaBar
+    # abre e fecha a ponte
+    global abrePonte
     
     while True:
-        # cria evento para fechamento do bar
-        fechaBar = env.event()
-        # abre o bar
-        env.process(bar(env))
-        # mantém o bar aberto por 5 horas
+        # cria evento para abertura da ponte
+        abrePonte = env.event()
+        # inicia o proce da ponte elvatória
+        env.process(ponteElevatoria(env))
+        # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
-        # dispara o evento fechar o bar
-        fechaBar.succeed()
-        # mantém o bar fechado por 5 horas
+        # dispara o evento de abertur da ponte
+        abrePonte.succeed()
+        # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
 ```
-Note, na função anterior, que o evento é criado, o bar permace
+Note, na função anterior, que o evento é criado, mas **não é disparado** imediatamente. De fato, ele só é disparado quanto o método `abrePonte.succeed()` é executado, algumas linhas abaixo na função. 
+Para garantir que um novo ciclo de abertura e fechamento se repita (dentro do laço infinito criado), deve-se criar um novo evento e isso está garantido no início do laço com a linha:
+```python
+abrePonte = env.event()
+```
+Isso precisa ficar bem claro, paciente leitor: uma vez disparado com o succeed, o evento é extindo.
 Juntando tudo num modelo de abre/fecha um bar, teríamos:
 ```python
 import simpy
