@@ -18,6 +18,25 @@ A grande vantagem de se trabalhar com event() é que, em qualquer ponto do model
 ```python
 yield fechaBar   # aguarda até que o evento fechaBar seja disparado
 ```
+Incialmente, vamos criar uma função geradora que representa o processo de controle do turno de trabalho e responsável por gerar o evento de fechamento do bar:
+```python
+def turno(env):
+    # liga e desliga o turno de trabalho
+    global fechaBar
+    
+    while True:
+        # cria evento para fechamento do bar
+        fechaBar = env.event()
+        # abre o bar
+        env.process(bar(env))
+        # mantém o bar aberto por 5 horas
+        yield env.timeout(5)
+        # dispara o evento fechar o bar
+        fechaBar.succeed()
+        # mantém o bar fechado por 5 horas
+        yield env.timeout(5)
+```
+Note, na função anterior, que o evento é criado, um tempo de 
 Juntando tudo num modelo de abre/fecha um bar, teríamos:
 ```python
 import simpy
@@ -27,12 +46,15 @@ def turno(env):
     global fechaBar
     
     while True:
+        # cria evento para fechamento do bar
         fechaBar = env.event()
+        # abre o bar
         env.process(bar(env))
+        # mantém o bar aberto por 5 horas
         yield env.timeout(5)
         # dispara o evento fechar o bar
         fechaBar.succeed()
-        # cria novo evento
+        # mantém o bar fechado por 5 horas
         yield env.timeout(5)
     
 def bar(env):
@@ -45,10 +67,6 @@ def bar(env):
     print('%2.0f O bar está fechado =(' %(env.now))
     
 env = simpy.Environment()
-
-# inicia o processo de controle do turno
-env.process(turno(env))
-env.run(until=20)
 ```
 Quando executado, o modelo anterior fornece:
 ```
