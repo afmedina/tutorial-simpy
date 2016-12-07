@@ -138,9 +138,6 @@ Vamos partir de um exemplo baseado numa obscura fábula infantil: [a Lebre e a T
 
 No nosso exemplo, vamos sortear o tempo de corrida de cada bicho e identificar quem foi o vencedor. Assim, além do sorteio, criaremos dois eventos que representam a corrida de cada bicho:
 ```python
-import simpy
-import random
-
 def corrida(env):
     # a lebre x tartaruga!
     # sorteia aleatoriamente os tempos dos animais
@@ -149,13 +146,13 @@ def corrida(env):
     # cria os eventos de corrida de cada animal
     lebreEvent = env.timeout(lebreTempo, value='lebre')
     tartarugaEvent = env.timeout(tartarugaTempo, value='tartaruga')
-
-random.seed(10)
-env = simpy.Environment()
-proc = env.process(corrida(env))
-env.run(until=10)
 ```
-Na função corrida, criamos portanto os eventos lebreEvent e tartarugaEvent, mas atenção: **eventos criados, mas não executados**. Como não existe um `yield` nos eventos, eles estão apenas criados na memória do Python, e esperando o momento de serem executados no SimPy.
+Na função `corrida`, criamos portanto os eventos `lebreEvent` e `tartarugaEvent`, mas atenção: **eventos foram criados, mas não foram executados**. Como não existe um `yield` aplicado aos eventos, eles estão apenas criados na memória do Python, e esperando o momento de serem executados no SimPy.
+
+Agora, vamos acrescentar uma um yield com condição de que ele aguarde até que ao menos um dos bichos tenham terminado a corrida:
+```python
+
+
 Antes de avançar - e com o intuito de facilitar o aprendizagem do lebrístico leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento:
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
