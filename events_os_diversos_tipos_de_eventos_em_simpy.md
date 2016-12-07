@@ -129,7 +129,34 @@ env.run(until=20)
 Novamente, o potencial de uso do comando event() é extraordinário, mas, por experiência própria, garanto que seu uso descontrolado pode tornar qualquer código ininteligível (algo semelhante a utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
  
 ## Aguardando múltiplos eventos ao mesmo tempo
-Outra possibilidade com os eventos é aguardar até que dois ou mais deles ocorram para continuar algum processo. 
+Outra possibilidade com os eventos é aguardar até que dois ou mais deles ocorram para continuar algum processo. O SimPy possui duas opções muito interessantes para isso:
+
+* `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido;
+* `resultado = AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido.
+
+Vamos partir de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
+
+No nosso exemplo, vamos sortear o tempo de corrida de cada bicho e identificar quem foi o vencedor. Assim, além do sorteio, criaremos dois eventos que representam a corrida de cada bicho:
+```python
+import simpy
+import random
+
+def corrida(env):
+    # a lebre x tartaruga!
+    # sorteia aleatoriamente os tempos dos animais
+    lebreTempo = random.normalvariate(5,2)
+    tartarugaTempo = random.normalvariate(5,2)
+    # cria os eventos de corrida de cada animal
+    lebreEvent = env.timeout(lebreTempo, value='lebre')
+    tartarugaEvent = env.timeout(tartarugaTempo, value='tartaruga')
+
+random.seed(10)
+env = simpy.Environment()
+proc = env.process(corrida(env))
+env.run(until=10)
+```
+Na função corrida, criamos portanto os eventos lebreEvent e tartarugaEvent, mas atenção: **eventos criados, mas não executados**. Como não existe um `yield` nos eventos, eles estão apenas criados na memória do Python, e esperando o momento de serem executados no SimPy.
+Antes de avançar - e com o intuito de facilitar o aprendizagem do lebrístico leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento:
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
