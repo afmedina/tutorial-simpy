@@ -131,8 +131,8 @@ Novamente, o potencial de uso do comando event() é extraordinário, mas, por ex
 ## Aguardando múltiplos eventos ao mesmo tempo
 Outra possibilidade com os eventos é aguardar até que dois ou mais deles ocorram para continuar algum processo. O SimPy possui duas opções muito interessantes para isso:
 
-* `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido - AnyOf é equivalente ao símbolo de "|" (ou `or`);
-* `resultado = AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido- AllOf é equivalente ao símbolo de "&" (ou `and`).
+* `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
+* `resultado = AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`).
 
 Vamos partir de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
 
@@ -149,7 +149,7 @@ def corrida(env):
 ```
 Na função `corrida`, criamos portanto os eventos `lebreEvent` e `tartarugaEvent`, mas atenção: **eventos foram criados, mas não foram executados**. Como não existe um `yield` aplicado aos eventos, eles estão apenas criados na memória do Python, e esperando o momento de serem executados no SimPy.
 
-Agora, vamos acrescentar uma um yield com condição de que ele aguarde até que ao menos um dos bichos tenham terminado a corrida:
+Agora, vamos acrescentar uma um `yield` com condição de que ele aguarde até que ao menos um dos bichos tenham terminado a corrida:
 ```python        
     # começou!
     start = env.now
@@ -158,6 +158,46 @@ Agora, vamos acrescentar uma um yield com condição de que ele aguarde até que
     resultado = yield lebreEvent | tartarugaEvent
     tempo = env.now - start
 ```
+A variável resultado armazena nesse instante o evento que terminou primeiro. Assim, a função precisa apenas de uma lógica de comparação e impressão do bicho vencedor. O código a seguir completa o modelo e já o deixa pronto para a execução:
+```python
+def corrida(env):
+    # a lebre x tartaruga!
+    # sorteia aleatoriamente os tempos dos animais
+    lebreTempo = random.normalvariate(5,2)
+    tartarugaTempo = random.normalvariate(5,2)
+    # cria os eventos de corrida de cada animal
+    lebreEvent = env.timeout(lebreTempo, value='lebre')
+    tartarugaEvent = env.timeout(tartarugaTempo, value='tartaruga')
+           
+    # começou!
+    start = env.now
+    print('%3.1f Iniciada a corrida!' %(env.now))
+    # simule até que alguém chegue primeiro
+    resultado = yield lebreEvent | tartarugaEvent
+    tempo = env.now - start
+    
+    # quem venceu?
+    if lebreEvent not in resultado:
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
+    elif tartarugaEvent not in resultado:
+        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+    else:
+        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+
+random.seed(10)
+env = simpy.Environment()
+proc = env.process(corrida(env))
+env.run(until=10)
+```
+Quando executado, o bicho pega:
+```python
+0.0 Iniciada a corrida!
+5.3 A tartaruga venceu em 5.3 minutos
+```
+>**Observação:** a linha:
+> resultado = yield lebreEvent | tartarugaEvent
+> poderia ter sido substituída, pela linha:
+> resultado = yield AnyOf(lebreEvent, tartarugaEvent)
 
 Antes de avançar - e com o intuito de facilitar o aprendizagem do lebrístico leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento:
 
