@@ -202,6 +202,10 @@ Quando executado, o bicho pega:
 ```python
 > resultado = yield AnyOf(env, lebreEvent, tartarugaEvent)
 ```
+## Propriedades úteis dos eventos
+Um evento qualquer tem 3 propriedades, que faz a alegria de qualquer leitor:
+* Event.value: o valor que foi passado para o evento no momento de sua criação;
+* Event.processed: True, caso o Event já tenha sido 
 Antes de avançar - e com o intuito de facilitar o aprendizagem do lebrístico leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento:
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
