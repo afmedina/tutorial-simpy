@@ -129,7 +129,7 @@ env.run(until=20)
 Novamente, o potencial de uso do comando event() é extraordinário, mas, por experiência própria, garanto que seu uso descontrolado pode tornar qualquer código ininteligível (algo semelhante a utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
  
 ## Aguardando múltiplos eventos ao mesmo tempo
-
+Outra possibilidade com os eventos é aguardar até que dois ou mais deles ocorram para continuar algum processo. 
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
 
