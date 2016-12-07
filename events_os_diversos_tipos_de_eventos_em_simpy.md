@@ -131,8 +131,8 @@ Novamente, o potencial de uso do comando event() é extraordinário, mas, por ex
 ## Aguardando múltiplos eventos ao mesmo tempo
 Outra possibilidade com os eventos é aguardar até que dois ou mais deles ocorram para continuar algum processo. O SimPy possui duas opções muito interessantes para isso:
 
-* `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido;
-* `resultado = AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido.
+* `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido - AnyOf é equivalente ao símbolo de "|" (ou `or`);
+* `resultado = AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido- AllOf é equivalente ao símbolo de "&" (ou `and`).
 
 Vamos partir de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
 
@@ -150,8 +150,14 @@ def corrida(env):
 Na função `corrida`, criamos portanto os eventos `lebreEvent` e `tartarugaEvent`, mas atenção: **eventos foram criados, mas não foram executados**. Como não existe um `yield` aplicado aos eventos, eles estão apenas criados na memória do Python, e esperando o momento de serem executados no SimPy.
 
 Agora, vamos acrescentar uma um yield com condição de que ele aguarde até que ao menos um dos bichos tenham terminado a corrida:
-```python
-
+```python        
+    # começou!
+    start = env.now
+    print('%3.1f Iniciada a corrida!' %(env.now))
+    # simule até que alguém chegue primeiro
+    resultado = yield lebreEvent | tartarugaEvent
+    tempo = env.now - start
+```
 
 Antes de avançar - e com o intuito de facilitar o aprendizagem do lebrístico leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento:
 
