@@ -195,10 +195,13 @@ Quando executado, o bicho pega:
 5.3 A tartaruga venceu em 5.3 minutos
 ```
 >**Observação:** a linha:
+```python
 > resultado = yield lebreEvent | tartarugaEvent
+```
 > poderia ter sido substituída, pela linha:
-> resultado = yield AnyOf(lebreEvent, tartarugaEvent)
-
+```python
+> resultado = yield AnyOf(env, lebreEvent, tartarugaEvent)
+```
 Antes de avançar - e com o intuito de facilitar o aprendizagem do lebrístico leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento:
 
 ## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
