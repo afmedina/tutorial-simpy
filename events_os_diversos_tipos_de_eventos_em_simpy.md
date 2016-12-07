@@ -126,7 +126,7 @@ env = simpy.Environment()
 env.process(turno(env))
 env.run(until=20)
 ```
-Novamente, o potencial de uso do comando event() é extraordinário, mas, pela experiência, o seu uso descontrolado pode tornar seu código ininteligível (algo como utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
+Novamente, o potencial de uso do comando event() é extraordinário, mas, por experiência própria, garanto que seu uso descontrolado pode tornar qualquer código ininteligível (algo semelhante a utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
  
 ## Aguardando múltiplos eventos ao mesmo tempo
 
