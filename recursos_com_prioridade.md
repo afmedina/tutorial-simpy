@@ -49,7 +49,7 @@ import simpy
 import random
 
 def sorteiaPulseira():
-    #retorna a cor da pulseira e sua prioridade
+    # retorna a cor da pulseira e sua prioridade
     r = random.random()                 #sorteia número aleatório ente 0 e 1
     if r <= .70:                        #70% é pulseira verde
         return "pulseira verde", 3
@@ -58,7 +58,7 @@ def sorteiaPulseira():
     return "pulseira vermelha", 1       #10% (=100-90) é pulseira vermelha
     
 def chegadaPacientes(env, medicos):
-    #gera pacientes exponencialmente distribuídos
+    # gera pacientes exponencialmente distribuídos
     
     i = 0
     while True:
@@ -73,7 +73,7 @@ def chegadaPacientes(env, medicos):
         env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, medicos))
 
 def atendimento(env, paciente, pulseira, prio, medicos):
-    #ocupa um médico e realiza o atendimento do paciente
+    # ocupa um médico e realiza o atendimento do paciente
 
     with medicos.request(priority=prio) as req:
         yield req
