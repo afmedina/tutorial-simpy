@@ -22,17 +22,17 @@ import simpy
 import random
 
 def sorteiaPulseira():
-    #retorna a cor da pulseira e sua prioridade
+    # retorna a cor da pulseira e sua prioridade
     pass
 
 def chegadaPacientes(env, medicos):
-    #gera pacientes exponencialmente distribuídos
-    #sorteia a pulseira
-    #inicia processo de atendimento
+    # gera pacientes exponencialmente distribuídos
+    # sorteia a pulseira
+    # inicia processo de atendimento
     pass
 
 def atendimento(env, paciente, pulseira, prio, medicos):
-    #ocupa um médico e realiza o atendimento do paciente
+    # ocupa um médico e realiza o atendimento do paciente
     pass
 
 random.seed(100)       
