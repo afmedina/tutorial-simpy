@@ -10,13 +10,13 @@ import simpy
 
 def geraChegada(env, p):
     media, contador, pesoTotal = 0, 0, 0
-    while media > 10.5 or media < 9.5:     #critério de parada
+    while media > 10.5 or media < 9.5:     # critério de parada
         print("%s: nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
-        contador += 1                      #conta entidades geradas
-        peso = random.normalvariate(10, 5) #sorteia o peso da entidade
-        pesoTotal += peso                  #acumula o peso total até agora
-        media = pesoTotal/contador         #calcula média dos pesos
+        contador += 1                      # conta entidades geradas
+        peso = random.normalvariate(10, 5) # sorteia o peso da entidade
+        pesoTotal += peso                  # acumula o peso total até agora
+        media = pesoTotal/contador         # calcula média dos pesos
         print("Média atual %.2f" %(media))
 
 random.seed(100)
@@ -67,7 +67,7 @@ A biblioteca _[scipy.stats](https://docs.scipy.org/doc/scipy/reference/stats.htm
 
 ```python
 def intervaloConfMedia(a, conf=0.95):
-    #retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
+    # retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
     media, sem, m = numpy.mean(a), scipy.stats.sem(a), scipy.stats.t.ppf((1+conf)/2., len(a)-1)
     h = m*sem
     return media, h
@@ -79,29 +79,29 @@ O novo programa então ficaria:
 
 ```python
 import random
-import numpy        #biblioteca numpy para computação científica http://www.numpy.org/
-import scipy.stats  #bilbioteca scipy.stats de funções estatísticas
+import numpy        # biblioteca numpy para computação científica http://www.numpy.org/
+import scipy.stats  # bilbioteca scipy.stats de funções estatísticas
 import simpy
 
 def intervaloConfMedia(a, conf=0.95):
-    #retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
+    # retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
     media, sem, m = numpy.mean(a), scipy.stats.sem(a), scipy.stats.t.ppf((1+conf)/2., len(a)-1)
     h = m*sem
     return media, h
 
 def geraChegada(env, p):
-    pesosList = []       #lista para armazenar os valores de pesos gerados
+    pesosList = []       # lista para armazenar os valores de pesos gerados
     while True:
         print("%s: nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
         pesosList.append(random.normalvariate(10, 5)) # adiciona à lista o peso da entidade atual
 
-        #cálculo da amplitude do intervalo de confiança, como nível de significância = 95%
+        # cálculo da amplitude do intervalo de confiança, como nível de significância = 95%
         if len(pesosList) > 1:           
             media, amplitude = intervaloConfMedia(pesosList, 0.95)
             print("Média atual: %.2f. Amplitude atual: %.2f" %(media, amplitude))
 
-            #se a amplitude atende ao critério estabelecido, interronpe o processo
+            # se a amplitude atende ao critério estabelecido, interronpe o processo
             if amplitude < 0.5:
                 print("Intervalo de confiança atingido após %s valores! 
                 [%.2f, %.2f]" % (len(pesosList), media-amplitude, media+amplitude))
