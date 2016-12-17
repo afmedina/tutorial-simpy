@@ -7,7 +7,7 @@ import simpy
 import random
 
 def sorteiaPulseira():
-    #retorna a cor da pulseira e sua prioridade
+    # retorna a cor da pulseira e sua prioridade
     r = random.random()                      #sorteia número aleatório ente 0 e 1
     if r <= .70:                             #70% é pulseira verde
         return "pulseira verde", 3, False
@@ -16,7 +16,7 @@ def sorteiaPulseira():
     return "pulseira vermelha", 1, True      #10% (=100-90) é pulseira vermelha
     
 def chegadaPacientes(env, medicos):
-    #gera pacientes exponencialmente distribuídos
+    # gera pacientes exponencialmente distribuídos
     
     i = 0
     while True:
@@ -32,7 +32,7 @@ def chegadaPacientes(env, medicos):
 
 def atendimento(env, paciente, pulseira, prio, preempt, medicos):
     
-    #ocupa um médico e realiza o atendimento do paciente
+    # ocupa um médico e realiza o atendimento do paciente
     with medicos.request(priority=prio, preempt=preempt) as req:
         yield req
         print("%s com %s inicia o atendimento em %.1f" %(paciente, pulseira, env.now))
@@ -43,7 +43,7 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             yield env.timeout(tempoAtendimento)
             print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
         except simpy.Interrupt:
-            #recalcula o tempo de atendimento
+            # recalcula o tempo de atendimento
             tempoAtendimento -= env.now-inicioAtendimento 
             print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
             print("%s ainda precisa de %.1f minutos de atendimento" %(paciente, tempoAtendimento))
@@ -62,7 +62,7 @@ import simpy
 import random
 
 def sorteiaPulseira():
-    #retorna a cor da pulseira e sua prioridade
+    # retorna a cor da pulseira e sua prioridade
     r = random.random()                      #sorteia número aleatório ente 0 e 1
     if r <= .70:                             #70% é pulseira verde
         return "pulseira verde", 30, False
@@ -71,7 +71,7 @@ def sorteiaPulseira():
     return "pulseira vermelha", 1, True      #10% (=100-90) é pulseira vermelha
     
 def chegadaPacientes(env, medicos):
-    #gera pacientes exponencialmente distribuídos
+    # gera pacientes exponencialmente distribuídos
     
     i = 0
     while True:
@@ -86,7 +86,7 @@ def chegadaPacientes(env, medicos):
         env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, preempt, medicos))
 
 def atendimento(env, paciente, pulseira, prio, preempt, medicos):
-    #ocupa um médico e realiza o atendimento do paciente
+    # ocupa um médico e realiza o atendimento do paciente
 
     with medicos.request(priority=prio, preempt=preempt) as req:
         yield req
@@ -98,12 +98,12 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             yield env.timeout(tempoAtendimento)
             print("%s com %s termina o atendimento em %.1f" %(paciente, pulseira, env.now))
         except simpy.Interrupt:
-            #houve interrupção, recalcula o tempo de atendimento
+            # houve interrupção, recalcula o tempo de atendimento
             tempoAtendimento -= env.now-inicioAtendimento 
             print("%s com %s foi interrompido por paciente de maior prioridade em %.1f" %(paciente, pulseira, env.now))
             print("%s ainda precisa de %.1f minutos de atendimento" %(paciente, tempoAtendimento))
             
-            #aumenta a prioridade            
+            # aumenta a prioridade            
             prio -= 1 
             env.process(atendimento(env, paciente, pulseira, prio, preempt, medicos))
 
