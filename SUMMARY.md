@@ -29,4 +29,5 @@
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
 * [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
+* Construção de modelos de simulação
 
