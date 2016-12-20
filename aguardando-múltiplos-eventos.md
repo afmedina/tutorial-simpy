@@ -1,4 +1,4 @@
-# Aguardando múltiplos eventos ao mesmo tempo
+# Aguardando múltiplos eventos ao mesmo tempo com `AnyOf `e `AllOf`
 Outra possibilidade com os eventos é aguardar até que dois ou mais deles ocorram para continuar algum processo. O SimPy possui duas opções muito interessantes para isso:
 
 * `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
