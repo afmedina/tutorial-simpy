@@ -24,7 +24,7 @@
 * [Enchendo ou esvaziando tanques, caixas ou estoques](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Solução dos desafios 17 e 18](solucao_dos_desafios_15_e_16.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
-* Aguardando múltiplos eventos
+* [Aguardando múltiplos eventos](aguardando-múltiplos-eventos.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy\)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy?\) - Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
