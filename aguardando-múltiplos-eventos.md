@@ -83,4 +83,15 @@ Quando executado, o bicho pega:
 
 ## Aguardando todos os eventos com `AllOf`
 
-Neste caso, podemos forçar um empante na corrida, aguardando que os dois corredores cruzem a linha de chegada:
+Neste caso, podemos forçar um empante na corrida, aguardando que os dois corredores cruzem a linha de chegada. Para isso, basta substituir a linha:
+```python
+resultado = yield lebreEvent | tartarugaEvent
+```
+por:
+```python
+resultado = yield lebreEvent & tartarugaEvent
+```
+Quando simulado, o novo programa forncece como saída:
+```python
+
+```
