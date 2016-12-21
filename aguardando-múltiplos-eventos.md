@@ -93,5 +93,10 @@ resultado = yield lebreEvent & tartarugaEvent
 ```
 Quando simulado, o novo programa forncece como saída:
 ```python
-
+0.0 Iniciada a corrida!
+5.4 Houve um empate em 5.4 minutos
 ```
+O que ocorreu? Neste caso, o comando `AllOf` (ou "&") aguardou até que os dois eventos terminassem para liberar o processamento da linha seguinte de código.
+
+## Comprendendo o resultado dos comandos `AllOf` e `AnyOf`
+Agora que já sabemos o que fazem os comandos AllOf e AnyOf, vamos discutir nessa seção um pouco mais sobre o que exatente esses comandos retornam.
