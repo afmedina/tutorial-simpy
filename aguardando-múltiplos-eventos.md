@@ -150,7 +150,7 @@ Pela saída anterior, descobrimos, inicialmente, que os eventos são *objetos* d
  ```python
  resutado.todict()
  ```
- fornece:
+ Fornece:
  ```python
  {<Timeout(5.428964407135667, value=lebre) object at 0xa18e30>: 'lebre', <Timeout(5.33749212083634, value=tartaruga) object at 0xa18eb0>: 'tartaruga'}
 ```
