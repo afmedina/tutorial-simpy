@@ -26,6 +26,7 @@
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
 * [Aguardando múltiplos eventos](aguardando-múltiplos-eventos.md)
 * [Propriedades úteis dos eventos](propriedades-úteis-dos-eventos.md)
+* [Cancelando um evento já iniciado](cancelando-um-evento-já-iniciado.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy\)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 * [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
