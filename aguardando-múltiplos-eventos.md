@@ -21,6 +21,7 @@ def corrida(env):
 ```
 Na função anterior, `corrida`, criamos os eventos `lebreEvent` e `tartarugaEvent`, que simulam, respectivamente, as corridas da lebre e da tartaruga. Mas, atenção: apesar de criados, os eventos não foram *necessariamente* executados. Como não existe um `yield` aplicado aos eventos, eles foram criados na memória do Python, mas a função corrida não vai aguardar o término de sua execução. 
 
+## Aguardando até que, ao menos, um evento termine com AnyOf
 Para garantir que a função `corrida` aguarde até que, ao menos, um dos corredores termine a prova, devemos acrescentar um `yield AnyOf()` (que pode ser substituído por "|"):
 ```python        
     # começou!
@@ -79,3 +80,7 @@ Quando executado, o bicho pega:
 ```python
 > resultado = yield AnyOf(env, lebreEvent, tartarugaEvent)
 ```
+
+## Aguardando todos os eventos com `AllOf`
+
+Neste caso, podemos forçar um empante na corrida, aguardando que os dois corredores cruzem a linha de chegada:
