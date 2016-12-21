@@ -99,4 +99,51 @@ Quando simulado, o novo programa forncece como saída:
 O que ocorreu? Neste caso, o comando `AllOf` (ou "&") aguardou até que os dois eventos terminassem para liberar o processamento da linha seguinte de código.
 
 ## Comprendendo o resultado dos comandos `AllOf` e `AnyOf`
-Agora que já sabemos o que fazem os comandos AllOf e AnyOf, vamos discutir nessa seção um pouco mais sobre o que exatente esses comandos retornam.
+Agora que já sabemos o que fazem os comandos `AllOf` e `AnyOf`, vamos discutir nessa seção um pouco mais sobre o que exatente esses comandos retornam.
+Incialmente, imprima os valores dos eventos e da variável `resultado`, para descobrir seus conteúdos:
+```python
+import simpy
+import random
+
+def corrida(env):
+    # a lebre x tartaruga!
+    # sorteia aleatoriamente os tempos dos animais
+    # cria os eventos que disparam as corridas
+    lebreTempo = random.normalvariate(5,2)
+    tartarugaTempo = random.normalvariate(5,2)
+    # cria os eventos de corrida de cada animal
+    lebreEvent = env.timeout(lebreTempo, value='lebre')
+    tartarugaEvent = env.timeout(tartarugaTempo, value='tartaruga')
+    print('lebreEvent= ', lebreEvent)
+    print('tartarugaEvent= ', tartarugaEvent)
+    # começou!
+    start = env.now
+    print('%3.1f Iniciada a corrida!' %(env.now))
+    # simule até que alguém chegue primeiro
+    resultado = yield lebreEvent & tartarugaEvent
+    print('resultado = ', resultado)
+    tempo = env.now - start
+    
+    # quem venceu?
+    if lebreEvent not in resultado:
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
+    elif tartarugaEvent not in resultado:
+        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+    else:
+        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+
+random.seed(10)
+env = simpy.Environment()
+proc = env.process(corrida(env))
+env.run(until=10)
+```
+Quando executado, o programa fornecce:
+```python
+lebreEvent=  <Timeout(5.428964407135667, value=lebre) object at 0xa592470>
+tartarugaEvent=  <Timeout(5.33749212083634, value=tartaruga) object at 0xa5920f0>
+0.0 Iniciada a corrida!
+resultado =  <ConditionValue {<Timeout(5.33749212083634, value=tartaruga) object at 0xa5920f0>: 'tartaruga', <Timeout(5.428964407135667, value=lebre) object at 0xa592470>: 'lebre'}>
+5.4 Houve um empate em 5.4 minutos
+```
+Pela saída anterior, descobrimos, inicialmente, que os eventos são *objetos* do tipo `Timeout` e que armazenam tanto o tempo de espera, quanto o valor (ou `value`) fornecido na função.
+ Um pouco mais abaixo, a saída revela que a variável `resultado` é, de fato, um `dicionário` em Python, em que
