@@ -19,9 +19,9 @@ def corrida(env):
     lebreEvent = env.timeout(lebreTempo, value='lebre')
     tartarugaEvent = env.timeout(tartarugaTempo, value='tartaruga')
 ```
-Na função anterior, `corrida`, criamos os eventos `lebreEvent` e `tartarugaEvent`, que simulam, respectivamente, as corridas da lebre e da tartaruga. Mas, atenção: os eventos foram criados, mas não foram *necessariamente* executados. Como não existe um `yield` aplicado aos eventos, eles foram criados na memória do Python, e aguardam a sua exesperando o momento de serem executados no SimPy.
+Na função anterior, `corrida`, criamos os eventos `lebreEvent` e `tartarugaEvent`, que simulam, respectivamente, as corridas da lebre e da tartaruga. Mas, atenção: apesar de criados, os eventos não foram *necessariamente* executados. Como não existe um `yield` aplicado aos eventos, eles foram criados na memória do Python, mas a função corrida não vai aguardar o término de sua execução. 
 
-Agora, vamos acrescentar um `yield` com condição de que ele aguarde até que, _ao menos_, um dos bichos tenha terminado a corrida:
+Para garantir que a função `corrida` aguarde até que, ao menos, um dos corredores termine a prova, devemos acrescentar um `yield AnyOf()` (que pode ser substituído por "|"):
 ```python        
     # começou!
     start = env.now
@@ -30,7 +30,8 @@ Agora, vamos acrescentar um `yield` com condição de que ele aguarde até que, 
     resultado = yield lebreEvent | tartarugaEvent
     tempo = env.now - start
 ```
-A variável resultado armazena nesse instante o evento que terminou primeiro. Assim, a função precisa apenas de uma lógica de comparação e impressão do bicho vencedor. O código a seguir completa o modelo e já o deixa pronto para a execução:
+O `yield` garante que a função aguardará até que um dos dois eventos, lebreEvent ou tartarugaEvent, termine e a variável `resultado` armazenará qual evento terminou primeiro. Assim, para sabermos que venceu, basta explorarmos o valor contindo na variável `resultado`. 
+O código a seguir completa o modelo, testando qual dos dois eventos está na variável `resultado`:
 ```python
 import simpy
 import random
