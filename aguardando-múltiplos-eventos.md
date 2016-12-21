@@ -1,13 +1,13 @@
 # Aguardando múltiplos eventos ao mesmo tempo com `AnyOf `e `AllOf`
 
-Uma funcionalidade importante do SimPy é permitir que uma entidade aguarde até que dois ou mais deles ocorram para continuar algum processo. O SimPy possui duas opções muito interessantes para isso:
+Uma funcionalidade importante do SimPy é permitir que uma entidade aguarde até que dois ou mais eventos ocorram para então continuar algum processo. O SimPy possui duas opções muito interessantes para isso:
 
-* `resultado = AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
-* `resultado = AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`).
+* `AnyOf(env, eventos)`: aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
+* `AllOf(env, eventos)`: aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`).
 
-Vamos partir de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
+Para compreender o funcionamento dos comandos anteriores, vamos partir de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
 
-No nosso exemplo, vamos sortear o tempo de corrida de cada bicho e identificar quem foi o vencedor. Para tanto, além do sorteio, criaremos dois eventos que representam a corrida de cada bicho:
+Neste exemplo, sortearemos um tempo de corrida para cada bicho e identificaremos quem foi o vencedor. Para tanto, além do sorteio, criaremos dois eventos que representam a corrida de cada bicho:
 ```python
 def corrida(env):
     # a lebre x tartaruga!
@@ -19,7 +19,7 @@ def corrida(env):
     lebreEvent = env.timeout(lebreTempo, value='lebre')
     tartarugaEvent = env.timeout(tartarugaTempo, value='tartaruga')
 ```
-Na função anterior, `corrida`, criamos os eventos `lebreEvent` e `tartarugaEvent`, que simulam, respectivamente, as corridas da lebre e da tartaruga. Mas, atenção: **os eventos foram criados, mas não foram executados**. Como não existe um `yield` aplicado aos eventos, eles estão apenas criados na memória do Python, e esperando o momento de serem executados no SimPy.
+Na função anterior, `corrida`, criamos os eventos `lebreEvent` e `tartarugaEvent`, que simulam, respectivamente, as corridas da lebre e da tartaruga. Mas, atenção: os eventos foram criados, mas não foram *necessariamente* executados. Como não existe um `yield` aplicado aos eventos, eles foram criados na memória do Python, e aguardam a sua exesperando o momento de serem executados no SimPy.
 
 Agora, vamos acrescentar um `yield` com condição de que ele aguarde até que, _ao menos_, um dos bichos tenha terminado a corrida:
 ```python        
