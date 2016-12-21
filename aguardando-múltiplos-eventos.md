@@ -146,4 +146,11 @@ resultado =  <ConditionValue {<Timeout(5.33749212083634, value=tartaruga) object
 5.4 Houve um empate em 5.4 minutos
 ```
 Pela saída anterior, descobrimos, inicialmente, que os eventos são *objetos* do tipo `Timeout` e que armazenam tanto o tempo de espera, quanto o valor (ou `value`) fornecido na função.
- Um pouco mais abaixo, a saída revela que a variável `resultado` é, de fato, um `dicionário` em Python, em que
+ Um pouco mais abaixo, a saída revela que a variável `resultado` é um objeto da classe `ConditionValue` que, aparentemente, contém um dicionário de eventos em seu interior. Para acessar esse dicionário, o SimPy fornece o método `.todict()`, assim:
+ ```python
+ resutado.todict()
+ ```
+ ```python
+ fornece:
+ {<Timeout(5.428964407135667, value=lebre) object at 0xa18e30>: 'lebre', <Timeout(5.33749212083634, value=tartaruga) object at 0xa18eb0>: 'tartaruga'}
+```
