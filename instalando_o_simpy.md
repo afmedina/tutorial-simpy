@@ -1,9 +1,9 @@
 # Instalando o SimPy
 Nossa jornada começa por um tutorial de instalação de alguns programas e bibliotecas úteis para o SimPy. Selecionamos, para começar o tutorial, os seguintes pacotes:
-1.	Python 3.4
-2.	Pip
-3.	SimPy 3.0.8
-4.	NumPy
+1.Python 3.4
+2.Pip
+3.SimPy 3.0.8
+4.NumPy
 
 Um breve preâmbulo das nossas escolhas: no momento da elaboração deste tutorial, o **Python** já está na versão 3.5.0, mas o **Anaconda** (explicado adiante) ainda fornece a versão 3.4. Se você já possui uma instalação com o Python 3.5, pode instalar o SimPy sem problemas, pois ele é compatível com as versões mais recentes do Python.
 
