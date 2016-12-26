@@ -1,4 +1,4 @@
-![SimPy logo](SimPy_Logo300.png)
+[](http://stackoverflow.com/questions/tagged/simpy)![SimPy logo](SimPy_Logo300.png)
 
 # Apresentação
 
@@ -49,17 +49,17 @@ Contras:
 Atualmente existem três fontes de consulta sobre o SimPy na internet:
 * O próprio site do projeto http://simpy.readthedocs.io, com exemplos e uma detalhada descrição da da Interface de Programação de Aplicações (*Application Programming Interface* - API);
 * A [lista de discussão](https://groups.google.com/forum/#!forum/python-simpy) de usuários é bastante ativa, com respostas bem elaboradoras;
-* O Stack Overflow tem um número razoável de questões e exemplos, mas cuidados pois boa parte do material ainda refere-se à versão 2 do SimPy.
+* O [Stack Overflow](http://stackoverflow.com/questions/tagged/simpy) tem um número razoável de questões e exemplos, mas cuidados pois boa parte do material ainda refere-se à versão 2 do SimPy.
 
 ## Desenvolvimento deste livro
 
-Planejamos este texto em formato de seções compactas, de modo que elas sejam curtas e didáticas – tendo por meta que cada seção não ultrapasse 500 palavras.
+Este texto foi planejado em formato de seções compactas, de modo que sejam curtas e didáticas – tendo por meta que cada seção não ultrapasse muito além de 500 palavras.
 
-Pretendemos publicar um novo post sempre que já se tenha o próximo post elaborado, de modo a facilitar o processo de revisão. Contudo, mesmo este post inicial, ainda pode ser revisado no futuro. Assim, é recomendável acompanhar o status do post. A ideia é trabalhar com os leitores e colaboradores para corrigir e enriquecer o texto de modo que, ao final da jornada, tenhamos todos um bom ebook sobre SimPy.
+Esta é a primeira edição de um livro sobre uma linguagem que vem apresentando um interesse crescente. Naturalmente, o aumento de usuários - e espera-se que este livro contribua para isso - provocará também o surgimento de mais conhecimento, mais soluções criativas e que deverão ser incorporadas neste livro em futuras revisões.
 
-O plano é caminhar pela seguinte sequência de aprendizado:
+O plano proposto por este texto é caminhar pela seguinte sequência:
 
-* Introdução ao SimPy;
+* Introdução ao SimPy
 * Instalação
 * Conceitos básicos: entidades, recursos, filas etc.
 * Conceitos avançados: prioridade de recursos, compartilhamento de recursos, controle de filas _Store_ de recursos etc.
