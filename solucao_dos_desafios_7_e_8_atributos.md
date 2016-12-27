@@ -97,16 +97,28 @@ Quando simulado por 600 minutos (ou 10 horas), a saída do modelo fornece:
 Tempo médio de espera por lavadoras: 138.63 min. Clientes atendidos: 77
 Fila de clientes ao final da simulação: lavadoras 56 cestos 0 secadoras 0
 ``` 
-Portanto, ao final da simulação, existem 56 clientes aguardando uma lavadora livre, equanto nenhum cliente aguarda por cestos ou secadoras. Temos um caso clássico de fila **infinita**, isto é: a taxa de horária de atendimento das lavadoras é menor que a taxa horária com que os clientes chegam à lavanderia. Assim, se 1 cliente ocupa em média 20 minutos uma lavadora, a taxa de atendimento em cada lavadora é de $$\mu=$$ 0.05 clientes\/min \(=1 cliente \/20 min\), enquanto a taxa de chegadas de clientes na lavandeira é de $$\lambda=$$0.20 clientes\/min \(= 1 cliente\/5 min\). Assim, para termos um sistema equilibrado, precisaríamos de um número de lavadoras de modo a garantir que a taxa de atendimento da soma das lavadoras seja maior que a taxa de chegadas de clientes no sistema ou:
+Portanto, ao final da simulação, existem 56 clientes aguardando uma lavadora livre, equanto nenhum cliente aguarda por cestos ou secadoras. Temos um caso clássico de fila **infinita**, isto é: a taxa de horária de atendimento das lavadoras é menor que a taxa horária com que os clientes chegam à lavanderia. Assim, se 1 cliente ocupa em média 20 minutos uma lavadora, a taxa de atendimento em cada lavadora é de $$\mu=$$ 0.05 clientes\/min \(=1 cliente \/20 min\), enquanto a taxa de chegadas de clientes na lavandeira é de $$\lambda=$$0.20 clientes\/min \(= 1 cliente\/5 min\). 
+
+Como a taxa de atendimento é menor que a taxa de chegadas, a fila cresce indefinidamente. Para termos um sistema equilibrado, precisaríamos de um número de lavadoras tal que se garanta que a taxa de atendimento da soma das lavadoras seja maior que a taxa de chegadas de clientes no sistema ou:
 
 $$\rho=\frac{\lambda}{n*\mu} < 1 \to n > \frac{\lambda}{\mu} = \frac{0.20}{0.05}=4$$
 
-Assim, precisamos de 5 \(ou mais\) lavadoras **apenas para eliminar o gargalo na lavagem**. Simulando o sistema com 5 lavadoras, temos:
+Portanto, com 5 \(ou mais\) lavadoras eliminaríamos **o gargalo na lavagem**. 
+
+O bom da simulação é podemos testar se a calculeira anterior faz sentido. Quando simulado para 5 lavadoras, o modelo fornece como saída:
 
 ```python
-Espera por lavadoras: 16.06 Clientes atendidos: 11907
-Fila de clientes ao final da simulação: lavadoras 0.00   cestos 0.00 secadoras 0.00
+...
+598.8 Cliente 107 ocupa cesto
+599.0 Cliente 105 desocupa secadora
 
+Tempo médio de espera por lavadoras: 4.40 min. Clientes atendidos: 108
+Fila de clientes ao final da simulação: lavadoras 0 cestos 0 secadoras 0
 ```
-Com 5 lavadoras, já não existe fila residual, mas o tempo médio de espera ainda está alto. Fica como exercício, elaborar uma pequena rotina que simule o sistema para números diferentes de recursos (será que o número de cestos e secadoras não está exagerado também?). Manipule o modelo para resolver essas questões.
+Com 5 lavadoras, portanto, já não existe fila residual.
+
+## Teste seus conhecimentos
+1. Elabore uma pequena rotina capaz de simule o sistema para números diferentes de recursos (será que o número de cestos e secadoras não está exagerado também?). Manipule o modelo para encontrar o número mínimo de recursos necessário, de modo a não haver gargalos no sistema.
+
+
 
