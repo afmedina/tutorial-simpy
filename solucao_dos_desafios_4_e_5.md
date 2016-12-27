@@ -280,7 +280,7 @@ env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
 env.run(until=40)
 ```
 
-A execução do programa fornece como saída:
+A execução do programa anterior fornece como saída:
 
 ```python
 4.2 chegada do cliente 1
