@@ -2,7 +2,7 @@
 
 > **Desafio 9**: Considere que cada entidade gerada no primeiro exemplo desta seção tem um peso em gramas dado por uma distribuição normal de média 10 e desvio padrão igual a 5. Crie um critério de parada para quando a média dos pesos das entidades geradas esteja no intervalo entre 9,5 e 10,5.
 
-Este primeiro desafio envolve poucas modificações no programa original. Acrescentamos três variáveis novas: `media`, `contador` e `pesoTotal`; o laço while foi substituido pelo critério de parada e algumas linhas foram acrescentadas para o cálculo da média de peso até a última entidade gerada. O peso de cada entidade é sorteado pela função random.normalvariate\(mu, sigma\) da bliblioteca random.
+Este primeiro desafio envolve poucas modificações no programa original. Acrescentamos três variáveis novas: `media,` `contador` e `pesoTotal;` o laço `while` foi substituido pelo critério de parada e algumas linhas foram acrescentadas para o cálculo da média de peso até a última entidade gerada. O peso de cada entidade é sorteado pela função `random.normalvariate\(mu, sigma\)` da bliblioteca `random.`
 
 ```python
 import random
@@ -140,7 +140,7 @@ Intervalo de confiança atingido depois de 411 valores! [9.68, 10.68]
 
 Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um problema para você :\(
 
-A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores ao seja durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários da [stackoverflow.](http://stackoverflow.com/search?q=numpy) 
+A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores ao seja durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários do [Stack Overflow .](http://stackoverflow.com/search?q=numpy) 
 
 Como sugestão, habitue-se a construir funções padronizadas para monitaramento e cálculos estatísticos, de modo que você pode reaproveitá-las em novos programas. Em algum momento, inclusive, você pode [criar sua própria biblioteca](http://stackoverflow.com/questions/15746675/how-to-write-a-python-module) de funções para análise de saída de modelos de simulação e compartilhar com a comunidade de software livre.
 
