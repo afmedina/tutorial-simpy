@@ -65,7 +65,7 @@ Quando executado por 40 minutos, o modelo completo com as alterações anteriore
 
 Espera por lavadoras: 0.00 Clientes atendidos: 2
 ```
->**Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
+>**Desafior 8**: no desafio anterior, caso você simule por 10 ou mais horas, deve notar como o tempo de espera pela lavadora fica muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
 
 Para a solução do desafio, basta acrescetar uma linha ao final do programa principal:
 
