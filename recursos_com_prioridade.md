@@ -1,21 +1,22 @@
 # Outros tipos de recursos: com prioridade e preemptivos
 
-Além do recurso como definido nas seções anteriores, o SimPy possui recursos com prioridade e "peemptivos", isto é: recursos que podem ser interrompidos por outros processos.
+Além do recurso como definido nas seções anteriores, o SimPy possui dois tipos específicos de recursos: com prioridade e "peemptivos".
 
 ## Recursos com prioridade: `PriorityResource`
 
-Um recurso normal pode ter uma fila de entidades desejando ocupá-lo para executar determinado processo. Existindo a fila, o recurso será ocupado respeitando a ordem de chegada das entidades \(ou a regra FIFO\).
+Um recurso pode ter uma fila de entidades desejando ocupá-lo para executar determinado processo. Existindo a fila, o recurso será ocupado respeitando a ordem de chegada das entidades \(ou a regra FIFO\).
 
 Contudo, existem situações em que algumas entidades possuem _prioridades_ sobre as outras, de modo que elas desrespeitam a regra do primeiro a chegar é o primeiro a ser atendido.
 
-Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa \(pulseira verde\), 20% de prioridade intermediária \(pulseira amarela\) e 10% de prioridade alta \(pulseira vermelha\). Existem 2 médicos que realizam o atendimento, que sempre verificam a ordem de prioridade do paciente e depois a sua ordem na fila. Os pacientes chegam entre intervalos exponencialmente distribuídos com média de 5 minutos e o atendimento é também exponencialmente distribuído, com média de 9 minutos por paciente.
+Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa \(pulseira verde\), 20% de prioridade intermediária \(pulseira amarela\) e 10% de prioridade alta \(pulseira vermelha\). Existem 2 médicos que realizam o atendimento e que sempre verificam inicialmente a ordem de prioridade dos pacientes na fila. Os pacientes chegam entre si em intervalos exponencialmente distribuídos, com média de 5 minutos e o atendimento é também exponencialmente distribuído, com média de 9 minutos por paciente.
 
 No exemplo, os médicos são recursos, mas também respeitam uma regra específica de prioridade. Um médico ou recurso deste tipo, é criado pelo comando:
-`medicos = simpy.PriorityResource(env, capacity=capacidade_desejada)`
+```python
+medicos = simpy.PriorityResource(env, capacity=capacidade_desejada)
+```
+Para a solução do exemplo, o modelo aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira, uma para geração de chegadas de pacientes e outra para atendimento dos pacientes.
 
-Para a solução do exemplo, o programa aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira, uma para geração de chegadas de pacientes e outra para atendimento dos pacientes.
-
-Como uma máscara inicial, teríamos:
+Como uma máscara inicial do modelo, teríamos:
 
 ```python
 import simpy
