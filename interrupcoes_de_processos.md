@@ -1,27 +1,29 @@
 # Interrupções de processos: `simpy.Interrupt`
 
-Você está todo feliz e contente atravessando a galáxia no seu [X-Wing](https://en.wikipedia.org/wiki/X-wing_fighter) quando... PIMBA! Seu [dróide astromecânico](https://pt.wikipedia.org/wiki/R2-D2) pifou e só lhe resta interromper a viagem para consertá-lo, antes que apareça um maldito caça [TIE](https://en.wikipedia.org/wiki/TIE_fighter) das forças imperiais.
+Você está todo feliz e contente atravessando a galáxia no seu [X-Wing](https://en.wikipedia.org/wiki/X-wing_fighter) quando... PIMBA! Seu [dróide astromecânico](https://pt.wikipedia.org/wiki/R2-D2) pifa e só lhe resta interromper a viagem para consertá-lo, antes que apareça um maldito caça [TIE](https://en.wikipedia.org/wiki/TIE_fighter) das forças imperiais.
 
 Nesta seção iremos interromper processos já em execução e depois retomar a operação inicial. A aplicação mais óbvia é para a quebra de equipamentos durante a operação, como no caso do R2D2.
 
-A interrupção de um processo em SimPy é realizada por meio de um comando `Interrupt` aplicado ao processo já iniciado. O cuidado aqui é que quando um recurso é interrompido por outro processo ele causa uma interrupção, de fato, no Python, o que nos obriga a utilização de lógicas do tipo `try:...except`, o que não deixa de ser uma boa coisa, dada a facilidade de uso deste tipo de lógica.
+A interrupção de um processo em SimPy é realizada por meio de um comando `Interrupt` aplicado ao processo já iniciado. O cuidado aqui é que quando um recurso é interrompido por outro processo ele causa uma interrupção, de fato, no Python, o que nos permite utilizar lógicas do tipo `try:...except`, o que não deixa de ser uma boa coisa, dada a sua facilidade.
 
 ## Criando quebras de equipamento
 
 Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 horas e que a viagem toda levaria \(sem não houvessem paralizações\) 50 horas.
 
-Inicialmente, devemos criar uma função que represente a viagem:
+Inicialmente, vamos criar duas variáveis globais: uma para representar se o x-wing está operando - afinal, não queremos interrompê-lo quando ele já estiver em manutenção - e outra para armazenar o tempo ainda restante para a viagem.
 
 ```python
 import simpy
 
 viajando = False    # variável global que avisa se o x-wing está operando
 duracaoViagem = 30  # variável global que marca a duração atual da viagem
+```
+O próximo passo, é criar uma função que represente a viagem do x-wing, garantindo não só que ela dure o tempo correto, mas também que lide com o processo de interrupção. 
 
+```python
 def viagem(env, tempoParada):
     #processo de viagem do x-wing
-    global viajando
-    global duracaoViagem
+    global viajando, duracaoViagem
 
     partida = env.now         # início da viagem
     while duracaoViagem > 0:  # enquanto ainda durar a viagem, execute:
