@@ -162,11 +162,11 @@ Note que `env.process(geraChegadas(env))` é um comando que **torna** a função
 | -- | -- |
 | `env = simpy.Environment()` | cria um `Environment` de simulação |
 | `random.expovariate(lambd)` | gera números aleatórios exponencialmente distribuidos, com taxa de ocorrência (eventos/unidade de tempo) igual a `lambd` |
-| ```yield env.timeout(time)``` | gera um atraso dado por `time` |
-| ```random.seed(seed)``` | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
-| ```env.process(geraChegadas(env))``` | inicia a função ```geraChegadas``` como um *processo* em ```env``` |
-| ```env.run(until=tempoSim)``` | executa a simulação (executa todos os processos criandos em ```env```) pelo tempo `tempoSim` |
-| ```env.now``` | retorna o instante atual da simulação |
+| `yield env.timeout(time)` | gera um atraso dado por `time` |
+| `random.seed(seed)` | define o gerador de sementes aleatórias para um mesmo valor a cada nova simulação |
+| `env.process(geraChegadas(env))` | inicia a função `geraChegadas` como um *processo* em `env` |
+| `env.run(until=tempoSim)` | executa a simulação (executa todos os processos criandos em `env`) pelo tempo `tempoSim` |
+| `env.now` | retorna o instante atual da simulação |
 
 
 ## Desafios (soluções na próxima seção)
