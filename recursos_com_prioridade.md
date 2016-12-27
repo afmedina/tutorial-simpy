@@ -133,31 +133,31 @@ import simpy
 import random
 
 def sorteiaPulseira():
-    #retorna a cor da pulseira e sua prioridade
-    r = random.random()                 #sorteia número aleatório ente 0 e 1
-    if r <= .70:                        #70% é pulseira verde
+    # retorna a cor da pulseira e sua prioridade
+    r = random.random()                 # sorteia número aleatório ente 0 e 1
+    if r <= .70:                        # 70% é pulseira verde
         return "pulseira verde", 3
-    elif r <= .90:                      #20% (=90-70) é pulseira amarela
+    elif r <= .90:                      # 20% (=90-70) é pulseira amarela
         return "pulseira amarela", 2
-    return "pulseira vermelha", 1       #10% (=100-90) é pulseira vermelha
+    return "pulseira vermelha", 1       # 10% (=100-90) é pulseira vermelha
     
 def chegadaPacientes(env, medicos):
-    #gera pacientes exponencialmente distribuídos
+    # gera pacientes exponencialmente distribuídos
     
     i = 0
     while True:
         yield env.timeout(random.expovariate(1/5))
         i += 1
         
-        #sorteia a pulseira
+        # sorteia a pulseira
         pulseira, prio = sorteiaPulseira()
         print("Paciente %s chega em %.1f com %s" %(i, env.now, pulseira))
         
-        #inicia processo de atendimento
+        # inicia processo de atendimento
         env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, medicos))
 
 def atendimento(env, paciente, pulseira, prio, medicos):
-    #ocupa um médico e realiza o atendimento do paciente
+    # ocupa um médico e realiza o atendimento do paciente
 
     with medicos.request(priority=prio) as req:
         yield req
@@ -208,31 +208,31 @@ import simpy
 import random
 
 def sorteiaPulseira():
-    #retorna a cor da pulseira e sua prioridade
-    r = random.random()                      #sorteia número aleatório ente 0 e 1
-    if r <= .70:                             #70% é pulseira verde
+    # retorna a cor da pulseira e sua prioridade
+    r = random.random()                      # sorteia número aleatório ente 0 e 1
+    if r <= .70:                             # 70% é pulseira verde
         return "pulseira verde", 3, False
-    elif r <= .90:                           #20% (=90-70) é pulseira amarela
+    elif r <= .90:                           # 20% (=90-70) é pulseira amarela
         return "pulseira amarela", 2, False
-    return "pulseira vermelha", 1, True      #10% (=100-90) é pulseira vermelha
+    return "pulseira vermelha", 1, True      # 10% (=100-90) é pulseira vermelha
     
 def chegadaPacientes(env, medicos):
-    #gera pacientes exponencialmente distribuídos
+    # gera pacientes exponencialmente distribuídos
     
     i = 0
     while True:
         yield env.timeout(random.expovariate(1/5))
         i += 1
         
-        #sorteia a pulseira
+        # sorteia a pulseira
         pulseira, prio, preempt = sorteiaPulseira()
         print("Paciente %s chega em %.1f com %s" %(i, env.now, pulseira))
         
-        #inicia processo de atendimento
+        # inicia processo de atendimento
         env.process(atendimento(env, "Paciente %s" % i, pulseira, prio, preempt, medicos))
 
 def atendimento(env, paciente, pulseira, prio, preempt, medicos):
-    #ocupa um médico e realiza o atendimento do paciente
+    # ocupa um médico e realiza o atendimento do paciente
 
     with medicos.request(priority=prio, preempt=preempt) as req:
         yield req
