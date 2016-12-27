@@ -37,7 +37,13 @@ def run2Ruin(bankroll):
 bankroll = [5, 5]     # dinheiro disponível para cada jogador
 run2Ruin(bankroll)    # inicia o jogo
 ```
+No meu computador, o problema anterior fornece o seguinte resultado:
+```
+
+```
+
+Note que o resultado fornecido deve ser diferente em seu computador, assim como ele se modifica a cada nova rodada no programa. Para que os resultados sejam semelhantes, precisamos utilizar o comando `random.seed(semente)` com um mesmo valor inicial (veja o item 1 na seção "Teste seus conhecimentos a seguir").
 
 ### Teste seus conhecimentos:
-1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia um novo número aleatório ente 0 e 1, tornando imprevisível o resultado do programa. Utilize a função `random.seed()` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
+1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia um novo número aleatório ente 0 e 1, tornando imprevisível o resultado do programa. Utilize a função `random.seed(semente)` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
 2. Acrescente um laço no programa principal de modo que o jogo possa ser repetido até um número pré definido de vezes. *Simule* 100 partidas e verifique em quantas cada um dos jogadores venceu. 
