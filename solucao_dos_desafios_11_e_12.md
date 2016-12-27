@@ -76,4 +76,25 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos, tempoAtendiment
             env.process(atendimento(env, paciente, pulseira, prio, preempt, medicos, tempoAtendimento)) 
 
 ```
+Quando executado por apenas 20 minutos, o modelo completo - acrescido da nova função `atendimento`, fornece como saída:
+```python
+ 0.8 Paciente  1 com pulseira verde chega
+ 0.8 Paciente  1 com pulseira verde inicia o atendimento
+ 8.2 Paciente  2 com pulseira amarela chega
+ 8.2 Paciente  2 com pulseira amarela inicia o atendimento
+11.0 Paciente  3 com pulseira verde chega
+11.4 Paciente  4 com pulseira verde chega
+11.7 Paciente  5 com pulseira vermelha chega
+11.7 Paciente  1 com pulseira verde tem atendimento interrompido
+11.7 Paciente  1 ainda precisa de  0.1 min de atendimento
+11.7 Paciente  5 com pulseira vermelha inicia o atendimento
+15.3 Paciente  5 com pulseira vermelha termina o atendimento
+15.3 Paciente  1 com pulseira verde inicia o atendimento
+15.5 Paciente  1 com pulseira verde termina o atendimento
+15.5 Paciente  3 com pulseira verde inicia o atendimento
+18.8 Paciente  3 com pulseira verde termina o atendimento
+18.8 Paciente  4 com pulseira verde inicia o atendimento
+```
+
+Note que agora, o Paciente 1, diferentemente do que ocorre na saída do desafio 11, é atendido antes do Paciente 3, representando o fato de que, mesmo interrompido, ele voltou para o início da fila.
 
