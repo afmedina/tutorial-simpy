@@ -26,7 +26,7 @@ def coinToss(bankroll, tossCount):
 
 def run2Ruin(bankroll):
     # função que executa o jogo até a ruina de um dos jogadores
-    tossCount = 0     #contador de lançamentos
+    tossCount = 0     # contador de lançamentos
     while bankroll[0] > 0 and bankroll[1] > 0:
         tossCount += 1
         coinToss(bankroll,tossCount)
