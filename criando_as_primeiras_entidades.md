@@ -169,14 +169,9 @@ Note que `env.process(geraChegadas(env))` é um comando que **torna** a função
 
 ## Desafios (soluções na próxima seção)
 >**Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação. 
-Modifique a função ```
-geraChegadas```
- de modo que ela receba como parâmetro ```
-numeroMaxChegadas```
- e limite a criação de entidades a este número.
+Modifique a função `geraChegadas` de modo que ela receba como parâmetro `numeroMaxChegadas` e limite a criação de entidades a este número.
 
->**Desafio 3:** modifique a função ```
-geraChegadas```
+>**Desafio 3:** modifique a função `geraChegadas`
  de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
  
 
