@@ -147,7 +147,7 @@ Como já destacado, a dificuldade é representar a sequência correta de process
 import random
 import simpy
 
-contaClientes = 0 # conta clientes que chegaram no sistema
+contaClientes = 0             # conta clientes que chegaram no sistema
 
 def distributions(tipo):
     # função que armazena as distribuições utilizadas no modelo
@@ -195,16 +195,17 @@ lavadoras = simpy.Resource(env, capacity = 3)
 cestos = simpy.Resource(env, capacity = 2)
 secadoras = simpy.Resource(env, capacity = 1)
 env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
+
 env.run(until = 40)
 ```
 
-O programa a seguir apresenta uma possível solução, já com diversos comandos de impressão:
+O programa a seguir apresenta uma possível solução para o desafio, já com diversos comandos de impressão:
 
 ```python
 import random
 import simpy
 
-contaClientes = 0 # conta clientes que chegaram no sistema
+contaClientes = 0           # conta clientes que chegaram no sistema
 
 def distributions(tipo):
     # função que armazena as distribuições utilizadas no modelo
@@ -215,77 +216,81 @@ def distributions(tipo):
         'descarregar': random.uniform(1, 2),
         'secar': random.uniform(9, 12),
     }.get(tipo, 0.0)
-
+    
 def chegadaClientes(env, lavadoras, cestos, secadoras):
     # função que gera a chegada de clientes
     global contaClientes
+    
     contaClientes = 0
-
     while True:
         contaClientes += 1
         yield env.timeout(distributions('chegadas'))
-        print("Cliente %s chega em %.1f" %(contaClientes, env.now))
-        #chamada do processo de lavagem e secagem
-        env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
-
+        print("%.1f chegada do cliente %s" %(env.now, contaClientes))
+         # chamada do processo de lavagem e secagem
+        env.process(lavaSeca(env, "Cliente %s" % contaClientes, lavadoras, cestos, secadoras))
+        
 def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
     # função que processa a operação de cada cliente dentro da lavanderia
-
+    global utilLavadora, tempoEsperaLavadora, contaLavadora
+    
     # ocupa a lavadora
     req1 = lavadoras.request()
     yield req1
-    print("%s ocupa lavadora em %.1f" %(cliente, env.now))
+    print("%.1f %s ocupa lavadora" %(env.now, cliente))
     yield env.timeout(distributions('lavar'))
-
+    
     # antes de retirar da lavadora, pega um cesto
     req2 = cestos.request()
     yield req2
-    print("%s ocupa cesto em %.1f" %(cliente, env.now))
+    print("%.1f %s ocupa cesto" %(env.now, cliente))
     yield env.timeout(distributions('carregar'))
-
+    
     # libera a lavadora, mas não o cesto
     lavadoras.release(req1)
-    print("%s desocupa lavadora em %.1f" %(cliente, env.now))
-
+    print("%.1f %s desocupa lavadora" %(env.now, cliente))
+    
     # ocupa a secadora antes de liberar o cesto
     req3 = secadoras.request()
     yield req3
-    print("%s ocupa secadora em %.1f" %(cliente, env.now))
+    print("%.1f %s ocupa secadora" %(env.now, cliente))
     yield env.timeout(distributions('descarregar'))
-
+    
     # libera o cesto mas não a secadora
     cestos.release(req2)
-    print("%s desocupa cesto em %.1f" %(cliente, env.now))
+    print("%.1f %s desocupa cesto" %(env.now, cliente))
     yield env.timeout(distributions('secar'))
-
+    
     # pode liberar a secadora
-    print("%s desocupa secadora em %.1f" %(cliente, env.now))
+    print("%.1f %s desocupa secadora" %(env.now, cliente))
     secadoras.release(req3)
 
+
+        
 random.seed(10)
 env = simpy.Environment()
-lavadoras = simpy.Resource(env, capacity = 3)
-cestos = simpy.Resource(env, capacity = 2)
-secadoras = simpy.Resource(env, capacity = 1)
+lavadoras = simpy.Resource(env, capacity=3)
+cestos = simpy.Resource(env, capacity=2)
+secadoras = simpy.Resource(env, capacity=1)
 env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
-env.run(until = 40)
+
+env.run(until=40)
 ```
 
 A execução do programa fornece como saída:
 
 ```python
-Cliente 1 chega em 4.2
-Cliente 1 ocupa lavadora em 4.2
-Cliente 2 chega em 12.6
-Cliente 2 ocupa lavadora em 12.6
-Cliente 1 ocupa cesto em 24.2
-Cliente 1 desocupa lavadora em 27.2
-Cliente 1 ocupa secadora em 27.2
-Cliente 1 desocupa cesto em 28.8
-Cliente 2 ocupa cesto em 32.6
-Cliente 2 desocupa lavadora em 36.3
-Cliente 1 desocupa secadora em 38.7
-Cliente 2 ocupa secadora em 38.7
+4.2 chegada do cliente 1
+4.2 Cliente 1 ocupa lavadora
+12.6 chegada do cliente 2
+12.6 Cliente 2 ocupa lavadora
+24.2 Cliente 1 ocupa cesto
+27.2 Cliente 1 desocupa lavadora
+27.2 Cliente 1 ocupa secadora
+28.8 Cliente 1 desocupa cesto
+32.6 Cliente 2 ocupa cesto
+36.3 Cliente 2 desocupa lavadora
+38.7 Cliente 1 desocupa secadora
+38.7 Cliente 2 ocupa secadora
 ```
 
 # Teste seus conhecimentos:
