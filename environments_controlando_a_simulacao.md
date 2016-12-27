@@ -125,7 +125,7 @@ p1: nova chegada em 4
 
 Neste caso, a simulação termina apenas quando o processo de 5 entidades termina \(o processo armazenado no primeiro elemento da lista\).
 
-## Parada por fim de execução de processo específico
+## Parada por fim de execução de processo específico por `env.run(until=processo)`
 
 Uma outra alternativa de controle de execução é pelo término do próprio processo de execução. Partindo do exemplo anterior, podemos parar a simulação quando o processo que gera 3 entidades termina. Isto é possível com a opção `env.run(until=processo)`:
 
@@ -166,8 +166,8 @@ chegadas = [env.process(geraChegada(env, "p1", 5)), env.process(geraChegada(env,
 
 O SimPy permite a simulação passo a passo por meio de dois comandos:
 
-* `peek()`: retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito `(float('inf'))`;
-* `step()`: processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna `EmptySchedule`.
+* `peek()`: retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito `(float('inf'));`
+* `step()`: processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna `EmptySchedule.`
 
 Um uso interessante da simulação passo a passo é na representação de barras de progresso. O exemplo a seguir faz uso da biblioteca [pyprind](https://github.com/rasbt/pyprind) para gerar uma barra de progresso simples \(talvez você tenha de instalar a biblioteca pyprind - veja no link como proceder\):
 
@@ -210,6 +210,15 @@ print(pbar)
      Memory %: 0.32`
 
 Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu "Debug". Assim, podemos colocar um *breakpoint* na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
+
+## Conteúdos desta seção
+
+| **Conteúdo** | **Descrição** |
+| --- | --- |
+| `env.run(until=tempo_de_simulação)` | solicita que o modelo seja executado pelo tempo definido em 'tempo_de_simulação'. Note que a unidade é instrinseca ao problema simulado. |
+| `env.run(until=processo)` | solicita que o modelo seja simulado até que o `processo` termine sua execução. (Caso `processo` tenha um laço infinito, o programa será simulado indefinidamente ou até que Ctrl+C seja acionado no teclado). |
+| `peek()` | retorna o instante de execução do próximo evento programado. Caso não existam mais eventos programados, retorna infinito `(float('inf'));` |
+| `step()` | processa o próximo evento. Caso não existam mais eventos, ele retorna um exceção interna `EmptySchedule.` |
 
 ## Desafios
 
