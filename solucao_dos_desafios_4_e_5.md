@@ -2,81 +2,46 @@
 
 > **Desafio 4**: imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 4.5?
 
-Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. A variável global `clientesFila` armazenará este valor, como mostra o ínicio do código alterado da seção anterior:
-
+Para solução do desafio, basta lembrarmos que a qualquer momento, o conjunto de entidades em fila pelo recurso é dado por  `servidorRes.queue` e, portanto, o número de entidade em fila é facilmente obtido pela expressão:
 ```python
-import random # gerador de números aleatórios
-import simpy  # biblioteca de simulação
-
-TEMPO_MEDIO_CHEGADAS = 1.0    # tempo entre chegadas sucessivas de clientes
-TEMPO_MEDIO_ATENDIMENTO = 0.5 # tempo médio de atendimento no servidor
-
-clientesFila = 0
+len(servidorRes.queue)
 ```
-
-O próximo passo é incrementar essa variável quando um novo cliente entra em fila e, de modo similar, decrementá-la quando um cliente sai da fila para iniciar seu atendimento. Etapas relativamente fáceis de programar se você entendeu a função `atendimentoServidor`
- da seção anterior:
+Foram acrescentadas duas chamadas à função `print`, de modo a imprimir na tela o número de clientes em fila em dois instantes de mudança do número de clientes em fila (na entrada e na saída de um novo cliente):
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
-    global clientesFila
-
-    request = servidorRes.request() # solicita o recurso servidorRes
-
-    clientesFila += 1 # incrementa contador de novo cliente em fila
-    print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' 
-    %(env.now, clientesFila))
-
-    yield request # aguarda em fila até o acesso
-
-    print('%s inicia o atendimento em: %.1f ' % (nome, env.now()))
-    clientesFila -= 1 # decrementa contador de novo cliente em fila
+    # função que ocupa o servidor e realiza o atendimento   
+    # solicita o recurso servidorRes
+    request = servidorRes.request()
+    
+    # aguarda em fila até a liberação do recurso e o ocupa
+    yield request                       
+    print('%.1f Servidor inicia o atendimento do %s. Clientes em fila: %i' % (env.now, nome, len(servidorRes.queue)))
+    
+    # aguarda um tempo de atendimento exponencialmente distribuído
+    yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
+    print('%.1f Servidor termina o atendimento do %s. Clientes em fila: %i' % (env.now, nome, len(servidorRes.queue)))
+    
+    # libera o recurso servidorRes
+    yield servidorRes.release(request)
 ```
-
-Repare que foram acrescentadas duas chamadas à função `print`, de modo a imprimir na tela o número de clientes em fila em cada instante de mudança do valor da variável `clientesFila.`
 Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
 
 ```
-Cliente 1 chega em: 1.5 
-1.50: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 1 inicia o atendimento em: 1.5 
-Cliente 1 termina o atendimento em: 1.6.
-Cliente 2 chega em: 2.6 
-2.61: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 2 inicia o atendimento em: 2.6 
-Cliente 2 termina o atendimento em: 2.9.
-Cliente 3 chega em: 3.0 
-3.05: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 3 inicia o atendimento em: 3.0 
-Cliente 4 chega em: 3.8 
-3.81: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 5 chega em: 4.0 
-3.95: chegada de novo cliente em fila. Clientes em fila: 2
-Cliente 3 termina o atendimento em: 5.0.
-Cliente 4 inicia o atendimento em: 5.0 
-Cliente 6 chega em: 5.1 
-5.06: chegada de novo cliente em fila. Clientes em fila: 2
-Cliente 4 termina o atendimento em: 5.2.
-Cliente 5 inicia o atendimento em: 5.2 
-Cliente 5 termina o atendimento em: 5.3.
-Cliente 6 inicia o atendimento em: 5.3 
-Cliente 7 chega em: 5.7 
-5.73: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 6 termina o atendimento em: 5.8.
-Cliente 7 inicia o atendimento em: 5.8 
-Cliente 8 chega em: 6.0 
-5.99: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 9 chega em: 6.0 
-6.03: chegada de novo cliente em fila. Clientes em fila: 2
-Cliente 7 termina o atendimento em: 6.2.
-Cliente 8 inicia o atendimento em: 6.2 
-Cliente 8 termina o atendimento em: 6.5.
-Cliente 9 inicia o atendimento em: 6.5 
-Cliente 9 termina o atendimento em: 6.8.
-Cliente 10 chega em: 9.7 
-9.69: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 10 inicia o atendimento em: 9.7 
+0.5 Chegada do cliente 1
+0.5 Servidor inicia o atendimento do cliente 1. Clientes em fila: 0
+1.4 Servidor termina o atendimento do cliente 1. Clientes em fila: 0
+3.1 Chegada do cliente 2
+3.1 Servidor inicia o atendimento do cliente 2. Clientes em fila: 0
+3.3 Chegada do cliente 3
+4.1 Servidor termina o atendimento do cliente 2. Clientes em fila: 1
+4.1 Servidor inicia o atendimento do cliente 3. Clientes em fila: 0
+4.1 Servidor termina o atendimento do cliente 3. Clientes em fila: 0
+4.3 Chegada do cliente 4
+4.3 Servidor inicia o atendimento do cliente 4. Clientes em fila: 0
+4.5 Servidor termina o atendimento do cliente 4. Clientes em fila: 0 
 ```
+Portanto, existem 0 cliente em fila no instante 4,5 minutos, nas condições simuladas (note a semente de geração de números aleatórios igual a 2).
 
 > **Desafio 5**: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`
 >  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`
