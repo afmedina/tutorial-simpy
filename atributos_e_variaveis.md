@@ -4,11 +4,11 @@ Qual a diferença entre atributo e variável para um modelo de simulação? O at
 
 Por outo lado, um parâmetro de saída importante seria o número total de produtos vendidos nesta loja ao longo da duração da simulação. O total de produtos é a soma dos atributos "número de produtos" de cada cliente que comprou algo na loja. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada nova compra, independentemente de quem é o cliente.
 
-Em SimPy a coisa é trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Não se trata de uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca. É decorrente da necessidade de se representar os processos do modelo de simulação por meio de **funções** que, por sua vez representam entidades executando alguma coisa.
+Em SimPy a coisa é trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Não se trata de uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca, é decorrente da necessidade de se representar os processos do modelo de simulação por meio de **funções** que, por sua vez representam entidades executando alguma coisa.
 
 Usuários de pacotes comerciais \(Simul8, Anylogic, GPSS, Arena etc.\) estão acostumados a informar explicitamente ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo e que os atributos de interesse devem ser transferidos de um processo ao outro por transferência de argumentos no cabeçalho das funções.
 
-Por exemplo, voltemos ao exemplo de chegadas de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
+Voltemos ao exemplo de chegadas de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
 
 ```python
 import random     # gerador de números aleatórios
@@ -41,16 +41,16 @@ def compra(env, nome, produtos):
         contaVendas += 1
         print("%s chega em: %.1f e compra %d produtos" % (nome, env.now, produtos))
 
-random.seed(1000)   # semente do gerador de números aleatórios
-env = simpy.Environment() # cria o environment do modelo
+random.seed(1000)              # semente do gerador de números aleatórios
+env = simpy.Environment()      # cria o environment do modelo
 env.process(geraChegadas(env)) # cria o processo de chegadas
-env.run(until=10) # roda a simulação por 10 unidades de tempo
+env.run(until=10)              # roda a simulação por 10 unidades de tempo
 print("Total vendido: %d produtos" % contaVendas)
 ```
 
 A execução do programa apresenta como resposta:
 
-```py
+```python
 Cliente 1 chega em: 1.0 quer 2 produtos
 Cliente 2 chega em: 2.0 quer 3 produtos
 Cliente 1 chega em: 3.0 e compra 2 produtos
@@ -76,7 +76,7 @@ Cliente 9 chega em: 9.0 quer 3 produtos
 Total vendido: 12 produtos
 ```
 
-É importante destacar no exemplo, que o cliente \(ou entidade\) gerado(a) pela função `geraChegadas`é enviado para a função `compra`com seu atributo `produtos` como se nota na linha que em que o cliente chama o processo de compra:
+É importante destacar no exemplo, que o cliente \(ou entidade\) gerado(a) pela função `geraChegadas`é enviado(a) para a função `compra` com seu atributo `produtos`, como se nota na linha que em que o cliente chama o processo de compra:
 ```python
 env.process(compra(env, "Cliente %d" % contaEntidade, produtos))
 ```
@@ -130,7 +130,7 @@ def geraClientes(env, intervalo, servidor):
 random.seed(100)
 
 env = simpy.Environment()
-servidor = Servidor(env, 1, 1)               #cria o objeto servidor (que é um recurso)
+servidor = Servidor(env, 1, 1)               # cria o objeto servidor (que é um recurso)
 env.process(geraClientes(env, 3, servidor))
 
 env.run(until=10)
