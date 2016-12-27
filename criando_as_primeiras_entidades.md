@@ -153,17 +153,9 @@ Cliente 4 chega em: 6.3
 Cliente 5 chega em: 7.6 
 Cliente 6 chega em: 9.1 
 ```
-
 Agora sim!
 
-Note que `env.process(geraChegadas(env))`
- é um comando que **torna** a função ```geraChegadas()``` um **processo** ou um **gerador de eventos** dentro do `Environment ````
-env```
-. Esse processo só começa a ser executado na linha seguinte, quando ```
-env.run(until=10)```
- informa ao SimPy que todo processo pertencente ao ```Environment
-env```
- seja executado por um **tempo de simulação** igual a 10 minutos.
+Note que `env.process(geraChegadas(env))` é um comando que **torna** a função `geraChegadas()` um **processo** ou um **gerador de eventos** dentro do `Environment env`. Esse processo só começa a ser executado na linha seguinte, quando `env.run(until=10)` informa ao SimPy que todo processo pertencente ao `env` seja executado por um **tempo de simulação** igual a 10 minutos.
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
