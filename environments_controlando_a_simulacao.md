@@ -4,76 +4,74 @@ Em SimPy, o `Environment`é quem coordena a execução do seu programa. Ele avan
 
 ##Controle de execução com `env.run(until=fim_da_simulação)` 
 
-A maneira mais usual de controle de execução de um modelo de simulação é fornecendo até que instante queremos executar a simulação. O SimPy, como veremos, vai além e permite alguns outros modos de controle.
+A maneira mais usual de controle de execução de um modelo de simulação é fornecendo a duração do experimento de simulação. O SimPy, como veremos, vai além e permite alguns outros modos de controle.
 
-Incialmente, vamos trabalhar com um modelo simples que gera chegadas de eventos em intervalos constantes entre si:
+Incialmente, vamos trabalhar com um modelo simples, que gera chegadas de eventos em intervalos constantes entre si:
 
 ```python
 import simpy
 
 def geraChegada(env, p):
     while True:
-        print("%s: Nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
-
+        print("%3.1f nova chegada" %(env.now))
+        
 env = simpy.Environment()
 chegadas = env.process(geraChegada(env, "p1"))
-env.run(until=5)        # execute até o instante 5
+env.run(until=5)    # executa até o instante 5
 ```
 
-Quando executado, o programa anterior fornece:
+Quando executado, o modelo anterior fornece:
 
 ```python
-p1: nova chegada em 0
-p1: nova chegada em 1
-p1: nova chegada em 2
-p1: nova chegada em 3
-p1: nova chegada em 4
+1.0 nova chegada
+2.0 nova chegada
+3.0 nova chegada
+4.0 nova chegada
 ```
 
-No programa anterior, a última linha informa ao SimPy que a simulação deve ser executada até o instante 5 \(implicitamente o SimPy assume que o instante inicial é 0\). Esta é a maneira mais usual: o instante final de simulação é um parâmetro de entrada.
+No modelo anterior, a última linha informa ao SimPy que a simulação deve ser executada até o instante 5 \(implicitamente o SimPy assume que o instante inicial é 0\). Esta é a maneira mais usual: o instante final de simulação é um parâmetro de entrada.
 
-O interessante no modelo anterior é que se quisermos continuar a execução do instante atual (5, no caso) até o instante 10, por exemplo, podemos simplesmente acrescentar mais uma linha `env.run(until=10)` informando que a execução **continua de onde está **\(instante 5\) e termina em 10.
+O interessante, no modelo anterior, é que se quisermos continuar a execução do instante atual (5, no caso) até o instante 10, por exemplo, podemos simplesmente acrescentar mais uma linha `env.run(until=10)` informando que a execução **continua de onde está **\(instante 5\) e termina em 10.
 Isto pode ser útil em situações em que precisamos modificar algum parâmetro de entrada do modelo ao longo da própria simulação. 
 
-Por exemplo, vamos modificar o modelo anterior de modo que nos primeiros 5 minutos o intervalo entre geração de chegadas seja de 1 minuto e, depois, até o instante 10, o intervalo seja de 2 minutos. Para isso, criamos uma variável global `intervalo `que armazena o intervalo entre chegadas, como mostra o código a seguir:
+Vamos modificar o modelo anterior de modo que nos primeiros 5 minutos o intervalo entre geração de chegadas seja de 1 minuto e, depois, até o instante 10, o intervalo seja de 2 minutos. Para isso, criamos uma variável global `intervalo `que armazenará o intervalo entre chegadas, como mostra o código a seguir:
 
 ```python
 import simpy
 
-intervalo = 1
+intervalo = 1       # valor inicial para o intervalo entre chegada sucessivas
 
 def geraChegada(env, p):
- global intervalo
-
- while True:
-     print("%s: Nova chegada em %s" %(p, env.now))
-     yield env.timeout(intervalo)
+    global intervalo
+    
+    while True:
+        yield env.timeout(intervalo)
+        print("%3.1f nova chegada" %(env.now))
 
 env = simpy.Environment()
 chegadas = env.process(geraChegada(env, "p1"))
-env.run(until=5)   # execute até o instante 5
+env.run(until=5)    # executa até o instante 5
 
 print("\nModificando o intervalo entre chegadas para 2 min")
-intervalo = 2
-env.run(until=10)  # execute até o instante 10
+intervalo = 2       # novo intervalo entre chegadas sucessivas
+env.run(until=10)   # executa até o instante 10
 ```
 
-Depois de executado, o programa anterior fornece:
+Depois de executado, o modelo anterior fornece:
 
 ```python
-p1: Nova chegada em 0
-p1: Nova chegada em 1
-p1: Nova chegada em 2
-p1: Nova chegada em 3
-p1: Nova chegada em 4
+1.0 nova chegada
+2.0 nova chegada
+3.0 nova chegada
+4.0 nova chegada
 
 Modificando o intervalo entre chegadas para 2 min
-p1: Nova chegada em 5
-p1: Nova chegada em 7
-p1: Nova chegada em 9
+5.0 nova chegada
+7.0 nova chegada
+9.0 nova chegada
 ```
-Portanto, a segunda chamada do `run`, `env.run(until=10)`, executou do instante atual (no caso, 5) até o instante 10. Assim, a opção `until `não representa a duração da simulação, mas até que instante queremos executá-la.
+A segunda chamada do `run`, `env.run(until=10)`, executou do instante atual (no caso, 5) até o instante 10. Assim, a opção `until `não representa a duração da simulação, mas *até que instante queremos executá-la*.
 
 ## Parada por execução de todos os processo programados
 
@@ -82,48 +80,53 @@ Quando não se fornece o tempo de simulação \(ou ele não é conhecido a prior
 ```python
 import simpy
 
-def geraChegada(env, p, numEntidades):
+def geraChegada(env, numEntidades):
     for i in range(0,numEntidades):
-        print("%s: nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
+        print("%3.1f nova chegada" %(env.now))
 
 env = simpy.Environment()
-chegadas = env.process(geraChegada(env, "p1", 5)) # gere apenas 5 entidades
-env.run()
+chegadas = env.process(geraChegada(env, 5)) # gere apenas 5 entidades
+env.run()           # executa até o fim de todos os processos do modelo
 ```
+Quando executado, o modelo anterior fornce como saída:
+```python
+1.0 nova chegada
+2.0 nova chegada
+3.0 nova chegada
+4.0 nova chegada
+5.0 nova chegada
+```
+Um modelo de simulação pode possuir diversos processos ocorrendo ao mesmo tempo, de modo que o término da simulação só é garantido quando *todos* os processos programados terminarem.
 
-Note que se um modelo de simulação tem diversos processos ocorrendo ao mesmo tempo, o término da simulação só é garantido quando todos os processos programados terminarem.
-
-O próximo programa amplia o exemplo anterior, de modo que dois processos são executados ao mesmo tempo, um com 3 entidades e outro com 5 entidades. Note que os processos também podem se armazendos em uma lista:
+O próximo modelo amplia o exemplo anterior, de modo que dois processos são executados ao mesmo tempo, um com 3 entidades e outro com 5 entidades. Note que os processos também podem se armazendos em uma lista:
 
 ```python
 import simpy
 
 def geraChegada(env, p, numEntidades):
     for i in range(0,numEntidades):
-        print("%s: nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
-
+        print("%3.1f nova chegada para o processo %s" %(env.now, p))
+        
 env = simpy.Environment()
 # chegadas é uma lista que armazena os processos em execução
 chegadas = [env.process(geraChegada(env, "p1", 5)), env.process(geraChegada(env, "p2", 3))]
-env.run()
+env.run()           # executa até o fim de todos os processos do modelo
+```
+Quando executado, o modelos anterior fornece como saída:
+```python
+1.0 nova chegada para o processo p1
+1.0 nova chegada para o processo p2
+2.0 nova chegada para o processo p1
+2.0 nova chegada para o processo p2
+3.0 nova chegada para o processo p1
+3.0 nova chegada para o processo p2
+4.0 nova chegada para o processo p1
+5.0 nova chegada para o processo p1
 ```
 
-Quando executado, o programa anterior fornece:
-
-```py
-p1: nova chegada em 0
-p2: nova chegada em 0
-p1: nova chegada em 1
-p2: nova chegada em 1
-p1: nova chegada em 2
-p2: nova chegada em 2
-p1: nova chegada em 3
-p1: nova chegada em 4
-```
-
-Neste caso, a simulação termina apenas quando o processo de 5 entidades termina \(o processo armazenado no primeiro elemento da lista\).
+Neste último exemplo, a simulação terminou apenas quando o processo "p1", de 5 entidades, foi exaurido.
 
 ## Parada por fim de execução de processo específico por `env.run(until=processo)`
 
@@ -134,24 +137,24 @@ import simpy
 
 def geraChegada(env, p, numEntidades):
     for i in range(0,numEntidades):
-        print("%s: nova chegada em %s" %(p, env.now))
         yield env.timeout(1)
+        print("%3.1f nova chegada para o processo %s" %(env.now, p))
 
 env = simpy.Environment()
+# chegadas é uma lista que armazena os processos em execução
 chegadas = [env.process(geraChegada(env, "p1", 5)), env.process(geraChegada(env, "p2", 3))]
-env.run(until=chegadas[1])
+env.run(chegadas[1])           # executa até o fim do processo armazenado em chegadas[1]
 ```
 
 Quando executado, o programa anterior fornece:
 
 ```python
-p1: nova chegada em 0
-p2: nova chegada em 0
-p1: nova chegada em 1
-p2: nova chegada em 1
-p1: nova chegada em 2
-p2: nova chegada em 2
-p1: nova chegada em 3
+1.0 nova chegada para o processo p1
+1.0 nova chegada para o processo p2
+2.0 nova chegada para o processo p1
+2.0 nova chegada para o processo p2
+3.0 nova chegada para o processo p1
+3.0 nova chegada para o processo p2
 ```
 
 No programa anterior, a linha `env.run(until=chegadas[1])` determina que o programa seja executado até que o processo `chegadas[1]` esteja concluído. Note que na lista:
@@ -209,7 +212,7 @@ print(pbar)
      CPU %: 98.80
      Memory %: 0.32`
 
-Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu "Debug". Assim, podemos colocar um *breakpoint* na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
+Existem outras possibilidades de uso do `peek()` &`step().` Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu "Debug". Assim, podemos colocar um *breakpoint* na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
 
 ## Conteúdos desta seção
 
