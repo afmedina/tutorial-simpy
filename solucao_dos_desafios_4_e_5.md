@@ -1,6 +1,6 @@
 # Solução dos desafios 4, 5 e 6
 
-> **Desafio 4**: imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+> **Desafio 4**: imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 4.5?
 
 Para solução do desafio, precisamos inicialmente de uma variável que armazene o número de clientes em fila. A variável global `clientesFila` armazenará este valor, como mostra o ínicio do código alterado da seção anterior:
 

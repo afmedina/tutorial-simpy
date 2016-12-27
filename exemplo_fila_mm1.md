@@ -153,7 +153,7 @@ Por hora, e para não esticar demais a atividade, analise atentamente os resulta
 
 ## Desafios
 
-> **Desafio 4:** para melhor compreensão do funcionamento do programa, imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 5.5?
+> **Desafio 4:** para melhor compreensão do funcionamento do programa, imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 4.5?
 >
 > **Desafio 5:** calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`  
 >  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`  
