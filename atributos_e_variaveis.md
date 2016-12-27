@@ -83,27 +83,28 @@ class Servidor(object):
     # cria a classe Servidor
     # note que um dos atributos é o próprio Recurso do simpy
     def __init__(self, env, capacidade, duracao):
-        #atributos do recurso
+        # atributos do recurso
         self.env = env
         self.res = simpy.Resource(env, capacity=capacidade)
         self.taxaExpo = 1.0/duracao
-
+    
     def atendimento(self, cliente):
-        #executa o atendimento
+        # executa o atendimento
+        print("%.1f Início do atendimento do %s" % (env.now, cliente))
         yield self.env.timeout(random.expovariate(self.taxaExpo))
-        print("%s atendido em %.1f" % (cliente, env.now))
+        print("%.1f Fim do atendimento do %s" % (env.now, cliente))
 
 def processaCliente(env, cliente, servidor):
     # função que processa o cliente
-
-    print('%s chega em %.1f' % (cliente, env.now))
+    
+    print('%.1f Chegada do %s' % (env.now, cliente))
     with servidor.res.request() as req: # note que o Resource é um atributo também
         yield req
-
-        print('%s entra no servidor em %.1f' % (cliente, env.now))
+        
+        print('%.1f Servidor ocupado pelo %s' % (env.now, cliente))
         yield env.process(servidor.atendimento(cliente))
-
-        print('%s sai do servidor em %.1f' % (cliente, env.now))
+        
+        print('%.1f Servidor desocupado pelo %s' % (env.now, cliente))
 
 
 def geraClientes(env, intervalo, servidor):
@@ -112,18 +113,26 @@ def geraClientes(env, intervalo, servidor):
     while True:
         yield env.timeout(random.expovariate(1.0/intervalo))
         i += 1
-        env.process(processaCliente(env, 'Cliente %d' % i, servidor))
+        env.process(processaCliente(env, 'cliente %d' % i, servidor))
 
 
 random.seed(1000)
 
 env = simpy.Environment()
-servidor = Servidor(env, 1, 1)               # cria o objeto servidor (que é um recurso)
+# cria o objeto servidor (que é um recurso)
+servidor = Servidor(env, 1, 1)      
 env.process(geraClientes(env, 3, servidor))
 
 env.run(until=5)
 ```
-
+Quando processado por apenas 5 minutos, o modelo anterior fornece:
+```python
+4.5 Chegada do cliente 1
+4.5 Servidor ocupado pelo cliente 1
+4.5 Início do atendimento do cliente 1
+4.6 Fim do atendimento do cliente 1
+4.6 Servidor desocupado pelo cliente 1
+```
 ## Desafios
 
 >**Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
