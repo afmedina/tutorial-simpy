@@ -191,7 +191,7 @@ Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0
 
 > **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar \(ou aguarda em fila\). A lavagem consome 20 minutos \(constante\). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
 
-A dificuldade do desafio da lavanderia é na ocupação e desocupação dos recursos da lavanderia. Se você ocupá-los\/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados.
+A dificuldade do desafio da lavanderia é representar corretamente a sequência de ocupação e desocupação dos recursos necessários de cada cliente. Se você ocupá-los\/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados.
 
 Como se trata de um modelo com vários processos e distribuições, vamos seguir a Dica da seção "Solução dos desafios 2 e 3" e construir uma função para armazenar as distribuições do problema, organizando nosso código:
 
