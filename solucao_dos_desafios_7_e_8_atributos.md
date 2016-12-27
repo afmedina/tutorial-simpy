@@ -1,8 +1,8 @@
 # Solução dos desafios 7 e 8
 
-**Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora.
+>**Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora.
 
-Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada do cliente na lavadora.
+>Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada do cliente na lavadora.
 
 ```python
 import random
@@ -90,7 +90,7 @@ env.run(until = 600)
 print("Espera por lavadoras: %.2f Clientes atendidos: %i" %(tempoEsperaLavadora/contaLavadora, contaLavadora))
 ```
 
-**Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
+>**Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
 
 Para a solução do desafio, basta acrescetar uma linha ao final do programa principal:
 
