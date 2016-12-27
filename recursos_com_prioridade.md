@@ -89,13 +89,14 @@ chegadas = env.process(chegadaPacientes(env, medicos))
 env.run(until=50)    
 ```
 
-O importante a ser destacado é que a prioridade é informada ao `request` do recurso `medicos` pelo argumento `priority`:
+O importante a ser destacado é que a prioridade é informada ao `request` do recurso `medicos` pelo argumento `priority:`
 ```python
 with medicos.request(priority=prio) as req:
+    yield req
 ```
-Para o SimPy, **quando menor o valor fornecido** para `priority`, **maior a prioridade** daquela entidade. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde \(de menor prioridade\) e 1 para a vermelha \(de maior prioridade\).
+Para o SimPy, **quando menor o valor fornecido** para o parâmetro `priority,` **maior a prioridade** daquela entidade na fila. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde \(de menor prioridade\) e 1 para a vermelha \(de maior prioridade\).
 
-Quando o programa anterior é executado, fornece como saída:
+Quando o modelo anterior é executado, fornece como saída:
 
 ```python
 Paciente 1 chega em 0.8 com pulseira verde
@@ -127,7 +128,7 @@ medicos = simpy.PreemptiveResource(env, capacity=capacidade)
 
 O cuidado aqui é que quando um recurso é requisitado por um processo de menor prioridade ele causa uma interrupção no Python, o que obriga a utilização de lógica do tipo `try:...except`.
 
-O SimPy retornará uma interrupção do tipo `simpy.Interrupt`, como mostrado no exemplo a seguir \(note a lógica de try...except dentro da função atendimento\):
+O SimPy retornará uma interrupção do tipo `simpy.Interrupt`, como mostrado no exemplo a seguir \(note a lógica de `try...except` dentro da função atendimento\):
 
 ```python
 import simpy
@@ -175,7 +176,7 @@ medicos = simpy.PreemptiveResource(env, capacity=2) # cria os médicos
 chegadas = env.process(chegadaPacientes(env, medicos))
 env.run(until=20)   
 ```
-Como resultado, o programa retorna a seguinte saída:
+Quando simulado por apenas 20 minutos, o modelo anterior retorna a seguinte saída:
 ```python
 Paciente 1 chega em 0.8 com pulseira verde
 Paciente 1 com pulseira verde inicia o atendimento em 0.8
@@ -192,7 +193,7 @@ Paciente 3 com pulseira verde termina o atendimento em 18.7
 Paciente 4 com pulseira verde inicia o atendimento em 18.7
 ```
 
-Note como agora o Paciente 5 interrompe o atendimento do Paciente 1, como desejado.
+Note agora, que o Paciente 5 interrompe o atendimento do Paciente 1, como desejado.
 
 Contudo, a implementação anterior está cheia de limitações: pacientes com pulseira amarela não deveriam interromper o atendimento, mas na implementação proposta eles devem interromper o atendimento de pacientes de pulseira verde. Para estas situações, o `request`possui um argumento que liga ou desliga a opção de preemptividade:
 
