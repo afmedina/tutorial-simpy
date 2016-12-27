@@ -40,7 +40,22 @@ run2Ruin(bankroll)              # inicia o jogo
 ```
 No meu computador, o problema anterior fornece o seguinte resultado:
 ```
+Lançamento: 1   Vencedor: Chewbacca
+Chewbacca possui: $6 e R2D2 possui: $4
 
+Lançamento: 2   Vencedor: Chewbacca
+Chewbacca possui: $7 e R2D2 possui: $3
+
+Lançamento: 3   Vencedor: Chewbacca
+Chewbacca possui: $8 e R2D2 possui: $2
+
+Lançamento: 4   Vencedor: Chewbacca
+Chewbacca possui: $9 e R2D2 possui: $1
+
+Lançamento: 5   Vencedor: Chewbacca
+Chewbacca possui: $10 e R2D2 possui: $0
+
+Chewbacca venceu depois de 5 lançamentos, fim de jogo!
 ```
 
 Note que o resultado fornecido deve ser diferente em seu computador, assim como ele se modifica a cada nova rodada no programa. Para que os resultados sejam semelhantes, precisamos utilizar o comando `random.seed(semente)` com um mesmo valor inicial (veja o item 1 na seção "Teste seus conhecimentos a seguir").
