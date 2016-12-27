@@ -17,7 +17,7 @@ def geraChegada(env, numEntidades):
         peso = random.normalvariate(10, 3)  # sorteia o peso da entidade
         pesoTotal += peso                   # acumula o peso total até agora
         media = pesoTotal/contador          # calcula média dos pesos
-        print("%4.1f nova chegada\tPeso: %.1f kg\tMédia atual: %.1f"
+        print("%4.1f nova chegada\tPeso: %4.1f kg\tMédia atual: %4.1f" 
                  %(env.now, peso, media))
 
 
@@ -29,16 +29,16 @@ env.run()                                   # executa até o fim de todos os pro
 Quando executado, o modelo anterior apresenta como resultado:
 
 ```python
- 1.0 nova chegada       Peso: 6.7 kg    Média atual: 6.7
+ 1.0 nova chegada       Peso:  6.7 kg   Média atual:  6.7
  2.0 nova chegada       Peso: 14.7 kg   Média atual: 10.7
  3.0 nova chegada       Peso: 12.1 kg   Média atual: 11.2
  4.0 nova chegada       Peso: 13.3 kg   Média atual: 11.7
- 5.0 nova chegada       Peso: 6.0 kg    Média atual: 10.6
+ 5.0 nova chegada       Peso:  6.0 kg   Média atual: 10.6
  6.0 nova chegada       Peso: 13.5 kg   Média atual: 11.0
- 7.0 nova chegada       Peso: 5.8 kg    Média atual: 10.3
+ 7.0 nova chegada       Peso:  5.8 kg   Média atual: 10.3
 ```
 
-> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [stackoverflow](http://stackoverflow.com/)!\).
+> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [Stack Overflow](http://stackoverflow.com/)!\).
 
 Esta situação exige um pouco mais no processo de codificação, contudo é algo muito utilizado em modelos de simulação de eventos discretos.
 
@@ -72,69 +72,57 @@ A função anterior calcula a média e amplitude de um intervalo de confiança, 
 O novo programa então ficaria:
 
 ```python
+import simpy
 import random
 import numpy        # biblioteca numpy para computação científica http://www.numpy.org/
 import scipy.stats  # bilbioteca scipy.stats de funções estatísticas
-import simpy
 
 def intervaloConfMedia(a, conf=0.95):
     # retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
     media, sem, m = numpy.mean(a), scipy.stats.sem(a), scipy.stats.t.ppf((1+conf)/2., len(a)-1)
     h = m*sem
     return media, h
-
-def geraChegada(env, p):
-    pesosList = []       # lista para armazenar os valores de pesos gerados
-    while True:
-        print("%s: nova chegada em %s" %(p, env.now))
+    
+def geraChegada(env):
+    pesosList = []                          # lista para armazenar os valores de pesos gerados
+    
+    while True:      
         yield env.timeout(1)
-        pesosList.append(random.normalvariate(10, 5)) # adiciona à lista o peso da entidade atual
-
-        # cálculo da amplitude do intervalo de confiança, como nível de significância = 95%
+        # adiciona à lista o peso da entidade atual
+        pesosList.append(random.normalvariate(10, 5))
+        
+        # calcula a amplitude do intervalo de confiança, com nível de significância = 95%
         if len(pesosList) > 1:           
             media, amplitude = intervaloConfMedia(pesosList, 0.95)
-            print("Média atual: %.2f. Amplitude atual: %.2f" %(media, amplitude))
+            print("%4.1f Média atual: %.2f kg\tAmplitude atual: %.2f kg" %(env.now, media, amplitude))
 
             # se a amplitude atende ao critério estabelecido, interronpe o processo
             if amplitude < 0.5:
-                print("Intervalo de confiança atingido após %s valores! 
-                [%.2f, %.2f]" % (len(pesosList), media-amplitude, media+amplitude))
-                break #termina o laço while
+                print("\n%4.1f Intervalo de confiança atingido após %s valores! [%.2f, %.2f]" 
+                    % (env.now, len(pesosList), media-amplitude, media+amplitude))
+                #termina o laço while
+                break 
+
 
 random.seed(100)
 env = simpy.Environment()
-chegadas = env.process(geraChegada(env, "p1"))
-env.run()
+chegadas = env.process(geraChegada(env)) 
+env.run()                                   # executa até o fim de todos os processos do modelo
 ```
 
 O programa anterior leva 411 amostras para atingir o intervalo desejado:
 
 ```python
-Média atual: 10.20. Amplitude atual: 0.51
-p1: nova chegada em 402
-Média atual: 10.20. Amplitude atual: 0.50
-p1: nova chegada em 403
-Média atual: 10.18. Amplitude atual: 0.50
-p1: nova chegada em 404
-Média atual: 10.19. Amplitude atual: 0.50
-p1: nova chegada em 405
-Média atual: 10.21. Amplitude atual: 0.50
-p1: nova chegada em 406
-Média atual: 10.21. Amplitude atual: 0.50
-p1: nova chegada em 407
-Média atual: 10.19. Amplitude atual: 0.50
-p1: nova chegada em 408
-Média atual: 10.19. Amplitude atual: 0.50
-p1: nova chegada em 409
-Média atual: 10.17. Amplitude atual: 0.50
-p1: nova chegada em 410
-Média atual: 10.18. Amplitude atual: 0.50
-Intervalo de confiança atingido depois de 411 valores! [9.68, 10.68]
+...
+410.0 Média atual: 10.17 kg     Amplitude atual: 0.50 kg
+411.0 Média atual: 10.18 kg     Amplitude atual: 0.50 kg
+
+411.0 Intervalo de confiança atingido após 411 valores! [9.68, 10.68]
 ```
 
-Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um problema para você :\(
+Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um baita problema para você =(
 
-A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores ao seja durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários do [Stack Overflow .](http://stackoverflow.com/search?q=numpy) 
+A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários do [Stack Overflow .](http://stackoverflow.com/search?q=numpy) 
 
 Como sugestão, habitue-se a construir funções padronizadas para monitaramento e cálculos estatísticos, de modo que você pode reaproveitá-las em novos programas. Em algum momento, inclusive, você pode [criar sua própria biblioteca](http://stackoverflow.com/questions/15746675/how-to-write-a-python-module) de funções para análise de saída de modelos de simulação e compartilhar com a comunidade de software livre.
 
