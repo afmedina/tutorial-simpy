@@ -273,7 +273,7 @@ env.run(until = 40)
 
 A execução do programa fornece como saída:
 
-```
+```python
 Cliente 1 chega em 4.2
 Cliente 1 ocupa lavadora em 4.2
 Cliente 2 chega em 12.6
@@ -291,6 +291,7 @@ Cliente 2 ocupa secadora em 38.7
 # Teste seus conhecimentos:
 
 1. A fila M\/M\/1 possui expressões analíticas conhecidas. Por exemplo, o tempo médio de permanência no sistema é dado pela expressão: $$W = \frac{1} {\mu - \lambda}$$. Valide seu modelo, ou seja, calcule o resultado esperado para a expressão e compare com o resultado obtido pelo seu programa.
+2. Utilizando a função `plot`da bilbioteca `matplotlib`, construa um gráfico que represente a evolução do número de entidades em fila (dica: você precisará armazenar o tempo de espera em uma lista e plotar a lista em um gráfico ao final da simulação).
 
 2. No problema da lavanderia, crie uma situação de desistência, isto é: caso a fila de espera por lavadoras seja de 5 clientes, o próximo cliente a chegar no sistema desiste imediatamente de entrar na lavanderia.
 
