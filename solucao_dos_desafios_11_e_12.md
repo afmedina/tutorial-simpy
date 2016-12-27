@@ -64,17 +64,27 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos, tempoAtendiment
             if not tempoAtendimento:
                 tempoAtendimento = random.expovariate(1/9) 
             yield env.timeout(tempoAtendimento)
-            print("%4.1f %s com %s termina o atendimento" %(env.now, paciente, pulseira))
+            print("%4.1f %s com %s termina o atendimento" 
+                    %(env.now, paciente, pulseira))
         except simpy.Interrupt:
             # recalcula o tempo de atendimento
             tempoAtendimento -= env.now-inicioAtendimento 
-            print("%4.1f %s com %s tem atendimento interrompido" %(env.now, paciente, pulseira))
-            print("%4.1f %s ainda precisa de %4.1f min de atendimento" %(env.now, paciente, tempoAtendimento))
+            print("%4.1f %s com %s tem atendimento interrompido" 
+                    %(env.now, paciente, pulseira))
+            print("%4.1f %s ainda precisa de %4.1f min de atendimento"
+            %(env.now, paciente, tempoAtendimento))
 
             # aumenta a prioridade reduzindo o valor 
             prio -= 0.01
             env.process(atendimento(env, paciente, pulseira, prio, preempt, medicos, tempoAtendimento)) 
+            
+random.seed(100)       
+env = simpy.Environment()
+# cria os médicos
+medicos = simpy.PreemptiveResource(env, capacity=2)
+chegadas = env.process(chegadaPacientes(env, medicos))
 
+env.run(until=20)
 ```
 Quando executado por apenas 20 minutos, o modelo completo - acrescido da nova função `atendimento`, fornece como saída:
 ```python
@@ -95,6 +105,5 @@ Quando executado por apenas 20 minutos, o modelo completo - acrescido da nova fu
 18.8 Paciente  3 com pulseira verde termina o atendimento
 18.8 Paciente  4 com pulseira verde inicia o atendimento
 ```
-
 Note que agora, o Paciente 1, diferentemente do que ocorre na saída do desafio 11, é atendido antes do Paciente 3, representando o fato de que, mesmo interrompido, ele voltou para o início da fila.
 
