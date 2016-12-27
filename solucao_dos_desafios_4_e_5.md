@@ -200,7 +200,7 @@ import random
 import simpy
 
 def distributions(tipo):
-    #função que armazena as distribuições utilizadas no modelo
+    # função que armazena as distribuições utilizadas no modelo
     return {
         'chegadas': random.expovariate(1.0/5.0),
         'lavar': 20,
@@ -210,7 +210,7 @@ def distributions(tipo):
     }.get(tipo, 0.0)
 ```
 
-Como já destacado, a dificuldade é representar a sequência correta de processos do cliente: ele chega, ocupa uma lavadora, lava, ocupa um cesto, libera uma lavadora, ocupa uma secadora, libera o cesto, seca e libera a secadora. Se a sequência foi bem compreendida, a máscara a seguir dever ser fácil de ser preenchida:
+Como já destacado, a dificuldade é representar a sequência correta de processos do cliente: ele chega, ocupa uma lavadora, lava, ocupa um cesto, libera uma lavadora, ocupa uma secadora, libera o cesto, seca e libera a secadora. Se a sequência foi bem compreendida, a máscara a seguir será de fácil preenchimento:
 
 ```python
 import random
@@ -219,7 +219,7 @@ import simpy
 contaClientes = 0 # conta clientes que chegaram no sistema
 
 def distributions(tipo):
-    #função que armazena as distribuições utilizadas no modelo
+    # função que armazena as distribuições utilizadas no modelo
     return {
         'chegadas': random.expovariate(1.0/5.0),
         'lavar': 20,
@@ -229,33 +229,33 @@ def distributions(tipo):
     }.get(tipo, 0.0)
 
 def chegadaClientes(env, lavadoras, cestos, secadoras):
-    #função que gera a chegada de clientes
+    # função que gera a chegada de clientes
     global contaClientes
 
     pass
 
-    #chamada do processo de lavagem e secagem
+    # chamada do processo de lavagem e secagem
     pass
 
 def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
-    #função que processa a operação de cada cliente dentro da lavanderia
+    # função que processa a operação de cada cliente dentro da lavanderia
 
-    #ocupa a lavadora
+    # ocupa a lavadora
     pass
 
-    #antes de retirar da lavadora, pega um cesto
+    # antes de retirar da lavadora, pega um cesto
     pass
 
-    #libera a lavadora, mas não o cesto
+    # libera a lavadora, mas não o cesto
     pass
 
-    #ocupa a secadora antes de liberar o cesto
+    # ocupa a secadora antes de liberar o cesto
     pass
 
-    #libera o cesto mas não a secadora
+    # libera o cesto mas não a secadora
     pass
 
-    #pode liberar a secadora
+    # pode liberar a secadora
     pass
 
 random.seed(10)
@@ -267,7 +267,7 @@ env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
 env.run(until = 40)
 ```
 
-O programa a seguir apresenta uma possível solução já com diversos comandos de impressão:
+O programa a seguir apresenta uma possível solução, já com diversos comandos de impressão:
 
 ```python
 import random
@@ -276,7 +276,7 @@ import simpy
 contaClientes = 0 # conta clientes que chegaram no sistema
 
 def distributions(tipo):
-    #função que armazena as distribuições utilizadas no modelo
+    # função que armazena as distribuições utilizadas no modelo
     return {
         'chegadas': random.expovariate(1.0/5.0),
         'lavar': 20,
@@ -286,7 +286,7 @@ def distributions(tipo):
     }.get(tipo, 0.0)
 
 def chegadaClientes(env, lavadoras, cestos, secadoras):
-    #função que gera a chegada de clientes
+    # função que gera a chegada de clientes
     global contaClientes
     contaClientes = 0
 
@@ -298,36 +298,36 @@ def chegadaClientes(env, lavadoras, cestos, secadoras):
         env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
 
 def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
-    #função que processa a operação de cada cliente dentro da lavanderia
+    # função que processa a operação de cada cliente dentro da lavanderia
 
-    #ocupa a lavadora
+    # ocupa a lavadora
     req1 = lavadoras.request()
     yield req1
     print("%s ocupa lavadora em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('lavar'))
 
-    #antes de retirar da lavadora, pega um cesto
+    # antes de retirar da lavadora, pega um cesto
     req2 = cestos.request()
     yield req2
     print("%s ocupa cesto em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('carregar'))
 
-    #libera a lavadora, mas não o cesto
+    # libera a lavadora, mas não o cesto
     lavadoras.release(req1)
     print("%s desocupa lavadora em %.1f" %(cliente, env.now))
 
-    #ocupa a secadora antes de liberar o cesto
+    # ocupa a secadora antes de liberar o cesto
     req3 = secadoras.request()
     yield req3
     print("%s ocupa secadora em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('descarregar'))
 
-    #libera o cesto mas não a secadora
+    # libera o cesto mas não a secadora
     cestos.release(req2)
     print("%s desocupa cesto em %.1f" %(cliente, env.now))
     yield env.timeout(distributions('secar'))
 
-    #pode liberar a secadora
+    # pode liberar a secadora
     print("%s desocupa secadora em %.1f" %(cliente, env.now))
     secadoras.release(req3)
 
