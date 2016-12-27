@@ -203,7 +203,7 @@ with medicos.request(priority=prio, preempt=preempt) as req:
 
 O argumento `preempt` do `request` pode assumir o valor `True` ou `False`, ligando ou desligando a preemptividade.
 
-O programa alterado para interromper apenas no caso de pulseiras vermelhas, ficaria:
+O modelo alterado para interromper apenas no caso de pulseiras vermelhas, ficaria:
 
 ```python
 import simpy
