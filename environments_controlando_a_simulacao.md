@@ -2,7 +2,7 @@
 
 Em SimPy, o `Environment`é quem coordena a execução do seu programa. Ele avança o relógio de simulação, planeja a ordem de execução dos eventos e executa cada evento planejado pelo programa no instante correto.
 
-##Controle de execução com `Environment.run(until=fim_da_simulação):` 
+##Controle de execução com `env.run(until=fim_da_simulação)` 
 
 A maneira mais usual de controle de execução de um modelo de simulação é fornecendo até que instante queremos executar a simulação. O SimPy, como veremos, vai além e permite alguns outros modos de controle.
 
@@ -209,7 +209,7 @@ print(pbar)
      CPU %: 98.80
      Memory %: 0.32`
 
-Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu Debug. Assim, podemos colocar um breakpoint na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
+Existem outras possibilidades de uso do `peek()` &`step()`. Por exemplo, o Spyder \(IDE sugerida para desenvolvimento dos programas deste livro\) possui opções de controle de execução passo-a-passo para [_debugging _](https://pythonhosted.org/spyder/debugging.html) no menu "Debug". Assim, podemos colocar um *breakpoint* na linha `env.step()` do programa e acompanhar melhor sua execução - coisa boa quando o modelo está com algum bug.
 
 ## Desafios
 
