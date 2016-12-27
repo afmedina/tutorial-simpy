@@ -40,7 +40,7 @@ Quando o modelo é executado por apenas 20 minutos, com a alteração apresentad
 18.7 Paciente  4 com pulseira verde inicia o atendimento
 ```
 
-> **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao antedimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a númeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
+> **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao antendimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a númeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
 
 ```python
 import simpy
