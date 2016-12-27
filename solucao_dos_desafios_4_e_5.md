@@ -6,7 +6,7 @@ Para solução do desafio, basta lembrarmos que a qualquer momento, o conjunto d
 ```python
 len(servidorRes.queue)
 ```
-Foram acrescentadas duas chamadas à função `print`, de modo a imprimir na tela o número de clientes em fila em dois instantes de mudança do número de clientes em fila (na entrada e na saída de um novo cliente):
+Foi acrescentada uma chamadas à função `print`, de modo a imprimir na tela o número de clientes em fila ao término do atendimento de cada cliente:
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
@@ -16,69 +16,64 @@ def atendimentoServidor(env, nome, servidorRes):
     
     # aguarda em fila até a liberação do recurso e o ocupa
     yield request                       
-    print('%.1f Servidor inicia o atendimento do %s. Clientes em fila: %i' % (env.now, nome, len(servidorRes.queue)))
+    print('%.1f Servidor inicia o atendimento do %s' % (env.now, nome))
     
     # aguarda um tempo de atendimento exponencialmente distribuído
     yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
-    print('%.1f Servidor termina o atendimento do %s. Clientes em fila: %i' % (env.now, nome, len(servidorRes.queue)))
+    print('%.1f Servidor termina o atendimento do %s. Clientes em fila: %i' 
+            % (env.now, nome, len(servidorRes.queue)))
     
     # libera o recurso servidorRes
     yield servidorRes.release(request)
 ```
 Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
 
-```
+```python
 0.5 Chegada do cliente 1
-0.5 Servidor inicia o atendimento do cliente 1. Clientes em fila: 0
+0.5 Servidor inicia o atendimento do cliente 1
 1.4 Servidor termina o atendimento do cliente 1. Clientes em fila: 0
 3.1 Chegada do cliente 2
-3.1 Servidor inicia o atendimento do cliente 2. Clientes em fila: 0
+3.1 Servidor inicia o atendimento do cliente 2
 3.3 Chegada do cliente 3
 4.1 Servidor termina o atendimento do cliente 2. Clientes em fila: 1
-4.1 Servidor inicia o atendimento do cliente 3. Clientes em fila: 0
+4.1 Servidor inicia o atendimento do cliente 3
 4.1 Servidor termina o atendimento do cliente 3. Clientes em fila: 0
 4.3 Chegada do cliente 4
-4.3 Servidor inicia o atendimento do cliente 4. Clientes em fila: 0
-4.5 Servidor termina o atendimento do cliente 4. Clientes em fila: 0 
+4.3 Servidor inicia o atendimento do cliente 4
+4.5 Servidor termina o atendimento do cliente 4. Clientes em fila: 0
 ```
 Portanto, existem 0 cliente em fila no instante 4,5 minutos, nas condições simuladas (note a semente de geração de números aleatórios igual a 2).
 
 > **Desafio 5**: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`
->  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`
->  e apresente o resultado na tela.
+>  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila` e apresente o resultado na tela.
 
-A ideia deste desafio é que você se acostume com esse cálculo tão trivial mas tão importante dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é a fila.
+A ideia deste desafio é que você se acostume com esse cálculo tão trivial quanto importante dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é uma fila por ocupação de um recurso.
 A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do antendimento.
-Assim, ao chegar, criamos uma variável `chegada`
- que armazena o instante atual fornecido pelo comando `env.now`
- do
-SimPy:
+Assim, ao chegar, criamos uma variável `chegada` que armazena o instante atual fornecido pelo comando `env.now` do SimPy:
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
-    global clientesFila
-
-    chegada = env.now               # armazena o instante de chegada do cliente
-    request = servidorRes.request() # solicita o recurso servidorRes
+    # função que ocupa o servidor e realiza o atendimento
+    # armazena o instante de chegada do cliente
+    chegada = env.now    
+    # solicita o recurso servidorRes
+    request = servidorRes.request()
 ```
 
-Agora, inciado o atendimento \(logo após o `yield`
- que ocupa o recurso\), a variável `tempoFila` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável `chegada`:
+Agora, inciado o atendimento \(logo após o `yield` que ocupa o recurso\), a variável `tempoFila` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável `chegada`:
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
-    global clientesFila
-
-    chegada = env.now               # armazena o instante de chegada do cliente
-    request = servidorRes.request() # solicita o recurso servidorRes
-
-    clientesFila += 1 # incrementa contador de novo cliente em fila
-    print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d' 
-    %(env.now, clientesFila))
-
-    yield request # aguarda em fila até o acesso
-
-    tempoFila = env.now - chegada
+    # função que ocupa o servidor e realiza o atendimento
+    # armazena o instante de chegada do cliente
+    chegada = env.now    
+    # solicita o recurso servidorRes
+    request = servidorRes.request()
+    
+    # aguarda em fila até a liberação do recurso e o ocupa
+    yield request
+    # calcula o tempo em fila
+    tempoFila = env.now - chegada                  
 ```
 
 Para imprimir o resultado, basta simplesmente alterar a chamada à função `print` na linha seguinte, de modo que o código final da função `atendimentoServidor`
@@ -86,72 +81,43 @@ Para imprimir o resultado, basta simplesmente alterar a chamada à função `pri
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
-    global clientesFila
-
-    chegada = env.now() # armazena o instante de chegada do cliente
-    request = servidorRes.request() # solicita o recurso servidorRes
-
-    clientesFila += 1 # incrementa contador de novo cliente em fila
-    print('%.2f: chegada de novo cliente em fila. Clientes em fila: %d'
-    %(env.now(), clientesFila))
-
-    yield request # aguarda em fila até o acesso
-
-    tempoFila = env.now()-chegada
-    print('%s inicia o atendimento em: %.1f. Tempo em fila: %.1f min ' 
-    % (nome, env.now(), tempoFila))
-    clientesFila -= 1 # decrementa contador de novo cliente em fila
-
-    # tempo de atendimento exponencial
+    # função que ocupa o servidor e realiza o atendimento
+    # armazena o instante de chegada do cliente
+    chegada = env.now    
+    # solicita o recurso servidorRes
+    request = servidorRes.request()
+    
+    # aguarda em fila até a liberação do recurso e o ocupa
+    yield request
+    # calcula o tempo em fila
+    tempoFila = env.now - chegada                  
+    print('%.1f Servidor inicia o atendimento do %s. Tempo em fila: %.1f'
+            % (env.now, nome, tempoFila))
+    
+    # aguarda um tempo de atendimento exponencialmente distribuído
     yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
-
-    print('%s termina o atendimento em: %.1f.' % (nome, env.now())) 
-
-    yield servidorRes.release(request) # libera o recurso servidorRes
+    print('%.1f Servidor termina o atendimento do %s. Clientes em fila: %i' 
+            % (env.now, nome, len(servidorRes.queue)))
+    
+    # libera o recurso servidorRes
+    yield servidorRes.release(request)
 ```
 
 Agora, a execução do programa mostra na tela o tempo de espera de cada cliente:
 
-```
-Cliente 1 chega em: 1.5 
-1.50: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 1 inicia o atendimento em: 1.5. Tempo em fila: 0.0 
-Cliente 1 termina o atendimento em: 1.6.
-Cliente 2 chega em: 2.6 
-2.61: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 2 inicia o atendimento em: 2.6. Tempo em fila: 0.0 
-Cliente 2 termina o atendimento em: 2.9.
-Cliente 3 chega em: 3.0 
-3.05: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 3 inicia o atendimento em: 3.0. Tempo em fila: 0.0 
-Cliente 4 chega em: 3.8 
-3.81: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 5 chega em: 4.0 
-3.95: chegada de novo cliente em fila. Clientes em fila: 2
-Cliente 3 termina o atendimento em: 5.0.
-Cliente 4 inicia o atendimento em: 5.0. Tempo em fila: 1.2 
-Cliente 6 chega em: 5.1 
-5.06: chegada de novo cliente em fila. Clientes em fila: 2
-Cliente 4 termina o atendimento em: 5.2.
-Cliente 5 inicia o atendimento em: 5.2. Tempo em fila: 1.2 
-Cliente 5 termina o atendimento em: 5.3.
-Cliente 6 inicia o atendimento em: 5.3. Tempo em fila: 0.2 
-Cliente 7 chega em: 5.7 
-5.73: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 6 termina o atendimento em: 5.8.
-Cliente 7 inicia o atendimento em: 5.8. Tempo em fila: 0.1 
-Cliente 8 chega em: 6.0 
-5.99: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 9 chega em: 6.0 
-6.03: chegada de novo cliente em fila. Clientes em fila: 2
-Cliente 7 termina o atendimento em: 6.2.
-Cliente 8 inicia o atendimento em: 6.2. Tempo em fila: 0.2 
-Cliente 8 termina o atendimento em: 6.5.
-Cliente 9 inicia o atendimento em: 6.5. Tempo em fila: 0.5 
-Cliente 9 termina o atendimento em: 6.8.
-Cliente 10 chega em: 9.7 
-9.69: chegada de novo cliente em fila. Clientes em fila: 1
-Cliente 10 inicia o atendimento em: 9.7. Tempo em fila: 0.0
+```python
+0.5 Chegada do cliente 1
+0.5 Servidor inicia o atendimento do cliente 1. Tempo em fila: 0.0
+1.4 Servidor termina o atendimento do cliente 1. Clientes em fila: 0
+3.1 Chegada do cliente 2
+3.1 Servidor inicia o atendimento do cliente 2. Tempo em fila: 0.0
+3.3 Chegada do cliente 3
+4.1 Servidor termina o atendimento do cliente 2. Clientes em fila: 1
+4.1 Servidor inicia o atendimento do cliente 3. Tempo em fila: 0.8
+4.1 Servidor termina o atendimento do cliente 3. Clientes em fila: 0
+4.3 Chegada do cliente 4
+4.3 Servidor inicia o atendimento do cliente 4. Tempo em fila: 0.0
+4.5 Servidor termina o atendimento do cliente 4. Clientes em fila: 0
 ```
 
 > **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar \(ou aguarda em fila\). A lavagem consome 20 minutos \(constante\). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
