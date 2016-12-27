@@ -21,7 +21,23 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             tempoAtendimento -= env.now-inicioAtendimento 
             print("%4.1f %s com %s tem atendimento interrompido" %(env.now, paciente, pulseira))
             print("%4.1f %s ainda precisa de %4.1f min de atendimento" %(env.now, paciente, tempoAtendimento))
-    
+```
+Quando o modelo é executado por apenas 20 minutos, com a alteração apresentada da função `atendimento,` temos como saída:
+```python
+ 0.8 Paciente  1 com pulseira verde chega
+ 0.8 Paciente  1 com pulseira verde inicia o atendimento
+ 8.2 Paciente  2 com pulseira amarela chega
+ 8.2 Paciente  2 com pulseira amarela inicia o atendimento
+11.0 Paciente  3 com pulseira verde chega
+11.4 Paciente  4 com pulseira verde chega
+11.7 Paciente  5 com pulseira vermelha chega
+11.7 Paciente  1 com pulseira verde tem atendimento interrompido
+11.7 Paciente  1 ainda precisa de  0.1 min de atendimento
+11.7 Paciente  5 com pulseira vermelha inicia o atendimento
+15.3 Paciente  5 com pulseira vermelha termina o atendimento
+15.3 Paciente  3 com pulseira verde inicia o atendimento
+18.7 Paciente  3 com pulseira verde termina o atendimento
+18.7 Paciente  4 com pulseira verde inicia o atendimento
 ```
 
 > **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao antedimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a númeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
