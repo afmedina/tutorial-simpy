@@ -2,6 +2,7 @@
 
 A fila M\/M\/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)\) tem intervalos entre chegadas exponencialmente distribuídos, tempos de atendimentos exponencialmente distribuídos e apenas um servidor de atendimento. Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min \(ou 1 cliente chega por min\) e o tempo médio de atendimento é de 0,5 min \(ou 2 clientes atendidos por minuto no servidor\).
 
+## Geração de chegadas de entidades
 Partindo da função `geraChegadas`, codificada na seção "Criando as primeiras entidades", precisamos criar uma função ou processo para ocupar, utilizar e desocupar o servidor. Criaremos uma função `atendimentoServidor`
  responsável por manter os clientes em fila e realizar o atendimento.
 
@@ -28,10 +29,11 @@ servidorRes = simpy.Resource(env, 1) # cria o recurso servidorRes
 env.process(geraChegadas(env))
 env.run(until=10)
 ```
-
+## Realizando o atendimento no servidor
 Se você executar o script anterior, o recurso é criado, mas nada acontece, afinal, não existe ainda nenhum processo requisitando o recurso.
 
 Precisamos, portanto, construir uma nova função que realize o _processo_ de atendimento. Usualmente, um processo qualquer tem ao menos as 4 etapas a seguir:
+
 1. Solicitar o servidor;
 2. Ocupar o servidor;
 3. Executar o atendimento por um tempo com distribuição conhecida;
@@ -79,7 +81,7 @@ env.run(until=10)
 
 ```
 
-Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, _e vamos  repetir isso a exaustão_, **tudo é processo dentro de um `environment`**. Assim, o atendimento é um _processo_ que deve ser iniciado por cada cliente _gerado_ pela função `criaChegadas.` Isto é feito por uma chamada a função`env.process(função de atendimento).`
+Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, _e vamos  repetir isso a exaustão_, **tudo é processado dentro de um `environment`**. Assim, o atendimento é um _processo_ que deve ser iniciado por cada cliente _gerado_ pela função `criaChegadas.` Isto é feito por uma chamada a função`env.process(atendimentoServidor(...)).`
 
 A função `geraChegadas`
  deve ser alterada, portanto, para receber como parâmetro o recurso `servidorRes`,
