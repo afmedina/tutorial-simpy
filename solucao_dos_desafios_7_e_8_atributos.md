@@ -4,92 +4,67 @@
 
 >Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada do cliente na lavadora.
 
+O tempo médio de espera por fila de um recurso - no caso lavadoras - é estimado pelo soma do tempo que todos os clientes aguardaram pelo recurso, dividido pelo número de clientes que ocuparam o recurso ao longo da simulação.
+
+Assim, vamos criar duas variáveis globais para armazenar a soma do tempo de espera por lavadora de todos os clientes que ocuparam as lavadoras, bem como o número de clientes que ocuparam as mesmas lavadoras:
+
 ```python
 import random
 import simpy
 
-tempoEsperaLavadora = 0 # conta tempo de espera total por lavadora
-contaLavadora = 0 # conta clientes que entraram na lavadora
-contaClientes = 0 # conta clientes que chegaram no sistema
-
-def distributions(tipo):
-    # função que armazena as distribuições utilizadas no modelo
-    return {
-        'chegadas': random.expovariate(1.0/5.0),
-        'lavar': 20,
-        'carregar': random.uniform(1, 4),
-        'descarregar': random.uniform(1, 2),
-        'secar': random.uniform(9, 12),
-    }.get(tipo, 0.0)
-
-def chegadaClientes(env, lavadoras, cestos, secadoras):
-    # função que gera a chegada de clientes
-    global contaClientes
-    contaClientes = 0
-    while True:
-        contaClientes += 1
-        yield env.timeout(distributions('chegadas'))
-        print("Cliente %s chega em %.1f" %(contaClientes, env.now))
-        env.process(lavaSeca(env, "Cliente %s" %contaClientes, lavadoras, cestos, secadoras))
-
+contaClientes = 0           # conta clientes que chegaram no sistema
+tempoEsperaLavadora = 0     # conta tempo de espera total por lavadora
+contaLavadora = 0           # conta clientes que ocuparam uma lavadora
+```
+A seguir, precisamos alterar a função `lavaSeca` para calcular corretamente o tempo de espera por lavadora de cada cliente, somar este valor à variável global `tempoEsperaLavadora` e incrementar o número de clientes que ocuparam lavadoras na variável global `contaLavadora` (representação apenas da parte do código que é alterada):
+```python
 def lavaSeca(env, cliente, lavadoras, cestos, secadoras):
     # função que processa a operação de cada cliente dentro da lavanderia
-    global utilLavadora, tempoEsperaLavadora, contaLavadora
-
-    # marca chegada no sistema
+    global tempoEsperaLavadora, contaLavadora
+    
+    # marca atributo chegada com o tempo atual de chegada da entidade
     chegada = env.now
-
     # ocupa a lavadora
     req1 = lavadoras.request()
     yield req1
-    print("%s ocupa lavadora em %.1f" %(cliente, env.now))
-
-    # marca o tempo de espera em fila por lavadora e totaliza
-    tempoEspera = env.now - chegada
-    tempoEsperaLavadora += tempoEspera
-
-    yield env.timeout(distributions('lavar'))
+    # incrementa lavadoras ocupadas
     contaLavadora += 1
-
-    # antes de retirar da lavadora, pega um cesto
-    req2 = cestos.request()
-    yield req2
-    print("%s ocupa cesto em %.1f" %(cliente, env.now))
-    yield env.timeout(distributions('carregar'))
-
-    # libera a lavadora, mas não o cesto
-    lavadoras.release(req1)
-    print("%s desocupa lavadora em %.1f" %(cliente, env.now))
-
-    # ocupa a secadora antes de liberar o cesto
-    req3 = secadoras.request()
-    yield req3
-    print("%s ocupa secadora em %.1f" %(cliente, env.now))
-    yield env.timeout(distributions('descarregar'))
-
-    # libera o cesto mas não a secadora
-    cestos.release(req2)
-    print("%s desocupa cesto em %.1f" %(cliente, env.now))
-    yield env.timeout(distributions('secar'))
-
-    # pode liberar a secadora
-    print("%s desocupa secadora em %.1f" %(cliente, env.now))
-    secadoras.release(req3)
-
-
-
+    # calcula o tempo de espera em fila por lavadora
+    tempoFilaLavadora = env.now - chegada
+    tempoEsperaLavadora += tempoFilaLavadora
+    print("%4.1f %s ocupa lavadora" %(env.now, cliente))
+    yield env.timeout(distributions('lavar'))
+```
+Ao final do programa, basta acrescentar uma linha para imprimir o tempo médio em fila de espera por lavadoras e o número de vezes que uma lavadora foi ocupada ao longo da simulação:
+```python
 random.seed(10)
 env = simpy.Environment()
-lavadoras = simpy.Resource(env, capacity = 3)
-cestos = simpy.Resource(env, capacity = 20)
-secadoras = simpy.Resource(env, capacity = 10)
+lavadoras = simpy.Resource(env, capacity=3)
+cestos = simpy.Resource(env, capacity=2)
+secadoras = simpy.Resource(env, capacity=1)
 env.process(chegadaClientes(env, lavadoras, cestos, secadoras))
 
-env.run(until = 600)             
-
-print("Espera por lavadoras: %.2f Clientes atendidos: %i" %(tempoEsperaLavadora/contaLavadora, contaLavadora))
+env.run(until=40)
+print("\nEspera por lavadoras: %.2f Clientes atendidos: %i" 
+        %(tempoEsperaLavadora/contaLavadora, contaLavadora))
 ```
+Quando executado por 40 minutos, o modelo completo com as alterações anteriores fornece como saída:
+```python
+ 4.2 Chegada do cliente 1
+ 4.2 Cliente 1 ocupa lavadora
+12.6 Chegada do cliente 2
+12.6 Cliente 2 ocupa lavadora
+24.2 Cliente 1 ocupa cesto
+27.2 Cliente 1 desocupa lavadora
+27.2 Cliente 1 ocupa secadora
+28.8 Cliente 1 desocupa cesto
+32.6 Cliente 2 ocupa cesto
+36.3 Cliente 2 desocupa lavadora
+38.7 Cliente 1 desocupa secadora
+38.7 Cliente 2 ocupa secadora
 
+Espera por lavadoras: 0.00 Clientes atendidos: 2
+```
 >**Desafior 8**: no desafio anterior, você deve ter notado como o tempo de espera pela lavadora está muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
 
 Para a solução do desafio, basta acrescetar uma linha ao final do programa principal:
