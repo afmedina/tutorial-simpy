@@ -1,47 +1,41 @@
 # Solução dos desafios 9 e 10
 
-> **Desafio 9**: Considere que cada entidade gerada no primeiro exemplo desta seção tem um peso em gramas dado por uma distribuição normal de média 10 e desvio padrão igual a 5. Crie um critério de parada para quando a média dos pesos das entidades geradas esteja no intervalo entre 9,5 e 10,5.
+> **Desafio 9**: Considere que cada entidade gerada no primeiro exemplo desta seção tem um peso em gramas dado por uma distribuição normal de média 10 e desvio padrão igual a 3. Crie um critério de parada para quando a média dos pesos das entidades geradas esteja no intervalo entre 9,5 e 10,5.
 
 Este primeiro desafio envolve poucas modificações no programa original. Acrescentamos três variáveis novas: `media,` `contador` e `pesoTotal;` o laço `while` foi substituido pelo critério de parada e algumas linhas foram acrescentadas para o cálculo da média de peso até a última entidade gerada. O peso de cada entidade é sorteado pela função `random.normalvariate\(mu, sigma\)` da bliblioteca `random.`
 
 ```python
-import random
 import simpy
+import random
 
-def geraChegada(env, p):
+def geraChegada(env, numEntidades):
     media, contador, pesoTotal = 0, 0, 0
-    while media > 10.5 or media < 9.5:     # critério de parada
-        print("%s: nova chegada em %s" %(p, env.now))
+    
+    while media > 10.5 or media < 9.5:      # critério de parada
         yield env.timeout(1)
-        contador += 1                      # conta entidades geradas
-        peso = random.normalvariate(10, 5) # sorteia o peso da entidade
-        pesoTotal += peso                  # acumula o peso total até agora
-        media = pesoTotal/contador         # calcula média dos pesos
-        print("Média atual %.2f" %(media))
+        contador += 1                       # conta entidades geradas
+        peso = random.normalvariate(10, 3)  # sorteia o peso da entidade
+        pesoTotal += peso                   # acumula o peso total até agora
+        media = pesoTotal/contador          # calcula média dos pesos
+        print("%4.1f nova chegada\tPeso: %.1f kg\tMédia atual: %.1f"
+                 %(env.now, peso, media))
+
 
 random.seed(100)
 env = simpy.Environment()
-chegadas = env.process(geraChegada(env, "p1"))
-env.run()
+chegadas = env.process(geraChegada(env, 5)) # gere apenas 5 entidades
+env.run()                                   # executa até o fim de todos os processos do modelo
 ```
-
-Quando executado, o programa apresenta como resultado:
+Quando executado, o modelo anterior apresenta como resultado:
 
 ```python
-p1: nova chegada em 0
-Média atual 4.42
-p1: nova chegada em 1
-Média atual 11.16
-p1: nova chegada em 2
-Média atual 11.94
-p1: nova chegada em 3
-Média atual 12.83
-p1: nova chegada em 4
-Média atual 10.94
-p1: nova chegada em 5
-Média atual 11.75
-p1: nova chegada em 6
-Média atual 10.49
+ 1.0 nova chegada       Peso: 6.7 kg    Média atual: 6.7
+ 2.0 nova chegada       Peso: 14.7 kg   Média atual: 10.7
+ 3.0 nova chegada       Peso: 12.1 kg   Média atual: 11.2
+ 4.0 nova chegada       Peso: 13.3 kg   Média atual: 11.7
+ 5.0 nova chegada       Peso: 6.0 kg    Média atual: 10.6
+ 6.0 nova chegada       Peso: 13.5 kg   Média atual: 11.0
+ 7.0 nova chegada       Peso: 5.8 kg    Média atual: 10.3
 ```
 
 > **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [stackoverflow](http://stackoverflow.com/)!\).
