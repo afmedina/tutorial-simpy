@@ -14,7 +14,7 @@ A função viagem, agora deve lidar com um tempo de parada do canhão. Contudo, 
 
 ```python 
 def viagem(env, tempoParada, tempoParadaCanhao):
-    #processo de viagem do x-wing
+    # processo de viagem do x-wing
     global viajando, duracaoViagem, canhao
     
     partida = env.now         # início da viagem
@@ -113,96 +113,97 @@ Quando o modelo completo é executado, ele fornece como saída:
 150.0 Pi uiui...bi      Tradução: canhão inoperante!
 ```
 
-> **Desafio 14** Você não acha que pode viajar pelo espaço infinito sem encontrar alguns [TIEs](https://en.wikipedia.org/wiki/TIE_fighter) das forças imperiais, não é mesmo? Considere que a cada 25 horas, você se depara com um TE imperial. O ataque dura 30 minutos e, se nesse tempo você não estiver com o canhão funcionando, a sua próxima viagem é para o encontro do mestre Yoda.
+> **Desafio 14** Você não acha que pode viajar pelo espaço infinito sem encontrar alguns [TIEs](https://en.wikipedia.org/wiki/TIE_fighter) das forças imperiais, não é mesmo? Considere que a cada 25 horas, você se depara com um TIE imperial. O ataque dura 30 minutos e, se nesse tempo você não estiver com o canhão funcionando, a sua próxima viagem é para o encontro do mestre Yoda.
 
 > Dica: construa uma função executaCombate que controla todo o processo de combate. Você vai precisar também de uma variável global que informa se o X-Wing está ou não em combate.
 
-Incialmente, precisamos de uma variável global para verificar a situação do canhão:
+Incialmente, precisamos de uma variável global para verificar a situação do combate:
 ```python 
 import simpy
+import random
 
-canhao = True
-viajando = False    #variável global que avisa se o x-wing está operando
-duracaoViagem = 50  #variável global que marca a duração atual da viagem
+emCombate = False       # variável global que avisa se o x-wing está em combate
+canhao = True           # variável global que avisa se o canhão está funcionando
+viajando = False        # variável global que avisa se o x-wing está operando
+duracaoViagem = 30      # variável global que marca a duração atual da viagem
+```
+A função `executaCombate` a seguir, incia o processo de combate e verifica quem foi o vitorioso:
 
-def viagem(env, tempoParada, tempoParadaCanhao):
-    #processo de viagem do x-wing
-    global canhao
-    global viajando
-    global duracaoViagem
+```python 
+def executaCombate(env, intervaloCombate, duracaoCombate):
+    # processo de execução do combate
+
+    global emCombate, canhao, duracaoViagem
     
-    partida = env.now         #inicio da viagem
-    while duracaoViagem > 0:  #enquanto ainda durar a viagem, execute:
-        try:
-            viajando = True
-            inicioViagem = env.now #(re)inicio da viagem
-            print("Viagem iniciada em %s" %(env.now))
-            yield env.timeout(duracaoViagem) #tempo de viagem restante
-            duracaoViagem -= env.now-inicioViagem
-        except simpy.Interrupt:
-            #se o processo de viagem foi interrompido execute:
-            duracaoViagem -= env.now-inicioViagem #atualiza o tempo restante de viagem
-            print("Falha do R2D2 em %s, tempo de viagem estimado %s" %(env.now, duracaoViagem ))
-            yield env.timeout(tempoParada) #tempo de manutenção do R2D2
-            if not canhao:
-                yield env.timeout(tempoParadaCanhao) #tempo de manutenção do canhão
-                canhao = True
-                print("Canhão operante em %s" % (env.now))
-    
-    #ao final avisa o término da viagem e sua duração
-    viajando, canhao = False, False
-    print("Viagem concluida em %s, duração total da viagem %s" %(env.now, env.now-partida))
-
-def paradaTecnica(env, intervalo, viagem):
-    #processo de paradas entre intervalo
-    global viajando
-    global duracaoViagem
-    while duracaoViagem > 0:         #este processo só ocorre durante a viagem
-        yield env.timeout(intervalo) #aguarda a próxima quebra do R2D2
-        if viajando:                 # O R2D2 somente quebra durante a viagem
-            viagem.interrupt()       # interrompe o processo viagem
-            viajando = False
-            
-def quebraCanhao(env, intervalo, combate):
-    #processo de paradas entre intervalo
-    global canhao
-    global duracaoViagem
-    while duracaoViagem > 0:            #este processo só ocorre durante a viagem
-        yield env.timeout(intervalo)    #aguarda a próxima quebra do canhao
-        if canhao:
-            canhao = False
-            print("Canhão inoperante em %s" % (env.now))
-            if emCombate:
-                combate.interrupt()
-
-def executaCombate(env, intervalo, duracaoCombate):
-    #processo de paradas entre intervalo
-    global emCombate
-    global canhao
-    global duracaoViagem
-    emCombate = False
-    while duracaoViagem > 0:            #este processo só ocorre durante a viagem
-        yield env.timeout(intervalo)    #aguarda o próximo encontro com forças imperirais
-        emCombate = True                #inicio do combate
+    while duracaoViagem > 0: # este processo só ocorre durante a viagem
+        # aguarda o próximo encontro com as forças imperirais
+        yield env.timeout(intervaloCombate)
+        # inicio do combate
+        emCombate = True 
         if not canhao:
-            print("Fim da viagem. O lado negro venceu em %s" %(env.now))
-            duracaoViagem = 0
+            print("%5.1f Fim da viagem\tO lado negro venceu" %env.now)
+            break
         else:
-            print("Combate iniciado em %s. Reze para que o canhão não quebre!" %(env.now))
+            print("%5.1f Combate iniciado\tReze para que o canhão não quebre!"
+                    %env.now)
             try:
                 yield env.timeout(duracaoCombate)
                 emCombate = False
-                print("Fim do combate em %d. R2D2 diz: tá tudo tranquilo, tá tudo normalizado." %(env.now))
+                print("%5.1f Fim do combate\tR2D2 diz: tá tudo tranquilo, tá tudo normalizado."
+                        %env.now)
             except simpy.Interrupt:
-                print("OPS... O canhão quebrou durante o combate.")
-                print("Fim da viagem. O lado negro venceu em %s" % (env.now))
-                duracaoViagem = 0
-                                
-                                
+                print("%5.1f OPS... O canhão quebrou durante o combate." %env.now)
+                print("%5.1f Fim da viagem\tO lado negro venceu" %env.now)
+                break
+```
+A quebra de canhão agora deve verificar se a nave está em combate, pois, neste caso, o X-Wing será esmagado pelo TIE:
+
+```python 
+def quebraCanhao(env, intervaloCanhao, combate):
+    # processo de quebra do canhao entre intervalos definidos
+    global canhao, duracaoViagem, emCombate
+    
+    while duracaoViagem > 0:                # este processo só ocorre durante a viagem
+        yield env.timeout(intervaloCanhao)  # aguarda a próxima quebra do canhao
+        if canhao:
+            canhao = False
+            print("%5.1f Pi uiui...bi\tTradução: canhão inoperante!" % (env.now))
+            if emCombate:
+                combate.interrupt()
+```
+Finalmente, a incialização do modelo deve contar com uma chamada para o processo `executaCombate:`
+
+```python 
+random.seed(100)
 env = simpy.Environment()
-viagem = env.process(viagem(env, 5, 2))
-combate = env.process(executaCombate(env, 25, 0.5))
+viagem = env.process(viagem(env, 15, 2))
+combate = env.process(executaCombate(env, 20, 0.5))
 env.process(paradaTecnica(env, 10, viagem))
 env.process(quebraCanhao(env, 25, combate))
+
 env.run(until=combate)
 ``` 
+A última linha do código anterior tem algo importante: optei por executar a simulação enquanto durar o processo de combate, afinal, ele mesmo só é executado caso a X-Wing esteja ainda em viagem.
+
+Por fim, quando executado, o modelo completo fornece como saída:
+```python 
+  0.0 Viagem iniciada
+ 10.0 Falha do R2D2     Tempo de viagem restante: 20.0 horas
+ 20.0 Combate iniciado  Reze para que o canhão não quebre!
+ 20.5 Fim do combate    R2D2 diz: tá tudo tranquilo, tá tudo normalizado.
+ 25.0 Pi uiui...bi      Tradução: canhão inoperante!
+ 25.0 R2D2 operante
+ 25.0 R2, ligue o canhão!
+ 27.0 Pi..bi...bi       Tradução: canhão operante!
+ 27.0 Viagem iniciada
+ 30.0 Falha do R2D2     Tempo de viagem restante: 17.0 horas
+ 40.5 Combate iniciado  Reze para que o canhão não quebre!
+ 41.0 Fim do combate    R2D2 diz: tá tudo tranquilo, tá tudo normalizado.
+ 45.0 R2D2 operante
+ 45.0 Viagem iniciada
+ 50.0 Pi uiui...bi      Tradução: canhão inoperante!
+ 50.0 Falha do R2D2     Tempo de viagem restante: 12.0 horas
+ 61.0 Fim da viagem     O lado negro venceu
+``` 
+
+
