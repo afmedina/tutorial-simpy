@@ -249,7 +249,7 @@ meuPriorityStore.put(meuObjetoPriority)
 ```
 >Observação: como no caso do `PriorityResource`, quanto menor o valor de `priority`, maior a preferência pelo objeto.
 
-Por exemplo, no caso dos nomes "João, José e Mário", vamos estabelecer que a ordem de prioridades é a própria ordem alfabética. Assim, incialmente, vamos construir dois dicionários para armazenar essas informações sobre os barbeiros:
+Por exemplo, no caso dos nomes "João, José e Mário", considere que a ordem de prioridades é a própria ordem alfabética dos nomes. Assim, incialmente, construíremos dois dicionários para armazenar essas informações sobre os barbeiros:
 
 
 ## Conceitos desta seção
