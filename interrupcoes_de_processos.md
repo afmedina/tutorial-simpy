@@ -18,7 +18,7 @@ import simpy
 viajando = False    # variável global que avisa se o x-wing está operando
 duracaoViagem = 30  # variável global que marca a duração atual da viagem
 ```
-O próximo passo, é criar uma função que represente a viagem do x-wing, garantindo não só que ela dure o tempo correto, mas também que lide com o processo de interrupção. 
+O próximo passo, é criar uma função que represente a viagem do x-wing, garantindo não só que ela dure o tempo correto, mas também que lide com o processo de interrupção: 
 
 ```python
 def viagem(env, tempoParada):
