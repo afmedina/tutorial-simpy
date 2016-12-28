@@ -206,5 +206,5 @@ Por fim, quando executado, o modelo completo fornece como saída:
 ``` 
 ## Teste seus conhecimentos
 1. Não colocamos distribuições aleatórias nos processos. Acrecente distribuições nos diversos processos e verifique se o modelo precisa de alterações;
-2. Acrescente a tentativa da destruição da Estrela da Morte ao final da viagem: com 50% de chances, nosso intréptido jedi consegue acertar um tiro na entrada do reator e explodir a Estrela da Morte (se ele erra, volta ao combate).
+2. Acrescente a tentativa da destruição da Estrela da Morte ao final da viagem: com 50% de chances, nosso intréptido jedi consegue acertar um tiro na entrada do reator e explodir a Estrela da Morte (se ele erra, volta ao combate). Replique algumas vezes o modelo e estime a probabilidade de sucesso da operação.
 
