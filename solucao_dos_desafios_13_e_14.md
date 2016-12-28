@@ -120,7 +120,6 @@ Quando o modelo completo é executado, ele fornece como saída:
 Incialmente, precisamos de uma variável global para verificar a situação do combate:
 ```python 
 import simpy
-import random
 
 emCombate = False       # variável global que avisa se o x-wing está em combate
 canhao = True           # variável global que avisa se o canhão está funcionando
@@ -174,7 +173,7 @@ def quebraCanhao(env, intervaloCanhao, combate):
 Finalmente, a incialização do modelo deve contar com uma chamada para o processo `executaCombate:`
 
 ```python 
-random.seed(100)
+
 env = simpy.Environment()
 viagem = env.process(viagem(env, 15, 2))
 combate = env.process(executaCombate(env, 20, 0.5))
@@ -205,5 +204,7 @@ Por fim, quando executado, o modelo completo fornece como saída:
  50.0 Falha do R2D2     Tempo de viagem restante: 12.0 horas
  61.0 Fim da viagem     O lado negro venceu
 ``` 
-
+## Teste seus conhecimentos
+1. Não colocamos distribuições aleatórias nos processos. Acrecente distribuições nos diversos processos e verifique se o modelo precisa de alterações;
+2. Acrescente a tentativa da destruição da Estrela da Morte ao final da viagem: com 50% de chances, nosso intréptido jedi consegue acertar um tiro na entrada do reator e explodir a Estrela da Morte (se ele erra, volta ao combate).
 
