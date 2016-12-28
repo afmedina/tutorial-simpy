@@ -10,7 +10,7 @@ A interrupção de um processo em SimPy é realizada por meio de um comando `Int
 
 Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 horas e que a viagem toda levaria \(sem não houvessem paralizações\) 50 horas.
 
-Inicialmente, vamos criar duas variáveis globais: uma para representar se o x-wing está operando - afinal, não queremos interrompê-lo quando ele já estiver em manutenção - e outra para armazenar o tempo ainda restante para a viagem.
+Inicialmente, vamos criar duas variáveis globais: uma para representar se o X-Wing está operando - afinal, não queremos interrompê-lo quando ele já estiver em manutenção - e outra para armazenar o tempo ainda restante para a viagem.
 
 ```python
 import simpy
@@ -24,31 +24,33 @@ O próximo passo, é criar uma função que represente a viagem do x-wing, garan
 def viagem(env, tempoParada):
     #processo de viagem do x-wing
     global viajando, duracaoViagem
-
+    
     partida = env.now         # início da viagem
     while duracaoViagem > 0:  # enquanto ainda durar a viagem, execute:
         try:
             viajando = True
-            inicioViagem = env.now # (re)inicio da viagem
-            print("Viagem iniciada em %s" %(env.now))
-            yield env.timeout(duracaoViagem) # tempo de viagem restante
+            # (re)inicio da viagem
+            inicioViagem = env.now 
+            print("%5.1f Viagem iniciada" %(env.now))
+            # tempo de viagem restante
+            yield env.timeout(duracaoViagem) 
             duracaoViagem -= env.now-inicioViagem
+            
         except simpy.Interrupt:
-            #se o processo de viagem foi interrompido execute:
-            duracaoViagem -= env.now-inicioViagem # atualiza o tempo restante de viagem
-            print("Falha do R2D2 em %s, tempo de viagem estimado %s" %(env.now, duracaoViagem ))
-            yield env.timeout(tempoParada) # tempo de manutenção do R2D2
-
+            # se o processo de viagem foi interrompido execute
+            # atualiza o tempo restante de viagem
+            duracaoViagem -= env.now - inicioViagem 
+            print("%5.1f Falha do R2D2\tTempo de viagem restante: %4.1f horas" 
+                    %(env.now, duracaoViagem))
+            #tempo de manutenção do R2D2
+            yield env.timeout(tempoParada) 
+    
     # ao final avisa o término da viagem e sua duração
-    viajando = False
-    print("Viagem concluida em %s, duração total da viagem %s" %(env.now, env.now-partida))
-
-env = simpy.Environment()
-viagem = env.process(viagem(env, 5))
-env.run()
+    print("%5.1f Viagem concluida\tDuração total da viagem: %4.1f horas" 
+            %(env.now, env.now-partida))
 ```
 
-O importante no programa anterior é notar a lógica `try:...except:`. O `except` aguarda um comando novo, o `simpy.Interrupt` que nada mais é do que uma interrupção causada por algum outro processo do `Environment`.
+O importante no programa anterior é notar a lógica `try:...except:,` interna ao laço `while duracaoViagem > 0`, que mantém a viagem enquanto  O `except` aguarda um comando novo, o `simpy.Interrupt` que nada mais é do que uma interrupção causada por algum outro processo do `Environment`.
 
 Quando executado, o programa fornece uma viagem tranquila:
 
