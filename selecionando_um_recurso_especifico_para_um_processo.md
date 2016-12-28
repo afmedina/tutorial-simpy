@@ -1,40 +1,39 @@
 # Armazenagem e seleção de objetos específicos com  `Store, FilterStore e PriorityStore`
 
-O SimPy possui uma ferramenta para armazenamento de [objetos](http://wiki.python.org.br/ProgramacaoOrientadaObjetoPython#A2._Objetos_e_Tipos_de_dados) - como valores, recursos etc.  - chamada `Store`; um comando de acesso a objetos específicos dentro do `Store` por meio de filtro, o `FilterStore` e um comando de acesso de objetos por ordem de prioridade, o `PriorityStore`. O programador experiente vai notar certa similaridade da família `Store` com o [dicionário](http://www3.ifrn.edu.br/~jurandy/fdp/doc/aprenda-python/capitulo_10.html) do Python.
+O SimPy possui uma ferramenta para armazenamento de [objetos](http://wiki.python.org.br/ProgramacaoOrientadaObjetoPython#A2._Objetos_e_Tipos_de_dados) - como valores, recursos etc.  - chamada `Store;` um comando de acesso a objetos específicos dentro do `Store` por meio de filtro, o `FilterStore` e um comando de acesso de objetos por ordem de prioridade, o `PriorityStore`. O programador experiente vai notar certa similaridade da família `Store` com o [dicionário](http://www3.ifrn.edu.br/~jurandy/fdp/doc/aprenda-python/capitulo_10.html) do Python.
 
-
-Vamos descobrir o funcionamento do `Store` a partir de um exemplo bem simples: simulando o processo de atendimento em uma barbearia com três barbeiros. Quando você chega a uma barbearia e tem uma ordem de preferência entre os barbeiros, isto é: barbeiro 1 vem antes do 2, que vem antes do 3, precisará selecionar o seu _recurso_ barbeiro na ordem certa, mas lembre-se: cada cliente tem seu gosto e gosto não se discute, simula-se!
+Vamos descobrir o funcionamento do `Store` a partir de um exemplo bem simples: simulando o processo de atendimento em uma barbearia com três barbeiros. Quando você chega a uma barbearia e tem uma ordem de preferência entre os barbeiros, isto é: barbeiro 1 vem antes do 2, que vem antes do 3, precisará selecionar o _recurso_ barbeiro na ordem certa de sua preferência, mas lembre-se: cada cliente tem seu gosto e gosto não se discute, simula-se!
 
 ## Construindo um conjunto de objetos com `Store`
 
 Incialmente, vamos considerar que os clientes são atribuídos ao barbeiro que estiver livre, indistintamente. Se todos os barbeiros estiverem ocupados, o cliente aguarda em fila.
 
-O comando que constrói um armazém de objetos é o `simpy.Store()`:
+O comando que constrói um armazém de objetos é o `simpy.Store():`
 
 `meuStore = simpy.Store(env, capacity=capacidade)`
 
 Para manipular o `Store`criado, temos três comandos à disposição:
 
-* `meuStore.items:` adiciona objetos ao `meuStore`;
-* `yield meuStore.get():` retira o primeiro objeto disponível de `meuStore` ou, caso o `meuStore` esteja vazio, aguarda até que algum objeto sela colocado no `Store`;
+* `meuStore.items:` adiciona objetos ao `meuStore;`
+* `yield meuStore.get():` retira o primeiro objeto disponível de `meuStore` ou, caso o `meuStore` esteja vazio, aguarda até que algum objeto sela colocado no `Store;`
 * `yield meuStore.put(umObjeto):` coloca um objeto no `meuStore`ou, caso o `meuStore `esteja cheio, aguarda até que surja um espaço vazio para colocar o objeto.
 
   > Observação: se a capacidade não for fornecida, o SimPy assumirá que a capacidade do Store é ilimitada.
 
-Para a nossa barbearia, vamos criar um `Store`que armazenará o nome dos barbeiros, aqui denominados de 0, 1 e 2:
+Para a nossa barbearia, criaremos um `Store`que armazenará o nome dos barbeiros, aqui denominados de 0, 1 e 2:
 ```python
 env = simpy.Environment()
 
-#cria 3 barbeiros diferentes
+# cria 3 barbeiros diferentes
 barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
 
-#cria um Store para armazenar os barbeiros
+# cria um Store para armazenar os barbeiros
 barbeariaStore = simpy.Store(env, capacity=3)
 barbeariaStore.items = [0, 1, 2]
 ```
-No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma `Store`chamada `barbeariaStore`de capacidade 3 e adicionamos, na linha seguinte, um lista com os três números que representam os próprios barbeiros.
+No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma `Store,` chamada `barbeariaStore` de capacidade 3 e adicionamos, na linha seguinte, um lista com os três números que representam os próprios barbeiros.
 
-Em resumo, nosso `Store`contém apenas os números 0, 1 e 2.
+Em resumo, nosso `Store` contém apenas os números 0, 1 e 2.
 
 Vamos considerar que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de 2 minutos para cortar o cabelo.
 
@@ -83,7 +82,7 @@ def chegadaClientes(env, barbeariaStore):
         env.process(atendimento(env, i, barbeariaStore))
 ```
 
-A função de atendimento, traz a novidade de que primeiro devemos _retirar_ um objeto do `Store`e, ao final do atendimento, devolvê-lo ao `Store`:
+A função de atendimento, traz a novidade de que primeiro devemos _retirar_ um objeto do `Store` e, ao final do atendimento, devolvê-lo ao `Store:`
 
 ```python
 def atendimento(env, cliente, barbeariaStore):
@@ -97,13 +96,17 @@ def atendimento(env, cliente, barbeariaStore):
     with barbeirosList[barbeiroNum].request() as req:
         yield req
         yield env.timeout(random.normalvariate(*TEMPO_CORTE))
-        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroNum))
+        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado."
+                %(env.now, cliente, barbeiroNum))
     # devolve o barbeiro ao Store
     barbeariaStore.put(barbeiroNum)
 ```
 
-Quando estamos retirando um objeto do `barbeariaStore`, estamos apenas retirando o nome \(ou identificador\) do barbeiro disponível. Para ocuparmos o recurso \(ou barbeiro\) corretamente, utilizamos o identificador como índice da lista `barbeiroList`. Assim, temporariamente, o barbeiro retirado do Store fica indisponível para outros clientes, pois a linha:
-
+Quando estamos retirando um objeto do `barbeariaStore,` estamos apenas retirando o nome \(ou identificador\) do barbeiro disponível. Para ocuparmos o recurso \(ou barbeiro\) corretamente, utilizamos o identificador como índice da lista `barbeiroList`. Assim, temporariamente, o barbeiro retirado do Store fica indisponível para outros clientes, pois a linha:
+```python
+barbeiroNum = yield barbeariaStore.get()
+```
+Só retornará um barbeiro dentre aqueles que ainda estão à disposição.
 ```python
 import simpy
 import random
@@ -162,7 +165,7 @@ Como saída, o programa anterior fornece:
 
 ```
 
-No caso do exemplo, o `Store`armazenou basicamente uma lista de números \[0,1,2\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os nomes dos barbeiros são: João, José e Mário, poderíamos montar o `barberirosStore`com seus próprios nomes:
+No caso do exemplo, o `Store` armazenou basicamente uma lista de números \[0,1,2\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os nomes dos barbeiros são: João, José e Mário, poderíamos montar o `barberirosStore`com seus próprios nomes:
 
 ```python
 random.seed(100)            
