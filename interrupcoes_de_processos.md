@@ -66,82 +66,71 @@ O importante no programa anterior é notar a lógica `try:...except:,` interna a
 Quando executado, o programa fornece uma viagem tranquila:
 
 ```
-Viagem iniciada em 0
-Viagem concluida em 30, duração total da viagem 30
+  0.0 Viagem iniciada
+ 30.0 Viagem concluida  Duração total da viagem: 30.0 horas
 ```
 
-A viagem é tranquila, pois não criamos ainda nosso "gerador de interrupções", que nada mais é do que um processo em SimPy que cria a interrupção da viagem. 
-Note, na penúltima linha do código anterior, que o processo em execução foi armazenado na variável `viagem`. O que devemos fazer é interrompê-lo de 10 em 10 horas. Para tanto, a função `paradaTecnica` a seguir verifica se o processo de viagem está em andamento e paraliza a operação depois de 10 horas:
+A viagem é tranquila, pois não criamos ainda um "gerador de interrupções", que nada mais é do que um processo em SimPy que cria a interrupção da viagem. 
+
+Note, na penúltima linha do código anterior, que o processo em execução foi armazenado na variável `viagem` e oque devemos fazer é interrompê-lo de 10 em 10 horas. Para tanto, a função `paradaTecnica` a seguir, verifica se o processo de viagem está em andamento e paraliza a operação depois de 10 horas:
 
 ```python
-import simpy
-
-viajando = False    #variável global que avisa se o x-wing está operando
-duracaoViagem = 30  #variável global que marca a duração atual da viagem
-
-def viagem(env, tempoParada):
-    #processo de viagem do x-wing
-    global viajando
-    global duracaoViagem
-
-    partida = env.now         #inicio da viagem
-    while duracaoViagem > 0:  #enquanto ainda durar a viagem, execute:
-        try:
-            viajando = True
-            inicioViagem = env.now #(re)inicio da viagem
-            print("Viagem iniciada em %s" %(env.now))
-            yield env.timeout(duracaoViagem) #tempo de viagem restante
-            duracaoViagem -= env.now-inicioViagem
-        except simpy.Interrupt:
-            #se o processo de viagem foi interrompido execute:
-            duracaoViagem -= env.now-inicioViagem #atualiza o tempo restante de viagem
-            print("Falha do R2D2 em %s, tempo de viagem estimado %s" %(env.now, duracaoViagem ))
-            yield env.timeout(tempoParada) #tempo de manutenção do R2D2
-
-    #ao final avisa o término da viagem e sua duração
-    viajando = False
-    print("Viagem concluida em %s, duração total da viagem %s" %(env.now, env.now-partida))
-
-def paradaTecnica(env, intervalo, viagem):
-    #processo de paradas entre intervalo
-    global duracaoViagem
-    global viajando
-    while duracaoViagem > 0:         # este processo só ocorre durante a viagem
-        yield env.timeout(intervalo) # aguarda a próxima quebra do R2D2
-        if viajando:                 # O R2D2 somente quebra durante a viagem
-            viagem.interrupt()       # interrompe o processo viagem
-            viajando = False
-
+def paradaTecnica(env, intervaloQuebra, viagem):
+    # processo de paradas entre intervalos de quebra
+    global viajando, duracaoViagem
+    
+    while duracaoViagem > 0:                # este processo só ocorre durante a viagem
+        yield env.timeout(intervaloQuebra)  # aguarda a próxima quebra do R2D2
+        if viajando:                        # R2D2 somente quebra durante a viagem
+            viagem.interrupt()              # interrompe o processo viagem
+            viajando = False                # desliga a viagem 
+                
 env = simpy.Environment()
-viagem = env.process(viagem(env, 5))
+viagem = env.process(viagem(env, 15))
 env.process(paradaTecnica(env, 10, viagem))
+
 env.run()
 ```
-
-Quando executado, o programa fornece:
-
+A função `paradaTecnica,`portanto, recebe como parâmetro o próprio *objeto* que representa o processo `viagem` e, por meio do comando:
+```python
+viagem.interrupt()
 ```
-Viagem iniciada em 0
-Falha do R2D2 em 10, tempo de viagem estimado 20
-Viagem iniciada em 15
-Falha do R2D2 em 20, tempo de viagem estimado 15
-Viagem iniciada em 25
-Falha do R2D2 em 30, tempo de viagem estimado 10
-Viagem iniciada em 35
-Falha do R2D2 em 40, tempo de viagem estimado 5
-Viagem iniciada em 45
-Falha do R2D2 em 50, tempo de viagem estimado 0
-Viagem concluida em 55, duração total da viagem 55
+Provoca uma interrupção no processo, a ser reconhecida pela função `viagem` na linha:
+```python
+except simpy.Interrupt:
+```
+Adicionalmente, o processo parada técnica também deve ser inciado ao início da simulação, de modo que a parte final do modelo fica:
+
+```python
+env = simpy.Environment()
+viagem = env.process(viagem(env, 15))
+env.process(paradaTecnica(env, 10, viagem))
+
+env.run()
+```
+Quando executado, o modelo completo fornece como saída:
+```python
+  0.0 Viagem iniciada
+ 10.0 Falha do R2D2     Tempo de viagem restante: 20.0 horas
+ 25.0 Viagem iniciada
+ 30.0 Falha do R2D2     Tempo de viagem restante: 15.0 horas
+ 45.0 Viagem iniciada
+ 50.0 Falha do R2D2     Tempo de viagem restante: 10.0 horas
+ 65.0 Viagem iniciada
+ 70.0 Falha do R2D2     Tempo de viagem restante:  5.0 horas
+ 85.0 Viagem iniciada
+ 90.0 Falha do R2D2     Tempo de viagem restante:  0.0 horas
+105.0 Viagem concluida  Duração total da viagem: 105.0 horas
 ```
 
 Alguns aspectos importantes do código anterior:
 
 1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. É por meio de variáveis globais que um processo "sabe" o que está ocorrendo no outro;
-2. Como a execução `env.run()` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o
+2. Como a execução `env.run()` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o laço:
 ```python
 while duracaoViagem > 0
 ```
-torna-se falso. Note que esse `while` deve existir nos dois processos em execução, caso contrário o programa seria executado indefinidamente;
+Torna-se falso. Note que esse `while` deve existir nos dois processos em execução, caso contrário, o programa seria executado indefinidamente;
 3. Dentro da função `paradaTecnica` a variável global `viajando` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal, o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas e veja o que acontece.
 
 ## Conceitos desta seção
