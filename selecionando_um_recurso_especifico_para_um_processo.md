@@ -6,7 +6,7 @@ Vamos desvendar o funcionamento do `Store` a partir de um exemplo bem simples: s
 
 ## Construindo um conjunto de objetos com `Store`
 
-Incialmente, vamos considerar que os clientes são atribuídos ao barbeiro que estiver livre, indistintamente. Se todos os barbeiros estiverem ocupados, o cliente aguarda em fila.
+Incialmente, considere que os clientes são atribuídos ao primeiro barbeiro que encontrar-se livre, indistintamente. Se todos os barbeiros estiverem ocupados, o cliente aguarda em fila.
 
 O comando que constrói um armazém de objetos é o `simpy.Store():`
 
@@ -31,13 +31,13 @@ barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
 barbeariaStore = simpy.Store(env, capacity=3)
 barbeariaStore.items = [0, 1, 2]
 ```
-No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma `Store,` chamada `barbeariaStore` de capacidade 3 e adicionamos, na linha seguinte, um lista com os três números que representam os próprios barbeiros.
+No código anterior, criamos uma lista com três recursos que representarão os barbeiros. A seguir, criamos uma `Store,` chamada `barbeariaStore,` de capacidade 3 e adicionamos, na linha seguinte, um lista com os três números que representam os próprios barbeiros.
 
 Em resumo, nosso `Store` contém apenas os números 0, 1 e 2.
 
-Vamos considerar que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de 2 minutos para cortar o cabelo.
+Considere que o intervalo entre chegadas sucessivas de clientes é exponenciamente distribuído com média de 5 minutos e que cada barbeiro leva um tempo normalmente distribuído com média 10 e desvio padão de 2 minutos para cortar o cabelo.
 
-Uma possível máscara para o problema seria:
+Uma possível máscara para o modelo de simulação seria:
 
 ```python
 import simpy
@@ -82,7 +82,7 @@ def chegadaClientes(env, barbeariaStore):
         env.process(atendimento(env, i, barbeariaStore))
 ```
 
-A função de atendimento, traz a novidade de que primeiro devemos _retirar_ um objeto do `Store` e, ao final do atendimento, devolvê-lo ao `Store:`
+A função de atendimento, traz a novidade de que primeiro devemos _retirar_ um objeto/barbeiro do `Store` e, ao final do atendimento, devolvê-lo ao `Store:`
 
 ```python
 def atendimento(env, cliente, barbeariaStore):
@@ -102,60 +102,14 @@ def atendimento(env, cliente, barbeariaStore):
     barbeariaStore.put(barbeiroNum)
 ```
 
-Quando estamos retirando um objeto do `barbeariaStore,` estamos apenas retirando o nome \(ou identificador\) do barbeiro disponível. Para ocuparmos o recurso \(ou barbeiro\) corretamente, utilizamos o identificador como índice da lista `barbeiroList`. Assim, temporariamente, o barbeiro retirado do Store fica indisponível para outros clientes, pois a linha:
+Quando estamos retirando um objeto do `barbeariaStore,` estamos apenas retirando o nome \(ou identificador\) do barbeiro disponível. Algo como retirar um cartão com o nome do barbeiro de uma pilha de barbeiros disponíveis. Se o cartão é retirado, significa que, enquanto ele não for devolvido à pilha, nenhum cliente poderá ocupá-lo, pois ele não se encontra na pilha de barbeiros disponíveis.
+
+Para ocuparmos o recurso \(ou barbeiro\) selecionado corretamente, utilizamos o identificador como índice da lista `barbeiroList`. Assim, temporariamente, o barbeiro retirado do Store fica indisponível para outros clientes, pois a linha:
 ```python
 barbeiroNum = yield barbeariaStore.get()
 ```
 Só retornará um barbeiro dentre aqueles que ainda estão à disposição.
-```python
-import simpy
-import random
-
-TEMPO_CHEGADAS = 5      # intervalo entre chegadas de clientes
-TEMPO_CORTE = [10, 2]   # tempo médio de corte 
-
-def chegadaClientes(env, barbeariaStore):
-    # gera clientes exponencialmente distribuídos
-    # encaminha para o processo de atendimento
-    i = 0
-    while True:
-        yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
-        i += 1
-        print("%5.1f Cliente %i chega." %(env.now, i))
-        env.process(atendimento(env, i, barbeariaStore))
-
-def atendimento(env, cliente, barbeariaStore):
-    # ocupa um barbeiro específico e realiza o corte
-    chegada = env.now
-    # retira o barbeiro do Store
-    barbeiroNum = yield barbeariaStore.get()
-    espera = env.now - chegada
-    print("%5.1f Cliente %i inicia.\t\tBarbeiro %i ocupado.\tTempo de fila: %2.1f" 
-            %(env.now, cliente, barbeiroNum, espera))
-    with barbeirosList[barbeiroNum].request() as req:
-        yield req
-        yield env.timeout(random.normalvariate(*TEMPO_CORTE))
-        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroNum))
-    # devolve o barbeiro ao Store
-    barbeariaStore.put(barbeiroNum)
-
-random.seed(100)            
-env = simpy.Environment()
-
-# cria 3 barbeiros diferentes
-barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
-
-# cria um Store para armazenar os barbeiros
-barbeariaStore = simpy.Store(env, capacity=3)
-barbeariaStore.items = [0, 1, 2]
-
-# inicia processo de chegadas de clientes
-env.process(chegadaClientes(env, barbeariaStore))
-env.run(until = 20)   
-```
-
-Como saída, o programa anterior fornece:
-
+Ao ser execuado por apenas 20 minutos, o modelo de simulação completo da barbeira fornece como saída:
 ```python
  11.8 Cliente 1 chega.
  11.8 Cliente 1 inicia.         Barbeiro 0 ocupado.     Tempo de fila: 0.0
@@ -164,8 +118,7 @@ Como saída, o programa anterior fornece:
  19.5 Cliente 1 termina.        Barbeiro 0 liberado.
 
 ```
-
-No caso do exemplo, o `Store` armazenou basicamente uma lista de números \[0,1,2\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os nomes dos barbeiros são: João, José e Mário, poderíamos montar o `barberirosStore`com seus próprios nomes:
+No caso do exemplo, o `Store` armazenou basicamente uma lista de números \[0,1,2\], que representam os nomes dos barbeiros. Poderíamos sofisticar um pouco mais o exemplo e criar um dicionário \(em Python\) para manipular os nomes reais dos barbeiros. Por exemplo, se os nomes dos barbeiros são: João, José e Mário, poderíamos montar o `barberirosStore`com seus respectivos nomes e evitar o uso de números:
 
 ```python
 random.seed(100)            
@@ -191,17 +144,15 @@ O exemplo anterior apenas reforça que `Store` é um local para se armazenar obj
 
 ## Selecionando um objeto específico com `FilterStore()`
 
-Considere agora o caso bastante comum em que precisamos selecionar um recurso específico \(segundo alguma regra\) dentro de um conjunto de recursos disponíveis. Por exemplo, na barbearia cada cliente tem um barbeiro preferido e, se ele não está disponível, o cliente prefere aguardar sua liberação.
-Vamos assumir neste caso, que a preferência é uniformemente distribuída entre os barbeiros. 
-Precisamos portanto, de um modo de selecionar um objeto específico dentro do `Store`. O SimPy tem um comando específico para construir um conjunto de objetos filtrável, o `FilterStore`:
+Considere agora o caso bastante comum em que precisamos selecionar um recurso específico \(segundo alguma regra\) dentro de um conjunto de recursos disponíveis. Na barbearia, por exemplo, cada cliente agora tem um barbeiro preferido e, se ele não está disponível, o cliente prefere aguardar sua liberação.
+Neste caso, vamos assumir que a preferência de um cliente é uniformemente distribuída entre os três barbeiros. 
+Precisamos, portanto, de um modo de selecionar um objeto específico dentro do `Store`. O SimPy tem um comando para construir um conjunto de objetos filtrável, o `FilterStore`:
 
 ```python
 meuFilterStore = simpy.FilterStore(env, capacity=capacidade)
 ```
-
-A grande diferença para o `Store` é que o podemos utilizar uma [função anônima do Python](http://pt.stackoverflow.com/questions/50422/como-declarar-uma-fun%C3%A7%C3%A3o-an%C3%B4nima-no-python) dentro do comando `.get()`. 
-Incialmente, vamos criar um `FilterStore`de barbeiros:
-
+A grande diferença para o `Store` é que podemos utilizar uma [função anônima do Python](http://pt.stackoverflow.com/questions/50422/como-declarar-uma-fun%C3%A7%C3%A3o-an%C3%B4nima-no-python) dentro do comando `.get()` e assim puxar um objeto de dentro do `FilterStore` segundo alguma regra codificada por nós.
+Incialmente, criaremos um `FilterStore`de barbeiros, que armazenrá apenas os números 1, 2 e 3:
 ```python
 random.seed(150)            
 env = simpy.Environment()
@@ -218,7 +169,7 @@ env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20)  
 ```
 
-A função geradora de clientes tem uma ligeira modificação, pois agora temos de atribuir a cada cliente um barbeiro específico, segundo uma distribuição uniforme:
+A função geradora de clientes terá uma ligeira modificação, pois temos de atribuir a cada cliente um barbeiro específico, respeitando o sorteio de uma distribuição uniforme:
 
 ```python
 import simpy
@@ -237,10 +188,10 @@ def chegadaClientes(env, barbeariaStore):
         yield env.timeout(random.expovariate(1/TEMPO_CHEGADAS))
         i += 1
         barbeiroEscolhido = random.randint(*PREF_BARBEIRO)
-        print("%5.1f Cliente %i chega.\t\tBarbeiro %i escolhido." %(env.now, i, barbeiroEscolhido))
+        print("%5.1f Cliente %i chega.\t\tBarbeiro %i escolhido." 
+                %(env.now, i, barbeiroEscolhido))
         env.process(atendimento(env, i, barbeiroEscolhido, barbeariaStore))
 ```
-
 Na função anterior, o _atributo_ `barbeiroEscolhido` armazena o número do barbeiro sorteado e envia a informação para a função que representa o processo de atendimento.
 A função `atendimento` utilizará uma função anônima para buscar o barbeiro certo dentro do`FilterStore` criado:
 
@@ -255,7 +206,8 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     with barbeirosList[barbeiroNum].request() as req:
         yield req
         yield env.timeout(random.normalvariate(*TEMPO_CORTE))
-        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado." %(env.now, cliente, barbeiroEscolhido))
+        print("%5.1f Cliente %i termina.\tBarbeiro %i liberado."
+                %(env.now, cliente, barbeiroEscolhido))
     barbeariaStore.put(barbeiroNum)
 ```
 
@@ -278,7 +230,7 @@ Quando executado, o modelo anterior fornece:
  15.5 Cliente 3 inicia.         Barbeiro 1 ocupado.     Tempo de fila: 3.0
 ```
 
-Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado atendendo o cliente 1, assim ele foi obrigado a esperar em fila por 3 minutos.
+Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado atendendo o cliente 1, assim ele foi obrigado a esperar em fila por 3 minutos, até que o cliente 1 liberasse o Barbeiro 1.
 
 ## Criando um `Store` com prioridade: `PriorityStore()`
 
@@ -287,10 +239,12 @@ Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a ent
 ```python
 meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 ```
-Para armazenar certo objeto com uma prioridade específica, o `PriorityStore` tem um comando especial, o `PriorityItem`. Se queremos acrescentar um objeto qualquer ao `meuPriorityStore `já criado, a sequência de passos seria:
+Para armazenar certo objeto com uma prioridade específica, o `PriorityStore` tem um comando especial, o `PriorityItem`. Para acrescentar um objeto qualquer ao `meuPriorityStore `já criado, a sequência de passos é primeiro criar um objeto `PriorityItem` - que representará o objeto a ser armazendo - para depois inserilo com um comando `put:`
 
 ```python
+# criar o PriorityItem
 meuObjetoPriority = simpy.PriorityItem(priority=priority, meuObjeto)
+# adicionar o PriorityItem ao PriorityStore
 meuPriorityStore.put(meuObjetoPriority)
 ```
 >Observação: como no caso do `PriorityResource`, quanto menor o valor de `priority`, maior a preferência pelo objeto.
