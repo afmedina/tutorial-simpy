@@ -23,6 +23,7 @@
 * [Enchendo ou esvaziando tanques, caixas ou estoques](enchendo_ou_esvaziando_caixas_tanques.md)
 * [Solução dos desafios 17 e 18](solucao_dos_desafios_15_e_16.md)
 * [Criando lotes \(ou agrupando\) entidades durante a simulação](criando_lotes_ou_agrupando_entidades_durante_a_simulacao.md)
+* [Solução dos desafios 19 e 20](solução-dos-desafios-19-e-20.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
 * [Aguardando múltiplos eventos](aguardando-múltiplos-eventos.md)
 * [Propriedades úteis dos eventos](propriedades-úteis-dos-eventos.md)
