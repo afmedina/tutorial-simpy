@@ -8,7 +8,7 @@ A sua utilização é bem simples, por exemplo, podemos modelar um tanque de 100
 import simpy
 
 env = simpy.Environment()
-#cria um tanque de 100 m3 de capacidade, com 50 m3 no início da simulação
+# cria um tanque de 100 m3 de capacidade, com 50 m3 no início da simulação
 tanque = simpy.Container(env, capacity=100, init=50)
 ```
 
@@ -32,9 +32,11 @@ TANQUE_CAMINHAO = 50       # capacidade de abastecimento do caminhão
 
 def enchimentoTanque(env, qtd, tanque):  
     # enche o tanque
-    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" 
+            % (env.now, qtd, tanque.level))
     yield tanque.put(qtd)
-    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3" 
+            % (env.now, qtd, tanque.level))
 
 random.seed(150)            
 env = simpy.Environment()
@@ -71,9 +73,11 @@ def esvaziamentoTanque(env, qtd, tanque):
 
 def enchimentoTanque(env, qtd, tanque):  
     # enche o tanque
-    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
     yield tanque.put(qtd)
-    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
 
 random.seed(150)            
 env = simpy.Environment()
@@ -87,7 +91,7 @@ env.run(until = 20)
 A função `chegadasVeiculos `gera os veículos que buscam abastecimento no posto e chama o função esvaziamentoTanque que provoca o esvaziamento do tanque do posto na quantidade do tanque do veículo:
 ```python
 def chegadasVeiculos(env, tanque):
-    #gera chegadas de veículos por produto
+    # gera chegadas de veículos por produto
     while True:
         yield env.timeout(TEMPO_CHEGADAS)
         # carrega veículo
@@ -98,9 +102,11 @@ A função que representa o processo de esvaziamento do tanque é semelhante a d
 ```python
 def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
-    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    print("%d Veículo atendido de %3.2f.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Veículo atendido de %3.2f.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
 ```
 
 O programa completo fica:
@@ -121,15 +127,19 @@ def chegadasVeiculos(env, tanque):
         
 def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
-    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
 
 def enchimentoTanque(env, qtd, tanque):  
     # enche o tanque
-    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
     yield tanque.put(qtd)
-    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
 
 random.seed(150)            
 env = simpy.Environment()
@@ -199,15 +209,19 @@ def chegadasVeiculos(env, tanque):
         
 def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
-    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
 
 def enchimentoTanque(env, qtd, tanque):  
     # enche o tanque
-    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Novo caminhão com %4.1f m3.\t Nível atual: %5.1f m3" 
+            % (env.now, qtd, tanque.level))
     yield tanque.put(qtd)
-    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
+    print("%d Tanque enchido com %4.1f m3.\t Nível atual: %5.1f m3"
+            % (env.now, qtd, tanque.level))
 
 random.seed(150)            
 env = simpy.Environment()
