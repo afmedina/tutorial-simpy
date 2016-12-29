@@ -6,7 +6,7 @@ Vamos partir de um exemplo simples, em que uma célula de produção deve realiz
 
 ## Uma tática para agrupamento de lotes: utilizar o `Container`
 
-Uma maneira de resolver o problema é criar um ```Container``` para cada peça. Assim, criamos dois estoques, para as peças A e B, de modo que o componente só poderá iniciar sua montagem se cada estoque contiver ao menos o número de peças necessárias para sua montagem.
+Uma maneira de resolver o problema é criar um `Container` de estoque temporário para cada peça. Assim, criamos dois estoques, para as peças A e B, de modo que o componente só poderá iniciar sua montagem se cada estoque contiver ao menos o número de peças necessárias para sua montagem.
 
 Comecemos criando uma possível máscara para o problema:
 ```python
@@ -63,8 +63,8 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
                 %(env.now, tipo, tamLote))
         yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
 ```
-Note que, diferentemente das funções de geração de entidades criadas nas seções anteriores deste livro, a função ```chegadaPecas``` não encaminha a entidade criada para uma nova função, iniciando um novo processo (de atendimento, por exemplo). A função apenas armazena uma certa quantidade de peças, ```tamLote```, dentro do respectivo ```Container```  na linha:
-```
+Note que, diferentemente das funções de geração de entidades criadas nas seções anteriores deste livro, a função `chegadaPecas` não encaminha a entidade criada para uma nova função, iniciando um novo processo (de atendimento, por exemplo). A função apenas armazena uma certa quantidade de peças, `tamLote,` dentro do respectivo ```Container```  na linha:
+```python
 pecasContainerDict[tipo].put(tamLote)
 ```
 O processo de montagem também recorre ao artifício de um laço infinito, pois, basicamente, representa uma operação que está sempre pronta para executar a montagem, desde que existam o número de peças mínimas à disposição nos respectivos estoques:
@@ -147,7 +147,7 @@ env.process(chegadaPecas(env, pecasContainerDict, 'B', 10))
 env.process(montagem(env, pecasContainerDict, 1, 2))
 env.run(until = 80)   
 ```
-Quando executado, o programa anterior fornece como saída:
+Quando executado, o modelo anterior fornece como saída:
 ```python
   0.0 Chegada de lote tipo A: +10 peças.
   0.0 Chegada de lote tipo B: +10 peças.
