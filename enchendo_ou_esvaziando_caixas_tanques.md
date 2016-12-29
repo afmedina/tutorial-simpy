@@ -1,8 +1,8 @@
 # Enchendo ou esvaziando caixas, tanques ou objetos com `Container()`
 
-Um tipo especial de recurso no SimPy é o `container`. Intuitivamente, um `container` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de líquido ou uma caixa de laranjas.
+Um tipo especial de recurso no SimPy é o `container`. Intuitivamente, um `container` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de água ou uma caixa de laranjas.
 
-A sua utilização é bem simples, por exemplo, podemos modelar um tanque de 100 unidades de capacidade \($$m^3$$, por exemplo\), com um estoque inicial de 50 unidades, por meio do seguinte código:
+A sua utilização é bastante simples, por exemplo, podemos modelar um tanque de 100 unidades de capacidade \($$m^3$$, por exemplo\), com um estoque inicial de 50 unidades, por meio do seguinte código:
 
 ```python
 import simpy
@@ -20,9 +20,9 @@ O `container`possui três comandos importantes:
 
 ## Enchendo o meu container `yield meuContainer.put(quantidade)`
 
-Considere que um posto de gasolina possui um tanque com capacidade de 100 $$m^3$$ \(ou 100.000 litros\) de combustível. Incialmente o tanque contém 50 $$m^3$$ armazenado.
+Considere que um posto de gasolina possui um tanque com capacidade de 100 $$m^3$$ \(ou 100.000 litros\) de combustível e que o tanque já contém 50 $$m^3$$ armazenado.
 
-Vamos criar uma função, `enchimentoTanque`, que enche o tanque com 50 $$m^3$$ sempre que um novo caminhão de reabastecimento de combustível chega ao posto:
+Criaremos uma função, `enchimentoTanque`, que enche o tanque com 50 $$m^3$$ sempre que um novo caminhão de reabastecimento de combustível chega ao posto:
 
 ```python
 import simpy
@@ -51,12 +51,17 @@ A saída do programa é bastante simple, afinal o processo de enchimento do tanq
 0 Novo caminhão de combustível com 50.0 m3. Nível atual:  50.0 m3
 0 Tanque enchido com 50.0 m3. Nível atual: 100.0 m3
 ```
-Se você iniciar o tanque do posto a sua plena capacidade (100 $$m^3$$), deve o caminhão tenta abastecer, mas não consegue por falta de espaço, virtualmente aguardando espaço no tanque na linha `yield tanque.put(qtd)` dentro da função `enchimentoTanque`.
+Se você iniciar o tanque do posto a sua plena capacidade (100 $$m^3$$), o caminhão tentará abastecer, mas não conseguirá por falta de espaço, virtualmente aguardando espaço no tanque na linha:
+```python
+yield tanque.put(qtd)
+```
+Dentro da função `enchimentoTanque`.
 
 ##Esvaziando o meu container: `yield meuContainer.get(quantidade)`
-Considere agora que o posto atende automóveis que chegam em intervalos constantes de 5 minutos entre si e que cada veículo abastece 100 litros ou 0.10 $$m^3$$.
+Considere que o posto atende automóveis que chegam em intervalos constantes de 5 minutos entre si e que cada veículo abastece 100 litros ou 0,10 $$m^3$$.
 
-Partindo do modelo anterior, vamos criar duas funções: uma para gerar os veículos e outra para transferir o combustível do tanque para o veículo. A nossa máscara de modelagem ficaria:
+Partindo do modelo anterior, vamos criar duas funções: uma para gerar os veículos e outra para transferir o combustível do tanque para o veículo.
+Uma possível máscara para o modelo seria:
 ```python
 import simpy
 import random        
@@ -66,7 +71,7 @@ TANQUE_VEICULO = 0.10       # capacidade do veículo
 TEMPO_CHEGADAS = 5          # tempo entre chegadas sucessivas de veículos
 
 def chegadasVeiculos(env, tanque):
-    #gera chegadas de veículos por produto
+    # gera chegadas de veículos por produto
         
 def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
@@ -81,14 +86,13 @@ def enchimentoTanque(env, qtd, tanque):
 
 random.seed(150)            
 env = simpy.Environment()
-#cria um tanque de 100 m3, com 50 m3 no início da simulação
+# cria um tanque de 100 m3, com 50 m3 no início da simulação
 tanque = simpy.Container(env, capacity=100, init=50)
 env.process(chegadasVeiculos(env, tanque))
 
 env.run(until = 20)
 ```
-
-A função `chegadasVeiculos `gera os veículos que buscam abastecimento no posto e chama o função esvaziamentoTanque que provoca o esvaziamento do tanque do posto na quantidade do tanque do veículo:
+A função `chegadasVeiculos `gera os veículos que buscam abastecimento no posto e que, a seguir, chamam a função `esvaziamentoTanque` responsável por provocar o esvaziamento do tanque do posto na quantidade demandanda pelo veículo:
 ```python
 def chegadasVeiculos(env, tanque):
     # gera chegadas de veículos por produto
@@ -97,8 +101,7 @@ def chegadasVeiculos(env, tanque):
         # carrega veículo
         env.process(esvaziamentoTanque(env, TANQUE_VEICULO, tanque))
 ```
-
-A função que representa o processo de esvaziamento do tanque é semelhante a de enchimento da seção anterior, a menos da opção `get(qtd)`, que retira a quantidade `qtd `do `container tanque`:
+A função que representa o processo de esvaziamento do tanque é semelhante a de enchimento da seção anterior, a menos da opção `get(qtd),` que retira a quantidade `qtd` do `container tanque:`
 ```python
 def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
@@ -108,8 +111,7 @@ def esvaziamentoTanque(env, qtd, tanque):
     print("%d Veículo atendido de %3.2f.\t Nível atual: %5.1f m3"
             % (env.now, qtd, tanque.level))
 ```
-
-O programa completo fica:
+O modelo de simulação completo do posto de gasolina fica:
 ```python
 import simpy
 import random        
@@ -149,15 +151,14 @@ env.process(chegadasVeiculos(env, tanque))
 
 env.run(until = 200)
 ```
-Quando executado:
-```
+Quando por 200 minutos, o modelo anterior fornece como saída:
+```python
 5 Novo veículo de 0.10 m3.       Nível atual:  50.0 m3
 5 Veículo atendido de 0.10 m3.   Nível atual:  49.9 m3
 10 Novo veículo de 0.10 m3.      Nível atual:  49.9 m3
 10 Veículo atendido de 0.10.     Nível atual:  49.8 m3
 15 Novo veículo de 0.10 m3.      Nível atual:  49.8 m3
 15 Veículo atendido de 0.10 m3.  Nível atual:  49.7 m3
-
 ```
 ## Criando um sensor para o nível atual do `container`
 Ainda no exemplo do posto, vamos chamar um caminhão de reabastecimento sempre que o tanque atingir o nível de 50 $$m^3$$. Para isso, vamos criar uma função `sensorTanque `que reconheça o instante em que o nível do tanque abaixou do valor desejado e, portanto, envie um caminhão de reabastecimento.
