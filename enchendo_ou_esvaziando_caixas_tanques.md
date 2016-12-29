@@ -161,9 +161,9 @@ Quando por 200 minutos, o modelo anterior fornece como saída:
 15 Veículo atendido de 0.10 m3.  Nível atual:  49.7 m3
 ```
 ## Criando um sensor para o nível atual do `container`
-Ainda no exemplo do posto, vamos chamar um caminhão de reabastecimento sempre que o tanque atingir o nível de 50 $$m^3$$. Para isso, vamos criar uma função `sensorTanque `que reconheça o instante em que o nível do tanque abaixou do valor desejado e, portanto, envie um caminhão de reabastecimento.
+Ainda no exemplo do posto, vamos chamar um caminhão de reabastecimento sempre que o tanque atingir o nível de 50 $$m^3$$. Para isso, criaremos uma função `sensorTanque`capaz de reconhecer o instante exato em que o nível do tanque abaixou do valor desejado e, portanto, deve ser enviado um caminhão de reabastecimento.
 
-Incialmente, para identificar se o nível do tanque abaixou além no nível mínimo, precisamos verificar o nível atual. Contudo, esse processo de verificação não é contínuo no tempo e deve ter o seu intervalo entre verificações pré-definido no modelo.
+Incialmente, para identificar se o nível do tanque abaixou além no nível mínimo, precisamos verificar qual o nível atual. Contudo, esse processo de verificação não é contínuo no tempo e deve ter o seu intervalo entre verificações pré-definido no modelo.
 
 Assim, são necessários dois parâmetros: um para o nível mínimo e outro para o intervalo entre verificações do nível do tanque. Uma possível codificação para a função `sensorTanque `seria:
 ```python
@@ -179,9 +179,8 @@ def sensorTanque(env, tanque):
         # aguarda um tempo para fazer a nova chegagem do nível do tanque
         yield env.timeout(TEMPO_CONTROLE)
 ```
-A função `sensorTanque `é um loop infinito (`while True`) que a cada 1 minuto (configurável na constante `TEMPO_CONTROLE`) verifica se o nível do tanque está abaixo ou igual ao nível mínimo (configurável na constante `NIVEL_MINIMO`).
-
-O modelo completo agora seria:
+A função `sensorTanque `é um laço infinito `(while True)` que a cada 1 minuto (configurável na constante `TEMPO_CONTROLE)` verifica se o nível atual do tanque está abaixo ou igual ao nível mínimo (configurável na constante `NIVEL_MINIMO).
+O modelo completo com a implentação do sensor fica:
 ```python
 import simpy
 import random        
