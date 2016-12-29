@@ -59,7 +59,7 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
     # encaminha para o estoque
     while True:
         pecasContainerDict[tipo].put(tamLote)
-        print("%5.1f Chegada de lote tipo %s: +%i peças."
+        print("%5.1f Chegada de lote\ttipo %s: +%i peças"
                 %(env.now, tipo, tamLote))
         yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
 ```
@@ -80,12 +80,12 @@ def montagem(env, pecasContainerDict, numA, numB):
         yield pecasContainerDict['B'].get(numB)
         # armazena o tempo de espera por peças e inicia a montagem
         espera = env.now - chegada
-        print("%5.1f Inicia montagem.\tEstoque A: %i\tEstoque B: %i\tEspera: %4.1f"
+        print("%5.1f Inicia montagem\tEstoque A: %i\tEstoque B: %i\tEspera: %4.1f"
                 %(env.now, pecasContainerDict['A'].level, pecasContainerDict['B'].level, espera))
         yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
         # acumula componente montado
         componentesProntos += 1
-        print("%5.1f Fim da montagem.\tEstoque A: %i\tEstoque B: %i\tComponentes: %i\t"
+        print("%5.1f Fim da montagem\tEstoque A: %i\tEstoque B: %i\tComponentes: %i\t"
             %(env.now, pecasContainerDict['A'].level, pecasContainerDict['B'].level,
               componentesProntos))
 ```
@@ -108,7 +108,7 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
     # encaminha para o estoque
     while True:
         pecasContainerDict[tipo].put(tamLote)
-        print("%5.1f Chegada de lote tipo %s: +%i peças."
+        print("%5.1f Chegada de lote\ttipo %s: +%i peças"
                 %(env.now, tipo, tamLote))
         yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
 
@@ -123,14 +123,15 @@ def montagem(env, pecasContainerDict, numA, numB):
         yield pecasContainerDict['B'].get(numB)
         # armazena o tempo de espera por peças e inicia a montagem
         espera = env.now - chegada
-        print("%5.1f Inicia montagem.\tEstoque A: %i\tEstoque B: %i\tEspera: %4.1f"
+        print("%5.1f Inicia montagem\tEstoque A: %i\tEstoque B: %i\tEspera: %4.1f"
                 %(env.now, pecasContainerDict['A'].level, pecasContainerDict['B'].level, espera))
         yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
         # acumula componente montado
         componentesProntos += 1
-        print("%5.1f Fim da montagem.\tEstoque A: %i\tEstoque B: %i\tComponentes: %i\t"
+        print("%5.1f Fim da montagem\tEstoque A: %i\tEstoque B: %i\tComponentes: %i\t"
             %(env.now, pecasContainerDict['A'].level, pecasContainerDict['B'].level,
               componentesProntos))
+
     
 random.seed(100)            
 env = simpy.Environment()
@@ -149,30 +150,30 @@ env.run(until = 80)
 ```
 Quando executado, o modelo anterior fornece como saída:
 ```python
-  0.0 Chegada de lote tipo A: +10 peças.
-  0.0 Chegada de lote tipo B: +10 peças.
-  0.0 Inicia montagem.  Estoque A: 9    Estoque B: 8    Espera:  0.0
-  6.6 Fim da montagem.  Estoque A: 9    Estoque B: 8    Componentes: 1  
-  6.6 Inicia montagem.  Estoque A: 8    Estoque B: 6    Espera:  0.0
- 12.3 Fim da montagem.  Estoque A: 8    Estoque B: 6    Componentes: 2  
- 12.3 Inicia montagem.  Estoque A: 7    Estoque B: 4    Espera:  0.0
- 18.4 Fim da montagem.  Estoque A: 7    Estoque B: 4    Componentes: 3  
- 18.4 Inicia montagem.  Estoque A: 6    Estoque B: 2    Espera:  0.0
- 22.1 Fim da montagem.  Estoque A: 6    Estoque B: 2    Componentes: 4  
- 22.1 Inicia montagem.  Estoque A: 5    Estoque B: 0    Espera:  0.0
- 28.2 Fim da montagem.  Estoque A: 5    Estoque B: 0    Componentes: 5  
- 41.5 Chegada de lote tipo A: +10 peças.
- 44.5 Chegada de lote tipo B: +10 peças.
- 44.5 Inicia montagem.  Estoque A: 14   Estoque B: 8    Espera: 16.3
- 48.9 Fim da montagem.  Estoque A: 14   Estoque B: 8    Componentes: 6  
- 48.9 Inicia montagem.  Estoque A: 13   Estoque B: 6    Espera:  0.0
- 53.1 Fim da montagem.  Estoque A: 13   Estoque B: 6    Componentes: 7  
- 53.1 Inicia montagem.  Estoque A: 12   Estoque B: 4    Espera:  0.0
- 59.1 Fim da montagem.  Estoque A: 12   Estoque B: 4    Componentes: 8  
- 59.1 Inicia montagem.  Estoque A: 11   Estoque B: 2    Espera:  0.0
- 64.7 Fim da montagem.  Estoque A: 11   Estoque B: 2    Componentes: 9  
- 64.7 Inicia montagem.  Estoque A: 10   Estoque B: 0    Espera:  0.0
- 70.0 Fim da montagem.  Estoque A: 10   Estoque B: 0    Componentes: 10 
+  0.0 Chegada de lote   tipo A: +10 peças
+  0.0 Chegada de lote   tipo B: +10 peças
+  0.0 Inicia montagem   Estoque A: 9    Estoque B: 8    Espera:  0.0
+  6.6 Fim da montagem   Estoque A: 9    Estoque B: 8    Componentes: 1  
+  6.6 Inicia montagem   Estoque A: 8    Estoque B: 6    Espera:  0.0
+ 12.3 Fim da montagem   Estoque A: 8    Estoque B: 6    Componentes: 2  
+ 12.3 Inicia montagem   Estoque A: 7    Estoque B: 4    Espera:  0.0
+ 18.4 Fim da montagem   Estoque A: 7    Estoque B: 4    Componentes: 3  
+ 18.4 Inicia montagem   Estoque A: 6    Estoque B: 2    Espera:  0.0
+ 22.1 Fim da montagem   Estoque A: 6    Estoque B: 2    Componentes: 4  
+ 22.1 Inicia montagem   Estoque A: 5    Estoque B: 0    Espera:  0.0
+ 28.2 Fim da montagem   Estoque A: 5    Estoque B: 0    Componentes: 5  
+ 41.5 Chegada de lote   tipo A: +10 peças
+ 44.5 Chegada de lote   tipo B: +10 peças
+ 44.5 Inicia montagem   Estoque A: 14   Estoque B: 8    Espera: 16.3
+ 48.9 Fim da montagem   Estoque A: 14   Estoque B: 8    Componentes: 6  
+ 48.9 Inicia montagem   Estoque A: 13   Estoque B: 6    Espera:  0.0
+ 53.1 Fim da montagem   Estoque A: 13   Estoque B: 6    Componentes: 7  
+ 53.1 Inicia montagem   Estoque A: 12   Estoque B: 4    Espera:  0.0
+ 59.1 Fim da montagem   Estoque A: 12   Estoque B: 4    Componentes: 8  
+ 59.1 Inicia montagem   Estoque A: 11   Estoque B: 2    Espera:  0.0
+ 64.7 Fim da montagem   Estoque A: 11   Estoque B: 2    Componentes: 9  
+ 64.7 Inicia montagem   Estoque A: 10   Estoque B: 0    Espera:  0.0
+ 70.0 Fim da montagem   Estoque A: 10   Estoque B: 0    Componentes: 10 
 ```
 ##Agrupando lotes por atributo da entidade
 
@@ -189,7 +190,7 @@ def chegadaPecas(env, pecasFilterStoreDict, tipo):
         # sorteia a cor das peças
         cor = random.choice(("branco", "verde"))
         yield pecasFilterStoreDict[tipo].put(cor)
-        print("%5.1f Chegada de peça tipo %s.\tCor: %s."
+        print("%5.1f Chegada de peça tipo %s\tCor: %s"
                 %(env.now, tipo, cor))
         if tipo == 'A':
             # inicia processo de montagem
@@ -210,12 +211,12 @@ def montagem(env, cor, pecasFilterStoreDict):
         yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
         # armazena o tempo de espera por peças e inicia a montagem
         espera = env.now - chegada
-        print("%5.1f Inicia montagem.\t\tCor: %s\tEspera: %4.1f"
+        print("%5.1f Inicia montagem\t\tCor: %s\tEspera: %4.1f"
                 %(env.now, cor, espera))
         yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
         # acumula componente montado
         componentesProntos += 1
-        print("%5.1f Fim da montagem.\t\tCor: %s\tComponentes: %i\t"
+        print("%5.1f Fim da montagem\t\tCor: %s\tComponentes: %i\t"
             %(env.now, cor, componentesProntos))
 ```
 Finalizando, precisamos criar o Environment, um FilterStore para cada tipo de peça e chamar a execução do modelo:
@@ -251,7 +252,7 @@ def chegadaPecas(env, pecasFilterStoreDict, tipo):
         # sorteia a cor das peças
         cor = random.choice(("branco", "verde"))
         yield pecasFilterStoreDict[tipo].put(cor)
-        print("%5.1f Chegada de peça tipo %s.\tCor: %s."
+        print("%5.1f Chegada de peça tipo %s\tCor: %s"
                 %(env.now, tipo, cor))
         if tipo == 'A':
             # inicia processo de montagem
@@ -269,12 +270,12 @@ def montagem(env, cor, pecasFilterStoreDict):
         yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
         # armazena o tempo de espera por peças e inicia a montagem
         espera = env.now - chegada
-        print("%5.1f Inicia montagem.\t\tCor: %s\tEspera: %4.1f"
+        print("%5.1f Inicia montagem\t\tCor: %s\tEspera: %4.1f"
                 %(env.now, cor, espera))
         yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
         # acumula componente montado
         componentesProntos += 1
-        print("%5.1f Fim da montagem.\t\tCor: %s\tComponentes: %i\t"
+        print("%5.1f Fim da montagem\t\tCor: %s\tComponentes: %i\t"
             %(env.now, cor, componentesProntos))
     
 random.seed(100)            
@@ -289,7 +290,7 @@ pecasFilterStoreDict['B'] = simpy.FilterStore(env)
 env.process(chegadaPecas(env, pecasFilterStoreDict, 'A'))
 env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
 
-env.run(until=80) 
+env.run(until=80)   
 ```
 Quando executado, o programa anterior fornece como saída:
 ```python
