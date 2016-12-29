@@ -350,4 +350,5 @@ Quando executado, o modelo anterior fornece:
 
 1. Considere que a barbearia opera 6 horas por dia. Acrescente ao seu modelo às estatíticas de clientes atendidos, clientes que desistiram (e por qual razão), ocupação dos barbeiros e tempo médio de espera em fila por barbeiro.
 2. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 15 minutos?
+3. Refaça o exemplo do `PriorityStore` da seção anterior, armazenando não mais o nome do barbeiro, mas o seu respectivo `resource.`
 
