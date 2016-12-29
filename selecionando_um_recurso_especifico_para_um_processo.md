@@ -232,25 +232,88 @@ Quando executado, o modelo anterior fornece:
 
 Repare que o cliente 3 chegou num instante em que o barbeiro 1 estava ocupado atendendo o cliente 1, assim ele foi obrigado a esperar em fila por 3 minutos, até que o cliente 1 liberasse o Barbeiro 1.
 
-## Criando um `Store` com prioridade: `PriorityStore()`
+## Criando um `Store` com prioridade: `PriorityStore`
 
 Como sabemos, um `Store` segue a regra FIFO, de modo que o primeiro objeto a entrar no `Store `será o primeiro a sair do `Store`. É possível quebrar essa regra por meio do `PriorityStore`:
 
 ```python
 meuPriorityStore = simpy.PriorityStore(env, capacity=inf)
 ```
-Para armazenar certo objeto com uma prioridade específica, o `PriorityStore` tem um comando especial, o `PriorityItem`. Para acrescentar um objeto qualquer ao `meuPriorityStore `já criado, a sequência de passos é primeiro criar um objeto `PriorityItem` - que representará o objeto a ser armazendo - para depois inserilo com um comando `put:`
+Para acrescentar um objeto qualquer ao `meuPriorityStore `já criado, a sequência de passos é primeiro criar um objeto `PriorityItem` - que representará o objeto a ser armazendo - para depois inseri-lo com um comando `put,` como representado no exemplo a seguir:
 
 ```python
 # criar o PriorityItem
-meuObjetoPriority = simpy.PriorityItem(priority=priority, meuObjeto)
+meuObjetoPriority = simpy.PriorityItem(priority=priority, item=meuObjeto)
 # adicionar o PriorityItem ao PriorityStore
 meuPriorityStore.put(meuObjetoPriority)
 ```
 >Observação: como no caso do `PriorityResource`, quanto menor o valor de `priority`, maior a preferência pelo objeto.
 
-Por exemplo, no caso dos nomes "João, José e Mário", considere que a ordem de prioridades é a própria ordem alfabética dos nomes. Assim, incialmente, construíremos dois dicionários para armazenar essas informações sobre os barbeiros:
+No caso dos barbeiros: "João, José e Mário", considere que a ordem de prioridades é a própria ordem alfabética dos nomes. Assim, incialmente, construíremos dois dicionários para armazenar essas informações sobre os barbeiros:
+```python
+random.seed(100)            
+env = simpy.Environment()
 
+# cria 3 barbeiros diferentes e armazena em um dicionário
+barbeirosList = [simpy.Resource(env, capacity=1) for i in range(3)]
+barbeirosNomes = ['João', 'José', 'Mario']
+# lista com a ordem de prioridades dos barbeiros
+barbeirosPrioList = ['0', '1', '2']
+
+# dicionário de recursos e prioridades
+barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
+barbeirosPrioDict = dict(zip(barbeirosNomes, barbeirosPrioList))
+```
+A partir dos dicionários anteriores, podemos construir um `PriorityStore` que armazena os nomes dos barbeiros e suas prioridades:
+```python
+# cria um Store para armazenar os barbeiros
+barbeariaStore = simpy.PriorityStore(env, capacity=3)
+for nome in barbeirosNomes:
+    barbeiro = simpy.PriorityItem(priority=barbeirosPrioDict[nome], item=nome)
+    barbeariaStore.put(barbeiro)
+
+# inicia processo de chegadas de clientes
+env.process(chegadaClientes(env, barbeariaStore))
+env.run(until = 20)   
+```
+A função `atendimento` é muito semelhante às anteriores, basta notar que o comando `get` vai buscar não o nome, ma um *objeto* `PriorityItem` dentro do `PriorityStore`. Este objeto possui dois atributos: `item` - no nosso caso, o nome do barbeiro - e `priority` - a prioridade do objeto.
+
+A seguir, apresenta-se uma possível implementação da função `atendimento.` Note que o objeto `barbeiro` é um `PriorityItem` e que, para sabermos o seu nome, precisamos do comando `barbeiro.item:`
+```python
+def atendimento(env, cliente, barbeariaStore):
+    #ocupa um barbeiro específico e realiza o corte
+    chegada = env.now
+    barbeiro = yield barbeariaStore.get()
+    # extraí o nome do barbeiro
+    barbeiroNome = barbeiro.item
+    espera = env.now - chegada
+    print("%5.1f Cliente %i inicia.\t\tBarbeiro %s ocupado.\tTempo de fila: %2.1f"
+            %(env.now, cliente, barbeiroNome, espera))
+    with barbeirosDict[barbeiroNome].request() as req:
+        yield req
+        yield env.timeout(random.normalvariate(*TEMPO_CORTE))
+        print("%5.1f Cliente %i termina.\tBarbeiro %s liberado." 
+                %(env.now, cliente, barbeiroNome))
+    barbeariaStore.put(barbeiro)
+```
+O modelo de simulação completo, quando simulado por apenas 20 minutos, fornece como saída:
+```python
+  0.8 Cliente 1 chega.
+  0.8 Cliente 1 inicia.         Barbeiro João ocupado.  Tempo de fila: 0.0
+  3.8 Cliente 2 chega.
+  3.8 Cliente 2 inicia.         Barbeiro José ocupado.  Tempo de fila: 0.0
+ 10.4 Cliente 3 chega.
+ 10.4 Cliente 3 inicia.         Barbeiro Mario ocupado. Tempo de fila: 0.0
+ 12.7 Cliente 2 termina.        Barbeiro José liberado.
+ 13.9 Cliente 1 termina.        Barbeiro João liberado.
+ 14.2 Cliente 4 chega.
+ 14.2 Cliente 4 inicia.         Barbeiro João ocupado.  Tempo de fila: 0.0
+ 14.5 Cliente 5 chega.
+ 14.5 Cliente 5 inicia.         Barbeiro José ocupado.  Tempo de fila: 0.0
+ 17.8 Cliente 3 termina.        Barbeiro Mario liberado.
+```
+> Observação 1: internamente, o SimPy trata a "família" `Store` como recursos com capacidade ilimitada de armazenamento de objetos.
+>Observação 2: uma implementação alternativa para o problema anterior, seria armazenar no `PriorityStore` não o nome do barbeiro, mas o próprio recurso criado. (Veja o tópico: "Teste seus conhecimentos" na próxima seção.
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
