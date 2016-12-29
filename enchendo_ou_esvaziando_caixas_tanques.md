@@ -1,6 +1,6 @@
 # Enchendo ou esvaziando caixas, tanques ou objetos com `Container()`
 
-Um tipo especial de recurso no SimPy é o `conteiner`. Intuitivamente, um `conteiner` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de líquido ou uma caixa de laranjas.
+Um tipo especial de recurso no SimPy é o `container`. Intuitivamente, um `container` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de líquido ou uma caixa de laranjas.
 
 A sua utilização é bem simples, por exemplo, podemos modelar um tanque de 100 unidades de capacidade \($$m^3$$, por exemplo\), com um estoque inicial de 50 unidades, por meio do seguinte código:
 
