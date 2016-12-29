@@ -289,7 +289,7 @@ pecasFilterStoreDict['B'] = simpy.FilterStore(env)
 env.process(chegadaPecas(env, pecasFilterStoreDict, 'A'))
 env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
 
-env.run(until = 80) 
+env.run(until=80) 
 ```
 Quando executado, o programa anterior fornece como saída:
 ```python
