@@ -66,6 +66,7 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     barbeariaStore.put(barbeiro)
 ```
 Note, no código anterior, que, caso o cliente não tenha barbeiro preferido, o `get`do `FilterStore` é utilizado sem nenhuma função `lambda` dentro do parentesis. 
+
 Por fim, o código completo do modelo:
 
 ```python
@@ -131,7 +132,7 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20)
 ```
-Quando executado, o modelo anterior fornece:
+Quando executado por apenas 20 minutos, o modelo anterior fornece:
 
 ```python
   3.4 Cliente 1 chega.          Barbeiro A.
@@ -151,7 +152,7 @@ Quando executado, o modelo anterior fornece:
 * O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
 * O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
-Como teremos de identificar quantos clientes estão aguardando o respectivo barbeiro favorito, uma saída seria utilizar um dicionário para armazenar o número de clientes em fila (outra possibilidade seria um `Store` específico para a fila):
+Como teremos de identificar quantos clientes estão aguardando o respectivo barbeiro favorito, uma saída seria utilizar um dicionário para armazenar o número de clientes em fila (outra possibilidade seria um `Store` específico para cada fila):
 
 ```python
 random.seed(25)            
@@ -178,14 +179,16 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 30)    
 ```
-Para garantir a falta de um barbeiro em 5% das simulações, foi novamente utilizado o comando `random.random` e adicionalmente o comando `[random.choice](https://docs.python.org/dev/library/random.html#random.choice)` que selecionada uniformemente um elemento da lista `barbeirosNomes`:
+Para garantir a falta de um barbeiro em 5% das simulações, foi novamente utilizado o comando `random.random` e o comando `[random.choice](https://docs.python.org/dev/library/random.html#random.choice),` que seleciona uniformemente um elemento da lista `barbeirosNomes`:
 ```python
 if random.random() <= 0.05:
     barbeirosNomes.remove(random.choice((barbeirosNomes)))
 ```
 Na linha anterior, além de sortearmos um dos barbeiros, ele é removido da lista de barbeiros, o que facilita o processo de desistência do cliente.
 
-O processo de chegadas de clientes não precisa ser modificado em relação ao código anterior, contudo, o processo de atendimento precisa armazenar o número de clientes em fila por barbeiro - para isso podemos criar um dicionário - e o número de clientes em fila total - neste caso podemos criar uma variável global que armazena o número total de clientes em fila. Uma possível codificação para a nova função `atendimento` seria:
+O processo de chegadas de clientes não precisa ser modificado em relação ao desafio anterior, contudo, o processo de atendimento precisa armazenar o número de clientes em fila por barbeiro - que pode ser feito por meio de um dicionário - e o número de clientes em fila total - que pode ser feito por meio de uma variável global que armazena o número total de clientes em fila. 
+
+Uma possível codificação para a nova função `atendimento` seria:
 ```python
 def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     # ocupa um barbeiro específico e realiza o corte
@@ -336,7 +339,7 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 30)   
 ```
-Quando executado, o modelo anterior fornece:
+Quando executado por apenas 30 minutos, o modelo anterior fornece:
 ```python
  13.1 Cliente 1 chega.          Sem preferência.
  13.1 Cliente 1 inicia.         Barbeiro A ocupado.     Tempo de fila: 0.0

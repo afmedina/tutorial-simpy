@@ -13,7 +13,7 @@ def esvaziamentoTanque(env, qtd, tanque):
     # esvazia o tanque
     print("%d Novo veículo de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
     yield tanque.get(qtd)
-    #aguarda o tempo de bombeamento
+    # aguarda o tempo de bombeamento
     yield env.timeout(qtd/TAXA_VEICULO)
     print("%d Veículo atendido de %3.2f m3.\t Nível atual: %5.1f m3" % (env.now, qtd, tanque.level))
 
