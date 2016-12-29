@@ -301,5 +301,5 @@ Quando executado, o programa anterior fornece como saída:
  47.7 Inicia montagem.          Cor: branco     Espera: 47.7
  49.0 Fim da montagem.          Cor: verde      Componentes: 1  
  52.6 Fim da montagem.          Cor: branco     Componentes: 2  
-
 ```
+>**Desafio 19**:
