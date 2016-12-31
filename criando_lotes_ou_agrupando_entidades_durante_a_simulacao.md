@@ -30,7 +30,7 @@ def montagem(env, pecasContainerDict, numA, numB):
 random.seed(100)            
 env = simpy.Environment()
 
-#cria estoques de peças 
+# cria estoques de peças 
 pecasContainerDict = {}
 pecasContainerDict['A'] = simpy.Container(env)
 pecasContainerDict['B'] = simpy.Container(env)
@@ -38,13 +38,14 @@ pecasContainerDict['B'] = simpy.Container(env)
 # inicia processos de chegadas de pecas
 env.process(chegadaPecas(env, pecasContainerDict, 'A', 10))
 env.process(chegadaPecas(env, pecasContainerDict, 'B', 10))
+
 # inicia processo de montagem
 env.process(montagem(env, pecasContainerDict, 1, 2))
 env.run(until=80)   
 ```
-Na máscara anterior, foram criadas duas funções: ```chegaPecas```, que gera os lotes de peças A e B e armazena nos respectivos estoques e ```montagem```, que retira as peças do estoque e montam o componente.
+Na máscara anterior, foram criadas duas funções: `chegaPecas`, que gera os lotes de peças A e B e armazena nos respectivos estoques e `montagem`, que retira as peças do estoque e montam o componente.
 
-Note que criei um dicionário no Python: ```pecasContainerDict```, para armazenar o ```Container``` de cada peça:
+Note que criei um dicionário no Python: `pecasContainerDict`, para armazenar o `Container` de cada peça:
 ```python
 # cria estoques de peças 
 pecasContainerDict = {}
@@ -59,7 +60,7 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
     # encaminha para o estoque
     while True:
         pecasContainerDict[tipo].put(tamLote)
-        print("%5.1f Chegada de lote\ttipo %s: +%i peças"
+        print("%5.1f Chegada de lote\t%s\tPeças: %i"
                 %(env.now, tipo, tamLote))
         yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
 ```
