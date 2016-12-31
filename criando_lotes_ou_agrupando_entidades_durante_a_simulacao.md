@@ -251,6 +251,6 @@ Quando executado por apenas 80 minutos, o programa anterior fornece como saída:
 ```
 Naturalmente, existem outras soluções, mas optei por um caminho que mostrasse algumas limitações para um problema bastante comum em modelos de simulação. 
 
->**Desafio 19**: Considere, no primeiro exemplo, que o componente possui mais duas partes, C e D que devem ser previamente montadas entre si para, a seguir, serem encaixadas nas peças A e B. Os tempos de montagem são todos semlhantes, mas cada processo tem seu recurso específico. (Dica: generalize a função `montagem` apresentada no exemplo).  
+>**Desafio 19**: Considere, no primeiro exemplo, que o componente possui mais duas partes, C e D que devem ser previamente montadas entre si para, a seguir, serem encaixadas nas peças A e B. Os tempos de montagem são todos semlhantes. (Dica: generalize a função `montagem` apresentada no exemplo).  
 
->**Desafio 20**: Utili
+>**Desafio 20**: Nos exemplos anteriores, os processos de montagem são paralelos. Considere que existe apenas um montador compartilhado para todos processos. Generalize a função montagem do desafio anterior, de modo que ela receba como parâmetro o respectivo recurso utilizado no processo.
