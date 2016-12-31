@@ -204,10 +204,9 @@ def montagem(env, pecasFilterStoreDict, numA, numB, cor):
         yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
         # acumula componente montado
         componentesProntos += 1
-        print("%5.1f Fim da montagem\tCor: %s\tComponentes: %i\t"
-            %(env.now, cor, componentesProntos))
-        print("%5.1f Estoque A: %i\tEstoque B: %i\t"
-            %(env.now, len(pecasFilterStoreDict['A'].items), len(pecasFilterStoreDict['B'].items)))
+        print("%5.1f Fim da montagem\tCor: %s\tComponentes: %i\tEstoque A: %i\tEstoque B: %i"
+            %(env.now, cor, componentesProntos,  len(pecasFilterStoreDict['A'].items), 
+              len(pecasFilterStoreDict['B'].items)))
 ```
 Dois pontos merecem destaque na função anterior:
 1. A função `montagem`, deve ser chamada duas vezes na inicialização da simulação, uma para cada cor. Isto significa que nossa implementação permite a montagem simultânea de peças de cores diferentes. Caso seja necessário contornar este problema, basta a criação de um recurso "montador" (veja o tópico "Teste seus conhecimentos" na próxima seção";
@@ -221,34 +220,24 @@ Quando executado por apenas 80 minutos, o programa anterior fornece como saída:
  44.5 Chegada de lote   tipo: A         Cor: verde
  47.7 Inicia montagem   Cor: branco     Espera: 47.7
  47.7 Chegada de lote   tipo: B         Cor: branco
- 50.3 Fim da montagem   Cor: verde      Componentes: 1  
- 50.3 Estoque A: 18     Estoque B: 16   
+ 50.3 Fim da montagem   Cor: verde      Componentes: 1  Estoque A: 18   Estoque B: 16
  50.3 Inicia montagem   Cor: verde      Espera:  0.0
- 51.4 Fim da montagem   Cor: branco     Componentes: 2  
- 51.4 Estoque A: 17     Estoque B: 14   
+ 51.4 Fim da montagem   Cor: branco     Componentes: 2  Estoque A: 17   Estoque B: 14
  51.4 Inicia montagem   Cor: branco     Espera:  0.0
- 54.8 Fim da montagem   Cor: verde      Componentes: 3  
- 54.8 Estoque A: 16     Estoque B: 12   
+ 54.8 Fim da montagem   Cor: verde      Componentes: 3  Estoque A: 16   Estoque B: 12
  54.8 Inicia montagem   Cor: verde      Espera:  0.0
- 57.0 Fim da montagem   Cor: branco     Componentes: 4  
- 57.0 Estoque A: 15     Estoque B: 10   
+ 57.0 Fim da montagem   Cor: branco     Componentes: 4  Estoque A: 15   Estoque B: 10
  57.0 Inicia montagem   Cor: branco     Espera:  0.0
- 59.2 Fim da montagem   Cor: verde      Componentes: 5  
- 59.2 Estoque A: 14     Estoque B: 8    
+ 59.2 Fim da montagem   Cor: verde      Componentes: 5  Estoque A: 14   Estoque B: 8
  59.2 Inicia montagem   Cor: verde      Espera:  0.0
- 61.3 Fim da montagem   Cor: branco     Componentes: 6  
- 61.3 Estoque A: 13     Estoque B: 6    
+ 61.3 Fim da montagem   Cor: branco     Componentes: 6  Estoque A: 13   Estoque B: 6
  61.3 Inicia montagem   Cor: branco     Espera:  0.0
- 64.6 Fim da montagem   Cor: branco     Componentes: 7  
- 64.6 Estoque A: 12     Estoque B: 4    
+ 64.6 Fim da montagem   Cor: branco     Componentes: 7  Estoque A: 12   Estoque B: 4
  64.6 Inicia montagem   Cor: branco     Espera:  0.0
- 65.9 Fim da montagem   Cor: verde      Componentes: 8  
- 65.9 Estoque A: 11     Estoque B: 2    
+ 65.9 Fim da montagem   Cor: verde      Componentes: 8  Estoque A: 11   Estoque B: 2
  65.9 Inicia montagem   Cor: verde      Espera:  0.0
- 68.8 Fim da montagem   Cor: branco     Componentes: 9  
- 68.8 Estoque A: 10     Estoque B: 0    
- 71.1 Fim da montagem   Cor: verde      Componentes: 10 
- 71.1 Estoque A: 9      Estoque B: 0    
+ 68.8 Fim da montagem   Cor: branco     Componentes: 9  Estoque A: 10   Estoque B: 0
+ 71.1 Fim da montagem   Cor: verde      Componentes: 10 Estoque A: 9    Estoque B: 0   
 ```
 Naturalmente, existem outras soluções, mas optei por um caminho que mostrasse algumas limitações para um problema bastante comum em modelos de simulação. 
 
