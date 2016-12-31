@@ -4,7 +4,7 @@ Uma situação bastante comum em modelos de simulação é o agrupamento de enti
 
 Vamos partir de um exemplo simples, em que uma célula de produção deve realizar a tarefa de montagem de um certo componente a partir do encaixe de 1 peça A com duas peças B. O operador da célula leva em média 5 minutos para montar o componente, segundo uma distribuição normal com desvio padrão de 1 minuto. Os processos de chegadas dos lotes A e B são distintos entre si, com tempos entre chegadas sucessivas uniformemente distribuidos no intervalo entre 40 a 60 minutos.
 
-## Uma tática para agrupamento de lotes: utilizar o `Container`
+## Uma tática para agrupamento de lotes utilizando o `Container`
 
 Uma maneira de resolver o problema é criar um `Container` de estoque temporário para cada peça. Assim, criamos dois estoques, respectivamente para as peças A e B, de modo que o componente só poderá iniciar sua montagem se cada estoque contiver ao menos o número de peças necessárias para sua montagem.
 
@@ -14,7 +14,7 @@ import simpy
 import random
 
 TEMPO_CHEGADAS = [40, 50]       # intervalo entre chegadas de peças
-TEMPO_MONTAGEM = [5, 1]         # intervalo entre chegadas de peças
+TEMPO_MONTAGEM = [5, 1]         # tempo de montagem do componente
 componentesProntos = 0          # variável para o total de componentes produzidos
 
 def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
@@ -46,7 +46,7 @@ Na máscara anterior, foram criadas duas funções: ```chegaPecas```, que gera o
 
 Note que criei um dicionário no Python: ```pecasContainerDict```, para armazenar o ```Container``` de cada peça:
 ```python
-#cria estoques de peças 
+# cria estoques de peças 
 pecasContainerDict = {}
 pecasContainerDict['A'] = simpy.Container(env)
 pecasContainerDict['B'] = simpy.Container(env)
@@ -123,134 +123,134 @@ A parte central da função anterior é garantir que o processo só possa se ini
 ```
 O que o leitor deve ter achado interessante é o modo passivo da função `montagem` que, por meio de um laço infinito `while True` aguarda o aparecimento de peças suficientes nos estoques para iniciar a montagem. Interessante também é notar que não alocamos recursos para a operação e isso significa que o modelo de simulação atual não permite a montagem simultânea de componentes (veja o tópico "Teste seus conhecimentos" na próxima seção).
 
-##Agrupando lotes por atributo da entidade
+##Agrupando lotes por atributo da entidade utilizando o `FilterStore`
 
 Outra situação bastante comum em modelos de simulação é quando precisamos agrupar entidades por atributo. Por exemplo, os componentes anteriores são de duas cores: brancos ou verdes, de modo que a célula de montagem agora deve pegar peças A e B com as cores corretas.
 
-Como agora existe um atributo (no caso, cor) que diferencia uma peça da outra, precisaremos de um ```FilterStore```, para garantir a escolha certa da peça no estoque. Adicionalmente - e isso não é algo trivial de se compreender - a função ```montagem``` não pode ser mais *passiva*, no sentido que aguarda as peças no estoque, como no exemplo anterior. Precisamo criar processos para que cada peça A que chega ao estoque inicie a busca por uma peça B que tenha a mesma cor.
-
-Neste caso, a chegada de peças deve sortear uma cor. No exemplo seguinte, a cor é sorteada pelo comando ```[random.choice](https://docs.python.org/3/library/random.html#random.choice)```:
-```python
-def chegadaPecas(env, pecasFilterStoreDict, tipo):
-    # gera lotes de pecas em intervalos uniformemente distribuídos
-    # encaminha para o estoque
-    while True:
-        # sorteia a cor das peças
-        cor = random.choice(("branco", "verde"))
-        yield pecasFilterStoreDict[tipo].put(cor)
-        print("%5.1f Chegada de peça tipo %s\tCor: %s"
-                %(env.now, tipo, cor))
-        if tipo == 'A':
-            # inicia processo de montagem
-            env.process(montagem(env, cor, pecasFilterStoreDict))
-        yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
-```
-Note, na função anterior, que sempre que a peça por do tipo 'A', é iniciado um novo processo de montagem. Portanto, toda peça A que chega ao estoque inicia um processo de montagem.
-
-A função montagem, a seguir, faz uma busca pelas peças A e B da mesma cor:
-```python
-def montagem(env, cor, pecasFilterStoreDict):
-    # montagem do componente
-    global componentesProntos
-    while True:
-        # marca o instante em que a célula está livre para a montagem
-        chegada = env.now
-        yield pecasFilterStoreDict['A'].get(lambda c: c==cor)
-        yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
-        # armazena o tempo de espera por peças e inicia a montagem
-        espera = env.now - chegada
-        print("%5.1f Inicia montagem\t\tCor: %s\tEspera: %4.1f"
-                %(env.now, cor, espera))
-        yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
-        # acumula componente montado
-        componentesProntos += 1
-        print("%5.1f Fim da montagem\t\tCor: %s\tComponentes: %i\t"
-            %(env.now, cor, componentesProntos))
-```
-Finalizando, criaremos um `Environment,` um `FilterStore` para cada tipo de peça e chamar a execução do modelo:
-```python
-random.seed(100)            
-env = simpy.Environment()
-
-#cria estoques de peças 
-pecasFilterStoreDict = {}
-pecasFilterStoreDict['A'] = simpy.FilterStore(env)
-pecasFilterStoreDict['B'] = simpy.FilterStore(env)
-
-# inicia processos de chegadas de pecas
-env.process(chegadaPecas(env, pecasFilterStoreDict, 'A'))
-env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
-
-env.run(until = 80) 
-```
-O modelo completo ficaria:
+Como agora existe um atributo (no caso, cor) que diferencia uma peça da outra, precisaremos de um ```FilterStore```, para garantir a escolha certa da peça no estoque. Contudo, devemos lembrar que o `FilterStore`, diferentemente do `Container`, não permite que se armazene ou retire múltiplos objetos ao mesmo tempo. O comando `put` (ou mesmo o `get),` é limitado a um objeto por vez. Por fim, a montagem do componente agora é pelo atributo "cor", o que significa que a função `montagem` deve ser chamada uma vez para cada valor do atributo (no caso duas vezes: "branco" ou "verde").
+De modo semelhante ao exemplo anterior, uma máscara para o problema seria:
 ```python
 import simpy
 import random
 
 TEMPO_CHEGADAS = [40, 50]       # intervalo entre chegadas de peças
-TEMPO_MONTAGEM = [5, 1]         # intervalo entre chegadas de peças
-
+TEMPO_MONTAGEM = [5, 1]         # tempo de montagem do componente
 componentesProntos = 0          # variável para o total de componentes produzidos
 
-def chegadaPecas(env, pecasFilterStoreDict, tipo):
+def chegadaPecas(env, pecasFilterStoreDict, tipo, tamLote):
     # gera lotes de pecas em intervalos uniformemente distribuídos
-    # encaminha para o estoque
-    while True:
-        # sorteia a cor das peças
-        cor = random.choice(("branco", "verde"))
-        yield pecasFilterStoreDict[tipo].put(cor)
-        print("%5.1f Chegada de peça tipo %s\tCor: %s"
-                %(env.now, tipo, cor))
-        if tipo == 'A':
-            # inicia processo de montagem
-            env.process(montagem(env, cor, pecasFilterStoreDict))
-        yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
-
+    # sorteia a cor das peças
+    # coloca um número tamLote de peças dentro do FilterStore
+    pass
         
-def montagem(env, cor, pecasFilterStoreDict):
+def montagem(env, pecasFilterStoreDict, numA, numB, cor):
     # montagem do componente
     global componentesProntos
-    while True:
-        # marca o instante em que a célula está livre para a montagem
-        chegada = env.now
-        yield pecasFilterStoreDict['A'].get(lambda c: c==cor)
-        yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
-        # armazena o tempo de espera por peças e inicia a montagem
-        espera = env.now - chegada
-        print("%5.1f Inicia montagem\t\tCor: %s\tEspera: %4.1f"
-                %(env.now, cor, espera))
-        yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
-        # acumula componente montado
-        componentesProntos += 1
-        print("%5.1f Fim da montagem\t\tCor: %s\tComponentes: %i\t"
-            %(env.now, cor, componentesProntos))
+    pass
     
 random.seed(100)            
 env = simpy.Environment()
 
-#cria estoques de peças 
+# cria um dicionário para armazenar os FilterStore
 pecasFilterStoreDict = {}
 pecasFilterStoreDict['A'] = simpy.FilterStore(env)
 pecasFilterStoreDict['B'] = simpy.FilterStore(env)
 
 # inicia processos de chegadas de pecas
-env.process(chegadaPecas(env, pecasFilterStoreDict, 'A'))
-env.process(chegadaPecas(env, pecasFilterStoreDict, 'B'))
+env.process(chegadaPecas(env, pecasFilterStoreDict, 'A', 10))
+env.process(chegadaPecas(env, pecasFilterStoreDict, 'B', 10))
 
-env.run(until=80)   
+# inicia processos de montagem de pecas
+env.process(montagem(env, pecasFilterStoreDict, 1, 2, 'branco'))
+env.process(montagem(env, pecasFilterStoreDict, 1, 2, 'verde'))
+
+env.run(until=80) 
 ```
-Quando executado, o programa anterior fornece como saída:
+Note que foi criado um dicionário `pecasFilterStore` armazena um `FilterStore` para cada tipo de peça. 
+Vamos agora construir a função `chegadaPecas`, considerando que ela deve sortear a cor do lote de peças e enviar todas as peças do lote (uma por vez) para o respectivo `FilterStore.`
+Para sortear a cor do lote, uma opção é utilizar o comando [random.choice](https://docs.python.org/3/library/random.html#random.choice), enquanto o envio de múltiplas peças para o `FilterStore` pode ser feito por um laço `for,` como mostra o código a seguir:
 ```python
-  0.0 Chegada de peça tipo A    Cor: branco
-  0.0 Chegada de peça tipo B    Cor: verde
- 44.5 Chegada de peça tipo A    Cor: verde
- 44.5 Inicia montagem           Cor: verde      Espera:  0.0
- 47.7 Chegada de peça tipo B    Cor: branco
- 47.7 Inicia montagem           Cor: branco     Espera: 47.7
- 49.0 Fim da montagem           Cor: verde      Componentes: 1  
- 52.6 Fim da montagem           Cor: branco     Componentes: 2   
+def chegadaPecas(env, pecasFilterStoreDict, tipo, tamLote):
+    # gera lotes de pecas em intervalos uniformemente distribuídos
+    while True:
+        # sorteia a cor das peças
+        cor = random.choice(("branco", "verde"))
+        # coloca um número tamLote de peças dentro do FilterStore
+        for i in range(tamLote):
+            yield pecasFilterStoreDict[tipo].put(cor)
+        print("%5.1f Chegada de lote\ttipo: %s\t\tCor: %s"
+                %(env.now, tipo, cor))
+        yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
 ```
->**Desafio 19**: considere que o sistema possui uma segunda etapa de montagem após a união de uma peça A e uma peça B da mesma cor. Na etapa seguinte, os componentes são unidos por cores diferentes, um a um. Assim, um componente branco e unido um componente verde e o tempo de montagem segue a mesma distribuição. Construa um modelo de simulação para representar esse sistema.
+
+A função `montagem,` de modo semelhante a função anterior, é formada por um laço infinito do tipo `while True`, mas deve retirar múltiplas peças de cada estoque, respeitando o atributo "cor". O código a seguir, soluciona este problema novamente com laços do tipo `for` e uma função anônima para buscar a cor correta da peça dentro do `FilterStore:`
+```python
+def montagem(env, pecasFilterStoreDict, numA, numB, cor):
+    # montagem do componente
+    global componentesProntos
+    
+    while True:
+        # marca o instante em que a célula está livre para a montagem
+        chegada = env.now
+        for i in range(numA):
+            yield pecasFilterStoreDict['A'].get(lambda c: c==cor)
+        for i in range(numB):
+            yield pecasFilterStoreDict['B'].get(lambda c: c==cor)
+        # armazena o tempo de espera por peças e inicia a montagem
+        espera = env.now - chegada
+        print("%5.1f Inicia montagem\tCor: %s\tEspera: %4.1f"
+                %(env.now, cor, espera))
+        yield env.timeout(random.normalvariate(*TEMPO_MONTAGEM))
+        # acumula componente montado
+        componentesProntos += 1
+        print("%5.1f Fim da montagem\tCor: %s\tComponentes: %i\t"
+            %(env.now, cor, componentesProntos))
+        print("%5.1f Estoque A: %i\tEstoque B: %i\t"
+            %(env.now, len(pecasFilterStoreDict['A'].items), len(pecasFilterStoreDict['B'].items)))
+```
+Dois pontos merecem destaque na função anterior:
+1. A função `montagem`, deve ser chamada duas vezes na inicialização da simulação, uma para cada cor. Isto significa que nossa implementação permite a montagem simultânea de peças de cores diferentes. Caso seja necessário contornar este problema, basta a criação de um recurso "montador" (veja o tópico "Teste seus conhecimentos" na próxima seção";
+2. Na última linha, para contabilizar o total de peças ainda em estoque, como o `FilterStore` não possui um método `.level,` utilizou-se a função `len()` aplicada a todos os `items` do `FilterStore.`
+
+Quando executado por apenas 80 minutos, o programa anterior fornece como saída:
+```python
+  0.0 Chegada de lote   tipo: A         Cor: branco
+  0.0 Chegada de lote   tipo: B         Cor: verde
+ 44.5 Inicia montagem   Cor: verde      Espera: 44.5
+ 44.5 Chegada de lote   tipo: A         Cor: verde
+ 47.7 Inicia montagem   Cor: branco     Espera: 47.7
+ 47.7 Chegada de lote   tipo: B         Cor: branco
+ 50.3 Fim da montagem   Cor: verde      Componentes: 1  
+ 50.3 Estoque A: 18     Estoque B: 16   
+ 50.3 Inicia montagem   Cor: verde      Espera:  0.0
+ 51.4 Fim da montagem   Cor: branco     Componentes: 2  
+ 51.4 Estoque A: 17     Estoque B: 14   
+ 51.4 Inicia montagem   Cor: branco     Espera:  0.0
+ 54.8 Fim da montagem   Cor: verde      Componentes: 3  
+ 54.8 Estoque A: 16     Estoque B: 12   
+ 54.8 Inicia montagem   Cor: verde      Espera:  0.0
+ 57.0 Fim da montagem   Cor: branco     Componentes: 4  
+ 57.0 Estoque A: 15     Estoque B: 10   
+ 57.0 Inicia montagem   Cor: branco     Espera:  0.0
+ 59.2 Fim da montagem   Cor: verde      Componentes: 5  
+ 59.2 Estoque A: 14     Estoque B: 8    
+ 59.2 Inicia montagem   Cor: verde      Espera:  0.0
+ 61.3 Fim da montagem   Cor: branco     Componentes: 6  
+ 61.3 Estoque A: 13     Estoque B: 6    
+ 61.3 Inicia montagem   Cor: branco     Espera:  0.0
+ 64.6 Fim da montagem   Cor: branco     Componentes: 7  
+ 64.6 Estoque A: 12     Estoque B: 4    
+ 64.6 Inicia montagem   Cor: branco     Espera:  0.0
+ 65.9 Fim da montagem   Cor: verde      Componentes: 8  
+ 65.9 Estoque A: 11     Estoque B: 2    
+ 65.9 Inicia montagem   Cor: verde      Espera:  0.0
+ 68.8 Fim da montagem   Cor: branco     Componentes: 9  
+ 68.8 Estoque A: 10     Estoque B: 0    
+ 71.1 Fim da montagem   Cor: verde      Componentes: 10 
+ 71.1 Estoque A: 9      Estoque B: 0    
+```
+Naturalmente, existem outras soluções, mas optei por um caminho que mostrasse algumas limitações para um problema bastante comum em modelos de simulação. 
+
+>**Desafio 19**: considere que o sistema possui uma segunda etapa de montagem após a união de uma peça A e uma peça B da mesma cor. Na etapa seguinte, os componentes são unidos pelas mesmas cores, um a um. Assim, um componente branco e unido um componente verde e o tempo de montagem segue a mesma distribuição. Construa um modelo de simulação para representar esse sistema.
 
 >**Desafio 20**: considere que a montagem de peças na primeira etapa da montagem é feita na proporção de duas peças do tipo A para 1 do tipo B. Modifique a função `montagem` de modo que ela aceite o número de peças a ser unidas como parâmetro de entrada da função.
