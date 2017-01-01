@@ -1,10 +1,13 @@
 # Criando, manipulando e disparando eventos com `event()`
-Nesta seção entramos num território de poder dentro do SimPy. A partir deste momento você terá o poder de criar, manipular ou disparar eventos específicos criados por você. 
+Nesta seção entraremos em um território de *poder* dentro do SimPy. A partir desta seção você poderá criar, manipular ou disparar eventos específicos criados por você. 
+
 Mas com todo o poder, vem também a responsabilidade!
-Atente-se para o fato de que, sem cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
+Atente-se para o fato de que, sem o devido cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
 
 ## Criando um evento isolado com `event`
-Considere um problema simples de controle de turno de abertura ou fechamento de uma ponte elevatória que abre, opera com veículos por 5 minutos e fecha para passagem de embarcações. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo nesta seção é criar um evento específico que informe ao bar que ele deve fechar.
+Considere um problema simples de controle de turno de abertura ou fechamento de uma ponte elevatória. A ponte abre para automóveis, opera por 5 minutos e fecha, permitindo a passagem de embarcações no cruzamento.
+
+Naturalmente, esse modelo poderia ser implementado com o comandos já vistos neste livro, mas o objetivo desta seção é criar um evento específico que informe à ponte que ela deve fechar.
 
 Em SimPy, um evento é criado pelo comando `env.event():`
 ```python
@@ -14,7 +17,7 @@ Criar o evento, não significa que ele foi executado. Para disparar o evento `ab
 ```python
 abrePonte.succeed()
 ```
-A grande vantagem de se trabalhar com `event()` é que, em qualquer ponto do modelo, podemos lançar um comando que aguarda até que o evento criado seja disparado:
+Com o comando `yield` podemos fazer um processo aguardar até que o evento criado seja disparado, com a linha:
 ```python
 yield abrePonte   # aguarda até que o evento abrePonte seja disparado
 ```
