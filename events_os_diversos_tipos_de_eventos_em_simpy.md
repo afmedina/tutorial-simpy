@@ -156,4 +156,13 @@ tempoAberta = yield abrePonte
 Aguarda até que o evento `abrePonte` seja executado e resgata seu valor (o tempo que a ponte deve permanecer aberta) na variável `tempoAberta.`
 
 Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descuidado pode tornar qualquer código ininteligível (algo semelhante a utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
- 
+
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| `meuEvento = env.event(value=valor)` | cria um novo *evento* `meuEvento` durante a simulação, mas não o processa. Caso ele seja processado, retorna o `valor` fonecido como parâmetro. |
+| `yield meuEvento` | aguarda até que o evento `meuEvento` seja processado |
+| `meuEvento.succeed()` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento |
+
+
+
