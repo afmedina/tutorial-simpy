@@ -6,11 +6,11 @@ Atente-se para o fato de que, sem cuidado, o seu modelo pode ficar um pouco conf
 ## Criando um evento isolado com `event`
 Considere um problema simples de controle de turno de abertura ou fechamento de uma ponte elevatória que abre, opera com veículos por 5 minutos e fecha para passagem de embarcações. Obviamente isso poderia ser implementado com o comandos já vistos neste livro, mas nosso objetivo nesta seção é criar um evento específico que informe ao bar que ele deve fechar.
 
-Em SimPy, um evento é criado pelo comando `env.event()`:
+Em SimPy, um evento é criado pelo comando `env.event():`
 ```python
 abrePonte = env.event()
 ```
-Criar o evento, não significa que ele foi executado. Para disparar o evento `abrePonte `e marcá-lo como bem sucedido, utilizamos a opção `succeed()`:
+Criar o evento, não significa que ele foi executado. Para disparar o evento `abrePonte `e marcá-lo como bem sucedido, utilizamos a opção `succeed():`
 ```python
 abrePonte.succeed()
 ```
