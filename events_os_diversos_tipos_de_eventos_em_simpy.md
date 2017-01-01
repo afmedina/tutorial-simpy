@@ -1,27 +1,42 @@
 # Criando, manipulando e disparando eventos com `event()`
-Nesta seção entraremos em um território de *poder* dentro do SimPy. A partir desta seção você poderá criar, manipular ou disparar eventos específicos criados por você. 
+Nesta seção discutiremos comandos que lhe darão o poder de criar, manipular ou disparar seus próprios eventos, independentes do próprio processo em execução. 
 
 Mas com todo o poder, vem também a responsabilidade!
+
 Atente-se para o fato de que, sem o devido cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
 
 ## Criando um evento isolado com `event`
-Considere um problema simples de controle de turno de abertura ou fechamento de uma ponte elevatória. A ponte abre para automóveis, opera por 5 minutos e fecha, permitindo a passagem de embarcações no cruzamento.
+Considere um problema simples de controle de turno de abertura e fechamento de uma ponte elevatória. A ponte abre para automóveis, opera por 5 minutos, fecha e permite a passagem de embarcações no cruzamento por mais 5 minutos.
 
-Naturalmente, esse modelo poderia ser implementado com o comandos já vistos neste livro, mas o objetivo desta seção é criar um evento específico que informe à ponte que ela deve fechar.
+Naturalmente, esse modelo poderia ser implementado com o comandos já discutidos em seções anteriores deste livro, contudo, a ideia desta seção é demonstrar como criar um evento específico que informe à ponte que ela deve fechar, algo semelhante a um sinal semafórico.
 
 Em SimPy, um evento é criado pelo comando `env.event():`
 ```python
-abrePonte = env.event()
+abrePonte = env.event()    # cria o evento abrePonte
 ```
-Criar o evento, não significa que ele foi executado. Para disparar o evento `abrePonte `e marcá-lo como bem sucedido, utilizamos a opção `succeed():`
+Criar um evento, não significa que executá-lo. Criar um evento significa apenas criá-lo na memória. Para processar um evento, isto é, marcá-lo como executado, utilizamos a opção `succeed():`
 ```python
-abrePonte.succeed()
+abrePonte.succeed()        # marca o evento abrePonte como executado
 ```
-Com o comando `yield` podemos fazer um processo aguardar até que o evento criado seja disparado, com a linha:
+Podemos utilizar o evento criado de diversas formas em um modelo. Por exemplo, com o comando `yield` podemos fazer um processo aguardar até que o evento criado seja processado, com a linha:
 ```python
-yield abrePonte   # aguarda até que o evento abrePonte seja disparado
+yield abrePonte            # aguarda até que o evento abrePonte seja processado
 ```
-Incialmente, vamos criar uma função geradora que representa o processo de controle do turno de abertura/fechamento da ponte e responsável por gerar o evento que dispara o abertura da mesma:
+Retornando ao exemplo da ponte, criaremos um processo que representará o funcionamento da ponte. Inicialmente a ponte estará fechada e aguardará até que o evento `abrePonte` seja processado:
+
+```python
+def ponteElevatoria(env):
+    # opera a ponte elevatória
+    global abrePonte
+
+    print('%2.0f A ponte está fechada =(' %(env.now))
+    # aguarda o evento para abertura da ponte
+    yield abrePonte
+    print('%2.0f A ponte está aberta  =)' %(env.now))
+```
+Note que abrePonte é tratado como uma variável global e isso significa que alguma outra função deve criá-lo e processá-lo, de modo que nossa função `ponteElevatória` abra a ponte no instante correto da simulação.
+
+Assim, criaremos uma função geradora `turno` que representará o processo de controle do turno de abertura/fechamento da ponte e que será responsável por criar e processar o evento de abertura da mesma:
 ```python
 def turno(env):
     # abre e fecha a ponte
@@ -30,22 +45,25 @@ def turno(env):
     while True:
         # cria evento para abertura da ponte
         abrePonte = env.event()
-        # inicia o proce da ponte elvatória
+        # inicia o processo da ponte elvatória
         env.process(ponteElevatoria(env))
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
-        # dispara o evento de abertur da ponte
+        # processa o evento de abertura da ponte
         abrePonte.succeed()
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
 ```
-Note, na função anterior, que o evento é criado, mas **não é disparado** imediatamente. De fato, ele só é disparado quanto o método `abrePonte.succeed()` é executado, algumas linhas abaixo na função. 
-Para garantir que um novo ciclo de abertura e fechamento se repita (dentro do laço infinito criado), deve-se criar um novo evento e isso está garantido no início do laço com a linha:
+Note, na função anterior, que o evento é criado, mas **não é processado** imediatamente. De fato, ele só é processado quanto o método `abrePonte.succeed()` é executado, após o tempo de espera de 5 minutos. 
+
+Como queremos que a ponte funcione continuamente, um novo evento deve ser criado para representar o novo ciclo de abertura e fechamento. Isso está representado no início do laço com a linha:
 ```python
+# cria evento para abertura da ponte
 abrePonte = env.event()
 ```
-Isso precisa ficar bem claro, paciente leitor: uma vez disparado com o succeed, o evento é extindo.
-Juntando tudo num modelo de abre/fecha um bar, teríamos:
+Precisamos deixar isso bem claro, paciente leitor: uma vez processado com o método `.succeed,` o evento é extindo e caso seja necessário executá-lo novamente, teremos de recriá-lo com `env.event().`
+
+Juntando tudo num único modelo de abre/fecha da ponte elevatória, temos:
 ```python
 import simpy
 
@@ -60,7 +78,7 @@ def turno(env):
         env.process(ponteElevatoria(env))
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
-        # dispara o evento de abertura da ponte
+        # processa o evento de abertura da ponte
         abrePonte.succeed()
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
@@ -78,9 +96,10 @@ env = simpy.Environment()
 
 # inicia o processo de controle do turno
 env.process(turno(env))
+
 env.run(until=20)
 ```
-Quando executado, o modelo anterior fornece:
+Quando executado por 20 minutos, o modelo anterior fornece:
 ```
  0 A ponte está fechada =(
  5 A ponte está aberta  =)
@@ -88,13 +107,13 @@ Quando executado, o modelo anterior fornece:
 15 A ponte está aberta  =)
 
 ```
-No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de abertura da ponte foi disparado. Isso é bom, mas também pode ser ruim =): note que o evento de abertura é manipulado na função `turno`, portanto, **fora** da função que controla o processo de abertura e fechamento da ponte, `ponteElevatoria`. Isso pode deixar as coisas confusas no seu modelo, caso você não tome o devido cuidado.
+No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de abertura da ponte foi disparado. Isso é bom, mas também pode ser ruim =). Note que o evento de abertura da ponte é criado e processado dentro da função `turno`, portanto, **fora** da função que controla o processo de abertura e fechamento da ponte, `ponteElevatoria`. Isso pode deixar as coisas confusas no seu modelo, caso você não tome o devido cuidado.
 
 O comando `succeed()` ainda pode enviar um valor, com a opção:
 ```python
 meuEvento.succeed(value=valor)
 ```
-Assim, poderíamos, por exemplo, enviar para a função `ponteElevatoria` o tempo previsto para que a ponte fique aberta de modo que a função que recebe o sinal de que o evento foi disparado, possa fazer uso do valor no seu processamento interno. O modelo a seguir, implenta tais modificações e sua interpretação é direta:
+Poderíamos, por exemplo, enviar para a função `ponteElevatoria` o tempo previsto para que a ponte fique aberta. O modelo a seguir, tranfere  o tempo de abertura para a função `ponteElevatoria` e sua interpretação é direta:
 ```python
 import simpy
 
@@ -124,10 +143,17 @@ def ponteElevatoria(env):
     print('%2.0f A ponte está  aberta =) e fecha em %2.0f minutos' %(env.now, tempoAberta))
     
 env = simpy.Environment()
-
 # inicia o processo de controle do turno
 env.process(turno(env))
+
 env.run(until=20)
 ```
-Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descontrolado pode tornar qualquer código ininteligível (algo semelhante a utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
+Dentro da função `ponteElevatoria` a linha:
+```python
+# aguarda o evento para abertura da ponte
+tempoAberta = yield abrePonte
+```
+Aguarda até que o evento `abrePonte` seja executado e resgata seu valor (o tempo que a ponte deve permanecer aberta) na variável `tempoAberta.`
+
+Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descuidado pode tornar qualquer código ininteligível (algo semelhante a utilizar desvios de laço do tipo "go to" em um programa (des)estruturado).
  
