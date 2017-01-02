@@ -58,5 +58,3 @@ proc = env.process(corrida(env))
 env.run(until=10)
 ```
 
-## Aguardando um evento ocorrer para disparar outro  `(wait_event = env.event())`
-
