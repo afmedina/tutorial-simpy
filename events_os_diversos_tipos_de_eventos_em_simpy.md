@@ -160,9 +160,15 @@ Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por
 ## Conceitos desta seção
 | Conteúdo | Descrição |
 | -- | -- |
-| `meuEvento = env.event(value=valor)` | cria um novo *evento* `meuEvento` durante a simulação, mas não o processa. Caso ele seja processado, retorna o `valor` fonecido como parâmetro. |
+| `meuEvento = env.event()` | cria um novo *evento* `meuEvento` durante a simulação, mas não o processa. |
 | `yield meuEvento` | aguarda até que o evento `meuEvento` seja processado |
-| `meuEvento.succeed()` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento |
+| `meuEvento.succeed(value=valor)` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento, retornando o parâmetro opcional `valor.` |
+
+## Desafios
+>**Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte. O intervalo entre chegadas sucessivas de veículos para travessia é de 10 segundos, exponencialmente distribuídos e a ponte permite a travessia de 5 veículos por minuto. Após 6 horas de operação, quantos veículos estão em espera por travessia da ponte? 
+
+>**Desafio 22:** Para o sistema anterior, quan.
+
 
 
 
