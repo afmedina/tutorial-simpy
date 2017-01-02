@@ -73,6 +73,25 @@ Modificando o intervalo entre chegadas para 2 min
 ```
 A segunda chamada do `run`, `env.run(until=10)`, executou do instante atual (no caso, 5) até o instante 10. Assim, a opção `until `não representa a duração da simulação, mas *até que instante queremos executá-la*. Isto implica também, que uma nova chamada para `env.run` não reinicializa o tempo de simulação, isto é, não retorna o relógio do simulador para o instante 0.
 
+Para reinicializar a relógio de um modelo em execução, o que seria equivalente a reinicializar a simulação, uma alternativa possível é acrescentar uma nova linha de criação do `environment` (e, nas linhas seguintes, realizar as chamadas de processo e do `env.run)`. Por exemplo: 
+```python
+...
+env = simpy.Environment()
+chegadas = env.process(geraChegada(env, "p1"))
+env.run(until=5)            # executa até o instante 5
+
+print("\nModificando o intervalo entre chegadas para 2 min")
+intervalo = 2                                   # novo intervalo entre chegadas sucessivas
+env = simpy.Environment()                       # reinicializa o environment
+chegadas = env.process(geraChegada(env, "p1"))  # nova chamada do processo chegadas
+
+env.run(until=5)                                # reexecuta até o instante 5
+```
+Agora, o modelo reinicializa o relógio, como pode-se verificar pela sua saída:
+```python
+
+```
+
 ## Parada por execução de todos os processo programados
 
 Quando não se fornece o tempo de simulação \(ou ele não é conhecido a priori\), podemos interromper a simulação pela própria extição do processo. No programa anterior, por exemplo, podemos substituir o comando `while True` por um laço `for`e executar a simulação com um número fixo de entidades pré estabelecido:
