@@ -78,7 +78,7 @@ Para reinicializar a relógio de um modelo em execução, o que seria equivalent
 ...
 env = simpy.Environment()
 chegadas = env.process(geraChegada(env, "p1"))
-env.run(until=5)            # executa até o instante 5
+env.run(until=5)                                # executa até o instante 5
 
 print("\nModificando o intervalo entre chegadas para 2 min")
 intervalo = 2                                   # novo intervalo entre chegadas sucessivas
@@ -89,7 +89,14 @@ env.run(until=5)                                # reexecuta até o instante 5
 ```
 Agora, o modelo reinicializa o relógio, como pode-se verificar pela sua saída:
 ```python
+1.0 nova chegada
+2.0 nova chegada
+3.0 nova chegada
+4.0 nova chegada
 
+Modificando o intervalo entre chegadas para 2 min
+2.0 nova chegada
+4.0 nova chegada
 ```
 
 ## Parada por execução de todos os processo programados
