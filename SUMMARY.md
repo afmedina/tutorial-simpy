@@ -25,6 +25,7 @@
 * [Criando lotes \(ou agrupando\) entidades durante a simulação](criando_lotes_ou_agrupando_entidades_durante_a_simulacao.md)
 * [Solução dos desafios 19 e 20](solução-dos-desafios-19-e-20.md)
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
+* [Solução dos desafios 21 e 22](solução-dos-desafios-21-e-22.md)
 * [Aguardando múltiplos eventos](aguardando-múltiplos-eventos.md)
 * [Propriedades úteis dos eventos](propriedades-úteis-dos-eventos.md)
 * [Cancelando um evento já iniciado](cancelando-um-evento-já-iniciado.md)

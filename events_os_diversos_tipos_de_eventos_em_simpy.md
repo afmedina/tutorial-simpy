@@ -165,7 +165,7 @@ Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por
 | `meuEvento.succeed(value=valor)` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento, retornando o parâmetro opcional `valor.` |
 
 ## Desafios
->**Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. O intervalo entre chegadas sucessivas de veículos para travessia é de 10 segundos (ou 6 veículos/min), exponencialmente distribuídos e a ponte permite a travessia de 5 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte? 
+>**Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. O intervalo entre chegadas sucessivas de veículos para travessia é de 10 segundos (ou 6 veículos/min), exponencialmente distribuídos e a ponte permite a travessia de 10 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte? 
 
 >**Desafio 22:** Para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria para abertura da ponte.
 
