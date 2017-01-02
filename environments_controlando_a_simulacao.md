@@ -71,7 +71,7 @@ Modificando o intervalo entre chegadas para 2 min
 7.0 nova chegada
 9.0 nova chegada
 ```
-A segunda chamada do `run`, `env.run(until=10)`, executou do instante atual (no caso, 5) até o instante 10. Assim, a opção `until `não representa a duração da simulação, mas *até que instante queremos executá-la*.
+A segunda chamada do `run`, `env.run(until=10)`, executou do instante atual (no caso, 5) até o instante 10. Assim, a opção `until `não representa a duração da simulação, mas *até que instante queremos executá-la*. Isto implica também, que uma nova chamada para `env.run` não reinicializa o tempo de simulação, isto é, não retorna o relógio do simulador para o instante 0.
 
 ## Parada por execução de todos os processo programados
 
