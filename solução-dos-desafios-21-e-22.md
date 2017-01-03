@@ -93,11 +93,32 @@ Portanto, considerando-se as condições simuladas, o modelo indica que 170 veí
 
 >**Desafio 22:** Para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria de abertura da ponte.
 
-Como o desafio deseja 
+Como o desafio deseja uma avaliação da fila ao final do horário de pico para diferentes valores de abertura da ponte, o primeiro passo é construir um laço para que o modelo possa ser executado para diferentes valores do tempo de abertura da ponte:
 ```python
+# lista para armazenar o resultado do cenário simulado
+resultado = []
 
+for tempo_ponte in range(5, 10):   
+    env = simpy.Environment()
+    
+    # número de veículos não atendidos ao final da simulação    
+    naoAtendidos = 0 
+    
+    # container para representar a fila de automóveis aguardando a travessia
+    filaTravessia = simpy.Container(env)
+
+    # inicia o processo de controle do turno
+    env.process(turno(env,filaTravessia, tempo_ponte))
+    env.process(chegadaVeiculos(env,filaTravessia))
+
+    env.run(until=240)
+    
+    # arnazena o número de veículos do cenário atual em uma lista
+    resultado.append((tempo_ponte, naoAtendidos))
 ```
+Note, no código anterior, que foi criada uma lista, `resultado,` para armazenar o `tuple` com o tempo de abertura da ponte simulado e o resultado do número de veículos não atendidos ao final da simulação.
 
+A função `ponteElevatoria` necessiata apenas de uma pequena modificação para assegurar que a variável global `naoAtendidos` receba corretamente o número de veículos não atendidos imediatamente após ao fechamento da ponte:
 ```python
 
 ```
@@ -117,7 +138,7 @@ Como o desafio deseja
 
 ```
 ## Teste seus conhecimentos
-
+1. Por que utilizamos na função `ponteElevatoria` a variável global `naoAtendidos`? Não seria suficiente armazenar na fila `resultados` diretamente o número de veículos no `Container` `filaTravessia,` pelo comando `filaTravessia.level?`
 
 
 
