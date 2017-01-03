@@ -67,6 +67,7 @@ Estima quantos veículos, dentre aqueles que estão no `Container,` podem realiz
 
 Ao final, deve-se criar o `Container`, realizar as chamadas dos processos e executar o modelo por 4 horas (ou 240 minutos):
 ```python
+random.seed(100)
 env = simpy.Environment()
 
 # container para representar a fila de automóveis aguardando a travessia
@@ -98,7 +99,8 @@ Como o desafio deseja uma avaliação da fila ao final do horário de pico para 
 # lista para armazenar o resultado do cenário simulado
 resultado = []
 
-for tempo_ponte in range(5, 10):   
+for tempo_ponte in range(5, 10):
+    random.seed(100)   
     env = simpy.Environment()
     
     # número de veículos não atendidos ao final da simulação    
@@ -120,23 +122,65 @@ Note, no código anterior, que foi criada uma lista, `resultado,` para armazenar
 
 A função `ponteElevatoria` necessiata apenas de uma pequena modificação para assegurar que a variável global `naoAtendidos` receba corretamente o número de veículos não atendidos imediatamente após ao fechamento da ponte:
 ```python
+def ponteElevatoria(env, filaTravessia):
+    # opera a ponte elevatória
+    global abrePonte, naoAtendidos
 
+    print('%2.0f A ponte está fechada =(' %(env.now))
+    # aguarda o evento para abertura da ponte
+    tempoAberta = yield abrePonte
+    print('%2.0f A ponte está  aberta =) e fecha em %2.0f minutos' 
+            %(env.now, tempoAberta))
+    
+    # aguarda a chegada de mais veículos na fila de espera
+    yield env.timeout(tempoAberta)    
+    # calcula quantos veículos podem atravessar a ponte
+    numVeiculos = min(int(tempoAberta*CAPACIDADE_TRAVESSIA), filaTravessia.level)
+    # retira os veículos da fila
+    filaTravessia.get(numVeiculos)
+    # armazena o número de veículos não atendidos ao final da abertura da ponte
+    naoAtendidos = filaTravessia.level
+    print('%2.0f Travessia de %i veículos\tFila atual: %i' 
+                %(env.now, numVeiculos, filaTravessia.level))
 ```
-
+O próximo passo é acrescentar, ao final da simulação, um gráfico do número de veículos em função do tempo de abertura da ponte. Essa operação é facilitada pelo uso da biblioteca matplotlib no conjunto de dados armazenado na lista `resultado:`
 
 ```python
+# lista para armazenar o resultado do cenário simulado
+resultado = []
 
+for tempo_ponte in range(5, 11):
+    random.seed(100)
+
+    env = simpy.Environment()
+
+    # número de veículos não atendidos ao final da simulação
+    naoAtendidos = 0
+
+    # container para representar a fila de automóveis aguardando a travessia
+    filaTravessia = simpy.Container(env)
+
+    # inicia o processo de controle do turno
+    env.process(turno(env,filaTravessia, tempo_ponte))
+    env.process(chegadaVeiculos(env,filaTravessia))
+
+    env.run(until=240)
+
+    # arnazena o número de veículos do cenário atual em uma lista
+    resultado.append((tempo_ponte, naoAtendidos))
+    
+import matplotlib.pyplot as plt
+
+# descompacta os valores armazenados na lista resultado e plota em um gráfico de barras
+plt.bar(*zip(*resultado), align='center')
+plt.xlabel('Tempo de abertura da ponte (min)')
+plt.ylabel('Número de veículos em espera ao final\nda última abertura da ponte')
+plt.xlim(4.5,10.5)
+plt.grid(True)
+plt.show()
 ```
+Quando executado, o modelo anterior fornece como resultado o seguinte gráfico:
 
-
-```python
-
-```
-
-
-```python
-
-```
 ## Teste seus conhecimentos
 1. Por que utilizamos na função `ponteElevatoria` a variável global `naoAtendidos`? Não seria suficiente armazenar na fila `resultados` diretamente o número de veículos no `Container` `filaTravessia,` pelo comando `filaTravessia.level?`
 
