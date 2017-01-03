@@ -1,8 +1,8 @@
 # Propriedades úteis dos eventos
 Um evento qualquer tem 3 propriedades que fazem a alegria de qualquer leitor:
-* `Event.value`: o valor que foi passado para o evento no momento de sua criação;
-* `Event.triggered`: `True`, caso o `Event` já tenha sido programado e inserido na fila de eventos do SimPy e `False`, caso contrário;
-* `Event.processed`: `True`, caso o `Event` já tenha sido executado e `False`, caso contrário;
+* `Event.value:` o valor que foi passado para o evento no momento de sua criação;
+* `Event.triggered:` `True,` caso o `Event` já tenha sido programado e inserido na fila de eventos do SimPy e `False,` caso contrário;
+* `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário;
 
 Antes de avançar - e com o intuito de facilitar o aprendizagem do *lebrístico* leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento dentro de uma lista e enventos:
 ```python
@@ -12,7 +12,7 @@ def printEventStatus(env, eventList):
         print('%3.1f Evento (value): %s\t programado: %s\t processado: %s'
             %(env.now, event.value, event.triggered, event.processed))   
 ```
-Vamos agora acrescentar a função ao nosso modelo da lebre x tartaruga:
+Vamos agora acrescentar a função ao nosso modelo original da lebre x tartaruga:
 ```python
 import simpy
 import random
