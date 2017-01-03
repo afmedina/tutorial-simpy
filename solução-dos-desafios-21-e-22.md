@@ -187,7 +187,7 @@ Em uma primeira análise, portanto, o tempo de abertura de 7 minutos seria sufic
 
 ## Teste seus conhecimentos
 1. Por que utilizamos na função `ponteElevatoria` a variável global `naoAtendidos`? Não seria suficiente armazenar na fila `resultados` diretamente o número de veículos no `Container` `filaTravessia,` pelo comando `filaTravessia.level?`
-2. Como nos lembram Chiwf e Medina (2005): "nunca se deve tomar decisões baseadas em apenas uma replicação de um modelo de simulação". Afinal, basta modificar a semente geradora de número aletórios, para que o resultado do gráfico seja outro (teste no seu modelo!). Modifique o modelo para que ele simule um número de replicações configurável para cada tempo de abertura da ponte. Adicionalmente, garanta que tempos de abertura diferentes utilizem a mesma sequencia de números aleatórios. (Dica: para esta segunda parte, armazene as sementes geradoras em uma lista).
+2. Como nos lembram Chiwf e Medina (2014): "nunca se deve tomar decisões baseadas em apenas uma replicação de um modelo de simulação". Afinal, basta modificar a semente geradora de número aletórios, para que o resultado do gráfico seja outro (teste no seu modelo!). Modifique o modelo para que ele simule um número de replicações configurável para cada tempo de abertura da ponte. Adicionalmente, garanta que tempos de abertura diferentes utilizem a mesma sequencia de números aleatórios. (Dica: para esta segunda parte, armazene as sementes geradoras em uma lista).
 
 
 
