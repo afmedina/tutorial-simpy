@@ -7,6 +7,9 @@ Uma funcionalidade importante do SimPy é permitir que uma entidade aguarde até
 
 Para compreender o funcionamento dos comandos anteriores, partiremos de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
 
+![](/assets/Tortoise_and_hare_rackham.jpg)
+"The Tortoise and the Hare", from an edition of Aesop's Fables illustrated by Arthur Rackham, 1912
+
 Neste exemplo, sortearemos um tempo de corrida para cada bicho e identificaremos quem foi o vencedor. Para tanto, além do sorteio, criaremos dois eventos que representam a corrida de cada bicho:
 ```python
 def corrida(env):
