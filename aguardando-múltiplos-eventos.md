@@ -160,3 +160,12 @@ Um pouco mais abaixo, a saída revela que a variável `resultado` é um objeto d
  <Timeout(5.33749212083634, value=tartaruga) object at 0xa18eb0>: 'tartaruga'}
 ```
 Que nada mais é do que um dicionário padrão do Python, onde as `keys` são os eventos e os `items` são os valores dos eventos.
+
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| `AnyOf(env, eventos)` | aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "\|" (ou `or`). |
+| `AllOf(env, eventos)` | aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`). |
+
+## Desafios
+>**Desafio 23:**
