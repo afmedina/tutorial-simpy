@@ -23,7 +23,7 @@ Na função `corrida,` criamos os eventos `lebreEvent` e `tartarugaEvent`, que s
 
 De outra forma, os eventos `lebreEvent` e `tartarugaEvent` foram *disparados*, mas não processados, pois a função `corrida` ainda não tem um comando que aguarda o término do processamento desses eventos. 
 
-## Aguardando até que, ao menos, um evento termine com AnyOf
+## Aguardando até que, ao menos, um evento termine com `AnyOf`
 Para garantir que a função `corrida` aguarde até que, ao menos, um dos corredores termine a prova, uma opção é acrescentar um `yield AnyOf()` (que pode ser substituído por "|") após a criação dos eventos:
 ```python        
     # começou!
@@ -42,7 +42,6 @@ import random
 def corrida(env):
     # a lebre x tartaruga!
     # sorteia aleatoriamente os tempos dos animais
-    # cria os eventos que disparam as corridas
     lebreTempo = random.normalvariate(5,2)
     tartarugaTempo = random.normalvariate(5,2)
     # cria os eventos de corrida de cada animal
@@ -111,7 +110,6 @@ import random
 def corrida(env):
     # a lebre x tartaruga!
     # sorteia aleatoriamente os tempos dos animais
-    # cria os eventos que disparam as corridas
     lebreTempo = random.normalvariate(5,2)
     tartarugaTempo = random.normalvariate(5,2)
     # cria os eventos de corrida de cada animal
@@ -145,12 +143,13 @@ Quando executado, o programa fornecce:
 lebreEvent=  <Timeout(5.428964407135667, value=lebre) object at 0xa592470>
 tartarugaEvent=  <Timeout(5.33749212083634, value=tartaruga) object at 0xa5920f0>
 0.0 Iniciada a corrida!
-resultado =  <ConditionValue {<Timeout(5.33749212083634, value=tartaruga) object at 0xa5920f0>: 'tartaruga', <Timeout(5.428964407135667, value=lebre) object at 0xa592470>: 'lebre'}>
+resultado =  <ConditionValue {<Timeout(5.33749212083634, value=tartaruga) object at 0xa5920f0>: 'tartaruga',
+<Timeout(5.428964407135667, value=lebre) object at 0xa592470>: 'lebre'}>
 5.4 Houve um empate em 5.4 minutos
 ```
 Pela saída anterior, descobrimos, inicialmente, que os eventos são *objetos* do tipo `Timeout` e que armazenam tanto o tempo de espera, quanto o valor (ou `value`) fornecido na chamada da função `env.timeout.`
 
-Um pouco mais abaixo, a saída revela que a variável `resultado` é um objeto da classe `ConditionValue` que, aparentemente, contém um dicionário de eventos em seu interior. Para acessar esse dicionário, o SimPy fornece o método `.todict()`:
+Um pouco mais abaixo, a saída revela que a variável `resultado` é um objeto da classe `ConditionValue` que, aparentemente, contém um dicionário de eventos em seu interior. Para acessar esse dicionário, o SimPy fornece o método `.todict():`
  ```python
  resutado.todict()
  ```
