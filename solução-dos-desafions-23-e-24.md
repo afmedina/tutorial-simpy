@@ -53,7 +53,7 @@ def corrida(env):
         # a lebre dormiu!
         lebreTempo -= env.now - start
         print('%3.1f A lebre capotou de sono?!?!' %(env.now))
-        lebreAcorda = env.timeout(lebreTempo, value='lebre')
+        lebreAcorda = env.timeout(5, value='lebre')
         resultado = yield lebreAcorda | tartarugaEvent
 
         if tartarugaEvent in resultado:
@@ -88,8 +88,7 @@ Quando o modelo anterior é simulado, fornece como resultado:
 ```python
 0.0 Iniciada a corrida!
 3.2 A lebre capotou de sono?!?!
-4.3 A lebre acordou, amigo!
-5.5 A lebre venceu em 5.5 minutos
+7.6 A tartaruga venceu em 7.6 minutos
 ```
 Você pode alterar o valor da semente geradora de números aleatórios - na linha `random.seed(...)` - e apostar com os amigos quem vencerá a próxima corrida!
 
@@ -104,8 +103,9 @@ def imprimeVencedor(env, start, resultado, lebreEvent, tartarugaEvent):
     # quem venceu?
     if lebreEvent not in resultado:
         print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
-        yield lebreEvent
-        print('%3.1f A lebre chega em 2º lugar' %(env.now))
+        if lebreEvent:
+            yield lebreEvent
+            print('%3.1f A lebre chega em 2º lugar' %(env.now))
     elif tartarugaEvent not in resultado:
         print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
         yield tartarugaEvent
@@ -164,15 +164,16 @@ Quando executado, o modelo completo fornece como saída:
 ```python
 0.0 Iniciada a corrida!
 3.2 A lebre capotou de sono?!?!
-4.3 A lebre acordou, amigo!
-5.5 A lebre venceu em 5.5 minutos
-7.6 A tartaruga chega em 2º lugar
+7.6 A tartaruga venceu em 7.6 minutos
+8.2 A lebre acordou, amigo!
+9.3 A lebre chega em 2º lugar
 ```
-O que é importante destacar é que o comando `AnyOf` **não** paraliza um evento que ainda não foi processado. No saída exemplo, a lebre venceu e o processamento da linha:
+O que é importante destacar é que o comando `AnyOf` **não** paraliza um evento que ainda não foi processado. No saída exemplo, a tartaruga venceu e o processamento da linha:
 ```python
-yield tartarugaEvent
+yield lebreAcorda
 ```
-Fez o modelo aguardar até que o evento da chegada da tartaruga fosse processado (no instante determinado quando o evento foi criado). Não houve, portanto, um novo evento criado para a tartaruga, apenas aguardamos a sua conclusão. Note também, que o crime não compensa =)
+Fez o modelo aguardar até que o evento da lebre acordar fosse processado (no instante determinado quando o evento foi criado). Não houve, portanto, um novo evento criado para a lebre, apenas aguardamos a conclusão do evento já engatilhado na memória, mas não concluído. 
 
 ## Teste seus conhecimentos
-
+1. Generalize a função `corrida` para um número qualquer de competidores utilizando o operador `**kwargs` visto no Desafio 19. 
+1. Construa um gráfico com a evolução da prova, isto é, a distância percorrida por cada competidor x tempo de prova.
