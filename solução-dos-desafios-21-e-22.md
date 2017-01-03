@@ -37,7 +37,7 @@ def turno(env, filaTravessia, tempo_ponte):
 ```
 Note que o parâmetro `tempo_ponte` é enviado como um valor para a função `ponteElevatória`, que agora deve lidar com a travessia dos veículos quando aberta. Neste caso, basta um comando `get`  no `Container` que representa a fila de travessia dos veículos: 
 ```python
-def ponteElevatoria(env, filaTravessia):
+def ponteElevatoria(env, filaTravessia, tempo_ponte):
     # opera a ponte elevatória
     global abrePonte, naoAtendidos
 
@@ -48,7 +48,7 @@ def ponteElevatoria(env, filaTravessia):
             %(env.now, tempoAberta))
 
     # aguarda a chegada de mais veículos na fila de espera
-    yield env.timeout(tempo_ponte)
+    yield env.timeout(tempoAberta)
     
     # calcula quantos veículos podem atravessar a ponte
     numVeiculos = min(int(tempoAberta*CAPACIDADE_TRAVESSIA), filaTravessia.level)
@@ -57,8 +57,6 @@ def ponteElevatoria(env, filaTravessia):
     filaTravessia.get(numVeiculos)
     print('%2.0f Travessia de %i veículos\tFila atual: %i' 
             %(env.now, numVeiculos, filaTravessia.level))
-    # incrementa o número de veículos que estavam em fila e não foram atendidos nessa abertura
-    naoAtendidos += filaTravessia.level
 ```
 Analisando o código anterior, assim que a ponte abre, a linha:
 ```python
@@ -70,9 +68,6 @@ Estima quantos veículos, dentre aqueles que estão no `Container,` podem realiz
 Ao final, deve-se criar o `Container`, realizar as chamadas dos processos e executar o modelo por 4 horas (ou 240 minutos):
 ```python
 env = simpy.Environment()
-
-# número de veículos não atendidos durante a abertura da ponte)
-naoAtendidos = 0
 
 # container para representar a fila de automóveis aguardando a travessia
 filaTravessia = simpy.Container(env)
@@ -87,18 +82,14 @@ Quando executado, o modelo completo fornece como saída (resultados compactados)
 ```python
  0 A ponte está fechada =(
  5 A ponte está  aberta =) e fecha em  5 minutos
- 5 Travessia de 25 veículos     Fila atual: 7
 10 A ponte está fechada =(
 ...
 225 A ponte está  aberta =) e fecha em  5 minutos
-225 Travessia de 25 veículos    Fila atual: 795
 230 A ponte está fechada =(
+230 Travessia de 50 veículos    Fila atual: 170
 235 A ponte está  aberta =) e fecha em  5 minutos
-235 Travessia de 25 veículos    Fila atual: 830
-
-Número de veículos não atendidos no momento de abertura da ponte: 10149
 ```
-Portanto, considerando-se as condições simuladas, o modelo indica que 830 veículos ainda estão em espera em fila ao final do período de pico e 10.149 veículos não foram atendidos na primeira abertura da ponte e tiveram (ou ainda terão) que aguardar 1 ou mais aberturas. Portanto, o tempo de abertura da ponte parece ser insuficiente no horário de pico.
+Portanto, considerando-se as condições simuladas, o modelo indica que 170 veículos ainda estão em espera em fila ao final da última abertura da ponte dentro do horário de pico. Portanto, o tempo de abertura da ponte parece ser insuficiente durante o horário de pico.
 
 >**Desafio 22:** Para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria de abertura da ponte.
 
