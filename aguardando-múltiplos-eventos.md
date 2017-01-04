@@ -2,9 +2,9 @@
 
 Uma funcionalidade importante do SimPy é permitir que uma entidade aguarde até que dois ou mais eventos ocorram para então prosseguir com o processo. O SimPy possui duas opções muito interessantes para isso:
 
-* `AnyOf(env, eventos):` aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
-* `AllOf(env, eventos):` aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`).
-
+* `simpy.nyOf(env, eventos):` aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
+* `simpy.AllOf(env, eventos):` aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`).
+s
 Para compreender o funcionamento dos comandos anteriores, partiremos de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
 
 ![](/assets/Tortoise_and_hare_rackham.jpg) The Tortoise and the Hare", from an edition of Aesop's Fables illustrated by Arthur Rackham, 1912.
@@ -80,7 +80,7 @@ Quando o modelo anterior é executado, o bicho pega:
 ```
 > Poderia ter sido substituída, pela linha:
 ```python
-> resultado = yield AnyOf(env, lebreEvent, tartarugaEvent)
+> resultado = yield simpy.AnyOf(env, lebreEvent, tartarugaEvent)
 ```
 
 ## Aguardando todos os eventos com `AllOf`
