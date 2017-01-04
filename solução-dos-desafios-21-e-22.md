@@ -31,7 +31,7 @@ def turno(env, filaTravessia, tempo_ponte):
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
         # dispara o evento de abertura da ponte
-        abrePonte.succeed(value=tempo_ponte)
+        yield abrePonte.succeed(value=tempo_ponte)
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(tempo_ponte)
 ```

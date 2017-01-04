@@ -16,7 +16,7 @@ abrePonte = env.event()    # cria o evento abrePonte
 ```
 Criar um evento, não significa que executá-lo. Criar um evento significa apenas criá-lo na memória. Para processar um evento, isto é, marcá-lo como executado, utilizamos a opção `succeed():`
 ```python
-abrePonte.succeed()        # marca o evento abrePonte como executado
+yield abrePonte.succeed()        # marca o evento abrePonte como executado
 ```
 Podemos utilizar o evento criado de diversas formas em um modelo. Por exemplo, com o comando `yield` podemos fazer um processo aguardar até que o evento criado seja processado, com a linha:
 ```python
@@ -50,7 +50,7 @@ def turno(env):
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
         # processa o evento de abertura da ponte
-        abrePonte.succeed()
+        yield abrePonte.succeed()
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
 ```
@@ -79,7 +79,7 @@ def turno(env):
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
         # processa o evento de abertura da ponte
-        abrePonte.succeed()
+        yield abrePonte.succeed()
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
     
@@ -129,7 +129,7 @@ def turno(env):
         # mantém a ponte fechada por 5 minutos
         yield env.timeout(5)
         # dispara o evento de abertura da ponte
-        abrePonte.succeed(value=5)
+        yield abrePonte.succeed(value=5)
         # mantém a ponte aberta por 5 minutos
         yield env.timeout(5)
     
@@ -162,7 +162,7 @@ Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por
 | -- | -- |
 | `meuEvento = env.event()` | cria um novo *evento* `meuEvento` durante a simulação, mas não o processa. |
 | `yield meuEvento` | aguarda até que o evento `meuEvento` seja processado |
-| `meuEvento.succeed(value=valor)` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento, retornando o parâmetro opcional `valor.` |
+| `yield meuEvento.succeed(value=valor)` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento, retornando o parâmetro opcional `valor.` |
 
 ## Desafios
 >**Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. O intervalo entre chegadas sucessivas de veículos para travessia é de 10 segundos (ou 6 veículos/min), exponencialmente distribuídos e a ponte permite a travessia de 10 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte? 
