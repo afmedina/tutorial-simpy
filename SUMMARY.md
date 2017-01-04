@@ -27,7 +27,7 @@
 * [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
 * [Solução dos desafios 21 e 22](solução-dos-desafios-21-e-22.md)
 * [Aguardando múltiplos eventos](aguardando-múltiplos-eventos.md)
-* [Solução dos desafions 23 e 24](solução-dos-desafions-23-e-24.md)
+* [Solução dos desafios 23 e 24](solução-dos-desafions-23-e-24.md)
 * [Propriedades úteis dos eventos](propriedades-úteis-dos-eventos.md)
 * [Cancelando um evento já iniciado](cancelando-um-evento-já-iniciado.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy\)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)

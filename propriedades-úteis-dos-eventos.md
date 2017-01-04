@@ -1,10 +1,10 @@
 # Propriedades úteis dos eventos
-Um evento qualquer tem 3 propriedades que fazem a alegria de qualquer leitor:
+Um evento tem 3 propriedades que fazem a alegria de qualquer leitor:
 * `Event.value:` o valor que foi passado para o evento no momento de sua criação;
 * `Event.triggered:` `True,` caso o `Event` já tenha sido programado e inserido na fila de eventos do SimPy e `False,` caso contrário;
 * `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário;
 
-Antes de avançar - e com o intuito de facilitar o aprendizagem do *lebrístico* leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento dentro de uma lista e enventos:
+Antes de avançar - e com o intuito de facilitar o aprendizagem do *lebrístico* leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento dentro de uma lista e eventos. Basicamente ela recebe uma lista de eventos e imprime na tela as propriedades de cada evento da lista:
 ```python
 def printEventStatus(env, eventList):
     # imprime o status das entidades
