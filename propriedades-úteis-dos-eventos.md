@@ -1,5 +1,5 @@
 # Propriedades úteis dos eventos
-Um evento tem 3 propriedades que fazem a alegria de qualquer leitor:
+Um evento possui algumas propriedades que fazem a alegria de qualquer leitor:
 * `Event.value:` o valor que foi passado para o evento no momento de sua criação;
 * `Event.triggered:` `True,` caso o `Event` já tenha sido programado e inserido na fila de eventos do SimPy e `False,` caso contrário;
 * `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário;

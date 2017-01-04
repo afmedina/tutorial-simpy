@@ -7,15 +7,13 @@ Uma funcionalidade importante do SimPy é permitir que uma entidade aguarde até
 
 Para compreender o funcionamento dos comandos anteriores, partiremos de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
 
-![](/assets/Tortoise_and_hare_rackham.jpg)
-"The Tortoise and the Hare", from an edition of Aesop's Fables illustrated by Arthur Rackham, 1912
+![](/assets/Tortoise_and_hare_rackham.jpg) The Tortoise and the Hare", from an edition of Aesop's Fables illustrated by Arthur Rackham, 1912.
 
 Neste exemplo, sortearemos um tempo de corrida para cada bicho e identificaremos quem foi o vencedor. Para tanto, além do sorteio, criaremos dois eventos que representam a corrida de cada bicho:
 ```python
 def corrida(env):
     # a lebre x tartaruga!
     # sorteia aleatoriamente os tempos dos animais
-    # cria os eventos que disparam as corridas
     lebreTempo = random.normalvariate(5,2)
     tartarugaTempo = random.normalvariate(5,2)
     # cria os eventos de corrida de cada animal
@@ -102,7 +100,7 @@ Quando simulado, o novo modelo forncece como saída:
 ```
 O que ocorreu? Neste caso, o comando `AllOf` (ou "&") aguardou até que os dois eventos terminassem para liberar o processamento da linha seguinte de código e nosso desvio de condição `if` identificou que a variável `resultado` possuia os dois eventos armazenados.
 
-## Comprendendo melhor a saída dos comandos `AllOf` e `AnyOf`
+## Comprendendo melhor as saídas dos comandos `AllOf` e `AnyOf`
 Agora que já sabemos o que fazem os comandos `AllOf` e `AnyOf`, vamos explorar nessa seção um pouco mais sobre o que exatente esses comandos retornam.
 
 Incialmente, imprima os valores dos eventos e da variável `resultado`, para descobrir seus conteúdos:
@@ -170,6 +168,6 @@ Que nada mais é do que um dicionário padrão do Python, onde as `keys` são os
 | `AllOf(env, eventos)` | aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`). |
 
 ## Desafios
->**Desafio 23:**Considere que existe uma probabilidade de que a Lebre, por alguma razão mal explicada (eu realizaria um teste antidoping nos competidores), resolva que é uma boa idéia tirar uma soneca de 5 mintos em algum instante entre 2 e 10 minutos do início da corrida. Modele esta nova situação (dica: crie um função `soneca` que gera um evento que pode ocasionar a parada da Lebre ainda durante a corrida).
+>**Desafio 23:** Considere que existe uma probabilidade de que a Lebre, por alguma razão mal explicada (eu realizaria um teste antidoping nos competidores), resolva que é uma boa idéia tirar uma soneca de 5 mintos em algum instante entre 2 e 10 minutos do início da corrida. Modele esta nova situação (dica: crie um função `soneca` que gera um evento que pode ocasionar a parada da Lebre ainda durante a corrida).
 
->**Desafio 24:**É interessante notar, que mesmo quando um dos competidores *perde* a corrida, de fato, o respectivo evento **não é** cancelado. Altere o modelo anterior para marcar o horário de chegada dos dois competidores, garantindo que os eventos `lebreEvent` e `tartarugaEvent` sejam executados até o fim.
+>**Desafio 24:** É interessante notar, que mesmo quando um dos competidores *perde* a corrida, de fato, o respectivo evento **não é** cancelado. Altere o modelo anterior para marcar o horário de chegada dos dois competidores, garantindo que os eventos `lebreEvent` e `tartarugaEvent` sejam executados até o fim.

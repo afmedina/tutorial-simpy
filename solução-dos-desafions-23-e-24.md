@@ -1,5 +1,5 @@
 ## Desafios
->**Desafio 23:**Considere que existe uma probabilidade de que a Lebre, por alguma razão mal explicada (eu realizaria um teste antidoping nos competidores), resolva que é uma boa idéia tirar uma soneca de 5 mintos em algum instante entre 2 e 10 minutos do início da corrida. Modele esta nova situação (dica: crie um função `soneca` que gera um evento que pode ocasionar a parada da Lebre ainda durante a corrida).
+>**Desafio 23:** Considere que existe uma probabilidade de que a Lebre, por alguma razão mal explicada (eu realizaria um teste antidoping nos competidores), resolva que é uma boa idéia tirar uma soneca de 5 mintos em algum instante entre 2 e 10 minutos do início da corrida. Modele esta nova situação (dica: crie um função `soneca` que gera um evento que pode ocasionar a parada da Lebre ainda durante a corrida).
 
 Para este desafio será criada uma função para gerar a soneca e uma função adicional para identificar o vencedor, pois agora a tartaruga pode (ou não) vencer enquanto a lebre estiver dormindo.
 
@@ -92,7 +92,7 @@ Quando o modelo anterior é simulado, fornece como resultado:
 ```
 Você pode alterar o valor da semente geradora de números aleatórios - na linha `random.seed(...)` - e apostar com os amigos quem vencerá a próxima corrida!
 
->**Desafio 24:**É interessante notar, que mesmo quando um dos competidores *perde* a corrida, de fato, o respectivo evento **não é** cancelado. Altere o modelo anterior para marcar o horário de chegada dos dois competidores, garantindo que os eventos `lebreEvent` e `tartarugaEvent` sejam executados até o fim.
+>**Desafio 24:** É interessante notar, que mesmo quando um dos competidores *perde* a corrida, de fato, o respectivo evento **não é** cancelado. Altere o modelo anterior para marcar o horário de chegada dos dois competidores, garantindo que os eventos `lebreEvent` e `tartarugaEvent` sejam executados até o fim.
 
 Uma possível solução para o desafio é transformar o a função `imprimeVencedor` em um processo que, após informar o vencedor, continua até que o outro competidor passe pela linha de chegada. Por exemplo, podemos uma alternativa seria:
 
