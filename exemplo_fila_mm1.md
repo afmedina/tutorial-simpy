@@ -120,7 +120,7 @@ Agora execute o script e voilá!
 4.3 Servidor inicia o atendimento do cliente 4
 4.5 Servidor termina o atendimento do cliente 4
 ```
-
+![](/assets/fila_banco_mm1.png)
 ## Uma representação alternativa para a ocupação e desocupação de recursos
 
 A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço `with`:
