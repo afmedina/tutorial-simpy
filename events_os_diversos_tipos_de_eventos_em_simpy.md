@@ -140,7 +140,8 @@ def ponteElevatoria(env):
     print('%2.0f A ponte está fechada =(' %(env.now))
     # aguarda o evento para abertura da ponte
     tempoAberta = yield abrePonte
-    print('%2.0f A ponte está  aberta =) e fecha em %2.0f minutos' %(env.now, tempoAberta))
+    print('%2.0f A ponte está  aberta =) e fecha em %2.0f minutos' 
+            %(env.now, tempoAberta))
     
 env = simpy.Environment()
 # inicia o processo de controle do turno
