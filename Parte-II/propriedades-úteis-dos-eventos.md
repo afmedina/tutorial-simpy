@@ -4,6 +4,8 @@ Um evento possui algumas propriedades que fazem a alegria de qualquer leitor:
 * `Event.triggered:` `True,` caso o `Event` já tenha sido engatilhado, isto é, programado para ocorrer na fila de eventos do SimPy e `False,` caso contrário;
 * `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário;
 
+Existe uma dificuldade incial que deve ser obrigatoriamente superada pelo programador: compreender a sequência de criação, disparo e execução de um evento em SimPy.
+
 Antes de avançar - e com o intuito de facilitar o aprendizagem do *lebrístico* leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento dentro de uma lista e eventos. Basicamente ela recebe uma lista de eventos e imprime na tela as propriedades de cada evento da lista:
 ```python
 def printEventStatus(env, eventList):
