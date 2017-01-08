@@ -30,12 +30,12 @@
     * [Solução dos desafios 19 e 20](solução-dos-desafios-19-e-20.md)
 ----
 ### Parte II: Eventos
-* [Events: os diversos tipos de Eventos em SimPy](events_os_diversos_tipos_de_eventos_em_simpy.md)
+* [Events: os diversos tipos de Eventos em SimPy](Parte-II/events_os_diversos_tipos_de_eventos_em_simpy.md)
     * [Solução dos desafios 21 e 22](solução-dos-desafios-21-e-22.md)
-* [Aguardando múltiplos eventos](aguardando-múltiplos-eventos.md)
+* [Aguardando múltiplos eventos](Parte-II/aguardando-múltiplos-eventos.md)
     * [Solução dos desafios 23 e 24](solução-dos-desafions-23-e-24.md)
-* [Propriedades úteis dos eventos](propriedades-úteis-dos-eventos.md)
-* [Cancelando um evento já iniciado](cancelando-um-evento-já-iniciado.md)
+* [Propriedades úteis dos eventos](Parte-II/propriedades-úteis-dos-eventos.md)
+* [Cancelando um evento já iniciado](Parte-II/cancelando-um-evento-já-iniciado.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy\)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 ----
