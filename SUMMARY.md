@@ -31,17 +31,17 @@
 ----
 ### Parte II: Eventos
 * [Events: os diversos tipos de Eventos em SimPy](Parte-II/events_os_diversos_tipos_de_eventos_em_simpy.md)
-    * [Solução dos desafios 21 e 22](solução-dos-desafios-21-e-22.md)
+    * [Solução dos desafios 21 e 22](Parte-II/solução-dos-desafios-21-e-22.md)
 * [Aguardando múltiplos eventos](Parte-II/aguardando-múltiplos-eventos.md)
-    * [Solução dos desafios 23 e 24](solução-dos-desafions-23-e-24.md)
+    * [Solução dos desafios 23 e 24](Parte-II/solução-dos-desafions-23-e-24.md)
 * [Propriedades úteis dos eventos](Parte-II/propriedades-úteis-dos-eventos.md)
 * [Cancelando um evento já iniciado](Parte-II/cancelando-um-evento-já-iniciado.md)
-* [O que são funções geradoras? \(Ou como funciona o SimPy\)](o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
-* [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
+* [O que são funções geradoras? \(Ou como funciona o SimPy\)](Parte-II/o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
+* [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](Parte-II/o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 ----
 ### Parte III: Controlando os Parâmetros de Saída do Modelo
-* [Um exemplo de simulação e otimização](um_exemplo_de_simulacao_e_otimizacao.md)
-* [Simulação de Agentes em SimPy!](simulacao_de_agentes_em_simpy.md)
-* [Gravar Saída em Arquivo ou Planilha](exportar_saida_para_arquivo_ou_planilha.md)
-* [Construção de modelos de simulação](construção-de-modelos-de-simulação.md)
+* [Um exemplo de simulação e otimização]Parte-III/(um_exemplo_de_simulacao_e_otimizacao.md)
+* [Simulação de Agentes em SimPy!](Parte-III/simulacao_de_agentes_em_simpy.md)
+* [Gravar Saída em Arquivo ou Planilha](Parte-III/exportar_saida_para_arquivo_ou_planilha.md)
+* [Construção de modelos de simulação](Parte-III/construção-de-modelos-de-simulação.md)
 
