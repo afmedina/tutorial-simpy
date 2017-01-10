@@ -1,10 +1,14 @@
 ## Propriedades úteis dos eventos
 Um evento possui algumas propriedades que fazem a alegria de qualquer leitor:
 * `Event.value:` o valor que foi passado para o evento no momento de sua criação;
-* `Event.triggered:` `True,` caso o `Event` já tenha sido engatilhado, isto é, programado para ocorrer na fila de eventos do SimPy e `False,` caso contrário;
+* `Event.triggered:` `True,` caso o `Event` já tenha sido engatilhado, isto é, ele está na fila de eventos do SimPy, programado para ocorrer em determinado instante da simulação e `False,` caso contrário;
 * `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário;
 
-Existe uma dificuldade incial que deve ser obrigatoriamente superada pelo programador: compreender a sequência de criação, disparo e execução de um evento em SimPy.
+Existe uma dificuldade inicial que deve ser obrigatoriamente superada pelo programador: compreender a sequência de criação, disparo e execução de um evento em SimPy. 
+
+No momento da sua criação, todo evento surge como um objeto na memória do SimPy e, inicialmente, ele encontra-se no estado *não engatilhado* (`Event.triggered = False`). Quando o evento é programado para ocorrer em determinado instante da simulação, ele passa ao estado *engatilhado* (`Event.triggered = True`). Quando o evento é finalmente executado no instante determinado, seu estado passa a processado: (`Event.processed = True`).
+
+A figura ... elenca os diversos tipos de eventos que discutimos ao longo deste livro. Note como eles estão intrinsecamente ligados a questão do tempo de simulação.
 
 Antes de avançar - e com o intuito de facilitar o aprendizagem do *lebrístico* leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento dentro de uma lista e eventos. Basicamente ela recebe uma lista de eventos e imprime na tela as propriedades de cada evento da lista:
 ```python
