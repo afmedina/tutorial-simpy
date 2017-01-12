@@ -11,7 +11,8 @@ Por exemplo, quando você adiciona ao modelo uma linha:
 ```python
 yield env.timeout(10)
 ```
-O SimPy processa a linha na seguinte seqüência (figura):
+O SimPy processa a linha na seguinte sequência (figura):
+
 1. Cria na memória um novo evento dentro do `Environment env`;
 2. Engatilha o evento para ser processado dali a 10 unidades de tempo (minutos, por exemplo);
 3. Quando a simulação atinge o instante de processamento esperado (10 minutos), o SimPy processa o evento e informa ao programa o sucesso da execução. Automaticamente, como o comando `yield` recebe o sinal de sucesso do processamento e o fluxo de execução do modelo retoma seu curso normal, processando a linha seguinte de código.
