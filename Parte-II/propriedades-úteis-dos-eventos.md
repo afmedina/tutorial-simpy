@@ -1,14 +1,22 @@
 ## Propriedades úteis dos eventos
 Um evento possui algumas propriedades que fazem a alegria de qualquer leitor:
 * `Event.value:` o valor que foi passado para o evento no momento de sua criação;
-* `Event.triggered:` `True,` caso o `Event` já tenha sido engatilhado, isto é, ele está na fila de eventos do SimPy, programado para ocorrer em determinado instante da simulação e `False,` caso contrário;
-* `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário;
+* `Event.triggered:` `True,` caso o `Event` já tenha sido engatilhado, isto é, ele está na fila de eventos do SimPy e programado para ocorrer em determinado instante da simulação; `False,` caso contrário;
+* `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário.
 
 Existe uma dificuldade inicial que deve ser obrigatoriamente superada pelo programador: compreender a sequência de criação, disparo e execução de um evento em SimPy. 
 
 No momento da sua criação, todo evento surge como um objeto na memória do SimPy e, inicialmente, ele encontra-se no estado *não engatilhado* (`Event.triggered = False`). Quando o evento é programado para ocorrer em determinado instante da simulação, ele passa ao estado *engatilhado* (`Event.triggered = True`). Quando o evento é finalmente executado no instante determinado, seu estado passa a processado: (`Event.processed = True`).
+Por exemplo, quando você adiciona ao modelo uma linha:
+```python
+yield env.timeout(10)
+```
+O SimPy processa a linha na seguinte seqüência (figura):
+1. Cria na memória um novo evento dentro do `Environment env`;
+2. Engatilha o evento para ser processado dali a 10 unidades de tempo (minutos, por exemplo);
+3. Quando a simulação atinge o instante de processamento esperado (10 minutos), o SimPy processa o evento e informa ao programa o sucesso da execução. Automaticamente, como o comando `yield` recebe o sinal de sucesso do processamento e o fluxo de execução do modelo retoma seu curso normal, processando a linha seguinte de código.
 
-A figura ... elenca os diversos tipos de eventos que discutimos ao longo deste livro. Note como eles estão intrinsecamente ligados a questão do tempo de simulação.
+A figura ... elenca os diversos tipos de eventos que discutimos ao longo deste livro e sua sequência usual de criação->engatilhamento->processamento. Note como eles estão intrinsecamente ligados a questão do tempo de simulação.
 
 Antes de avançar - e com o intuito de facilitar o aprendizagem do *lebrístico* leitor - vamos acrescentar ao código uma função para imprimir o status de cada evento dentro de uma lista e eventos. Basicamente ela recebe uma lista de eventos e imprime na tela as propriedades de cada evento da lista:
 ```python
