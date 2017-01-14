@@ -12,15 +12,15 @@ Naturalmente, esse modelo poderia ser implementado com o comandos já discutidos
 
 Em SimPy, um evento é criado pelo comando `env.event():`
 ```python
-abrePonte = env.event()    # cria o evento abrePonte
+abrePonte = env.event()            # cria o evento abrePonte
 ```
 Criar um evento, não significa que executá-lo. Criar um evento significa apenas criá-lo na memória. Para processar um evento, isto é, marcá-lo como executado, utilizamos a opção `succeed():`
 ```python
-yield abrePonte.succeed()        # marca o evento abrePonte como executado
+yield abrePonte.succeed()          # marca o evento abrePonte como executado
 ```
 Podemos utilizar o evento criado de diversas formas em um modelo. Por exemplo, com o comando `yield` podemos fazer um processo aguardar até que o evento criado seja processado, com a linha:
 ```python
-yield abrePonte            # aguarda até que o evento abrePonte seja processado
+yield abrePonte                    # aguarda até que o evento abrePonte seja processado
 ```
 Retornando ao exemplo da ponte, criaremos um processo que representará o funcionamento da ponte. Inicialmente a ponte estará fechada e aguardará até que o evento `abrePonte` seja processado:
 
@@ -168,7 +168,7 @@ Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por
 ## Desafios
 >**Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. O intervalo entre chegadas sucessivas de veículos para travessia é de 10 segundos (ou 6 veículos/min), exponencialmente distribuídos e a ponte permite a travessia de 10 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte? 
 
->**Desafio 22:** Para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria para abertura da ponte.
+>**Desafio 22:** para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria para abertura da ponte.
 
 
 

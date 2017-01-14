@@ -92,7 +92,7 @@ Quando executado, o modelo completo fornece como saída (resultados compactados)
 ```
 Portanto, considerando-se as condições simuladas, o modelo indica que 170 veículos ainda estão em espera em fila ao final da última abertura da ponte dentro do horário de pico. Portanto, o tempo de abertura da ponte parece ser insuficiente durante o horário de pico.
 
->**Desafio 22:** Para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria de abertura da ponte.
+>**Desafio 22:** para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria de abertura da ponte.
 
 Como o desafio deseja uma avaliação da fila ao final do horário de pico para diferentes valores de abertura da ponte, o primeiro passo é construir um laço para que o modelo possa ser executado para diferentes valores do tempo de abertura da ponte:
 ```python
