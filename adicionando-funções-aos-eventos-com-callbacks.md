@@ -114,15 +114,15 @@ proc.callbacks.append(final)
 # executa até que o processo corrida termine
 env.run(proc)
 ```
+Note que, além de adicionarmos a função `final` como `callback` da função `corrida,` modificamos o comando `env.run()` para que ele simule até que a função `corrida` termine seu processamento. (Experimente substituir a linha `env.run(proc)` por `env.run(until=10)` e verifique o que acontece).
 
+Quando executado, o modelo fornece como saída:
 ```python
-
+0.0 Iniciada a corrida!
+5.3 \o/ Tan tan tan (musica do Senna) A tartaruga é a campeã!
+5.3 Ok pessoal, a corrida acabou.
 ```
-
-```python
-
-```
-
+Uma boa pedida para `callbacks` é contrurir funções que calculem estatísticas de termino de processamento ou, como veremos na próxima seção, quando desejamos trabalhar com falhas.
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
