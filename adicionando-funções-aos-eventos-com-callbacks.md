@@ -122,7 +122,7 @@ Quando executado, o modelo fornece como saída:
 5.3 \o/ Tan tan tan (musica do Senna) A tartaruga é a campeã!
 5.3 Ok pessoal, a corrida acabou.
 ```
-Uma boa pedida para `callbacks` é contrurir funções que calculem estatísticas de termino de processamento ou, como veremos na próxima seção, quando desejamos trabalhar com falhas.
+Uma boa pedida para `callbacks` é contruir funções que calculem estatísticas de termino de processamento ou, como veremos na próxima seção, quando desejamos trabalhar com falhas.
 
 ## Conceitos desta seção
 | Conteúdo | Descrição |
