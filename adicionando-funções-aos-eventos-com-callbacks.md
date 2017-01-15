@@ -94,6 +94,36 @@ Quando simulado, o modelo fornece como saída:
 5.4 A lebre chega em segundo lugar...
 ```
 Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas lembre-se que manipular um modelo diretamente por eventos tende a deixar o código confuso. Portanto, não economize nos comentários!
+
+## Todo processo é um evento
+Quando um processo é gerado pelo comando `env.process()`, o processo gerado é automaticamente tratado como um evento em SimPy. Assim, você pode adicionar `callbacks` aos processos também ou mesmo retornar um valor (como já vimos na seção....).
+Por exemplo, vamos acrescentar uma função de `callback` para quando a corrida terminar:
+```python
+def final(event):
+    # imprime o aviso de final da corrida
+    print('%3.1f Ok pessoal, a corrida acabou.' %env.now)
+```
+Precisamos agora, modificar apenas os comandos que inicializam a função `corrida:`
+```python
+random.seed(10)
+env = simpy.Environment()
+proc = env.process(corrida(env))
+# adiciona ao processo proc a função callback final
+proc.callbacks.append(final)
+
+# executa até que o processo corrida termine
+env.run(proc)
+```
+
+```python
+
+```
+
+```python
+
+```
+
+
 ## Conceitos desta seção
 | Conteúdo | Descrição |
 | -- | -- |
