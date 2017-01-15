@@ -39,4 +39,4 @@ Nessa replicação a lebre perdeu por 0.1 minutos apenas. Um cochilada imperdoá
 Na próxima seção, veremos uma tática mais interessante para resolver o mesmo problema a partir da novidade a ser aprensentada, os `callbacks.`
 ## Teste seus conhecimentos
 1. Crie um processo `chuva` que ocorre entre intervalos exponencialmente distribuídos com média de 5 minutos e dura, em média, 5 minutos exponencialmente distribuídos também. Quando a chuva começa, os corredores são 50% mais lentos durante o período. (Dica: quando a chuva começar, construa novos eventos `timeout` e despreze os anteriores, mas calcule antes quais as velocidades dos corredores).
-2. 
+2. Modifique o modelo para que ele execute um número configurável de replicações e forneça como resposta a porcentagem das vezes em que cada competidor venceu.
