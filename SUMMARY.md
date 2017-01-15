@@ -36,6 +36,7 @@
     * [Solução dos desafios 23 e 24](Parte-II/solução-dos-desafions-23-e-24.md)
 * [Propriedades úteis dos eventos](Parte-II/propriedades-úteis-dos-eventos.md)
 * [Solução do desafio 25](Parte-II/cancelando-um-evento-já-iniciado.md)
+* [Adicionando funções aos eventos com callbacks](adicionando-funções-aos-eventos-com-callbacks.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy\)](Parte-II/o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](Parte-II/o_que_sao_funcoes_geradoras_ou_como_parte_II.md)
 
