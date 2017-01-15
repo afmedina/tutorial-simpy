@@ -87,9 +87,16 @@ def campeao(event):
         print('%3.1f A %s chega em segundo lugar...'
                     %(env.now, event.value)) 
 ```
-Quando simulado, o modelo agora fornece:
+Quando simulado, o modelo fornece como saída:
 ```python
 0.0 Iniciada a corrida!
 5.3 \o/ Tan tan tan (musica do Senna) A tartaruga é a campeã!
 5.4 A lebre chega em segundo lugar...
 ```
+Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas lembre-se que manipular um modelo diretamente por eventos tende a deixar o código confuso. Portanto, não economize nos comentários!
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| `Event.callbacks.append(callbackFunction)` | adiciona um `callback`, representado pela função `callbackFunction` do modelo. Após o processamento do evento (`Event.processed = True`) a função de `callback` é executada. A função `callbackFunction`, obrigatoriamente deve ter como parâmetro apenas um evento. |
+
+
