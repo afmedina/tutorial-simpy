@@ -142,12 +142,12 @@ resultado = yield lebreEvent | tartarugaEvent
 Aguardou até que um dos eventos tivesse terminado, ela **não cancelou** o outro evento que, por ser um `timeout`, continuou na fila de eventos até que o SimPy pudesse processá-lo. (Note que o instante 9.3 não representa o instante de processamento do processo, provavelmente a lebre cruzou a linha de chegada após isso).
 > Observação: até a presente versão do SimPy, não existe a possíbilidade de se cancelar um evento já programado.
 
-##Outras propriedades dos eventos
-Existem outras propriedades dos eventos, interessantes, mas de aplicabilidade mais específica:
-* `Event.ok:` o valor que foi passado para o evento no momento de sua criação;
-* `Event.defused:` `True,` caso o `Event` já tenha sido engatilhado, isto é, ele está na fila de eventos do SimPy e programado para ocorrer em determinado instante da simulação; `False,` caso contrário;
-* `Event.processed:` `True,` caso o `Event` já tenha sido executado e `False,` caso contrário.
-
+## Conceitos desta seção
+| Conteúdo | Descrição |
+| -- | -- |
+| `Event.value` | o valor que foi passado para o evento no momento de sua criação. |
+| `Event.triggered` | `True,` caso o `Event` já tenha sido engatilhado, isto é, ele está na fila de eventos do SimPy e programado para ocorrer em determinado instante da simulação; `False,` caso contrário. |
+| `Event.processed` | `True,` caso o `Event` já tenha sido executado e `False,` caso contrário. |
 
 ## Desafio
 > Desafio 25: modifique o modelo anterior para que ele aguarde até a chegada da lebre.
