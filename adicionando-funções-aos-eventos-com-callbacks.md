@@ -80,12 +80,16 @@ def campeao(event):
         # imprime a faixa de campeão
         print('%3.1f \o/ Tan tan tan (musica do Senna) A %s é a campeã!'
                     %(env.now, event.value))
+        # atualiza a variável global vencedor
         vencedor = True
     else:
+        # imprime o perdedor
         print('%3.1f A %s chega em segundo lugar...'
                     %(env.now, event.value)) 
 ```
-
+Quando simulado, o modelo agora fornece:
 ```python
-
+0.0 Iniciada a corrida!
+5.3 \o/ Tan tan tan (musica do Senna) A tartaruga é a campeã!
+5.4 A lebre chega em segundo lugar...
 ```
