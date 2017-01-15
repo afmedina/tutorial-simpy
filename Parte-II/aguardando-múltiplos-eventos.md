@@ -58,11 +58,11 @@ def corrida(env):
     
     # quem venceu?
     if lebreEvent not in resultado:
-        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(env.now, tempo))
     elif tartarugaEvent not in resultado:
-        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A lebre venceu em %3.1f minutos' %(env.now, tempo))
     else:
-        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f Houve um empate em %3.1f minutos' %(env.now, tempo))
 
 random.seed(10)
 env = simpy.Environment()
@@ -128,11 +128,11 @@ def corrida(env):
     
     # quem venceu?
     if lebreEvent not in resultado:
-        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(env.now, tempo))
     elif tartarugaEvent not in resultado:
-        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A lebre venceu em %3.1f minutos' %(env.now, tempo))
     else:
-        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f Houve um empate em %3.1f minutos' %(env.now, tempo))
 
 random.seed(10)
 env = simpy.Environment()

@@ -10,11 +10,11 @@ def imprimeVencedor(start, resultado, lebreEvent, tartarugaEvent):
     tempo = env.now - start
     # quem venceu?
     if lebreEvent not in resultado:
-        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(env.now, tempo))
     elif tartarugaEvent not in resultado:
-        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A lebre venceu em %3.1f minutos' %(env.now, tempo))
     else:
-        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f Houve um empate em %3.1f minutos' %(env.now, tempo))
 ```
 A função `soneca` a seguir, cria um evento sonecaEvent, sorteia o instante da soneca e processa o evento no instante correto:
 ```python
@@ -102,16 +102,16 @@ def imprimeVencedor(env, start, resultado, lebreEvent, tartarugaEvent):
     tempo = env.now - start
     # quem venceu?
     if lebreEvent not in resultado:
-        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(env.now, tempo))
         if lebreEvent:
             yield lebreEvent
             print('%3.1f A lebre chega em 2º lugar' %(env.now))
     elif tartarugaEvent not in resultado:
-        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A lebre venceu em %3.1f minutos' %(env.now, tempo))
         yield tartarugaEvent
         print('%3.1f A tartaruga chega em 2º lugar' %(env.now))
     else:
-        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f Houve um empate em %3.1f minutos' %(env.now, tempo))
 ```
 
 A função `corrida` deve agora utilizar comandos do tipo `env.process(imprimeVencedor)` para inciar o processo que determina quem venceu e continua a corrida até que o outro competidor chegue. Note, no código a seguir, que apenas no caso da lebre ser pega ainda dormindo, a modificação do código é um pouco mais trabalhosa:

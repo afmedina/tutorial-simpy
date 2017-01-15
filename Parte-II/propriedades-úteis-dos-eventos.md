@@ -62,11 +62,11 @@ def corrida(env):
     tempo = env.now - start
     # quem venceu?
     if lebreEvent not in resultado:
-        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))       
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(env.now, tempo))       
     elif tartarugaEvent not in resultado:
-        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A lebre venceu em %3.1f minutos' %(env.now, tempo))
     else:
-        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f Houve um empate em %3.1f minutos' %(env.now, tempo))
     printEventStatus(env, eventList)
 
 def printEventStatus(env, eventList):
@@ -112,11 +112,11 @@ def corrida(env):
     tempo = env.now - start
     # quem venceu?
     if lebreEvent not in resultado:
-        print('%3.1f A tartaruga venceu em %3.1f minutos' %(tempo, env.now))       
+        print('%3.1f A tartaruga venceu em %3.1f minutos' %(env.now, tempo))       
     elif tartarugaEvent not in resultado:
-        print('%3.1f A lebre venceu em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f A lebre venceu em %3.1f minutos' %(env.now, tempo))
     else:
-        print('%3.1f Houve um empate em %3.1f minutos' %(tempo, env.now))
+        print('%3.1f Houve um empate em %3.1f minutos' %(env.now, tempo))
     printEventStatus(env, eventList)
     
     # a tartaruga inicia a comemoração!
