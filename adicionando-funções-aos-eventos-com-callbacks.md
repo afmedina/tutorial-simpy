@@ -100,3 +100,4 @@ Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas l
 | `Event.callbacks.append(callbackFunction)` | adiciona um `callback`, representado pela função `callbackFunction` do modelo. Após o processamento do evento (`Event.processed = True`) a função de `callback` é executada. A função `callbackFunction`, obrigatoriamente deve ter como parâmetro apenas um evento. |
 
 ## Desafio
+> Desafio 26: 
