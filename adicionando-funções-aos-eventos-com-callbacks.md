@@ -1,6 +1,6 @@
 ##Adicionando `callbacks` aos eventos
 
-SimPy possui uma ferramenta tão curiosa como poderosa: os `callbacks.` Um `callback` é uma função que você *acrescenta* ao final de um evento. Por exemplo, considere que quando o evento da tartaruga (ou da lebre) termina, desejamos imprimir o vencedor na tela. Assim, quando o evento é *processado*, desejamos que ele processe a seguinte função, que recebe o evento como único parâmetro de entrada:
+SimPy possui uma ferramenta tão curiosa quanto poderosa: os `callbacks.` Um `callback` é uma função que você *acrescenta* ao final de um evento. Por exemplo, considere que quando o evento da tartaruga (ou da lebre) termina, desejamos imprimir o vencedor na tela. Assim, quando o evento é *processado*, desejamos que ele processe a seguinte função, que recebe o evento como único parâmetro de entrada:
 ```python
 def campeao(event):
     # imprime a faixa de campeão
@@ -9,7 +9,7 @@ def campeao(event):
 ```
 Toda função para ser anexada como um `callback`, deve ter aceitar como parâmetro de chamada apenas um evento.
 
-Para anexarmos a função campeão a um evento, basta utilizar o método `callbacks.append(função_criada):`
+Para anexarmos a função `campeão` a um evento, basta utilizar o método `callbacks.append(função_criada):`
 ```python
     # cria os eventos de corrida de cada animal
     lebreEvent = env.timeout(lebreTempo, value='lebre')
