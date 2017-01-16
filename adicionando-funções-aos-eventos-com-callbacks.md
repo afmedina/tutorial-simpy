@@ -4,7 +4,7 @@ SimPy possui uma ferramenta tão curiosa como poderosa: os `callbacks.` Um `call
 ```python
 def campeao(event):
     # imprime a faixa de campeão
-    print('%3.1f \o/ Tan tan tan (musica do Senna) A %s é a campeã!\n'
+    print('%3.1f \o/ Tan tan tan (música do Senna) A %s é a campeã!\n'
                 %(env.now, event.value))
 ```
 Toda função para ser anexada como um `callback`, deve ter aceitar como parâmetro de chamada apenas um evento.
@@ -45,7 +45,7 @@ def corrida(env):
 
 def campeao(event):
     # imprime a faixa de campeão
-    print('%3.1f \o/ Tan tan tan (musica do Senna) A %s é a campeã!\n'
+    print('%3.1f \o/ Tan tan tan (música do Senna) A %s é a campeã!\n'
                 %(env.now, event.value))
   
 
@@ -58,8 +58,8 @@ Note como o código ficou razoavelmente mais compacto, por eliminamos toda a cod
 Quando executado, o modelo fornece como resultado:
 ```python
 0.0 Iniciada a corrida!
-5.3 \o/ Tan tan tan (musica do Senna) A tartaruga é a campeã!
-5.4 \o/ Tan tan tan (musica do Senna) A lebre é a campeã!
+5.3 \o/ Tan tan tan (música do Senna) A tartaruga é a campeã!
+5.4 \o/ Tan tan tan (música do Senna) A lebre é a campeã!
 ```
 OPS!
 Aos 5.4 minutos a lebre, que chegou depois, foi declarada campeã também. Como isso aqui não é a [Federação Paulista de Futebol](https://pt.wikipedia.org/wiki/Campeonato_Paulista_de_Futebol_de_1973), temos de corrigir isso. 
@@ -78,7 +78,7 @@ def campeao(event):
     
     if not vencedor:
         # imprime a faixa de campeão
-        print('%3.1f \o/ Tan tan tan (musica do Senna) A %s é a campeã!'
+        print('%3.1f \o/ Tan tan tan (música do Senna) A %s é a campeã!'
                     %(env.now, event.value))
         # atualiza a variável global vencedor
         vencedor = True
@@ -90,7 +90,7 @@ def campeao(event):
 Quando simulado, o modelo fornece como saída:
 ```python
 0.0 Iniciada a corrida!
-5.3 \o/ Tan tan tan (musica do Senna) A tartaruga é a campeã!
+5.3 \o/ Tan tan tan (música do Senna) A tartaruga é a campeã!
 5.4 A lebre chega em segundo lugar...
 ```
 Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas lembre-se que manipular um modelo diretamente por eventos tende a deixar o código confuso. Portanto, não economize nos comentários!
