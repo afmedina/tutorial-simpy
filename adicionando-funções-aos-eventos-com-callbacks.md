@@ -1,15 +1,15 @@
 ##Adicionando `callbacks` aos eventos
 
-SimPy possui uma ferramenta tão curiosa quanto poderosa: os `callbacks.` Um `callback` é uma função que você *acrescenta* ao final de um evento. Por exemplo, considere que quando o evento da tartaruga (ou da lebre) termina, desejamos imprimir o vencedor na tela. Assim, quando o evento é *processado*, desejamos que ele processe a seguinte função, que recebe o evento como único parâmetro de entrada:
+SimPy possui uma ferramenta tão curiosa quanto poderosa: os `callbacks.` Um `callback` é uma função que você *acrescenta* ao final de um evento. Por exemplo, considere que quando o evento da tartaruga (ou da lebre) termina, desejamos imprimir o vencedor na tela. Assim, quando o evento é *processado*, desejamos que ele processe a seguinte função, que recebe o evento como **único** parâmetro de entrada:
 ```python
 def campeao(event):
     # imprime a faixa de campeão
     print('%3.1f \o/ Tan tan tan (música do Senna) A %s é a campeã!\n'
                 %(env.now, event.value))
 ```
-Toda função para ser anexada como um `callback`, deve ter aceitar como parâmetro de chamada apenas um evento.
+Toda função para ser anexada como um `callback`, deve possuir como parâmetro de chamada apenas um único evento. Note também, que o valor de `env.now` impresso na tela é possível pois `env` é uma variável global para o Python. (Caso você ainda tenha alguma dificuldade para entender como o Python lida com variáveis globais e locais, um bom caminho é [ler este bom guia](http://www.python-course.eu/python3_global_vs_local_variables.php)).
 
-Para anexarmos a função `campeão` a um evento, basta utilizar o método `callbacks.append(função_criada):`
+Para anexarmos a função `campeão` a um evento, utilizaremos o método `callbacks.append(função_criada):`
 ```python
     # cria os eventos de corrida de cada animal
     lebreEvent = env.timeout(lebreTempo, value='lebre')
@@ -46,7 +46,7 @@ def corrida(env):
 def campeao(event):
     # imprime a faixa de campeão
     print('%3.1f \o/ Tan tan tan (música do Senna) A %s é a campeã!\n'
-                %(env.now, event.value))
+            %(env.now, event.value))
   
 
 random.seed(10)
