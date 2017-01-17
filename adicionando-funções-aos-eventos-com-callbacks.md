@@ -130,4 +130,4 @@ Uma boa pedida para `callbacks` é contruir funções que calculem estatísticas
 | `Event.callbacks.append(callbackFunction)` | adiciona um `callback`, representado pela função `callbackFunction` do modelo. Após o processamento do evento (`Event.processed = True`) a função de `callback` é executada. A função `callbackFunction`, obrigatoriamente deve ter como parâmetro apenas um evento. |
 
 ## Desafio
-> Desafio 26: 
+> Desafio 26: acrescente à função `final` um comando para armazenar quem venceu e em que tempo. Simule para 10 replicações e calcule a média e a porcentagem de vitórias de cada corredor. 
