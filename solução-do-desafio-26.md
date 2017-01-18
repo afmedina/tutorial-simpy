@@ -95,3 +95,4 @@ Tempo médio de corrida: 4.5     Lebre venceu: 60.0%     Tartaruga venceu: 40.0%
 ```
 ## Teste seu conhecimento
 1. Acrescente o cálculo do intervalo de confiança ao resultados do tempo médio de corrida e simule um número de replicações suficientes para garantir que este intervalo seja no máximo de 5% em torno da média, para um nível de significância de 95%.
+2. 
