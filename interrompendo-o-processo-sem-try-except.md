@@ -1,4 +1,14 @@
 ## Interrompendo um proccesso sem captura por `try...except`
+Caso o modelo possua um comando de interrupção de processo, mas não exista nenhuma lógica de captura do tipo `try... except`, a simulação será finalizada com a mensagem de erro:
+```python
+Interrupt: Interrupt(None)
+```
+O SimPy cria, para cada processo, uma propriedade chamada `defused` que permite contornar a paralização. Assim, pode-se interromper um processo, sem que essa interrupção provoque estrago algum ao processamento do modelo. Para *desativar* a paralização do modelo (e manter apenas a paralização do processo), basta tornar a propriedade `defused = True`:
+```python
+processVar.interrupt()
+processVar.defused = True
+```
+
 
 ## Conceitos desta seção
 
