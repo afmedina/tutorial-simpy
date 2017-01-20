@@ -8,7 +8,32 @@ O SimPy cria, para cada processo, uma propriedade chamada `defused` que permite 
 processVar.interrupt()
 processVar.defused = True
 ```
+Um exemplo bem prático: você está na sua rotina de exercícios matinais, quando... PIMBA:
+```python
+import simpy
 
+def forca(env):
+    # processo a ser interrompido
+    while True:
+        yield env.timeout(1)
+        print('%d Eu estou com a Força e a Força está comigo.' % env.now)
+
+def ladoNegro(env, proc):
+    yield env.timeout(3)
+    print('%d Venha para o lado negro da força, nós temos CHURROS!' % env.now)
+    # interrompe o processo proc
+    proc.interrupt()
+    # defused no processo para evitar a interrupção da simulação
+    proc.defused = True
+    print('%d Ponto para o Império!' % env.now)
+
+env = simpy.Environment()
+
+forcaProc = env.process(forca(env))
+ladoNegroProc = env.process(ladoNegro(env, forcaProc))
+
+env.run()
+```
 
 ## Conceitos desta seção
 
