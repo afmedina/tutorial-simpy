@@ -34,6 +34,14 @@ ladoNegroProc = env.process(ladoNegro(env, forcaProc))
 
 env.run()
 ```
+O modelo anterior deve ser autoexplicativo: um processo `forca` é interrompido pelo 
+Quando executado, o modelo fornece como resultado:
+```python
+1 Eu estou com a Força e a Força está comigo.
+2 Eu estou com a Força e a Força está comigo.
+3 Venha para o lado negro da força, nós temos CHURROS!
+3 Ponto para o Império!
+```
 
 ## Conceitos desta seção
 
