@@ -22,7 +22,7 @@
         * [Solução dos desafios 11 e 12](Parte-I/solucao_dos_desafios_11_e_12.md)
     * [Interrupções de processos](Parte-I/interrupcoes_de_processos.md)
         * [Solução dos desafios 13 e 14](Parte-I/solucao_dos_desafios_13_e_14.md)
-    * [Interrompendo o processo sem try except](interrompendo-o-processo-sem-try-except.md)
+    * [Interrompendo o processo sem try except](Parte-I/interrompendo-o-processo-sem-try-except.md)
     * [Selecionando um recurso específico para um processo](Parte-I/selecionando_um_recurso_especifico_para_um_processo.md)
         * [Solução dos desafios 15 e 16](Parte-I/soluçãodosdesafios15e16.md)
     * [Enchendo ou esvaziando tanques, caixas ou estoques](Parte-I/enchendo_ou_esvaziando_caixas_tanques.md)
