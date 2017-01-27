@@ -62,9 +62,10 @@ Quando executado, o modelo fornece como resultado:
 5.4 \o/ Tan tan tan (música do Senna) A lebre é a campeã!
 ```
 OPS!
-Aos 5.4 minutos a lebre, que chegou depois, foi declarada campeã também. Como isso aqui não é a [Federação Paulista de Futebol](https://pt.wikipedia.org/wiki/Campeonato_Paulista_de_Futebol_de_1973), temos de corrigir isso. 
 
-Uma solução prática seria criar uma variável global que torne-se `True`, quando o primeiro corredor ultrapassa a linha, de modo que a função `campeao` consiga distinguir um corredor do outro:
+Aos 5.4 minutos a lebre, que chegou depois, foi declarada campeã também. Como isso aqui não é a [Federação Paulista de Futebol](https://pt.wikipedia.org/wiki/Campeonato_Paulista_de_Futebol_de_1973), temos de corrigir o modelo e garantir que vença sempre quem chegar primeiro. 
+
+Uma solução prática seria criar uma variável global que se torna `True` quando o primeiro corredor ultrapassa a linha, de modo que a função `campeao` consiga distinguir se já temos um vencedor ou não:
 ```python
 import simpy
 import random
@@ -93,17 +94,17 @@ Quando simulado, o modelo fornece como saída:
 5.3 \o/ Tan tan tan (música do Senna) A tartaruga é a campeã!
 5.4 A lebre chega em segundo lugar...
 ```
-Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas lembre-se que manipular um modelo diretamente por eventos tende a deixar o código confuso. Portanto, não economize nos comentários!
+Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas lembre-se que manipular um modelo diretamente por eventos tende a deixar o código ligeiramente confuso e a boa prática recomenda não economizar nos comentários.
 
 ## Todo processo é um evento
-Quando um processo é gerado pelo comando `env.process()`, o processo gerado é automaticamente tratado como um evento em SimPy. Assim, você pode adicionar `callbacks` aos processos também ou mesmo retornar um valor (como já vimos na seção....).
-Por exemplo, vamos acrescentar uma função de `callback` para quando a corrida terminar:
+Quando um processo é gerado pelo comando `env.process()`, o processo gerado é automaticamente tratado como um evento pelo SimPy. Você pode igualmente adicionar `callbacks` aos processos ou mesmo retornar um valor (como já vimos na seção....).
+Por exemplo, vamos acrescentar uma função de `callback` para ao processo `corrida` que informa o final da corrida para o público:
 ```python
 def final(event):
     # imprime o aviso de final da corrida
     print('%3.1f Ok pessoal, a corrida acabou.' %env.now)
 ```
-Precisamos agora, modificar apenas os comandos que inicializam a função `corrida:`
+Precisamos agora, modificar apenas os comandos que inicializam a função `corrida,` anexando o `callback` criado:
 ```python
 random.seed(10)
 env = simpy.Environment()
