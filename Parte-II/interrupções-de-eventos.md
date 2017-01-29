@@ -22,7 +22,7 @@ env = simpy.Environment()
 forcaProc = env.process(forca(env))
 ladoNegroProc = env.process(ladoNegro(env, forcaProc))
 ``` 
-
+O processo `for
 ```python
 
 ``` 
