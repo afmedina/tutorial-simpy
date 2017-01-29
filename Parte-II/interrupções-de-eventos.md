@@ -6,7 +6,7 @@ Considere um exemplo simples em que um jovem Jedi tem sua meditação matinal in
 
 ## Interrompendo um evento com o método `interrupt`
 
-Criaremos duas funções: `forca` que representa o processo de meditação do Jedi e `ladoNegro` que representa o processo de interrupção da meditação. Inicialmente, interromperemos o processo `forca` por meio do método `interrupt` aplicado ao processo força. Uma possível máscara inicial para o modelo ficaria:
+Criaremos duas funções: `forca` que representa o processo de meditação do Jedi e `ladoNegro` que representa o processo de interrupção da meditação. Inicialmente, interromperemos o processo `forca` por meio do método `interrupt` aplicado ao processo força. Uma possível máscara para o modelo ficaria:
 
 ```python
 import simpy
@@ -28,6 +28,16 @@ ladoNegroProc = env.process(ladoNegro(env, forcaProc))
 ``` 
 
 ```python
+
+``` 
+
+
+```python
+
+``` 
+
+
+```python
 import simpy
 
 def forca(env):
@@ -38,6 +48,7 @@ def forca(env):
 
 
 def ladoNegro(env, proc):
+    # gerador de interrupção do processo proc
     yield env.timeout(3)
     print('%d Venha para o lado negro da força, nós temos CHURROS!' % env.now)
     # interrompe o processo proc
