@@ -6,14 +6,7 @@ Algo elementar em qualquer pacote de simulação é uma função para criar enti
 
 Inicialmente serão necessárias duas bibliotecas do Python: a `random` – biblioteca de geração de números aleatórios – e a `simpy`, que é o próprio SimPy.
 
-Começaremos nosso primeiro programa em SimPy chamando as bibliotecas de interesse:
-
-&lt;!---  
-não seria mais correto dizer que o programa é em Python? \(ou Python / Simpy?\)  
-SimPy é a biblioteca...
-
-Não sei...  
----&gt;
+Começaremos nosso primeiro modelo de simulação em SimPy chamando as bibliotecas de interesse:
 
 ```python
 import random             # gerador de números aleatórios
