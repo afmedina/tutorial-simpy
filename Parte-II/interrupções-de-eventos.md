@@ -1,6 +1,6 @@
 # Interrupções de eventos
 
-De modo semelhante ao que vimos com recursos, os eventos também podem ser interrompidos em SimPy. Como o SimPy aproveita-se dos comandos de interrupção já existentes no Python, pode-se utilizar lógicas do tipo `try... except` e assim capturar a interrupção em qualquer parte do modelo.
+De modo semelhante ao que vimos com recursos, os eventos também podem ser interrompidos em SimPy. Como o SimPy aproveita-se dos comandos de interrupção já existentes no Python, pode-se utilizar o [bloco `try... except`](https://docs.python.org/3.5/tutorial/errors.html) e assim capturar a interrupção em qualquer parte do modelo.
 
 Considere um exemplo simples em que um jovem Jedi tem sua seção de meditação matinal interrompida por um cruel Lord Sith interessado em convertê-lo para o Lado Negro. 
 Construir um modelo de simulação deste sistema, é tarefa simples: precisamos de uma função que representa o Jedi meditando e outra que interrompe o processo em determinado momento (lembre-se que um processo é também um evento para o SimPy).
@@ -81,8 +81,8 @@ O que essa longa mensagem de erro nos faz lembrar é que o método `.interrupt()
 
 Mas, jovem leitor Jedi, tempo duas maneira de contornar o problema: com a lógica do tipo `try...except` ou com a propriedade `defused`, como veremos a seguir.
 
-### Método de controle de interrupção 1: lógica de excessão `try... except`
-Neste caso, a solução é razoavemente simples, basta acrecentarmos ao final do programa (ou em outra parte conveniente) uma lógica de excessão do SimPy, `simpy.Interrupt`, como no exemplo a seguir:
+### Método de controle de interrupção 1: lógica de exceção `try... except`
+Neste caso, a solução é razoavemente simples, basta acrecentarmos ao final do programa (ou em outra parte conveniente) uma lógica de exceção do SimPy, `simpy.Interrupt`, como no exemplo a seguir:
 
 ```python
 import simpy
@@ -159,8 +159,11 @@ Quando executado, o modelo anterior fornece:
 3 Venha para o lado negro da força, nós temos CHURROS!
 3 Welcome, young Sith.
 ``` 
-Novamente a execulção do processo de interrupção vai até o fim e a interrupção que poderia causar a paralização de todo o modelo é desarmada. 
+Novamente a execução do processo de interrupção vai até o fim e a interrupção que poderia causar a paralização de todo o modelo é desarmada. 
 
-Você pode 
+Portanto, se o objetivo é *desarmar* a interrupção, basta tornar `True` o atributo `defused` do evento.
+
+## Desafio 27
+
 
 
