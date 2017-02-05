@@ -122,25 +122,45 @@ Quando executado, o modelo anterior fornece:
 É importante notar que depois da interrupção `proc.interrupt()` o modelo ainda executa a última linha do processo `ladoNegro` (basicamente, imprime "Welcome, young Sith") para, a seguir, executar o comando dentro do `except simpy.Interrupt`.
 
 ### Método de controle de interrupção 2: atributo `defused`
+No caso anterior, o leitor deve notar que interrompemos a simulação inteira ao interromper o processo, pois nossa lógica de exceção está ao final do código. 
+
+E se quisésemos apenas paralizar o processo (ou evento) sem que isso impactasse na simulação inteira? Neste caso, todo evento em SimPy possui o atributo `defused` que, quando alterado para `True`, faz com que o evento seja interrompido para a  interrupção seja desarmada. Neste caso o exemplo ficaria:
 
 ```python
+import simpy
 
+def forca(env):
+    # processo a ser interrompido
+    while True:
+        yield env.timeout(1)
+        print('%d Eu estou com a Força e a Força está comigo.' % env.now)
+
+def ladoNegro(env, proc):
+    # gerador de interrupção do processo proc
+    yield env.timeout(3)
+    print('%d Venha para o lado negro da força, nós temos CHURROS!' % env.now)
+    # interrompe o processo proc
+    proc.interrupt()
+    # defused no processo para evitar a interrupção da simulação
+    proc.defused = True
+    print('%d Welcome, young Sith.' % env.now)
+
+env = simpy.Environment()
+
+forcaProc = env.process(forca(env))
+ladoNegroProc = env.process(ladoNegro(env, forcaProc))
+
+env.run()
 ``` 
-
+Quando executado, o modelo anterior fornece:
 ```python
-
+1 Eu estou com a Força e a Força está comigo.
+2 Eu estou com a Força e a Força está comigo.
+3 Venha para o lado negro da força, nós temos CHURROS!
+3 Welcome, young Sith.
 ``` 
+Novamente a execulção do processo de interrupção vai até o fim e a interrupção que poderia causar a paralização de todo o modelo é desarmada. 
 
-```python
-
-``` 
-
-```python
-
-``` 
-
-```python
-
-``` 
+Você pode 
 
 
