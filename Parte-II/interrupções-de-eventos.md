@@ -163,7 +163,8 @@ Novamente a execução do processo de interrupção vai até o fim e a interrup�
 
 Portanto, se o objetivo é *desarmar* a interrupção, basta tornar `True` o atributo `defused` do evento.
 
-## Desafio 27
+## Interrompendo um evento com o método `fail`
+De modo semelhante a provocar um interrupção, podemos provocar uma *falha* no evento. O interessante, neste caso, é que podemos informar a falha
 
 
 
