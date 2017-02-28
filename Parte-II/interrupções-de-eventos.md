@@ -79,7 +79,7 @@ Interrupt: Interrupt(None)
 ``` 
 O que essa longa mensagem de erro nos faz lembrar é que o método `.interrupt()` vai além de interromper um mero evento do SimPy, ele interrompe o programa todo.
 
-Mas, jovem leitor Jedi, tempo duas maneira de contornar o problema: com a lógica do tipo `try...except` ou com a propriedade `defused`, como veremos a seguir.
+Mas, jovem leitor Jedi, temos duas maneiras de contornar o problema: com a lógica de controle de exceção do Python`try...except` ou com a propriedade `.defused`, como veremos a seguir.
 
 ### Método de controle de interrupção 1: lógica de exceção `try... except`
 Neste caso, a solução é razoavemente simples, basta acrecentarmos ao final do programa (ou em outra parte conveniente) uma lógica de exceção do SimPy, `simpy.Interrupt`, como no exemplo a seguir:
@@ -121,10 +121,12 @@ Quando executado, o modelo anterior fornece:
 ``` 
 É importante notar que depois da interrupção `proc.interrupt()` o modelo ainda executa a última linha do processo `ladoNegro` (basicamente, imprime "Welcome, young Sith") para, a seguir, executar o comando dentro do `except simpy.Interrupt`.
 
-### Método de controle de interrupção 2: atributo `defused`
-No caso anterior, o leitor deve notar que interrompemos a simulação inteira ao interromper o processo, pois nossa lógica de exceção está ao final do código. 
+### Método de controle de interrupção 2: alterando o atributo `defused`
+No caso anterior, o leitor deve ter notado que, ao interromper o processo, interrompemos a simulação por completo, pois nossa lógica de exceção está ao final do código. 
 
-E se quisésemos apenas paralizar o processo (ou evento) sem que isso impactasse na simulação inteira? Neste caso, todo evento em SimPy possui o atributo `defused` que, quando alterado para `True`, faz com que o evento seja interrompido para a  interrupção seja desarmada. Neste caso o exemplo ficaria:
+E se quisésemos apenas paralizar o processo (ou evento) sem que isso impactasse em toda a simulação? Neste caso, SimPy fornece um atributo `defused` para cada evento que, quando alterado para `True`, faz com que a  interrupção seja "desarmada". 
+
+Vamos alterar o atributo `defused` do processo interrompido no exemplo anterior:
 
 ```python
 import simpy

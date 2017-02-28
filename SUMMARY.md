@@ -1,9 +1,8 @@
 # Summary
 
-* [README](README.md)
-
 ## Parte I: Introdução
 
+* [README](README.md)
 * [Introdução](Parte-I/README.md)
   * [Introdução ao SimPy](Parte-I/introducao_ao_simpy.md)
   * [Instalando o SimPy](Parte-I/instalando_o_simpy.md)
