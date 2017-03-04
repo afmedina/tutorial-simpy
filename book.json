@@ -1,12 +1,6 @@
 {
 
-	"plugins": [
-
-		"-image-captions",
-
-		"video"
-
-	],
+	"plugins": ["-image-captions", "video"],
 
 	"pluginsConfig": {},
 	"language": "pt",
