@@ -35,9 +35,9 @@ def geraChegadas(env):
 def compra(env, nome, produtos):
     # função que realiza a venda para as entidades
     # nome e produtos, são atributo da entidade
-    
+
     global contaVendas # variável global = variável do modelo
-    
+
     for i in range(0, produtos):
         yield env.timeout(2)
         contaVendas += produtos
@@ -64,11 +64,13 @@ A execução do programa por apenas 5 minutos, apresenta como resposta:
 Total vendido: 5 produtos
 ```
 
-É importante destacar no exemplo, que o cliente \(ou entidade\) gerado(a) pela função `geraChegadas`é enviado(a) para a função `compra` com seu atributo `produtos,` como se nota na linha em que o cliente chama o processo de compra:
+É importante destacar no exemplo, que o cliente \(ou entidade\) gerado\(a\) pela função `geraChegadas`é enviado\(a\) para a função `compra` com seu atributo `produtos,` como se nota na linha em que o cliente chama o processo de compra:
+
 ```python
 env.process(compra(env, "cliente %d" % contaEntidade, produtos))
 ```
-Agora raciocine de modo inverso: seria possível representar o número total de produtos vendidos como uma variável local? Intuitivamente, somos levados a refletir na possibilidade de *transferir* o número total de produtos como uma parâmetro de chamada da função. Mas, reflita mais um tiquinho... É possível passar o total vendido como um parâmetro de chamada da função?
+
+Agora raciocine de modo inverso: seria possível representar o número total de produtos vendidos como uma variável local? Intuitivamente, somos levados a refletir na possibilidade de _transferir_ o número total de produtos como uma parâmetro de chamada da função. Mas, reflita mais um tiquinho... É possível passar o total vendido como um parâmetro de chamada da função?
 
 Do modo como o problema foi modelado, isso não é possível, pois cada chegada gera um novo processo `compra` independente para cada cliente e não há como transferir tal valor de uma chamada do processo para outra. A seção a seguir, apresenta uma alternativa interessante que evita o uso de variáveis globais num modelo de simulação.
 
@@ -91,7 +93,7 @@ class Servidor(object):
         self.res = simpy.Resource(env, capacity=capacidade)
         self.taxaExpo = 1.0/duracao
         self.clientesAtendidos = 0
-    
+
     def atendimento(self, cliente):
         # executa o atendimento
         print("%.1f Início do atendimento do %s" % (env.now, cliente))
@@ -100,11 +102,11 @@ class Servidor(object):
 
 def processaCliente(env, cliente, servidor):
     # função que processa o cliente
-    
+
     print('%.1f Chegada do %s' % (env.now, cliente))
     with servidor.res.request() as req: # note que o Resource é um atributo também
         yield req
-        
+
         print('%.1f Servidor ocupado pelo %s' % (env.now, cliente))
         yield env.process(servidor.atendimento(cliente))
         self.clientesAtendidos += 1
@@ -129,7 +131,9 @@ env.process(geraClientes(env, 3, servidor))
 
 env.run(until=5)
 ```
+
 Quando processado por apenas 5 minutos, o modelo anterior fornece:
+
 ```python
 4.5 Chegada do cliente 1
 4.5 Servidor ocupado pelo cliente 1
@@ -137,20 +141,21 @@ Quando processado por apenas 5 minutos, o modelo anterior fornece:
 4.6 Fim do atendimento do cliente 1
 4.6 Servidor desocupado pelo cliente 1
 ```
+
 No caso da programação voltada ao objeto, uma variável do modelo pode pertencer a uma classe, sem a necessidade de que a variável seja global. Por exemplo, o atributo `clientesAtendidos`da classe `Servidor` é uma variável que representa o total de cliente atendidos ao longo da simulação. Caso a representação utilizada não fosse voltada ao objeto, o número de clientes atendidos seria forçosamente uma variável global.
 
 ## Conteúdos desta seção
 
 | **Conteúdo** | **Descrição** |
 | --- | --- |
-| representação de atributos | os atributos devem ser representados localmente e transferidos entre funções (ou processos) como parâmetros das funções (ou processos) |
+| representação de atributos | os atributos devem ser representados localmente e transferidos entre funções \(ou processos\) como parâmetros das funções \(ou processos\) |
 | representação de variáveis | as variáveis do modelo são naturalmente representadas como variáveis globais ou, no caso da programação voltada ao objeto, como atributos de classes. |
 
 ## Desafios
 
->**Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
-
->**Desafior 8**: no desafio anterior, caso você simule por 10 ou mais horas, deve notar como o tempo de espera pela lavadora fica muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo contruído?
+> **Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
+>
+> **Desafior 8**: no desafio anterior, caso você simule por 10 ou mais horas, deve notar como o tempo de espera pela lavadora fica muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo construído?
 
 
 
