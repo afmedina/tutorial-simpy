@@ -19,7 +19,7 @@ Note a linha final `random.seed(1000)`, ela garante que a geração de números 
 
 ## Criando um `evironment` de simulação
 
-Tudo no SimPy gira em torno de **eventos** criandos por funções e todos os eventos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da função `simpy.Environment()`.   
+Tudo no SimPy gira em torno de **eventos** criados por funções e todos os eventos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da função `simpy.Environment()`.  
 Assim, todo programa principal sempre começa com uma chamada ao SimPy, criando um _environment_  “env”:
 
 ```python
@@ -119,12 +119,12 @@ env.process(geraChegadas(env, "Cliente", 2)))
 ```
 
 O código deve ser autoexplicativo: o laço `while`  
- é **infinito** enquanto dure a simulação; um contador, `contaChegada`, armazena o total de entidades geradas e a função `print`, imprime na tela o instante de chegada de cada cliente. Note que, dentro do `print`, existe uma chamada para a **hora atual de simulação** `env.now`.   
+ é **infinito** enquanto dure a simulação; um contador, `contaChegada`, armazena o total de entidades geradas e a função `print`, imprime na tela o instante de chegada de cada cliente. Note que, dentro do `print`, existe uma chamada para a **hora atual de simulação** `env.now`.  
 Por fim, uma chamada a função `random.seed()` garante que os números aleatórios a cada execução do programa serão os mesmos.
 
 ## Executando o modelo por um tempo determinado com `env.run(until=tempo_de_simulacao)`
 
-Se você executar o codigo anterior, nada acontece novamente, pois ainda falta informarmos ao SimPy qual o tempo de duração da simulação. Isto é feito pelo comando: `env.run(until=tempo_de_simulação)`  
+Se você executar o código anterior, nada acontece novamente, pois ainda falta informarmos ao SimPy qual o tempo de duração da simulação. Isto é feito pelo comando: `env.run(until=tempo_de_simulação)`  
 No exemplo proposto, o tempo de simulação deve ser de 10 min.
 
 ```python
@@ -174,7 +174,7 @@ Note que `env.process(geraChegadas(env))` é um comando que **torna** a função
 
 ## Desafios \(soluções na próxima seção\)
 
-> **Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação.   
+> **Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação.  
 > Modifique a função `geraChegadas` de modo que ela receba como parâmetro `numeroMaxChegadas` e limite a criação de entidades a este número.
 >
 > **Desafio 3:** modifique a função `geraChegadas`  
