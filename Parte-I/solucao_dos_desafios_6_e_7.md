@@ -2,7 +2,7 @@
 
 > **Desafio 9**: Considere que cada entidade gerada no primeiro exemplo desta seção tem um peso em gramas dado por uma distribuição normal de média 10 e desvio padrão igual a 3. Crie um critério de parada para quando a média dos pesos das entidades geradas esteja no intervalo entre 9,5 e 10,5.
 
-Este primeiro desafio envolve poucas modificações no programa original. Acrescentamos três variáveis novas: `media,` `contador` e `pesoTotal;` o laço `while` foi substituido pelo critério de parada e algumas linhas foram acrescentadas para o cálculo da média de peso até a última entidade gerada. O peso de cada entidade é sorteado pela função `random.normalvariate\(mu, sigma\)` da bliblioteca `random.`
+Este primeiro desafio envolve poucas modificações no programa original. Acrescentamos três variáveis novas: `media,` `contador` e `pesoTotal;` o laço `while` foi substituído pelo critério de parada e algumas linhas foram acrescentadas para o cálculo da média de peso até a última entidade gerada. O peso de cada entidade é sorteado pela função `random.normalvariate(mu, sigma)` da biblioteca `random.`
 
 ```python
 import simpy
@@ -10,7 +10,7 @@ import random
 
 def geraChegada(env, numEntidades):
     media, contador, pesoTotal = 0, 0, 0
-    
+
     while media > 10.5 or media < 9.5:      # critério de parada
         yield env.timeout(1)
         contador += 1                       # conta entidades geradas
@@ -26,6 +26,7 @@ env = simpy.Environment()
 chegadas = env.process(geraChegada(env, 5)) # gere apenas 5 entidades
 env.run()                                   # executa até o fim de todos os processos do modelo
 ```
+
 Quando executado, o modelo anterior apresenta como resultado:
 
 ```python
@@ -38,7 +39,7 @@ Quando executado, o modelo anterior apresenta como resultado:
  7.0 nova chegada       Peso:  5.8 kg   Média atual: 10.3
 ```
 
-> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [Stack Overflow](http://stackoverflow.com/)!\).
+> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [Stack Overflow](http://stackoverflow.com/\)!\).
 
 Esta situação exige um pouco mais no processo de codificação, contudo é algo muito utilizado em modelos de simulação de eventos discretos.
 
@@ -57,7 +58,7 @@ $$
 $$
 
 
-A biblioteca _[scipy.stats](https://docs.scipy.org/doc/scipy/reference/stats.html)_ possui diversas funções estatísticas, dentre elas, a distribuição t de student, necessária para o cálculo do intervalo de confiança. Como está será uma operação rotineira nos nossos modelos de simulação, o ideal é encapsular o código em uma função específica:
+A biblioteca [_scipy.stats_](https://docs.scipy.org/doc/scipy/reference/stats.html) possui diversas funções estatísticas, dentre elas, a distribuição t de student, necessária para o cálculo do intervalo de confiança. Como está será uma operação rotineira nos nossos modelos de simulação, o ideal é encapsular o código em uma função específica:
 
 ```python
 def intervaloConfMedia(a, conf=0.95):
@@ -82,15 +83,15 @@ def intervaloConfMedia(a, conf=0.95):
     media, sem, m = numpy.mean(a), scipy.stats.sem(a), scipy.stats.t.ppf((1+conf)/2., len(a)-1)
     h = m*sem
     return media, h
-    
+
 def geraChegada(env):
     pesosList = []                          # lista para armazenar os valores de pesos gerados
-    
+
     while True:      
         yield env.timeout(1)
         # adiciona à lista o peso da entidade atual
         pesosList.append(random.normalvariate(10, 5))
-        
+
         # calcula a amplitude do intervalo de confiança, com nível de significância = 95%
         if len(pesosList) > 1:           
             media, amplitude = intervaloConfMedia(pesosList, 0.95)
@@ -120,9 +121,9 @@ O programa anterior leva 411 amostras para atingir o intervalo desejado:
 411.0 Intervalo de confiança atingido após 411 valores! [9.68, 10.68]
 ```
 
-Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um baita problema para você =(
+Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um baita problema para você =\(
 
-A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários do [Stack Overflow .](http://stackoverflow.com/search?q=numpy) 
+A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários do [Stack Overflow .](http://stackoverflow.com/search?q=numpy)
 
-Como sugestão, habitue-se a construir funções padronizadas para monitaramento e cálculos estatísticos, de modo que você pode reaproveitá-las em novos programas. Em algum momento, inclusive, você pode [criar sua própria biblioteca](http://stackoverflow.com/questions/15746675/how-to-write-a-python-module) de funções para análise de saída de modelos de simulação e compartilhar com a comunidade de software livre.
+Como sugestão, habitue-se a construir funções padronizadas para monitoramento e cálculos estatísticos, de modo que você pode reaproveitá-las em novos programas. Em algum momento, inclusive, você pode [criar sua própria biblioteca](http://stackoverflow.com/questions/15746675/how-to-write-a-python-module) de funções para análise de saída de modelos de simulação e compartilhar com a comunidade de software livre.
 
