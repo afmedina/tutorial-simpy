@@ -1,8 +1,8 @@
 # Juntando tudo em um exemplo: a fila M/M/1
 
-A fila M/M/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/)\) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
+A fila M/M/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/\)\) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
 
-Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min \(ou seja, uma taxa de chegadas de 1 cliente/min\) e o tempo médio de atendimento no servidor é de 0,5 min \(ou seja, uma taxa de atendimento de 2 clientes/min\). Como um experimento incial, o modelo deve ser simulado por 5 minutos apenas.
+Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min \(ou seja, uma taxa de chegadas de 1 cliente/min\) e o tempo médio de atendimento no servidor é de 0,5 min \(ou seja, uma taxa de atendimento de 2 clientes/min\). Como um experimento inicial, o modelo deve ser simulado por 5 minutos apenas.
 
 ## Geração de chegadas de entidades
 
@@ -25,7 +25,7 @@ def geraChegadas(env):
         yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_CHEGADAS))
         contaChegada += 1
         print('%.1f Chegada do cliente %d' % (env.now, contaChegada))
-    
+
 random.seed(25)                                 # semente do gerador de números aleatórios
 env = simpy.Environment()                       # cria o environment do modelo
 servidorRes = simpy.Resource(env, capacity=1)   # cria o recurso servidorRes
@@ -45,7 +45,7 @@ Precisamos, portanto, construir uma nova função que realize o _processo_ de at
 3. Executar o atendimento por um tempo com distribuição conhecida;
 4. Liberar o servidor para o próximo cliente.
 
-A função `atendimentoServidor`, a seguir, recebe como parâmentros o `env` atual, o `nome` do cliente e a recurso `servidorRes` para executar todo o processo de atendimento.
+A função `atendimentoServidor`, a seguir, recebe como parâmetros o `env` atual, o `nome` do cliente e a recurso `servidorRes` para executar todo o processo de atendimento.
 
 ```python
 import random                           # gerador de números aleatórios
@@ -67,18 +67,18 @@ def atendimentoServidor(env, nome, servidorRes):
     # função que ocupa o servidor e realiza o atendimento
     # solicita o recurso servidorRes
     request = servidorRes.request()     
-    
+
     # aguarda em fila até a liberação do recurso e o ocupa
     yield request                       
     print('%.1f Servidor inicia o atendimento do %s' % (env.now, nome))
-    
+
     # aguarda um tempo de atendimento exponencialmente distribuído
     yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
     print('%.1f Servidor termina o atendimento do %s' % (env.now, nome))
-    
+
     # libera o recurso servidorRes
     yield servidorRes.release(request) 
-    
+
 random.seed(25)                                 # semente do gerador de números aleatórios
 env = simpy.Environment()                       # cria o environment do modelo
 servidorRes = simpy.Resource(env, capacity=1)   # cria o recurso servidorRes
@@ -100,10 +100,11 @@ def geraChegadas(env):
         yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_CHEGADAS))
         contaChegada += 1
         print('%.1f Chegada do cliente %d' % (env.now, contaChegada))
-        
+
         # inicia o processo de atendimento
         env.process(atendimentoServidor(env, "cliente %d" % contaChegada, servidorRes))
 ```
+
 Agora execute o script e voilá!
 
 ```py
@@ -120,7 +121,9 @@ Agora execute o script e voilá!
 4.3 Servidor inicia o atendimento do cliente 4
 4.5 Servidor termina o atendimento do cliente 4
 ```
+
 ![](/assets/fila_banco_mm1.png)
+
 ## Uma representação alternativa para a ocupação e desocupação de recursos
 
 A sequência de ocupação e desocupação do recurso pode ser representada de maneira mais compacta com o laço `with`:
@@ -133,7 +136,7 @@ def atendimentoServidor(env, nome, servidorRes):
         # aguarda em fila até a liberação do recurso e o ocupa
         yield request                       
         print('%.1f Servidor inicia o atendimento do %s' % (env.now, nome))
-        
+
         # aguarda um tempo de atendimento exponencialmente distribuído
         yield env.timeout(random.expovariate(1.0/TEMPO_MEDIO_ATENDIMENTO))
         print('%.1f Servidor termina o atendimento do %s' % (env.now, nome))
