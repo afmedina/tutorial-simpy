@@ -29,7 +29,7 @@ def atendimentoServidor(env, nome, servidorRes):
     yield servidorRes.release(request)
 ```
 
-Executado o código, descobrimos que no istante 5,5 min, temos 2 clientes em fila:
+Executado o código, descobrimos que no instante 5,5 min, temos 2 clientes em fila:
 
 ```python
 0.5 Chegada do cliente 1
@@ -52,7 +52,7 @@ Portanto, existem 0 cliente em fila no instante 4,5 minutos, nas condições sim
 >  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila` e apresente o resultado na tela.
 
 A ideia deste desafio é que você se acostume com esse cálculo tão trivial quanto importante dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é uma fila por ocupação de um recurso.  
-A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do antendimento.  
+A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do atendimento.  
 Assim, ao chegar, criamos uma variável `chegada` que armazena o instante atual fornecido pelo comando `env.now` do SimPy:
 
 ```python
@@ -299,8 +299,8 @@ A execução do programa anterior fornece como saída:
 
 # Teste seus conhecimentos:
 
-1. A fila M\/M\/1 possui expressões analíticas conhecidas. Por exemplo, o tempo médio de permanência no sistema é dado pela expressão: $$W = \frac{1} {\mu - \lambda}$$. Valide seu modelo, ou seja, calcule o resultado esperado para a expressão e compare com o resultado obtido pelo seu programa.
-2. Utilizando a função [`plot`da bilbioteca `matplotlib,`](http://matplotlib.org/users/pyplot_tutorial.html#pyplot-tutorial) construa um gráfico que represente a evolução do número de entidades em fila \(dica: você precisará armazenar o tempo de espera em uma lista e plotar a lista em um gráfico ao final da simulação\).
+1. A fila M/M/1 possui expressões analíticas conhecidas. Por exemplo, o tempo médio de permanência no sistema é dado pela expressão: $$W = \frac{1} {\mu - \lambda}$$. Valide seu modelo, ou seja, calcule o resultado esperado para a expressão e compare com o resultado obtido pelo seu programa.
+2. Utilizando a função [`plot`da bilbioteca `matplotlib,`](http://matplotlib.org/users/pyplot_tutorial.html#pyplot-tutorial\) construa um gráfico que represente a evolução do número de entidades em fila \(dica: você precisará armazenar o tempo de espera em uma lista e plotar a lista em um gráfico ao final da simulação\).
 
 3. No problema da lavanderia, crie uma situação de desistência, isto é: caso a fila de espera por lavadoras seja de 5 clientes, o próximo cliente a chegar no sistema desiste imediatamente de entrar na lavanderia.
 
