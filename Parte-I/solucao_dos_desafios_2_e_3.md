@@ -1,9 +1,7 @@
 # Solução dos desafios 2 e 3
 
-> **Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação.   
-> Modifique a função `geraChegadas`  
->  de modo que ela receba como parâmetro o `numeroMaxChegadas`  
->  e limite a criação de entidades a este número.
+> **Desafio 2:** é comum que os comandos de criação de entidades nos softwares proprietários tenham a opção de limitar o número máximo de entidades geradas durante a simulação.  
+> Modifique a função `geraChegadas` de modo que ela receba como parâmetro o `numeroMaxChegadas`e limite a criação de entidades a este número.
 
 Neste caso, o _script_ em Python é autoexplicativo, apenas note que limitei o número de chegadas em 5 e fiz isso antes da chamada do processo gerado pela função `geraChegadas()`:
 
@@ -26,8 +24,7 @@ env.process(geraChegadas(env, "Cliente", 2, 5))
 env.run(until=10) # executa a simulação por 10 unidades de tempo
 ```
 
-> **Desafio 3:** modifique a função `geraChegadas`  
->  de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
+> **Desafio 3:** modifique a função `geraChegadas`de modo que as chegadas entre entidades sejam distribuídas segundo uma distribuição triangular de moda 1, menor valor 0,1 e maior valor 1,1.
 
 Neste caso, precisamos verificar na documentação da biblioteca `random`, quais são nossas opções. A tabela a seguir, resume as distribuições disponíveis:
 
@@ -67,7 +64,7 @@ env.process(geraChegadas(env, "Cliente, 5))
 env.run(until=10)
 ```
 
-### Tip
+### Dica
 
 Os modelos de simulação com muitos processos de chegadas e atendimento, tendem a utilizar diversas funções diferentes de distribuição de probabilidades, deixando as coisas meio confusas para o programador.
 
