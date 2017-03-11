@@ -47,7 +47,7 @@ env.process(enchimentoTanque(env, TANQUE_CAMINHAO, tanque))
 env.run(until = 500)
 ```
 
-A saída do programa é bastante simple, afinal o processo de enchimento do tanque é executado apenas uma vez:
+A saída do programa é bastante simples, afinal o processo de enchimento do tanque é executado apenas uma vez:
 
 ```python
 0 Novo caminhão de combustível com 50.0 m3. Nível atual:  50.0 m3
@@ -253,7 +253,7 @@ env.process(sensorTanque(env, tanque))
 env.run(until = 20)
 ```
 
-Note a criação do processo do sensorTanque na penúltima linha do programa:
+Note a criação do processo do `sensorTanque` na penúltima linha do programa:
 
 ```python
 env.process(sensorTanque(env, tanque))
