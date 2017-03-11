@@ -1,6 +1,6 @@
 # Juntando tudo em um exemplo: a fila M/M/1
 
-A fila M/M/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/\)\) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
+A fila M/M/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/%29\) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
 
 Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min \(ou seja, uma taxa de chegadas de 1 cliente/min\) e o tempo médio de atendimento no servidor é de 0,5 min \(ou seja, uma taxa de atendimento de 2 clientes/min\). Como um experimento inicial, o modelo deve ser simulado por 5 minutos apenas.
 
@@ -89,7 +89,7 @@ env.run(until=5)                                # executa o modelo por 10 min
 
 Neste momento, nosso script possui uma função geradora de clientes e uma função de atendimento dos clientes, mas o bom observador deve notar que não existe conexão entre elas. Em SimPy, _e vamos  repetir isso a exaustão_, **tudo é processado dentro de um **`environment`. Assim, o atendimento é um _processo_ que deve ser iniciado por cada cliente _gerado_ pela função `criaChegadas.` Isto é feito por uma chamada a função`env.process(atendimentoServidor(...)).`
 
-A função `geraChegadas`deve ser alterada, portanto, para receber como parâmetro o recurso `servidorRes,`  criado no corpo do programa e para iniciar o processo de antendimento por meio da chamada à função `env.process`, como representado a seguir:
+A função `geraChegadas`deve ser alterada, portanto, para receber como parâmetro o recurso `servidorRes,`  criado no corpo do programa e para iniciar o processo de atendimento por meio da chamada à função `env.process`, como representado a seguir:
 
 ```py
 def geraChegadas(env):
@@ -158,9 +158,7 @@ Por hora, e para não esticar demais a atividade, analise atentamente os resulta
 
 > **Desafio 4:** para melhor compreensão do funcionamento do programa, imprima na tela o tempo de simulação e o números de clientes em fila. Quantos clientes existem em fila no instante 4.5?
 >
-> **Desafio 5:** calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`  
->  Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`  
->  e apresente o resultado na tela.
+> **Desafio 5:** calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`e apresente o resultado na tela.
 >
 > **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar \(ou aguarda em fila\). A lavagem consome 20 minutos \(constante\). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo de simulação que represente o processo anterior.
 
