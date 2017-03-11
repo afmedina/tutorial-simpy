@@ -150,7 +150,7 @@ O exemplo anterior apenas reforça que `Store` é um local para se armazenar obj
 ## Selecionando um objeto específico com `FilterStore()`
 
 Considere agora o caso bastante comum em que precisamos selecionar um recurso específico \(segundo alguma regra\) dentro de um conjunto de recursos disponíveis. Na barbearia, por exemplo, cada cliente agora tem um barbeiro preferido e, se ele não está disponível, o cliente prefere aguardar sua liberação.  
-Neste caso, vamos assumir que a preferência de um cliente é uniformemente distribuída entre os três barbeiros.   
+Neste caso, vamos assumir que a preferência de um cliente é uniformemente distribuída entre os três barbeiros.  
 Precisamos, portanto, de um modo de selecionar um objeto específico dentro do `Store`. O SimPy tem um comando para construir um conjunto de objetos filtrável, o `FilterStore`:
 
 ```python
@@ -353,7 +353,11 @@ O modelo de simulação completo, quando simulado por apenas 20 minutos, fornece
 
 > **Desafio 15**: considere que na barbearia, 40% dos clientes escolhem seu barbeiro favorito, sendo que, 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C \(o proprietário do salão\). Construa um modelo de simulação representativo deste sistema.
 >
-> **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:_ Se o barbeiro favorito faltar, o respectivo cliente vai embora;_ O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;\* O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
+> **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:_ _
+>
+> * _Se o barbeiro favorito faltar, o respectivo cliente vai embora;_
+> * O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
+> * O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
 
 
