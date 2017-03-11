@@ -1,6 +1,6 @@
 # Solução dos desafios 15 e 16
 
->**Desafio 15**: considere que na barbearia, 40% dos clientes escolhem seu barbeiro favorito, sendo que, 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C (o proprietário do salão). Construa um modelo de simulação representativo deste sistema.
+> **Desafio 15**: considere que na barbearia, 40% dos clientes escolhem seu barbeiro favorito, sendo que, 30% preferem o barbeiro A, 10% preferem o barbeiro B e nenhum prefere o barbeiro C \(o proprietário do salão\). Construa um modelo de simulação representativo deste sistema.
 
 Como existe preferência pelo barbeiro, naturalmente a escolha mais simples é trabalharmos com o `FilterStore`. O código a seguir, cria uma lista de barbeiros com os nomes, outra com os respectivos `Resources,` um dicionário para localizarmos o barbeiro por seu nome e, por fim, um `FilterStore` com os nomes dos barbeiros:
 
@@ -19,9 +19,11 @@ barbeariaStore.items = barbeirosNomes
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
-env.run(until = 20)  
+env.run(until = 20)
 ```
-Quando um cliente chega, existe 40% de chance dele preferir o barbeiro A e 10% de preferir o barbeiro B. O código a seguir atribui o barbeiro utilizando-se da função `random`:
+
+Quando um cliente chega, existe 40% de chance dele preferir o barbeiro A e 10% de preferir o barbeiro B. O código a seguir atribui o barbeiro utilizando-se da função `random:`
+
 ```python
 def chegadaClientes(env, barbeariaStore):
     # gera clientes exponencialmente distribuídos
@@ -43,6 +45,7 @@ def chegadaClientes(env, barbeariaStore):
 ```
 
 Por fim, o processo de atendimento deve diferenciar os clientes que possuem um barbeiro favorito. Assim, devemos criar uma função anônima `lambda` para resgatar o barbeiro correto do `FilterStore:`
+
 ```python
 def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     # ocupa um barbeiro específico e realiza o corte
@@ -65,7 +68,8 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     # devolve o barbeiro para o FilterStore
     barbeariaStore.put(barbeiro)
 ```
-Note, no código anterior, que, caso o cliente não tenha barbeiro preferido, o `get`do `FilterStore` é utilizado sem nenhuma função `lambda` dentro do parentesis. 
+
+Note, no código anterior, que, caso o cliente não tenha barbeiro preferido, o `get`do `FilterStore` é utilizado sem nenhuma função `lambda` dentro do parêntesis.
 
 Por fim, o código completo do modelo:
 
@@ -114,8 +118,8 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
         print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
     # devolve o barbeiro para o FilterStore
     barbeariaStore.put(barbeiro)
-    
-    
+
+
 random.seed(50)            
 env = simpy.Environment()
 
@@ -132,6 +136,7 @@ barbeariaStore.items = barbeirosNomes
 env.process(chegadaClientes(env, barbeariaStore))
 env.run(until = 20)
 ```
+
 Quando executado por apenas 20 minutos, o modelo anterior fornece:
 
 ```python
@@ -147,12 +152,14 @@ Quando executado por apenas 20 minutos, o modelo anterior fornece:
  16.6 Cliente 2 termina.        Barbeiro B liberado.
  19.0 Cliente 4 termina.        Barbeiro C liberado.
 ```
-> **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Além disso, considere 3 novas situações:
-* Se o barbeiro favorito faltar, o respectivo cliente vai embora;
-* O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
-* O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
-Como teremos de identificar quantos clientes estão aguardando o respectivo barbeiro favorito, uma saída seria utilizar um dicionário para armazenar o número de clientes em fila (outra possibilidade seria um `Store` específico para cada fila):
+> **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Além disso, considere 3 novas situações:
+>
+> * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
+> * O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
+> * O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
+
+Como teremos de identificar quantos clientes estão aguardando o respectivo barbeiro favorito, uma saída seria utilizar um dicionário para armazenar o número de clientes em fila \(outra possibilidade seria um `Store` específico para cada fila\):
 
 ```python
 random.seed(25)            
@@ -164,7 +171,7 @@ barbeirosNomes = ['Barbeiro A', 'Barbeiro B', 'Barbeiro C']
 # falta de um barbeiro
 if random.random() <= 0.05:
     barbeirosNomes.remove(random.choice((barbeirosNomes)))
-    
+
 barbeirosList = [simpy.Resource(env, capacity=1) for i in range(len(barbeirosNomes))]
 barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
 
@@ -177,23 +184,27 @@ barbeariaStore.items = barbeirosNomes
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
-env.run(until = 30)    
+env.run(until = 30)
 ```
+
 Para garantir a falta de um barbeiro em 5% das simulações, foi novamente utilizado o comando `random.random` e o comando `[random.choice](https://docs.python.org/dev/library/random.html#random.choice),` que seleciona uniformemente um elemento da lista `barbeirosNomes`:
+
 ```python
 if random.random() <= 0.05:
     barbeirosNomes.remove(random.choice((barbeirosNomes)))
 ```
+
 Na linha anterior, além de sortearmos um dos barbeiros, ele é removido da lista de barbeiros, o que facilita o processo de desistência do cliente.
 
-O processo de chegadas de clientes não precisa ser modificado em relação ao desafio anterior, contudo, o processo de atendimento precisa armazenar o número de clientes em fila por barbeiro - que pode ser feito por meio de um dicionário - e o número de clientes em fila total - que pode ser feito por meio de uma variável global que armazena o número total de clientes em fila. 
+O processo de chegadas de clientes não precisa ser modificado em relação ao desafio anterior, contudo, o processo de atendimento precisa armazenar o número de clientes em fila por barbeiro - que pode ser feito por meio de um dicionário - e o número de clientes em fila total - que pode ser feito por meio de uma variável global que armazena o número total de clientes em fila.
 
 Uma possível codificação para a nova função `atendimento` seria:
+
 ```python
 def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     # ocupa um barbeiro específico e realiza o corte
     global filaAtual     # número de clientes em fila
-    
+
     chegada = env.now
     if barbeiroEscolhido != 'Sem preferência':
         if barbeiroEscolhido not in barbeirosDict:
@@ -222,7 +233,7 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
             # cliente entra em fila e pega o primeiro barbeiro livre
             filaAtual += 1
             barbeiro = yield barbeariaStore.get()
-            
+
     # cliente já tem barbeiro, então sai da fila 
     filaAtual -= 1  
 
@@ -270,7 +281,7 @@ def chegadaClientes(env, barbeariaStore):
 def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
     #ocupa um barbeiro específico e realiza o corte
     global filaAtual
-    
+
     chegada = env.now
     if barbeiroEscolhido != 'Sem preferência':
         if barbeiroEscolhido not in barbeirosDict:
@@ -299,7 +310,7 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
             # cliente entra em fila e pega o primeiro barbeiro livre
             filaAtual += 1
             barbeiro = yield barbeariaStore.get()
-            
+
     # cliente já tem barbeiro, então sai da fila 
     filaAtual -= 1  
 
@@ -314,7 +325,7 @@ def atendimento(env, cliente, barbeiroEscolhido, barbeariaStore):
         print("%5.1f Cliente %i termina.\t%s liberado." %(env.now, cliente, barbeiro))
     # devolve o barbeiro para o FilterStore
     barbeariaStore.put(barbeiro)
-    
+
 random.seed(25)            
 env = simpy.Environment()
 
@@ -324,7 +335,7 @@ barbeirosNomes = ['Barbeiro A', 'Barbeiro B', 'Barbeiro C']
 # falta de um barbeiro
 if random.random() <= 0.05:
     barbeirosNomes.remove(random.choice((barbeirosNomes)))
-    
+
 barbeirosList = [simpy.Resource(env, capacity=1) for i in range(len(barbeirosNomes))]
 barbeirosDict = dict(zip(barbeirosNomes, barbeirosList))
 
@@ -337,9 +348,11 @@ barbeariaStore.items = barbeirosNomes
 
 # inicia processo de chegadas de clientes
 env.process(chegadaClientes(env, barbeariaStore))
-env.run(until = 30)   
+env.run(until = 30)
 ```
+
 Quando executado por apenas 30 minutos, o modelo anterior fornece:
+
 ```python
  13.1 Cliente 1 chega.          Sem preferência.
  13.1 Cliente 1 inicia.         Barbeiro A ocupado.     Tempo de fila: 0.0
@@ -349,9 +362,12 @@ Quando executado por apenas 30 minutos, o modelo anterior fornece:
  29.6 Cliente 3 chega.          Sem preferência.
  29.6 Cliente 3 inicia.         Barbeiro B ocupado.     Tempo de fila: 0.0
 ```
+
 ## Teste seus conhecimentos
 
-1. Considere que a barbearia opera 6 horas por dia. Acrescente ao seu modelo às estatíticas de clientes atendidos, clientes que desistiram (e por qual razão), ocupação dos barbeiros e tempo médio de espera em fila por barbeiro.
+1. Considere que a barbearia opera 6 horas por dia. Acrescente ao seu modelo às estatísticas de clientes atendidos, clientes que desistiram \(e por qual razão\), ocupação dos barbeiros e tempo médio de espera em fila por barbeiro.
 2. Dada a presente demanda da barbearia, quantos barbeiros devem estar trabalhando, caso o proprietário pretenda que o tempo médio de espera em fila seja inferior a 15 minutos?
 3. Refaça o exemplo do `PriorityStore` da seção anterior, armazenando não mais o nome do barbeiro, mas o seu respectivo `resource.`
+
+
 
