@@ -135,13 +135,16 @@ Alguns aspectos importantes do código anterior:
 
 1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. É por meio de variáveis globais que um processo "sabe" o que está ocorrendo no outro;
 2. Como a execução `env.run()` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o laço:
+
    ```python
    while duracaoViagem > 0
    ```
 
    Torna-se falso. Note que esse `while` deve existir nos dois processos em execução, caso contrário, o programa seria executado indefinidamente;
+
 3. Dentro da função `paradaTecnica` a variável global `viajando` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal, o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas e veja o que acontece.
 4. Se um modelo possui uma lógica de interrupção `.interrupt()` e não possui um comando `except simpy.Interrupt` para lidar com a paralização do processo, o SimPy finalizará a simulação retornando o erro:
+
    ```python
    Interrupt: Interrupt(None)
    ```
