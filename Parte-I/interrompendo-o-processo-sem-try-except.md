@@ -41,7 +41,7 @@ ladoNegroProc = env.process(ladoNegro(env, forcaProc))
 env.run()
 ```
 
-O modelo anterior deve ser autoexplicativo: um processo `forca` é interrompido pelo   
+O modelo anterior deve ser autoexplicativo: um processo `forca` é interrompido pelo  
 Quando executado, o modelo fornece como resultado:
 
 ```python
