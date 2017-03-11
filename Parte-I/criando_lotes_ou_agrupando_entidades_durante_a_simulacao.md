@@ -2,7 +2,7 @@
 
 Uma situação bastante comum em modelos de simulação é o agrupamento de entidades em lotes ou o seu oposto: o desmembramento de um lote em diversas entidades separadas. É usual em softwares de simulação proprietários existir um comando \(ou bloco\) específico para isso. Por exemplo, o Arena possui o "Batch/Separate", o Simul8 o "Batching" etc.
 
-Vamos partir de um exemplo simples, em que uma célula de produção deve realizar a tarefa de montagem de um certo componente a partir do encaixe de uma peça A com duas peças B. O operador da célula leva em média 5 minutos para montar o componente, segundo uma distribuição normal com desvio padrão de 1 minuto. Os processos de chegadas dos lotes A e B são distintos entre si, com tempos entre chegadas sucessivas uniformemente distribuidos no intervalo entre 40 a 60 minutos.
+Vamos partir de um exemplo simples, em que uma célula de produção deve realizar a tarefa de montagem de um certo componente a partir do encaixe de uma peça A com duas peças B. O operador da célula leva em média 5 minutos para montar o componente, segundo uma distribuição normal com desvio padrão de 1 minuto. Os processos de chegadas dos lotes A e B são distintos entre si, com tempos entre chegadas sucessivas uniformemente distribuídos no intervalo entre 40 a 60 minutos.
 
 ## Uma tática para agrupamento de lotes utilizando o `Container`
 
@@ -42,7 +42,7 @@ env.process(chegadaPecas(env, pecasContainerDict, 'B', 10))
 
 # inicia processo de montagem
 env.process(montagem(env, pecasContainerDict, 1, 2))
-env.run(until=80)   
+env.run(until=80)
 ```
 
 Na máscara anterior, foram criadas duas funções: `chegaPecas`, que gera os lotes de peças A e B e armazena nos respectivos estoques e `montagem`, que retira as peças do estoque e montam o componente.
@@ -131,7 +131,7 @@ Quando executado, o modelo completo fornece como saída:
  59.1 Inicia montagem   Estoque A: 11   Estoque B: 2    Espera:  0.0
  64.7 Fim da montagem   Estoque A: 11   Estoque B: 2    Componentes: 9  
  64.7 Inicia montagem   Estoque A: 10   Estoque B: 0    Espera:  0.0
- 70.0 Fim da montagem   Estoque A: 10   Estoque B: 0    Componentes: 10 
+ 70.0 Fim da montagem   Estoque A: 10   Estoque B: 0    Componentes: 10
 ```
 
 O que o leitor deve ter achado interessante é o modo passivo da função `montagem` que, por meio de um laço infinito `while True` aguarda o aparecimento de peças suficientes nos estoques para iniciar a montagem. Interessante também é notar que não alocamos recursos para a operação e isso significa que o modelo de simulação atual não permite a montagem simultânea de componentes \(veja o tópico "Teste seus conhecimentos" na próxima seção\).
@@ -179,10 +179,10 @@ env.process(chegadaPecas(env, pecasFilterStoreDict, 'B', 10))
 env.process(montagem(env, pecasFilterStoreDict, 1, 2, 'branco'))
 env.process(montagem(env, pecasFilterStoreDict, 1, 2, 'verde'))
 
-env.run(until=80) 
+env.run(until=80)
 ```
 
-Note que foi criado um dicionário `pecasFilterStore` armazena um `FilterStore` para cada tipo de peça.   
+Note que foi criado um dicionário `pecasFilterStore` armazena um `FilterStore` para cada tipo de peça.  
 Vamos agora construir a função `chegadaPecas`, considerando que ela deve sortear a cor do lote de peças e enviar todas as peças do lote \(uma por vez\) para o respectivo `FilterStore.`
 
 Para sortear a cor do lote, uma opção é utilizar o comando [random.choice](https://docs.python.org/3/library/random.html#random.choice), enquanto o envio de múltiplas peças para o `FilterStore` pode ser feito por um laço `for,` como mostra o código a seguir:
@@ -257,7 +257,7 @@ Quando executado por apenas 80 minutos, o programa anterior fornece como saída:
  65.9 Fim da montagem   Cor: verde      Componentes: 8  Estoque A: 11   Estoque B: 2
  65.9 Inicia montagem   Cor: verde      Espera:  0.0
  68.8 Fim da montagem   Cor: branco     Componentes: 9  Estoque A: 10   Estoque B: 0
- 71.1 Fim da montagem   Cor: verde      Componentes: 10 Estoque A: 9    Estoque B: 0   
+ 71.1 Fim da montagem   Cor: verde      Componentes: 10 Estoque A: 9    Estoque B: 0
 ```
 
 Naturalmente, existem outras soluções, mas optei por um caminho que mostrasse algumas limitações para um problema bastante comum em modelos de simulação.
