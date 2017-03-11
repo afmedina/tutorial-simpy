@@ -11,9 +11,11 @@ Contudo, existem situações em que algumas entidades possuem _prioridades_ sobr
 Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa \(pulseira verde\), 20% de prioridade intermediária \(pulseira amarela\) e 10% de prioridade alta \(pulseira vermelha\). Existem 2 médicos que realizam o atendimento e que sempre verificam inicialmente a ordem de prioridade dos pacientes na fila. Os pacientes chegam entre si em intervalos exponencialmente distribuídos, com média de 5 minutos e o atendimento é também exponencialmente distribuído, com média de 9 minutos por paciente.
 
 No exemplo, os médicos são recursos, mas também respeitam uma regra específica de prioridade. Um médico ou recurso deste tipo, é criado pelo comando:
+
 ```python
 medicos = simpy.PriorityResource(env, capacity=capacidade_desejada)
 ```
+
 Para a solução do exemplo, o modelo aqui proposto terá 3 funções: uma para sorteio do tipo de pulseira, uma para geração de chegadas de pacientes e outra para atendimento dos pacientes.
 
 Como uma máscara inicial do modelo, teríamos:
@@ -41,7 +43,7 @@ env = simpy.Environment()
 medicos = simpy.PriorityResource(env, capacity=2) # cria os 2 médicos
 chegadas = env.process(chegadaPacientes(env, medicos))
 
-env.run(until=20)       
+env.run(until=20)
 ```
 
 O preenchimento da máscara pode ser feito de diversas maneiras, um possibilidade seria:
@@ -58,10 +60,10 @@ def sorteiaPulseira():
     elif r <= .90:                      # 20% (=90-70) é pulseira amarela
         return "pulseira amarela", 2
     return "pulseira vermelha", 1       # 10% (=100-90) é pulseira vermelha
-    
+
 def chegadaPacientes(env, medicos):
     #gera pacientes exponencialmente distribuídos
-    
+
     i = 0
     while True:
         yield env.timeout(random.expovariate(1/5))
@@ -70,7 +72,7 @@ def chegadaPacientes(env, medicos):
         # sorteia a pulseira
         pulseira, prio = sorteiaPulseira()
         print("%4.1f Paciente %2i com %s chega" %(env.now, i, pulseira))
-        
+
         # inicia processo de atendimento
         env.process(atendimento(env, "Paciente %2i" %i, pulseira, prio, medicos))
 
@@ -89,14 +91,16 @@ env = simpy.Environment()
 medicos = simpy.PriorityResource(env, capacity=2) 
 chegadas = env.process(chegadaPacientes(env, medicos))
 
-env.run(until=20)     
+env.run(until=20)
 ```
 
 O importante a ser destacado é que a prioridade é informada ao `request` do recurso `medicos` pelo argumento `priority:`
+
 ```python
 with medicos.request(priority=prio) as req:
     yield req
 ```
+
 Para o SimPy, **quando menor o valor fornecido** para o parâmetro `priority,` **maior a prioridade** daquela entidade na fila. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde \(de menor prioridade\) e 1 para a vermelha \(de maior prioridade\).
 
 Quando o modelo anterior é executado, fornece como saída:
@@ -128,7 +132,9 @@ Um recurso capaz de ser interrompido é criado pelo comando:
 ```python
 medicos = simpy.PreemptiveResource(env, capacity=capacidade)
 ```
+
 Assim, o modelo anterior precisa ser modificado de modo a criar os médicos corretamente:
+
 ```python
 random.seed(100)       
 env = simpy.Environment()
@@ -136,11 +142,12 @@ env = simpy.Environment()
 medicos = simpy.PreemptiveResource(env, capacity=2)
 chegadas = env.process(chegadaPacientes(env, medicos))
 
-env.run(until=20) 
+env.run(until=20)
 ```
-Agora, devemos modificar a função `atendimento`para garantir que quando um recurso for requisitado por um processo de menor prioridade, ele causará uma interrupção no Python, o que obriga a utilização de lógica do tipo `try:...except`.
 
-Quando um recurso deve ser interrompido, o SimPy retornainterrupção do tipo `simpy.Interrupt`, como mostrado no código a seguir \(note a lógica de `try...except` dentro da função atendimento\):
+Agora, devemos modificar a função `atendimento`para garantir que quando um recurso for requisitado por um processo de menor prioridade, ele causará uma interrupção no Python, o que obriga a utilização de bloco de controle de interrupção `try:...except`.
+
+Quando um recurso deve ser interrompido, o SimPy retorna um interrupção do tipo `simpy.Interrupt,`como mostrado no código a seguir \(noteo bloco `try...except` dentro da função atendimento\):
 
 ```python
 def atendimento(env, paciente, pulseira, prio, medicos):
@@ -154,16 +161,18 @@ def atendimento(env, paciente, pulseira, prio, medicos):
             print("%4.1f %s com %s termina o atendimento" %(env.now, paciente, pulseira))
         except:
             print("%4.1f %s com %s tem atendimento interrompido" %(env.now, paciente, pulseira))
-            
+
 random.seed(100)       
 env = simpy.Environment()
 # cria os médicos
 medicos = simpy.PreemptiveResource(env, capacity=2)
 chegadas = env.process(chegadaPacientes(env, medicos))
 
-env.run(until=20)    
+env.run(until=20)
 ```
+
 Quando simulado por apenas 20 minutos, o modelo acrescido das correções apresentadas fornece a seguinte saída:
+
 ```python
  0.8 Paciente  1 com pulseira verde chega
  0.8 Paciente  1 com pulseira verde inicia o atendimento
@@ -189,7 +198,7 @@ with medicos.request(priority=prio, preempt=preempt) as req:
     yield req
 ```
 
-O modelo alterado para interromper apenas no caso de pulseiras vermelhas, ficaria (note que o argumento `preempt` é agora fornecido diretamente a partir da função `sorteiaPulseira):`
+O modelo alterado para interromper apenas no caso de pulseiras vermelhas, ficaria \(note que o argumento `preempt` é agora fornecido diretamente a partir da função `sorteiaPulseira):`
 
 ```python
 import simpy
@@ -203,10 +212,10 @@ def sorteiaPulseira():
     elif r <= .90: # 20% (=90-70) é pulseira amarela
         return "pulseira amarela", 2, False
     return "pulseira vermelha", 1, True # 10% (=100-90) é pulseira vermelha
-    
+
 def chegadaPacientes(env, medicos):
     #gera pacientes exponencialmente distribuídos
-    
+
     i = 0
     while True:
         yield env.timeout(random.expovariate(1/5))
@@ -215,7 +224,7 @@ def chegadaPacientes(env, medicos):
         # sorteia a pulseira
         pulseira, prio, preempt = sorteiaPulseira()
         print("%4.1f Paciente %2i com %s chega" %(env.now, i, pulseira))
-        
+
         # inicia processo de atendimento
         env.process(atendimento(env, "Paciente %2i" %i, pulseira, prio, preempt, medicos))
 
@@ -230,16 +239,18 @@ def atendimento(env, paciente, pulseira, prio, preempt, medicos):
             print("%4.1f %s com %s termina o atendimento" %(env.now, paciente, pulseira))
         except:
             print("%4.1f %s com %s tem atendimento interrompido" %(env.now, paciente, pulseira))
-            
+
 random.seed(100)       
 env = simpy.Environment()
 # cria os médicos
 medicos = simpy.PreemptiveResource(env, capacity=2)
 chegadas = env.process(chegadaPacientes(env, medicos))
 
-env.run(until=20)    
+env.run(until=20)
 ```
+
 O modelo anterior, quando executado por apenas 20 minutos, fornece como saída:
+
 ```python
  0.8 Paciente  1 com pulseira verde chega
  0.8 Paciente  1 com pulseira verde inicia o atendimento
@@ -255,6 +266,7 @@ O modelo anterior, quando executado por apenas 20 minutos, fornece como saída:
 18.7 Paciente  3 com pulseira verde termina o atendimento
 18.7 Paciente  4 com pulseira verde inicia o atendimento
 ```
+
 ## Conteúdos desta seção
 
 | **Conteúdo** | **Descrição** |
@@ -268,6 +280,8 @@ O modelo anterior, quando executado por apenas 20 minutos, fornece como saída:
 ## Desafios
 
 > **Desafio 11**: acrescente ao último programa proposto o cálculo do tempo de atendimento que ainda falta de atendimento para o paciente que foi interrompido por outro e imprima o resultado na tela.
- 
-> **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao antendimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a númeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
+>
+> **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao atendimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a numeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
+
+
 
