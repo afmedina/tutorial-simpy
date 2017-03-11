@@ -355,7 +355,7 @@ O modelo de simulação completo, quando simulado por apenas 20 minutos, fornece
 >
 > **Desafio 16:** acrescente ao modelo da barbearia, a possibilidade de desistência e falta do barbeiro. Neste caso, existe 5% de chance de um barbeiro faltar em determinado dia. Neste caso, considere 3 novas situações:_ _
 >
-> * _Se o barbeiro favorito faltar, o respectivo cliente vai embora;_
+> * Se o barbeiro favorito faltar, o respectivo cliente vai embora;
 > * O cliente que não possuir um barbeiro favorito olha a fila de clientes: se houver mais de 6 clientes em fila, ele desiste e vai embora;
 > * O cliente que possui um barbeiro favorito, não esperará se houver mais de 3 clientes esperando seu barbeiro favorito.
 
