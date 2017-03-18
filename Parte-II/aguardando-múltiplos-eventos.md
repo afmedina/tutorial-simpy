@@ -39,7 +39,7 @@ Para garantir que a função `corrida` aguarde até que, ao menos, um dos corred
     tempo = env.now - start
 ```
 
-O `yield` garante que a função aguardará até que um dos dois eventos - `lebreEvent` ou `tartarugaEvent` - termine e a variável `resultado` armazenará qual desses eventos terminou primeiro \(ou mesmo os dois, em caso de empate\). Assim, para sabermos quem venceu, basta explorarmos o valor contido na variável `resultado`.   
+O `yield` garante que a função aguardará até que um dos dois eventos - `lebreEvent` ou `tartarugaEvent` - termine e a variável `resultado` armazenará qual desses eventos terminou primeiro \(ou mesmo os dois, em caso de empate\). Assim, para sabermos quem venceu, basta explorarmos o valor contido na variável `resultado`.  
 O código a seguir completa o modelo, testando qual dos dois eventos está na variável `resultado`:
 
 ```python
