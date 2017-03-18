@@ -45,7 +45,7 @@
 
 ## Parte III: Controlando os Parâmetros de Saída do Modelo
 
-* \[Um exemplo de simulação e otimização\]Parte-III\/\(um\_exemplo\_de\_simulacao\_e\_otimizacao.md\)
+* [\[Um exemplo de simulação e otimização\]Parte-III\/\(um\_exemplo\_de\_simulacao\_e\_otimizacao.md\)](Parte-III/um-exemplo-de-simulacao-e-otimizacaoparte-iiiumexemplo-de-simulacao-e-otimizacao-md.md)
 * [Simulação de Agentes em SimPy!](Parte-III/simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](Parte-III/exportar_saida_para_arquivo_ou_planilha.md)
 * [Construção de modelos de simulação](Parte-III/construção-de-modelos-de-simulação.md)
