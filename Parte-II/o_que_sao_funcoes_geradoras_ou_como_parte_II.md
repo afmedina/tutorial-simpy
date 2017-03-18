@@ -20,9 +20,9 @@ Imagine por um momento que você é a própria encarnação do SimPy, lidando co
 1. A palavra `yield` suspende imediatamente o processo ou, de outro modo, impede que a execução avance para linha seguinte \(como esperado em toda função geradora\);  
 2. Com o processo suspenso, a função `env.timeout(tempo_de_espera)` é executada e só após o seu derradeiro término, o processamento retorna para a linha seguinte do programa.
 
-Portanto, quando um processo encontra um `yield`, ele é suspenso até o instante em que o evento deve ocorrer, quando o SimPy então _dispara_ o novo evento. O que o SimPy faz no caso é **criar um evento a ser disparado **dali a um tempo igual ao `tempo_de_espera`.
+Portanto, quando um processo encontra um `yield`, ele é suspenso até o instante em que o evento deve ocorrer, quando o SimPy então _dispara_ o novo evento. O que o SimPy faz no caso é **criar um evento a ser disparado **dali a um tempo igual ao `tempo_de_espera.`
 
 Naturalmente, quando num modelo de simulação temos muito eventos interpostos, cabe ao SimPy coordenar os disparos e suspensões dos eventos corretamente ao longo da simulação, respeitando um calendário único do programa - é nesta parte que você deve se emocionar com a habilidade dos programadores que codificaram o calendário de eventos dentro do SimPy...
 
-Em resumo, SimPy é um controlador de eventos, gerados pelo seu programa. Ele recebe seus eventos, ordena pelo momento de execução correto \(ou prioridade, quando existem eventos simultâneos no tempo\) e armazena uma lista de eventos dentro do `environment`. Se uma função dispara um novo evento, cabe ao SimPy adicionar o evento na lista de eventos, de modo ordenado pelo momento de execução \(ou da prioridade daquele evento sobre os outros\).
+Em resumo, SimPy é um controlador de eventos, gerados pelo seu programa. Ele recebe seus eventos, ordena pelo momento de execução correto \(ou prioridade, quando existem eventos simultâneos no tempo\) e armazena uma lista de eventos dentro do `environment.` Se uma função dispara um novo evento, cabe ao SimPy adicionar o evento na lista de eventos, de modo ordenado pelo momento de execução \(ou da prioridade daquele evento sobre os outros\).
 
