@@ -1,8 +1,9 @@
-##Solução do desafio 26
+## Solução do desafio 26
 
-> Desafio 26: acrescente à função `final` um comando para armazenar quem venceu e em que tempo. Simule para 10 replicações e calcule a média e a porcentagem de vitórias de cada corredor. 
+> Desafio 26: acrescente à função `final` um comando para armazenar quem venceu e em que tempo. Simule para 10 replicações e calcule a média e a porcentagem de vitórias de cada corredor.
 
-Neste caso, podemos criar uma lista `resultadoList` para armazenar a `tuple` (tempo, vencedor) de cada replicação. Os valores podem ser armazenados no instante em que a função `campeão` idenfica o vencedor, isto é:
+Neste caso, podemos criar uma lista `resultadoList` para armazenar a `tuple` \(tempo, vencedor\) de cada replicação. Os valores podem ser armazenados no instante em que a função `campeão` identifica o vencedor, isto é:
+
 ```python
 def campeao(event):
     global vencedor
@@ -21,7 +22,9 @@ def campeao(event):
         print('%3.1f A %s chega em segundo lugar...'
                     %(env.now, event.value))
 ```
-Como o desafio pede que sejam executadas 10 replicações da corrida, devemos modificar a chamada do modelo para refletir isso. Incialmente, criamos a lista `resultadoList` e, a seguir, criamos um laço para executar o modelo 10 replicações:
+
+Como o desafio pede que sejam executadas 10 replicações da corrida, devemos modificar a chamada do modelo para refletir isso. Inicialmente, criamos a lista `resultadoList` e, a seguir, criamos um laço para executar o modelo 10 replicações:
+
 ```python
 # lista para armazenar os resultados das corridas/replicações
 resultadoList = []
@@ -37,9 +40,10 @@ for i in range(10):
     # executa até que o processo corrida termine
     env.run(proc)
 ```
-Note que a variável global `vencedor` é atualizada dentro do laço (na seção seguinte, ela era criada logo no cabeçalho do modelo), afinal, a cada replicação precisamos garantir que as variáveis do modelo sejam reinicializadas.
 
-Uma vez que as 10 replicações tenham sido executadas, basta calcular as estatísiticas desejadas. O número de vitórias é facilmente extraída da lista de vencedores:
+Note que a variável global `vencedor` é atualizada dentro do laço \(na seção seguinte, ela era criada logo no cabeçalho do modelo\), afinal, a cada replicação precisamos garantir que as variáveis do modelo sejam reinicializadas.
+
+Uma vez que as 10 replicações tenham sido executadas, basta calcular as estatísticas desejadas. O número de vitórias é facilmente extraída da lista de vencedores:
 
 ```python
 # separa a lista de resultados em duas listas
@@ -51,7 +55,9 @@ tartarugaWin = vencedores.count('tartaruga')
 # calcula a percentagem de vitórias da lebre
 lebreP = lebreWin/(lebreWin+tartarugaWin)
 ```
+
 Para o cálculo da média do tempo de corrida, temos diversas possibilidades. A escolhida aqui foi utilizar a função `mean` da biblioteca `numpy`:
+
 ```python
 # importa a função para cálculo da média a partir biblioteca numpy
 from numpy import mean
@@ -59,7 +65,9 @@ from numpy import mean
 print('Tempo médio de corrida: %3.1f\tLebre venceu: %3.1f%%\tTartaruga venceu: %3.1f%%'
         % (mean(tempos), lebreP*100, (1-lebreP)*100))
 ```
+
 Quando executado, o modelo fornece como resposta:
+
 ```python
 0.0 Iniciada a corrida!
 5.3 \o/ Tan tan tan (música do Senna) A tartaruga é a campeã!
@@ -94,6 +102,11 @@ Quando executado, o modelo fornece como resposta:
 
 Tempo médio de corrida: 4.5     Lebre venceu: 60.0%     Tartaruga venceu: 40.0%
 ```
+
 ## Teste seu conhecimento
+
 1. Acrescente o cálculo do intervalo de confiança ao resultados do tempo médio de corrida e simule um número de replicações suficientes para garantir que este intervalo seja no máximo de 5% em torno da média, para um nível de significância de 95%.
 2. Reformule o modelo para que ele aceite uma lista de corredores diferentes, não só uma lebre e uma tartaruga. 
+
+
+
