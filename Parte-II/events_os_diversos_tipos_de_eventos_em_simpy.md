@@ -1,12 +1,12 @@
 # Criando, manipulando e disparando eventos com `event()`
 
-Nesta seção discutiremos comandos que lhe darão o poder de criar, manipular ou disparar seus próprios eventos, independentes do próprio processo em execução.
+Nesta seção discutiremos comandos que lhe darão o poder de criar, manipular ou disparar seus próprios eventos, de modo independente dos processos já discutidos nas seções anteriores.
 
 Mas com todo o poder, vem também a responsabilidade!
 
-Atente-se para o fato de que, sem o devido cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução.
+Atente-se para o fato de que, sem o devido cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução, naturalmente aumentando a complexidade do modelo.
 
-## Criando um evento isolado com `event`
+## Criando um evento isolado com `event()`
 
 Considere um problema simples de controle de turno de abertura e fechamento de uma ponte elevatória. A ponte abre para automóveis, opera por 5 minutos, fecha e permite a passagem de embarcações no cruzamento por mais 5 minutos.
 
@@ -18,7 +18,7 @@ Em SimPy, um evento é criado pelo comando `env.event():`
 abrePonte = env.event()            # cria o evento abrePonte
 ```
 
-Criar um evento, não significa que executá-lo. Criar um evento significa apenas criá-lo na memória. Para processar um evento, isto é, marcá-lo como executado, utilizamos a opção `succeed():`
+Criar um evento, não significa que executá-lo. Criar um evento significa apenas criá-lo na memória. Para processar um evento, isto é, marcá-lo como executado, utilizamos o método `.succeed():`
 
 ```python
 yield abrePonte.succeed()          # marca o evento abrePonte como executado
@@ -43,7 +43,7 @@ def ponteElevatoria(env):
     print('%2.0f A ponte está aberta  =)' %(env.now))
 ```
 
-Note que `abrePonte `é tratado como uma variável global e isso significa que alguma outra função deve criá-lo e processá-lo, de modo que nossa função `ponteElevatória` abra a ponte no instante correto da simulação.
+Note que `abrePonte`é tratado como uma variável global e isso significa que alguma outra função deve criá-lo e processá-lo, de modo que nossa função `ponteElevatória` abra a ponte no instante correto da simulação.
 
 Assim, criaremos uma função geradora `turno` que representará o processo de controle do turno de abertura/fechamento da ponte e que será responsável por criar e processar o evento de abertura da mesma:
 
