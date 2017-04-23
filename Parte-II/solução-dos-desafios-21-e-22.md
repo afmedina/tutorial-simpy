@@ -1,6 +1,6 @@
 # Solução dos desafios 21 e 22
 
-> **Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. O intervalo entre chegadas sucessivas de veículos para travessia é de 10 segundos \(ou 6 veículos/min\) exponencialmente distribuídos e a ponte permite a travessia de 5 veículos por minuto. Após 4 horas de operação, quantos veículos chegaram e não conseguiram atravessar a ponte?
+> **Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. Os intervalos entre chegadas sucessivas de veículos para travessia é de 10 segundos \(ou 6 veículos/min\) exponencialmente distribuídos e a ponte permite a travessia de 10 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte?
 
 Em relação ao modelo anterior, este novo sistema possui um processo de geração de chegadas de veículos e espera por abertura da ponte. Uma alternativa de implementação é utilizar um `Container` para armazenar os veículos em espera pela abertura da ponte, como no código a seguir:
 
