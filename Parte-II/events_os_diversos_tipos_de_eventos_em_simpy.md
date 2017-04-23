@@ -74,7 +74,7 @@ Como queremos que a ponte funcione continuamente, um novo evento deve ser criado
 abrePonte = env.event()
 ```
 
-Precisamos deixar isso bem claro, paciente leitor: uma vez processado com o método `.succeed,` o evento é extindo e caso seja necessário executá-lo novamente, teremos de recriá-lo com `env.event().`
+Precisamos deixar isso bem claro, paciente leitor: uma vez processado com o método `.succeed(),` o evento é extinto e caso seja necessário executá-lo novamente, teremos de recriá-lo com `env.event().`
 
 Juntando tudo num único modelo de abre/fecha da ponte elevatória, temos:
 
@@ -123,15 +123,19 @@ Quando executado por 20 minutos, o modelo anterior fornece:
 15 A ponte está aberta  =)
 ```
 
-No exemplo anterior, fizemos uso de uma variável global para enviar a informação de que o evento de abertura da ponte foi disparado. Isso é bom, mas também pode ser ruim =\). Note que o evento de abertura da ponte é criado e processado dentro da função `turno,` portanto, **fora** da função que controla o processo de abertura e fechamento da ponte, `ponteElevatoria.` Isso pode deixar as coisas confusas no seu modelo, caso você não tome o devido cuidado.
+No exemplo anterior, fizemos uso de uma variável global, `abrePonte`,  para enviar a informação de que o evento de abertura da ponte foi disparado.
 
-O método`succeed()` ainda pode enviar um valor como parâmetro:
+Isso é bom, mas também pode ser ruim =\).
+
+Note que o evento de abertura da ponte é criado e processado dentro da função `turno(env),` portanto, **fora** da função que controla o processo de abertura e fechamento da ponte, `ponteElevatoria(env).`As coisas podem realmente ficar confusas no seu modelo, caso você não tome o devido cuidado.
+
+O método`.succeed()` ainda pode enviar um valor como parâmetro:
 
 ```python
 meuEvento.succeed(value=valor)
 ```
 
-Poderíamos, por exemplo, enviar à função `ponteElevatoria` o tempo previsto para que a ponte fique aberta. O modelo a seguir, transfere o tempo de abertura \(5 minutos\) à função `ponteElevatoria` que o armazena na variável `tempoAberta:`
+Poderíamos, por exemplo, enviar à função `ponteElevatoria` o tempo previsto para que a ponte fique aberta. O modelo a seguir, por exemplo, transfere o tempo de abertura \(5 minutos\) à função `ponteElevatoria` que o armazena na variável `tempoAberta:`
 
 ```python
 import simpy
@@ -178,7 +182,7 @@ tempoAberta = yield abrePonte
 
 Aguarda até que o evento `abrePonte` seja executado e resgata seu valor \(o tempo que a ponte deve permanecer aberta\) na variável `tempoAberta.`
 
-Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descuidado pode tornar qualquer código ininteligível, candidato ao [Campeonato Mundial de Código C Ofuscado](http://www.ioccc.org/) \(sim, isso existe!\), algo semelhante a utilizar desvios de laço  `go... to` em um programa \(des\)estruturado\).
+Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descuidado pode tornar qualquer código ininteligível, candidato ao [Campeonato Mundial de Código C Ofuscado](http://www.ioccc.org/) \(sim, isso existe!\) ou mesmo algo semelhante a utilizar desvios de laço  `go... to` em um programa \(des\)estruturado\).
 
 ## Conceitos desta seção
 
