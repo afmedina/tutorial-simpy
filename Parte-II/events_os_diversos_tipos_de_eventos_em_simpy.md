@@ -4,13 +4,13 @@ Nesta seção discutiremos comandos que lhe darão o poder de criar, manipular o
 
 Mas com todo o poder, vem também a responsabilidade!
 
-Atente-se para o fato de que, sem o devido cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução, naturalmente aumentando a complexidade do modelo.
+Atente-se para o fato de que, sem o devido cuidado, o seu modelo pode ficar um pouco confuso. Isto porque um evento pode ser criado a qualquer momento e fora do contexto original do processo em execução, naturalmente aumentando a complexidade do código.
 
 ## Criando um evento isolado com `event()`
 
 Considere um problema simples de controle de turno de abertura e fechamento de uma ponte elevatória. A ponte abre para automóveis, opera por 5 minutos, fecha e permite a passagem de embarcações no cruzamento por mais 5 minutos.
 
-Naturalmente, esse modelo poderia ser implementado com o comandos já discutidos em seções anteriores deste livro, contudo, a ideia desta seção é demonstrar como criar um evento específico que informe à ponte que ela deve fechar, algo semelhante a um sinal semafórico.
+Naturalmente, esse modelo poderia ser implementado com os comandos já discutidos neste livro, contudo, a ideia desta seção é demonstrar como criar um evento específico que informe à ponte que ela deve fechar, algo semelhante a um sinal semafórico.
 
 Em SimPy, um evento é criado pelo comando `env.event():`
 
