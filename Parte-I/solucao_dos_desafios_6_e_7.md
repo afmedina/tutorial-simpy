@@ -24,7 +24,7 @@ def geraChegada(env, numEntidades):
 random.seed(100)
 env = simpy.Environment()
 chegadas = env.process(geraChegada(env, 5)) # gere apenas 5 entidades
-env.run()                                   # executa até o fim de todos os processos do modelo
+env.run()                                   # executa até o fim de todos os processos
 ```
 
 Quando executado, o modelo anterior apresenta como resultado:
@@ -39,7 +39,7 @@ Quando executado, o modelo anterior apresenta como resultado:
  7.0 nova chegada       Peso:  5.8 kg   Média atual: 10.3
 ```
 
-> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [Stack Overflow](http://stackoverflow.com/\)!\).
+> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [Stack Overflow](http://stackoverflow.com/%29!\).
 
 Esta situação exige um pouco mais no processo de codificação, contudo é algo muito utilizado em modelos de simulação de eventos discretos.
 
