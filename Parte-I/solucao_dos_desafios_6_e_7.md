@@ -63,7 +63,8 @@ A biblioteca [_scipy.stats_](https://docs.scipy.org/doc/scipy/reference/stats.ht
 ```python
 def intervaloConfMedia(a, conf=0.95):
     # retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
-    media, sem, m = numpy.mean(a), scipy.stats.sem(a), scipy.stats.t.ppf((1+conf)/2., len(a)-1)
+    media, sem = numpy.mean(a), scipy.stats.sem(a)
+    m = scipy.stats.t.ppf((1+conf)/2., len(a)-1)
     h = m*sem
     return media, h
 ```
@@ -80,8 +81,8 @@ import scipy.stats  # bilbioteca scipy.stats de funções estatísticas
 
 def intervaloConfMedia(a, conf=0.95):
     # retorna a média e a amplitude do intervalo de confiança dos valores contidos em a
-    media, sem, m = numpy.mean(a), scipy.stats.sem(a), scipy.stats.t.ppf((1+conf)/2., len(a)-1)
-    h = m*sem
+    media, sem = numpy.mean(a), scipy.stats.sem(a)
+    m = scipy.stats.t.ppf((1+conf)/2., len(a)-1)
     return media, h
 
 def geraChegada(env):
@@ -95,7 +96,8 @@ def geraChegada(env):
         # calcula a amplitude do intervalo de confiança, com nível de significância = 95%
         if len(pesosList) > 1:           
             media, amplitude = intervaloConfMedia(pesosList, 0.95)
-            print("%4.1f Média atual: %.2f kg\tAmplitude atual: %.2f kg" %(env.now, media, amplitude))
+            print("%4.1f Média atual: %.2f kg\tAmplitude atual: %.2f kg"
+                    %(env.now, media, amplitude))
 
             # se a amplitude atende ao critério estabelecido, interronpe o processo
             if amplitude < 0.5:
@@ -108,7 +110,7 @@ def geraChegada(env):
 random.seed(100)
 env = simpy.Environment()
 chegadas = env.process(geraChegada(env)) 
-env.run()                                   # executa até o fim de todos os processos do modelo
+env.run()                                   # executa até o fim de todos os processos
 ```
 
 O programa anterior leva 411 amostras para atingir o intervalo desejado:
