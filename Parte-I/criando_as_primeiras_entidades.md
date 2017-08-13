@@ -118,8 +118,7 @@ env = simpy.Environment() # cria o environment do modelo
 env.process(geraChegadas(env, "Cliente", 2)))
 ```
 
-O código deve ser autoexplicativo: o laço `while`  
- é **infinito** enquanto dure a simulação; um contador, `contaChegada`, armazena o total de entidades geradas e a função `print`, imprime na tela o instante de chegada de cada cliente. Note que, dentro do `print`, existe uma chamada para a **hora atual de simulação** `env.now`.  
+O código deve ser autoexplicativo: o laço `while`é **infinito** enquanto dure a simulação; um contador, `contaChegada`, armazena o total de entidades geradas e a função `print`, imprime na tela o instante de chegada de cada cliente. Note que, dentro do `print`, existe uma chamada para a **hora atual de simulação** `env.now`.  
 Por fim, uma chamada a função `random.seed()` garante que os números aleatórios a cada execução do programa serão os mesmos.
 
 ## Executando o modelo por um tempo determinado com `env.run(until=tempo_de_simulacao)`
@@ -158,7 +157,7 @@ Cliente 6 chega em: 9.1
 
 Agora sim!
 
-Note que `env.process(geraChegadas(env))` é um comando que **torna** a função `geraChegadas()` um **processo** ou um **gerador de eventos** dentro do `Environment env`. Esse processo só começa a ser executado na linha seguinte, quando `env.run(until=10)` informa ao SimPy que todo processo pertencente ao `env` seja executado por um **tempo de simulação** igual a 10 minutos.
+Note que `env.process(geraChegadas(env))` é um comando que **torna** a função `geraChegadas()` um **processo** ou um **gerador de eventos** dentro do `Environment env`. Esse processo só começa a ser executado na linha seguinte, quando `env.run(until=10)` informa ao SimPy que todo processo pertencente ao `env` deve ser executado por um **tempo de simulação** igual a 10 minutos.
 
 ## Conceitos desta seção
 
