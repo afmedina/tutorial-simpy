@@ -60,7 +60,7 @@ Chewbacca possui: $10 e R2D2 possui: $0
 Chewbacca venceu depois de 5 lançamentos, fim de jogo!
 ```
 
-Note que o resultado fornecido deve ser diferente em seu computador, assim como ele se modifica a cada nova rodada no programa. Para que os resultados sejam semelhantes, precisamos utilizar o comando [`random.seed(semente)`](https://docs.python.org/3/library/random.html#random.seed\) com um mesmo valor inicial \(veja o item 1 na seção "Teste seus conhecimentos a seguir").
+Note que o resultado fornecido deve ser diferente em seu computador, assim como ele se modifica a cada nova rodada no programa. Para que os resultados sejam semelhantes, precisamos utilizar o comando [`random.seed(semente)`](https://docs.python.org/3/library/random.html#random.seed\) com um mesmo valor inicial \(veja o item 1 na seção "Teste seus conhecimentos", na seção a seguir").
 
 ### Teste seus conhecimentos:
 
