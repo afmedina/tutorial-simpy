@@ -1,4 +1,4 @@
-# O que são funções geradoras? \(Ou entendendo como funciona o SimPy\) - Parte I
+# O que são funções geradoras? \(Ou como funciona o SimPy\) - Parte I
 
 O comando `yield`é quem, como você já deve ter notado, dá o _ritmo_ do seu modelo em SimPy. Para melhor compreender como funciona um programa em SimPy, precisamos entender, além do próprio comando `yield,`outro conceito fundamental em programação: as funções geradoras.
 
