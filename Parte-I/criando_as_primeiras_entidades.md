@@ -1,12 +1,13 @@
-# Primeiro passo em SimPy: criando entidades
+# Primeiros passos em SimPy: criando entidades
 
-Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Olá_Mundo) dos pacotes de simulação. Nossa primeira missão será construir uma função que gere entidades  com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min. Vamos simular o sistema por 10 minutos apenas.
+Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Olá_Mundo) dos pacotes de simulação.
+Sua primeira missão, caso decida aceitá-la, será construir uma função que gere entidades com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min. Simule o sistema por 10 minutos apenas.
 
 ## Chamada das bibliotecas `random` e `simpy`
 
-Inicialmente serão necessárias duas bibliotecas do Python: a `random` – biblioteca de geração de números aleatórios – e a `simpy`, que é o próprio SimPy.
+Inicialmente, serão necessárias duas bibliotecas do Python: a `random` – biblioteca de geração de números aleatórios – e a `simpy`, que é o próprio SimPy.
 
-Começaremos nosso primeiro modelo de simulação em SimPy chamando as bibliotecas de interesse:
+Nosso primeiro modelo de simulação em SimPy começa com as chamadas das respectivas bibliotecas de interesse:
 
 ```python
 import random             # gerador de números aleatórios
@@ -15,12 +16,13 @@ import simpy              # biblioteca de simulação
 random.seed(1000)         # semente do gerador de números aleatórios
 ```
 
-Note a linha final `random.seed(1000)`, ela garante que a geração de números aleatórios sempre começará pela mesma semente. Na prática, a sequência de números aleatórios gerados será sempre a mesma, facilitando o processo de verificação do programa.
+Note a linha final `random.seed(1000)`. Ela garante que a geração de números aleatórios sempre começará pela mesma semente, de modo que a sequência de números aleatórios gerados a cada execução programa será sempre a mesma, facilitando o processo de verificação do programa.
 
 ## Criando um `evironment` de simulação
 
-Tudo no SimPy gira em torno de **eventos** criados por funções e todos os eventos ocorrem num **environment**, ou um “ambiente” de simulação criando a partir da função `simpy.Environment()`.  
-Assim, todo programa principal sempre começa com uma chamada ao SimPy, criando um _environment_  “env”:
+Tudo no SimPy gira em torno de **eventos** gerados por funções e todos os eventos devem ocorrer em um **environment**, ou um “ambiente” de simulação criado a partir da função `simpy.Environment()`.
+
+Assim, nosso programa deve conter ao menos uma chamada à função `simpy.Environment()`, criando um _environment_  “env”:
 
 ```python
 import random             # gerador de números aleatórios
