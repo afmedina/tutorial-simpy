@@ -10,8 +10,6 @@ A biblioteca ganhou meu coração por ser de uso simples e isso inclui poucos co
 
 Vamos começar _planilhando_ nosso modelo de fila M/M/1 criado na seção "Criando, ocupando e desocupando recursos". Nesse modelo, temos dois parâmetros de entrada: o tempo médio entre chegadas de clientes e o tempo médio de atendimento no servidor \(lembrando que em uma fila M/M/1 tanto os intervalos entre chegadas sucessivas de clientes quanto os atendimentos no servidor são exponencialmente distribuídos\).
 
-
-
 ```
 import random                           # gerador de números aleatórios
 ```
