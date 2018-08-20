@@ -18,33 +18,7 @@ Un bon voyage!
 
 Afonso C. Medina
 
-**Road Map \[Responsável\]:**
 
-Obs: o livro está escrito como se o autor conversasse com o leitor, então esse estilo tem deve ser mantido para não ficar estranho
-
-* [ ] **\[Medina\]** URGENTE: migrar do gitbook para algum outro serviço, pois o gitbook não vende mais livros \(virou um site para produção de documentação de sw\)
-* [ ] **\[Vou tentar um colega da Mauá\]** Revisão completa de todo código do livro 
-  * [ ] Lançar código do livro para uma conta do GitHub \(para os leitores baixarem sem problema\)
-* [ ] **\[....\]** Um breve histórico do SimPy em "Apresentação". Contar a história de onde surgiu, as versões e como está
-* [ ] **\[Medina\]** Ao final do exemplo da fila M/M/1 colocar uma sessão "Comparando o SimPy com outras linguagem de simulação"
-* [ ] **\[TODOS\]** O livro tem poucas figuras, se alguém identificar algo didático, fala que eu desenho \(como fiz no caso da M/M/1\) ou se, for um fluxograma, constrói no formato que for que eu importo
-* [ ] **\[....\]** Em "Outros tipos de recurso" desenhar um fluxograma que ajude a entender a diferença. Aquilo não é trivial
-* [ ] **\[Medina\] **Figura para diferenciar Store, FilterStore e... em Armazenagem e seleção de objetos
-
-Parte III
-
-* [ ] \[....\]** Um exemplo de simulação e otimização**: considerar o número de caixas ótimo de um banco \(custo de fila x custo de abertura do caixa\) ou o número de motos necessárias para uma pizzaria entregar 90% das pizzas em até 30 min ou número de atendentes no telemarketing \(aqui dá para pedir no exercício complementar que o leitor simule uma tabela de turno ou mesmo hora extra\). Acho o telemarketing mais legal
-* [ ] \[....\] Integração com o Excel
-* [ ] \[....\] **Experimentação **\(considerando que está integrado ao Excel\)
-* [ ] \[....\] Simulação de agentes: exemplo do ataque zumbi \(é só reproduzir o tutorial do Repast que explica agentes  x zumbi\)
-* [ ] \[....\] Discussão sobre o que é um projeto de simulação mostrando o mandala do meu livro e discutindo a necessidade da modelagem conceitual
-* [ ] **Estudo de Caso completo \(exemplo da fábrica de skate?\)**
-
-Fechamento
-
-* [ ] \[....\] Revisão ortográfica completa
-* [ ] \[Medina\] Registro ISBN
-* [ ] \[....\] Tradução para o Inglês &gt;&gt; Amazon!
 
 
 
