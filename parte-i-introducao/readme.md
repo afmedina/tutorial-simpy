@@ -1,4 +1,4 @@
-# Simpy: see me, fell me, read me
+# See-me, fell-me
 
 Este livro é uma breve introdução para quem deseja conhecer o ambiente **SimPy** \(_Simulation in Python_\) para construção de modelos de simulação de eventos discretos em Python.
 
