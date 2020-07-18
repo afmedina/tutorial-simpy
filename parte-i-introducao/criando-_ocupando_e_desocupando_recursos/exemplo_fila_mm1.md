@@ -1,4 +1,4 @@
-# Exemplo Fila M\/M\/1
+# Exemplo Fila M\M\1
 
 A fila M/M/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/%29\) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
 
@@ -11,11 +11,11 @@ Partindo da função `geraChegadas,` codificada na seção "Primeiro passo em Si
 Inicialmente, vamos acrescentar as constantes `TEMPO_MEDIO_CHEGADAS` e `TEMPO_MEDIO_ATENDIMENTO`, para armazenar os parâmetros das distribuições dos processos de chegada e atendimento da fila. Adicionalmente, vamos criar o recurso `servidorRes` com capacidade de atender 1 cliente por vez.
 
 ```python
-import random                           # gerador de números aleatórios
-import simpy                            # biblioteca de simulação
+import random                       # gerador de números aleatórios
+import simpy                        # biblioteca de simulação
 
-TEMPO_MEDIO_CHEGADAS = 1.0              # tempo médio entre chegadas sucessivas de clientes
-TEMPO_MEDIO_ATENDIMENTO = 0.5           # tempo médio de atendimento no servidor
+TEMPO_MEDIO_CHEGADAS = 1.0          # tempo médio entre chegadas sucessivas de clientes
+TEMPO_MEDIO_ATENDIMENTO = 0.5       # tempo médio de atendimento no servidor
 
 def geraChegadas(env):
     # função que cria chegadas de entidades no sistema
@@ -142,7 +142,7 @@ def atendimentoServidor(env, nome, servidorRes):
         print('%.1f Servidor termina o atendimento do %s' % (env.now, nome))
 ```
 
-No script anterior a ocupação e desocupação é garantida dentro do `with`, deixando o código mais compacto e legível. Contudo, a aplicação é limitada a problemas de ocupação e desocupação simples de servidores \(veja um contra-exemplo no Desafio 6\).
+No script anterior a ocupação e desocupação é garantida dentro do `with`, deixando o código mais compacto e legível. Contudo, a aplicação é limitada a problemas de ocupação e desocupação simples de servidores \(veja um contraexemplo no Desafio 6\).
 
 Existem muitos conceitos a serem discutidos sobre os scripts anteriores e, garanto, que eles serão destrinchados nas seções seguintes.
 

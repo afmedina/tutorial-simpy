@@ -2,11 +2,11 @@
 
 Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence à entidade, enquanto a variável pertence ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o **número de produtos** comprados. Note que o atributo "número de produtos" é um valor diferente para cada cliente, ou seja: é um valor exclusivo do cliente.
 
-Por outo lado, um parâmetro de saída importante seria o número total de produtos vendidos nesta loja ao longo da duração da simulação. O total de produtos é a soma dos atributos "número de produtos" de cada cliente que comprou algo na loja. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada nova compra, independentemente de quem é o cliente.
+Por outro lado, um parâmetro de saída importante seria o número total de produtos vendidos nesta loja ao longo da duração da simulação. O total de produtos é a soma dos atributos "número de produtos" de cada cliente que comprou algo na loja. Assim, o total vendido é uma **variável** do modelo, que se acumula a cada nova compra, independentemente de quem é o cliente.
 
 Em SimPy a coisa é trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Não se trata de uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca, é decorrente da necessidade de se representar os processos do modelo de simulação por meio de **funções** que, por sua vez representam entidades executando alguma coisa.
 
-Usuários de pacotes comerciais \(Simul8, Anylogic, GPSS, Arena etc.\) estão acostumados a informar explicitamente ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo e que os atributos de interesse devem ser transferidos de um processo ao outro por transferência de argumentos no cabeçalho das funções.
+Usuários de pacotes comerciais \(Simul8, Anylogic, Arena etc.\) estão acostumados a informar explicitamente ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo e que os atributos de interesse devem ser transferidos de um processo ao outro por transferência de argumentos no cabeçalho das funções.
 
 Voltemos ao exemplo de chegadas de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
 
@@ -78,7 +78,7 @@ Do modo como o problema foi modelado, isso não é possível, pois cada chegada 
 
 Para aqueles que programam com classes e objetos, o atributo é naturalmente o atributo da entidade \(ou do processo\). Uma facilidade que a programação voltada ao objeto possui é que podemos criar atributos para recursos também. Neste caso, basta que o recurso seja criado dentro de uma classe.
 
-Por exemplo, a fila M\/M\/1 poderia ser modelada por uma classe `Servidor`, em que um dos seus atributos é o próprio `Resource` do SimPy, como mostra o código a seguir:
+Por exemplo, a fila M\M\1 poderia ser modelada por uma classe `Servidor,` em que um dos seus atributos é o próprio `Resource` do SimPy, como mostra o código a seguir:
 
 ```python
 import random
@@ -155,5 +155,5 @@ No caso da programação voltada ao objeto, uma variável do modelo pode pertenc
 
 > **Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
 >
-> **Desafior 8**: no desafio anterior, caso você simule por 10 ou mais horas, deve notar como o tempo de espera pela lavadora fica muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo construído?
+> **Desafio 8**: no desafio anterior, caso você simule por 10 ou mais horas, deve notar como o tempo de espera pela lavadora fica muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo construído?
 

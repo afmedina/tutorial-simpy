@@ -4,7 +4,6 @@
 
 ## Parte I: Introdução
 
-* [See-me, fell-me](parte-i-introducao/readme.md)
 * [Introdução](parte-i-introducao/parte-i/README.md)
   * [Introdução ao SimPy](parte-i-introducao/parte-i/introducao_ao_simpy.md)
   * [Instalando o SimPy](parte-i-introducao/parte-i/instalando_o_simpy.md)
@@ -13,7 +12,7 @@
 * [Criando as primeiras entidades](parte-i-introducao/criando_as_primeiras_entidades/README.md)
   * [Solução dos desafios 2 e 3](parte-i-introducao/criando_as_primeiras_entidades/solucao_dos_desafios_2_e_3.md)
 * [Criando, ocupando e desocupando recursos](parte-i-introducao/criando-_ocupando_e_desocupando_recursos/README.md)
-  * [Exemplo Fila M\/M\/1](parte-i-introducao/criando-_ocupando_e_desocupando_recursos/exemplo_fila_mm1.md)
+  * [Exemplo Fila M\M\1](parte-i-introducao/criando-_ocupando_e_desocupando_recursos/exemplo_fila_mm1.md)
   * [Solução dos desafios 4, 5 e 6](parte-i-introducao/criando-_ocupando_e_desocupando_recursos/solucao_dos_desafios_4_e_5.md)
 * [Atributos e variáveis](parte-i-introducao/atributos_e_variaveis/README.md)
   * [Solução dos desafios 7 e 8](parte-i-introducao/atributos_e_variaveis/solucao_dos_desafios_7_e_8_atributos.md)

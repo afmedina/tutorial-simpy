@@ -107,7 +107,7 @@ Tempo médio de espera por lavadoras: 138.63 min. Clientes atendidos: 77
 Fila de clientes ao final da simulação: lavadoras 56 cestos 0 secadoras 0
 ```
 
-Portanto, ao final da simulação, existem 56 clientes aguardando uma lavadora livre, enquanto nenhum cliente aguarda por cestos ou secadoras. Temos um caso clássico de fila **infinita**, isto é: a taxa de horária de atendimento das lavadoras é menor que a taxa horária com que os clientes chegam à lavanderia. Assim, se 1 cliente ocupa em média 20 minutos uma lavadora, a taxa de atendimento em cada lavadora é de $$\mu=$$ 0.05 clientes\/min \(=1 cliente \/20 min\), enquanto a taxa de chegadas de clientes na lavandeira é de $$\lambda=$$0.20 clientes\/min \(= 1 cliente\/5 min\).
+Portanto, ao final da simulação, existem 56 clientes aguardando uma lavadora livre, enquanto nenhum cliente aguarda por cestos ou secadoras. Temos um caso clássico de fila **infinita**, isto é: a taxa de horária de atendimento das lavadoras é menor que a taxa horária com que os clientes chegam à lavanderia. Assim, se 1 cliente ocupa em média 20 minutos uma lavadora, a taxa de atendimento em cada lavadora é de $$\mu=$$ 0.05 clientes\/min \(=1 cliente \/20 min\), enquanto a taxa de chegadas de clientes na lavanderia é de $$\lambda=$$0.20 clientes\/min \(= 1 cliente\/5 min\).
 
 Como a taxa de atendimento é menor que a taxa de chegadas, a fila cresce indefinidamente. Para termos um sistema equilibrado, precisaríamos de um número de lavadoras tal que se garanta que a taxa de atendimento da soma das lavadoras seja maior que a taxa de chegadas de clientes no sistema ou:
 
