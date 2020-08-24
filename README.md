@@ -14,7 +14,7 @@ Uma ideia para aproveitar bem sua navegação: na partida, antes de começar, me
 
 Este tutorial é produto do trabalho de seres humanos que pesquisam, ensinam e utilizam profissionalmente ferramentas de Simulação no seu dia-a-dia.
 
-Un bon voyage, zifio!
+_Un bon voyage, zifio!_
 
 Afonso C. Medina
 
