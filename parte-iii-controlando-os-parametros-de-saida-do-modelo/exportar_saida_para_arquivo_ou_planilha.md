@@ -2,7 +2,7 @@
 
 Modelos de simulação são usualmente ferramentas utilizadas para simulação de diversos cenários distintos, exigindo a manipulação de um número considerável de dados e informações. Assim, uma boa prática é armazenar os dados do modelo, tanto de entrada quanto de saída, em uma planilha eletrônica.
 
-Embora o SimPy não tenha funções específicas de comunicação com planilhas, o Python possui diversas bibliotecas para isso. A minha preferida é a [xlwings](https://www.xlwings.org/).
+Embora o SimPy não tenha funções específicas de comunicação com planilhas, o Python possui diversas bibliotecas para isso. A minha preferida é a [xlwings](https://www.xlwings.org/). Você pode encontrar cursos on-line de uso da biblioteca no próprio site dos desenvolvedores ou procurar, pois existe muita coisa no [youtube ](https://youtu.be/5iyL9tMw8vA)e no [stackoverflow](https://stackoverflow.com/).
 
 ## Comunicação com a biblioteca
 
