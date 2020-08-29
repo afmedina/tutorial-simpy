@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Simpy: see me, fell me, read me](README.md)
+* [Como citar esta obra e ficha catalográfica](como-citar-esta-obra-e-ficha-catalografica.md)
 
 ## Parte I: Introdução
 
