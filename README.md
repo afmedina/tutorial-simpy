@@ -1,3 +1,7 @@
+---
+description: '(Observação: seções entre colchetes ''[...]'' ainda estão em desenvolvimento)'
+---
+
 # Simpy: see me, fell me, read me
 
 Este livro é uma breve introdução para quem deseja conhecer o ambiente **SimPy** \(_Simulation in Python_\) para construção de modelos de simulação de eventos discretos em Python.
