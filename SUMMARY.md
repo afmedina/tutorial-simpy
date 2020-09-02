@@ -42,7 +42,7 @@
 * [Adicionando funções aos eventos com callbacks](parte-ii-eventos/adicionando-funcoes-aos-eventos-com-callbacks/README.md)
   * [Solução do desafio 26](parte-ii-eventos/adicionando-funcoes-aos-eventos-com-callbacks/solucao-do-desafio-26.md)
 * [Interrupções de eventos](parte-ii-eventos/interrupcoes-de-eventos.md)
-* [O que são funções geradoras? \(Ou como funciona o SimPy\) Parte II](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
+* [O que são funções geradoras? \(Ou como funciona o SimPy\) Parte I](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
 * [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_parte_ii.md)
 
 ## Parte III: Controlando os Parâmetros de Saída do Modelo
