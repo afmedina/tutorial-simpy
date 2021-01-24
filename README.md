@@ -8,6 +8,8 @@ Este livro é uma breve introdução para quem deseja conhecer o ambiente **SimP
 
 Propositadamente, o livro é dividido em seções limitadas em tamanho, com características similares a um tutorial. Assim, aqueles que desejam conhecer esta fascinante ferramenta em Python para construção de modelos de simulação, poderão sempre revisitar o material como uma fonte rápida de referência e encontrar o seu momento "ah, tá..."
 
+![](.gitbook/assets/imagem2.png)
+
 Antes de prosseguir, um pequeno aviso:
 
 > Pressuponho que você possui conhecimentos de Modelagem e Simulação de Eventos Discretos ou, ao menos, está fazendo algum curso sobre o assunto ou mesmo lendo o prestigioso livro [Modelagem e Simulação de Eventos Discretos \(Chwif & Medina\)](http://livrosimulacao.eng.br/)!
