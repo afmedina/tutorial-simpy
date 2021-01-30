@@ -1,6 +1,6 @@
 # Criando lotes \(ou agrupando\) entidades durante a simulação
 
-Uma situação bastante comum em modelos de simulação é o agrupamento de entidades em lotes ou o seu oposto: o desmembramento de um lote em diversas entidades separadas. É usual em softwares de simulação proprietários existir um comando \(ou bloco\) específico para isso. Por exemplo, o Arena possui o "Batch/Separate", o Simul8 o "Batching" etc.
+Uma situação bastante comum em modelos de simulação é o agrupamento de entidades em lotes ou o seu oposto: o desmembramento de um lote em diversas entidades separadas. É usual em softwares de simulação proprietários existir um comando \(ou bloco\) específico para isso. Por exemplo, o [AnyLogic ](https://www.anylogicbrasil.com.br/)possui o "[Batch](https://help.anylogic.com/topic/com.anylogic.help/html/processmodeling/batch.html)/[Unbatch](https://help.anylogic.com/topic/com.anylogic.help/html/processmodeling/unbatch.html)", o Arena possui o "Batch/Separate", o Simul8 o "Batching" etc.
 
 Vamos partir de um exemplo simples, em que uma célula de produção deve realizar a tarefa de montagem de um certo componente a partir do encaixe de uma peça A com duas peças B. O operador da célula leva em média 5 minutos para montar o componente, segundo uma distribuição normal com desvio padrão de 1 minuto. Os processos de chegadas dos lotes A e B são distintos entre si, com tempos entre chegadas sucessivas uniformemente distribuídos no intervalo entre 40 a 60 minutos.
 
