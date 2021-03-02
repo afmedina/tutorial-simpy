@@ -5,11 +5,10 @@
 
 ## Parte I: Introdução
 
-* [Introdução](parte-i-introducao/parte-i/README.md)
-  * [Introdução ao SimPy](parte-i-introducao/parte-i/introducao_ao_simpy.md)
-  * [Instalando o SimPy](parte-i-introducao/parte-i/instalando_o_simpy.md)
-  * [Introdução ao Python](parte-i-introducao/parte-i/introducao_ao_python.md)
-  * [Solução desafio 1](parte-i-introducao/parte-i/solucao_desafio_1.md)
+* [Introdução ao SimPy](parte-i-introducao/introducao_ao_simpy.md)
+* [Instalando o SimPy](parte-i-introducao/instalando_o_simpy.md)
+* [Introdução ao Python](parte-i-introducao/introducao_ao_python.md)
+* [Solução desafio 1](parte-i-introducao/solucao_desafio_1.md)
 * [Criando as primeiras entidades](parte-i-introducao/criando_as_primeiras_entidades/README.md)
   * [Solução dos desafios 2 e 3](parte-i-introducao/criando_as_primeiras_entidades/solucao_dos_desafios_2_e_3.md)
 * [Criando, ocupando e desocupando recursos](parte-i-introducao/criando-_ocupando_e_desocupando_recursos/README.md)

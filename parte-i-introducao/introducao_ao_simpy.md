@@ -26,7 +26,7 @@ Esta disponibilidade de bibliotecas, bem como ser um software livre, torna o Sim
 
 Prós:
 
-* Código aberto e livre \([licença MIT](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT%29\);
+* Código aberto e livre \([licença MIT](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT)\);
 * Diversas funções de bibliotecas de otimização, matemática e estatística podem ser incorporadas ao modelo;
 * Permite a programação de lógicas sofisticadas, apoiando-se no Python \(e suas bibliotecas\);
 * Comunidade ativa de desenvolvedores e usuários que mantém a biblioteca atualizada;
@@ -40,7 +40,9 @@ Contras:
 
 ## Um breve histórico do SimPy
 
-&lt;....&gt;
+Simpy surgiu em 2002 baseado nas ideias da família de linguagem [Simula ](https://pt.wikipedia.org/wiki/Simula)e [Simscript](https://en.wikipedia.org/wiki/SIMSCRIPT), sendo incialmente desenvolvido por Klaus Muller e Tony Vignaux. Sempre utilizando o Python como padrão, a biblioteca teve uma rápido desenvolvimento ao longo dos anos e, no momento em que este texto é escrito \(março/2020\), encontra-se na versão 4.0.
+
+Existem vídeo e tutorais na Internet e um bom local para discussão sobre o SimPy é o seu [_mailing list_](https://groups.google.com/g/python-simpy)_._
 
 ## Onde procurar ajuda sobre o SimPy
 
