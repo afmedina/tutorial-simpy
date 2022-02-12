@@ -4,6 +4,8 @@ description: '(Observação: seções entre colchetes ''[...]'' ainda estão em 
 
 # Simpy: see me, fell me, read me
 
+Obs: o tutorial no gitbook pode ser acessado no endereço  https://simpy.livrosimulacao.eng.br/
+
 Este livro é uma breve introdução para quem deseja conhecer o ambiente **SimPy** \(_Simulation in Python_\) para construção de modelos de simulação de eventos discretos em Python.
 
 Propositadamente, o livro é dividido em seções limitadas em tamanho, com características similares a um tutorial. Assim, aqueles que desejam conhecer esta fascinante ferramenta em Python para construção de modelos de simulação, poderão sempre revisitar o material como uma fonte rápida de referência e encontrar o seu momento "ah, tá..."
