@@ -6,7 +6,7 @@ Por outro lado, um parâmetro de saída importante seria o número total de prod
 
 Em SimPy a coisa é trivial: toda variável **local** funciona como atributo da entidade gerada e toda variável **global** é naturalmente uma variável do modelo. Não se trata de uma regra absoluta, nem tampouco foi imaginada pelos desenvolvedores da biblioteca, é decorrente da necessidade de se representar os processos do modelo de simulação por meio de **funções** que, por sua vez representam entidades executando alguma coisa.
 
-Usuários de pacotes comerciais \(Simul8, Anylogic, Arena etc.\) estão acostumados a informar explicitamente ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo e que os atributos de interesse devem ser transferidos de um processo ao outro por transferência de argumentos no cabeçalho das funções.
+Usuários de pacotes comerciais (Simul8, Anylogic, Arena etc.) estão acostumados a informar explicitamente ao modelo o que é atributo e o que é variável. Em SimPy, basta lembrar que as variáveis globais serão variáveis de todo o modelo e que os atributos de interesse devem ser transferidos de um processo ao outro por transferência de argumentos no cabeçalho das funções.
 
 Voltemos ao exemplo de chegadas de clientes numa loja. Queremos que cada cliente tenha como atributo o número de produtos desejados:
 
@@ -64,7 +64,7 @@ A execução do programa por apenas 5 minutos, apresenta como resposta:
 Total vendido: 5 produtos
 ```
 
-É importante destacar no exemplo, que o cliente \(ou entidade\) gerado\(a\) pela função `geraChegadas`é enviado\(a\) para a função `compra` com seu atributo `produtos,` como se nota na linha em que o cliente chama o processo de compra:
+É importante destacar no exemplo, que o cliente (ou entidade) gerado(a) pela função `geraChegadas`é enviado(a) para a função `compra` com seu atributo `produtos,` como se nota na linha em que o cliente chama o processo de compra:
 
 ```python
 env.process(compra(env, "cliente %d" % contaEntidade, produtos))
@@ -76,7 +76,7 @@ Do modo como o problema foi modelado, isso não é possível, pois cada chegada 
 
 ## Atributos em modelos orientados ao objeto
 
-Para aqueles que programam com classes e objetos, o atributo é naturalmente o atributo da entidade \(ou do processo\). Uma facilidade que a programação voltada ao objeto possui é que podemos criar atributos para recursos também. Neste caso, basta que o recurso seja criado dentro de uma classe.
+Para aqueles que programam com classes e objetos, o atributo é naturalmente o atributo da entidade (ou do processo). Uma facilidade que a programação voltada ao objeto possui é que podemos criar atributos para recursos também. Neste caso, basta que o recurso seja criado dentro de uma classe.
 
 Por exemplo, a fila M\M\1 poderia ser modelada por uma classe `Servidor,` em que um dos seus atributos é o próprio `Resource` do SimPy, como mostra o código a seguir:
 
@@ -109,7 +109,7 @@ def processaCliente(env, cliente, servidor):
 
         print('%.1f Servidor ocupado pelo %s' % (env.now, cliente))
         yield env.process(servidor.atendimento(cliente))
-        self.clientesAtendidos += 1
+        servidor.clientesAtendidos += 1
         print('%.1f Servidor desocupado pelo %s' % (env.now, cliente))
 
 
@@ -146,14 +146,13 @@ No caso da programação voltada ao objeto, uma variável do modelo pode pertenc
 
 ## Conteúdos desta seção
 
-| **Conteúdo** | **Descrição** |
-| :--- | :--- |
-| representação de atributos | os atributos devem ser representados localmente e transferidos entre funções \(ou processos\) como parâmetros das funções \(ou processos\) |
+| **Conteúdo**               | **Descrição**                                                                                                                                         |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| representação de atributos | os atributos devem ser representados localmente e transferidos entre funções (ou processos) como parâmetros das funções (ou processos)                |
 | representação de variáveis | as variáveis do modelo são naturalmente representadas como variáveis globais ou, no caso da programação voltada ao objeto, como atributos de classes. |
 
 ## Desafios
 
-> **Desafio 7**: retome o problema da lavanderia \(Desafio 6\). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
+> **Desafio 7**: retome o problema da lavanderia (Desafio 6). Estime o tempo médio que os clientes atendidos aguardaram pela lavadora. Dica: você precisará de uma variável global para o cálculo do tempo de espera e um atributo para marcar a hora de chegada no sistema.
 >
 > **Desafio 8**: no desafio anterior, caso você simule por 10 ou mais horas, deve notar como o tempo de espera pela lavadora fica muito alto. Para identificar o gargalo do sistema, acrescente a impressão do número de clientes que ficaram em fila ao final da simulação. Você consegue otimizar o sistema a partir do modelo construído?
-
