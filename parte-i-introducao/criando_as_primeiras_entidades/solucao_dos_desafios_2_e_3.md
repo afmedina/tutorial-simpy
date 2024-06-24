@@ -53,7 +53,7 @@ def geraChegadas(env, nome, numeroMaxChegadas):
     # função que cria chegadas de entidades no sistema
     contaChegada = 0
     while (contaChegada < numeroMaxChegadas:
-        yield env.timeout(random.triangular(0.1,1,1.1))
+        yield env.timeout(random.triangular(0.1,1.1,1))
         contaChegada += 1
         print("%s %i chega em: %.1f " % (nome, contaChegada, env.now)))
 
@@ -70,7 +70,7 @@ Os modelos de simulação com muitos processos de chegadas e atendimento, tendem
 
 Uma dica bacana é criar uma função que armazene todas as distribuições do modelo em um único lugar, como uma prateleira de distribuições.
 
-Por exemplo, imagine um modelo em SimPy que possui 3 processos: um exponencial com média 10 min, um triangular com parâmetros \(10, 20, 30\) min e um normal com média 0 e desvio 1 minuto. A função `distribution()` a seguir, armazena todos os geradores de números aleatórios em um único local:
+Por exemplo, imagine um modelo em SimPy que possui 3 processos: um exponencial com média 10 min, um triangular com parâmetros \(10, 30, 20\) min e um normal com média 0 e desvio 1 minuto. A função `distribution()` a seguir, armazena todos os geradores de números aleatórios em um único local:
 
 ```python
 import random
@@ -78,7 +78,7 @@ import random
 def distributions(tipo):
     return {
         'arrival': random.expovariate(1/10.0),
-        'singing': random.triangular(10, 20, 30),
+        'singing': random.triangular(10, 30, 20),
         'applause': random.gauss(10, 1),
     }.get(tipo, 0.0)
 ```
