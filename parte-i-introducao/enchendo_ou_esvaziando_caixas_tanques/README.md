@@ -1,8 +1,12 @@
+---
+hidden: true
+---
+
 # Enchendo ou esvaziando tanques, caixas ou estoques
 
 Um tipo especial de recurso no SimPy é o `container`. Intuitivamente, um `container` seria um taque ou caixa em que se armazenam coisas. Você pode encher ou esvaziar em quantidade, como se fosse um tanque de água ou uma caixa de laranjas.
 
-A sua utilização é bastante simples, por exemplo, podemos modelar um tanque de 100 unidades de capacidade \($$m^3$$, por exemplo\), com um estoque inicial de 50 unidades, por meio do seguinte código:
+A sua utilização é bastante simples, por exemplo, podemos modelar um tanque de 100 unidades de capacidade ($$m^3$$, por exemplo), com um estoque inicial de 50 unidades, por meio do seguinte código:
 
 ```python
 import simpy
@@ -20,7 +24,7 @@ O `container`possui três comandos importantes:
 
 ## Enchendo o meu container `yield meuContainer.put(quantidade)`
 
-Considere que um posto de gasolina possui um tanque com capacidade de 100 $$m^3$$ \(ou 100.000 litros\) de combustível e que o tanque já contém 50 $$m^3$$ armazenado.
+Considere que um posto de gasolina possui um tanque com capacidade de 100 $$m^3$$ (ou 100.000 litros) de combustível e que o tanque já contém 50 $$m^3$$ armazenado.
 
 Criaremos uma função, `enchimentoTanque`, que enche o tanque com 50 $$m^3$$ sempre que um novo caminhão de reabastecimento de combustível chega ao posto:
 
@@ -54,7 +58,7 @@ A saída do programa é bastante simples, afinal o processo de enchimento do tan
 0 Tanque enchido com 50.0 m3. Nível atual: 100.0 m3
 ```
 
-Se você iniciar o tanque do posto a sua plena capacidade \(100 $$m^3$$\), o caminhão tentará abastecer, mas não conseguirá por falta de espaço, virtualmente aguardando espaço no tanque na linha:
+Se você iniciar o tanque do posto a sua plena capacidade (100 $$m^3$$), o caminhão tentará abastecer, mas não conseguirá por falta de espaço, virtualmente aguardando espaço no tanque na linha:
 
 ```python
 yield tanque.put(qtd)
@@ -66,7 +70,7 @@ Dentro da função `enchimentoTanque`.
 
 Considere que o posto atende automóveis que chegam em intervalos constantes de 5 minutos entre si e que cada veículo abastece 100 litros ou 0,10 $$m^3$$.
 
-Partindo do modelo anterior, vamos criar duas funções: uma para gerar os veículos e outra para transferir o combustível do tanque para o veículo.  
+Partindo do modelo anterior, vamos criar duas funções: uma para gerar os veículos e outra para transferir o combustível do tanque para o veículo.\
 Uma possível máscara para o modelo seria:
 
 ```python
@@ -198,7 +202,7 @@ def sensorTanque(env, tanque):
         yield env.timeout(TEMPO_CONTROLE)
 ```
 
-A função `sensorTanque`é um laço infinito `(while True)` que a cada 1 minuto \(configurável na constante `TEMPO_CONTROLE)` verifica se o nível atual do tanque está abaixo ou igual ao nível mínimo \(configurável na constante \`NIVEL\_MINIMO\).  
+A função `sensorTanque`é um laço infinito `(while True)` que a cada 1 minuto (configurável na constante `TEMPO_CONTROLE)` verifica se o nível atual do tanque está abaixo ou igual ao nível mínimo (configurável na constante \`NIVEL\_MINIMO).\
 O modelo completo com a implentação do sensor fica:
 
 ```python
@@ -272,22 +276,21 @@ Este processo garante que o sensor estará operante ao longo de toda a simulaç�
 15 Veículo atendido de 0.10 m3.  Nível atual:  99.7 m3
 ```
 
-> Observação 1: Note que o enchimento ou esvaziamento dos tanques é instantâneo, isto é: não existe nenhuma taxa de enchimento ou esvaziamento associada aos processos. Cabe ao programador modelar situações em que a taxa de transferência é relevante \(veja o Desafio 17, a seguir\).
+> Observação 1: Note que o enchimento ou esvaziamento dos tanques é instantâneo, isto é: não existe nenhuma taxa de enchimento ou esvaziamento associada aos processos. Cabe ao programador modelar situações em que a taxa de transferência é relevante (veja o Desafio 17, a seguir).
 >
-> Observação 2: O tanque pode ser esvaziado ou enchido simultaneamente. Novamente cabe ao programador modelar a situação em que isto não se verifica \(veja o Desafio 18, a seguir\).
+> Observação 2: O tanque pode ser esvaziado ou enchido simultaneamente. Novamente cabe ao programador modelar a situação em que isto não se verifica (veja o Desafio 18, a seguir).
 
 ## Conceitos desta seção
 
-| Conteúdo | Descrição |
-| :--- | :--- |
-| `meuContainer = simpy.Container(env, capacity=capacity, init=init` | cria um _container_ `meuContainer`com capacidade `capacity`e quantidade inicial de `init` |
-| `yield meuContainer.put(quantidade)` | adiciona uma dada `quantidade`ao `meuContainer`, se houver espaço suficiente, caso contrário aguarda até que o espaço esteja disponível |
-| `yield meuContainer.get(quantidade)` | retira uma dada `quantidade`ao `meuContainer`, se houver quantidade suficiente, caso contrário aguarda até que a quantidade esteja disponível |
-| `meuContainer.level` | retorna a quantidade disponível atualmente em `meuContainer` |
+| Conteúdo                                                           | Descrição                                                                                                                                     |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `meuContainer = simpy.Container(env, capacity=capacity, init=init` | cria um _container_ `meuContainer`com capacidade `capacity`e quantidade inicial de `init`                                                     |
+| `yield meuContainer.put(quantidade)`                               | adiciona uma dada `quantidade`ao `meuContainer`, se houver espaço suficiente, caso contrário aguarda até que o espaço esteja disponível       |
+| `yield meuContainer.get(quantidade)`                               | retira uma dada `quantidade`ao `meuContainer`, se houver quantidade suficiente, caso contrário aguarda até que a quantidade esteja disponível |
+| `meuContainer.level`                                               | retorna a quantidade disponível atualmente em `meuContainer`                                                                                  |
 
 ## Desafios
 
 > **Desafio 17:** considere, no exemplo do posto, que a taxa de enchimento do tanque é de 1 litro/min e a de esvaziamento é de 2 litros/min. Altere o modelo para que ele incorpore os tempos de enchimento e esvaziamento, bem como forneça o tempo que o veículo aguardou na fila por atendimento.
 >
 > **Desafio 18:** continuando o exemplo, modifique o modelo de modo que ele represente a situação em que o tanque não pode ser enchido e esvaziado simultaneamente.
-

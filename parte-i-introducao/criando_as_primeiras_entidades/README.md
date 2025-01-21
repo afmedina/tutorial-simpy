@@ -1,6 +1,12 @@
+---
+hidden: true
+---
+
 # Criando as primeiras entidades
 
-Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa\_Ol%C3%A1\_Mundo) dos pacotes de simulação. Sua primeira missão, caso decida aceitá-la, será construir uma função que gere entidades com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min. Simule o sistema por 10 minutos apenas.
+Algo elementar em qualquer pacote de simulação é uma função para criar entidades dentro do modelo. É o [“Alô mundo!”](http://pt.wikipedia.org/wiki/Programa_Ol%C3%A1_Mundo) dos pacotes de simulação. Sua primeira missão, caso decida aceitá-la, será construir uma função que gere entidades com intervalos entre chegadas sucessivas exponencialmente distribuídos, com média de 2 min.&#x20;
+
+Simule o sistema por 10 minutos apenas.
 
 ## Chamada das bibliotecas `random` e `simpy`
 
@@ -174,7 +180,7 @@ Note que `env.process(geraChegadas(env))` é um comando que **torna** a função
 
 ## Desafios (soluções na próxima seção)
 
-> **Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software\_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação.\
+> **Desafio 2:** é comum que os comandos de criação de entidades nos [softwares proprietários](https://pt.wikipedia.org/wiki/Software_propriet%C3%A1rio) tenham a opção de limitar o número máximo de entidades geradas durante a simulação.\
 > Modifique a função `geraChegadas` de modo que ela receba como parâmetro `numeroMaxChegadas` e limite a criação de entidades a este número.
 >
 > **Desafio 3:** modifique a função `geraChegadas`\

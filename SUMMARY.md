@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Simpy: see me, fell me, read me](README.md)
+* [SimPy em casa nova!](README.md)
 * [Como citar esta obra e ficha catalográfica](como-citar-esta-obra-e-ficha-catalografica.md)
 
 ## Parte I: Introdução
@@ -27,7 +27,7 @@
   * [Solução dos desafios 15 e 16](parte-i-introducao/selecionando_um_recurso_especifico_para_um_processo/solucaodosdesafios15e16.md)
 * [Enchendo ou esvaziando tanques, caixas ou estoques](parte-i-introducao/enchendo_ou_esvaziando_caixas_tanques/README.md)
   * [Solução dos desafios 17 e 18](parte-i-introducao/enchendo_ou_esvaziando_caixas_tanques/solucao_dos_desafios_15_e_16.md)
-* [Criando lotes \(ou agrupando\) entidades durante a simulação](parte-i-introducao/criando_lotes_ou_agrupando_entidades_durante_a_simulacao/README.md)
+* [Criando lotes (ou agrupando) entidades durante a simulação](parte-i-introducao/criando_lotes_ou_agrupando_entidades_durante_a_simulacao/README.md)
   * [Solução dos desafios 19 e 20](parte-i-introducao/criando_lotes_ou_agrupando_entidades_durante_a_simulacao/solucao-dos-desafios-19-e-20.md)
 
 ## Parte II: Eventos
@@ -41,8 +41,8 @@
 * [Adicionando funções aos eventos com callbacks](parte-ii-eventos/adicionando-funcoes-aos-eventos-com-callbacks/README.md)
   * [Solução do desafio 26](parte-ii-eventos/adicionando-funcoes-aos-eventos-com-callbacks/solucao-do-desafio-26.md)
 * [Interrupções de eventos](parte-ii-eventos/interrupcoes-de-eventos.md)
-* [O que são funções geradoras? \(Ou como funciona o SimPy\) Parte I](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
-* [O que são funções geradoras? \(Ou como funciona o SimPy?\)  Parte II](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_parte_ii.md)
+* [O que são funções geradoras? (Ou como funciona o SimPy) Parte I](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_funciona_o_simpy.md)
+* [O que são funções geradoras? (Ou como funciona o SimPy?) Parte II](parte-ii-eventos/o_que_sao_funcoes_geradoras_ou_como_parte_ii.md)
 
 ## Parte III: Controlando os Parâmetros de Saída do Modelo
 
@@ -50,4 +50,3 @@
 * [Simulação de Agentes em SimPy!](parte-iii-controlando-os-parametros-de-saida-do-modelo/simulacao_de_agentes_em_simpy.md)
 * [Gravar Saída em Arquivo ou Planilha](parte-iii-controlando-os-parametros-de-saida-do-modelo/exportar_saida_para_arquivo_ou_planilha.md)
 * [Construção de modelos de simulação](parte-iii-controlando-os-parametros-de-saida-do-modelo/construcao-de-modelos-de-simulacao.md)
-

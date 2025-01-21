@@ -39,11 +39,11 @@ Quando executado, o modelo anterior apresenta como resultado:
  7.0 nova chegada       Peso:  5.8 kg   Média atual: 10.3
 ```
 
-> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso \(consulte o [Stack Overflow](http://stackoverflow.com/%29!\).
+> **Desafio 10**: Modifique o critério anterior para que a parada ocorra quando a média for 10 kg, com um intervalo de confiança de amplitude 0,5 e nível de significância igual a 95%. Dica: utilize a biblioteca `numpy` para isso (consulte o [Stack Overflow](http://stackoverflow.com/\)!/).
 
 Esta situação exige um pouco mais no processo de codificação, contudo é algo muito utilizado em modelos de simulação de eventos discretos.
 
-Como agora queremos o Intervalo de Confiança de uma dada amostra, os valores dos pesos serão armazenados em uma lista \(`pesosList`, no caso do desafio\).
+Como agora queremos o Intervalo de Confiança de uma dada amostra, os valores dos pesos serão armazenados em uma lista (`pesosList`, no caso do desafio).
 
 A biblioteca [_numpy_ ](http://www.numpy.org/)fornece um meio fácil de se estimar a média e o desvio padrão de uma amostra de valores armazenada numa lista:
 
@@ -121,9 +121,8 @@ O programa anterior leva 411 amostras para atingir o intervalo desejado:
 411.0 Intervalo de confiança atingido após 411 valores! [9.68, 10.68]
 ```
 
-Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um baita problema para você =\(
+Existem diversas maneiras de se estimar o intervalo de confiança utilizando-se as bibliotecas do Python. A maneira aqui proposta se baseia no `numpy` e no `scipy.stats`. Eventualmente tais bibliotecas não estejam instaladas na seu ambiente Python e eu antecipo: isso pode ser um baita problema para você =(
 
 A questão aqui é que os modelos de simulação usualmente têm grande demanda por processamento estatístico de valores durante ou mesmo ao final da simulação. A biblioteca `numpy` facilita bastante esta tarefa, principalmente quando se considera o suporte dado pelos usuários do [Stack Overflow .](http://stackoverflow.com/search?q=numpy)
 
 Como sugestão, habitue-se a construir funções padronizadas para monitoramento e cálculos estatísticos, de modo que você pode reaproveitá-las em novos programas. Em algum momento, inclusive, você pode [criar sua própria biblioteca](http://stackoverflow.com/questions/15746675/how-to-write-a-python-module) de funções para análise de saída de modelos de simulação e compartilhar com a comunidade de software livre.
-

@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Interrupções de processos
 
 Você está todo feliz e contente atravessando a galáxia no seu [X-Wing](https://en.wikipedia.org/wiki/X-wing_fighter) quando... PIMBA! Seu [dróide astromecânico](https://pt.wikipedia.org/wiki/R2-D2) pifa e só lhe resta interromper a viagem para consertá-lo, antes que apareça um maldito caça [TIE](https://en.wikipedia.org/wiki/TIE_fighter) das forças imperiais.
@@ -8,7 +12,7 @@ A interrupção de um processo em SimPy é realizada por meio de um comando `Int
 
 ## Criando quebras de equipamento
 
-Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 horas e que a viagem toda levaria \(sem não houvessem paralisações\) 50 horas.
+Voltando ao exemplo do X-Wing, considere que a cada 10 horas o R2D2 interrompe a viagem para uma manutenção de 5 horas e que a viagem toda levaria (sem não houvessem paralisações) 50 horas.
 
 Inicialmente, vamos criar duas variáveis globais: uma para representar se o X-Wing está operando - afinal, não queremos interrompê-lo quando ele já estiver em manutenção - e outra para armazenar o tempo ainda restante para a viagem.
 
@@ -66,7 +70,7 @@ O importante no programa anterior é notar o bloco `try:...except:,` interno ao 
 
 Quando executado, o programa fornece uma viagem tranquila:
 
-```text
+```
   0.0 Viagem iniciada
  30.0 Viagem concluida  Duração total da viagem: 30.0 horas
 ```
@@ -134,20 +138,18 @@ Quando executado, o modelo completo fornece como saída:
 Alguns aspectos importantes do código anterior:
 
 1. A utilização de variáveis globais foi fundamental para informar ao processo de parada o status do processo de viagem. É por meio de variáveis globais que um processo "sabe" o que está ocorrendo no outro;
-2. Como a execução `env.run()` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o laço:
+2.  Como a execução `env.run()` não tem um tempo final pré-estabelecido, a execução dos processos é terminada quando o laço:
 
-   ```python
-   while duracaoViagem > 0
-   ```
+    ```python
+    while duracaoViagem > 0
+    ```
 
-   Torna-se falso. Note que esse `while` deve existir nos dois processos em execução, caso contrário, o programa seria executado indefinidamente;
-
+    Torna-se falso. Note que esse `while` deve existir nos dois processos em execução, caso contrário, o programa seria executado indefinidamente;
 3. Dentro da função `paradaTecnica` a variável global `viajando` impede que ocorram duas quebras ao mesmo tempo. Naturalmente o leitor atento sabe que isso jamais ocorreria, afinal, o tempo de duração da quebra é inferior ao intervalo entre quebras. Mas fica o exercício: execute o mesmo programa, agora para uma duração de quebra de 15 horas e veja o que acontece.
-4. Se um modelo possui uma lógica de interrupção `.interrupt()` e não possui um comando `except simpy.Interrupt` para lidar com a paralização do processo, o SimPy finalizará a simulação retornando o erro:
+4.  Se um modelo possui uma lógica de interrupção `.interrupt()` e não possui um comando `except simpy.Interrupt` para lidar com a paralização do processo, o SimPy finalizará a simulação retornando o erro:
 
-   ```python
-   Interrupt: Interrupt(None)
-   ```
+    ```python
+    Interrupt: Interrupt(None)
+    ```
 
-   Na próxima seção é apresentada uma alternativa para manter o processamento da simulação.
-
+    Na próxima seção é apresentada uma alternativa para manter o processamento da simulação.

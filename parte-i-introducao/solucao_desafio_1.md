@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Solução desafio 1
 
 O código a seguir é uma possível solução para o desafio 1 da seção anterior. Naturalmente é possível deixá-lo mais claro, eficiente, obscuro, maligno, elegante, rápido ou lento, como todo código de programação.
@@ -41,7 +45,7 @@ run2Ruin(bankroll)              # inicia o jogo
 
 No meu computador, o problema anterior fornece o seguinte resultado:
 
-```text
+```
 Lançamento: 1   Vencedor: Chewbacca
 Chewbacca possui: $6 e R2D2 possui: $4
 
@@ -60,10 +64,9 @@ Chewbacca possui: $10 e R2D2 possui: $0
 Chewbacca venceu depois de 5 lançamentos, fim de jogo!
 ```
 
-Note que o resultado fornecido deve ser diferente em seu computador, assim como ele se modifica a cada nova rodada no programa. Para que os resultados sejam semelhantes, precisamos utilizar o comando [`random.seed(semente)`](https://docs.python.org/3/library/random.html#random.seed\) com um mesmo valor inicial \(veja o item 1 na seção "Teste seus conhecimentos", na seção a seguir"\).
+Note que o resultado fornecido deve ser diferente em seu computador, assim como ele se modifica a cada nova rodada no programa. Para que os resultados sejam semelhantes, precisamos utilizar o comando [`random.seed(semente)`](https://docs.python.org/3/library/random.html#random.seed\\) com um mesmo valor inicial (veja o item 1 na seção "Teste seus conhecimentos", na seção a seguir").
 
 ## Teste seus conhecimentos:
 
 1. Cada vez que você executa o programa, a função `random.uniform(0, 1)` sorteia um novo número aleatório ente 0 e 1, tornando imprevisível o resultado do programa. Utilize a função `random.seed(semente)` para fazer com que a sequência gerada de números aleatórios seja sempre a mesma.
-2. Acrescente um laço no programa principal de modo que o jogo possa ser repetido até um número pré definido de vezes. _Simule_ 100 partidas e verifique em quantas cada um dos jogadores venceu. 
-
+2. Acrescente um laço no programa principal de modo que o jogo possa ser repetido até um número pré definido de vezes. _Simule_ 100 partidas e verifique em quantas cada um dos jogadores venceu.&#x20;

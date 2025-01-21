@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Atributos e variáveis
 
 Qual a diferença entre atributo e variável para um modelo de simulação? O atributo pertence à entidade, enquanto a variável pertence ao modelo. De outro modo, se um cliente chega a uma loja e compra 1, 2 ou 3 produtos, esse cliente possui um **atributo** imediato: o **número de produtos** comprados. Note que o atributo "número de produtos" é um valor diferente para cada cliente, ou seja: é um valor exclusivo do cliente.

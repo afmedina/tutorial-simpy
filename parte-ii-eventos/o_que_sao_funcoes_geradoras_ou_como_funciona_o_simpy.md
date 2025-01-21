@@ -1,4 +1,8 @@
-# O que são funções geradoras? \(Ou como funciona o SimPy\) Parte I
+---
+hidden: true
+---
+
+# O que são funções geradoras? (Ou como funciona o SimPy) Parte I
 
 O comando `yield`é quem, como você já deve ter notado, dá o _ritmo_ do seu modelo em SimPy. Para melhor compreender como funciona um programa em SimPy, precisamos entender, além do próprio comando `yield,`outro conceito fundamental em programação: as funções geradoras.
 
@@ -24,7 +28,7 @@ No exemplo, `lista` é um objeto e o comando `for` é um **iterador** que permit
 
 ## Funções geradoras
 
-Elas existem e \([estão entre nós desde o início dos tempos...](https://en.wikipedia.org/wiki/Generator_%28computer_programming%29)\)
+Elas existem e ([estão entre nós desde o início dos tempos...](https://en.wikipedia.org/wiki/Generator_\(computer_programming\)))
 
 Uma **função geradora** é uma classe especial de função que tem como característica retornar, cada vez que é chamada, valores em sequência. O que torna uma função qualquer em Python uma **função geradora** é a presença do comando `yield` em seu corpo.
 
@@ -53,15 +57,15 @@ for i in seqNum():
 
 Note que a função geradora `seqNum`é um objeto, e que o loop `for` permite acessar os elementos retornados por cada `yield`.
 
-À primeira fez que o loop `for`chamou a função `seqNum()` o código foi executado até a linha do `yield n,` que retorna o valor `10` \(afinal, n=10 neste momento\).
+À primeira fez que o loop `for`chamou a função `seqNum()` o código foi executado até a linha do `yield n,` que retorna o valor `10` (afinal, n=10 neste momento).
 
-Na segunda vez que o loop `for`chama a função, ela **não** recomeça da primeira linha, de fato, ela é executada a partir da **linha seguinte ao comando** `yield` \(linha número 5 do código anterior\) e retorna o valor `20`, pois n foi incrementado nesta segunda passagem.
+Na segunda vez que o loop `for`chama a função, ela **não** recomeça da primeira linha, de fato, ela é executada a partir da **linha seguinte ao comando** `yield` (linha número 5 do código anterior) e retorna o valor `20`, pois n foi incrementado nesta segunda passagem.
 
 Na terceira chamada à função, a execução retoma a partir da linha seguinte ao segundo `yield` e o próximo valor de n será o anterior incrementado de 10.
 
 Uma função geradora é, de fato, um **iterador** e você normalmente vai utilizá-la dentro de algum **loop** `for` como no caso anterior. Outra possibilidade é você chamá-la diretamente pelo comando `next` do Python, como será visto no próximo exemplo.
 
-#### Exemplo: 
+#### Exemplo:&#x20;
 
 Que tal uma função que nos diga a posição atual de um Zumbi que só pode andar uma casa por fez no plano xy? A função geradora a seguir acompanha o andar cambaleante do zumbi:
 
@@ -118,4 +122,3 @@ Na seção a seguir discutiremos o papel da função geradora em um modelo de si
 * [PEP 225 - Descritivo técnico do yield no Python](https://www.python.org/dev/peps/pep-0255/)
 * [Utilizando Geradores na Python Brasil](http://wiki.python.org.br/UsandoGenerators)
 * Uma boa explicação na StackOverflow: [What does the yield keyword do?](http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do)
-

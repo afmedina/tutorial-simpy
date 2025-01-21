@@ -1,8 +1,8 @@
 # Exemplo Fila M\M\1
 
-A fila M/M/1 \(ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/%29\) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
+A fila M/M/1 (ver [Chwif e Medina, 2015](http://livrosimulacao.eng.br/e-tetra-e-tetra-a-quarta-edicao-do-msed/\)/) representa um sistema simples em que clientes chegam para atendimento em um servidor de fila única, com intervalos entre chegadas sucessivas exponencialmente distribuídos e tempos de atendimentos também exponencialmente distribuídos.
 
-Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min \(ou seja, uma taxa de chegadas de 1 cliente/min\) e o tempo médio de atendimento no servidor é de 0,5 min \(ou seja, uma taxa de atendimento de 2 clientes/min\). Como um experimento inicial, o modelo deve ser simulado por 5 minutos apenas.
+Para este exemplo, vamos considerar que o tempo médio entre chegadas sucessivas é de 1 min (ou seja, uma taxa de chegadas de 1 cliente/min) e o tempo médio de atendimento no servidor é de 0,5 min (ou seja, uma taxa de atendimento de 2 clientes/min). Como um experimento inicial, o modelo deve ser simulado por 5 minutos apenas.
 
 ## Geração de chegadas de entidades
 
@@ -142,7 +142,7 @@ def atendimentoServidor(env, nome, servidorRes):
         print('%.1f Servidor termina o atendimento do %s' % (env.now, nome))
 ```
 
-No script anterior a ocupação e desocupação é garantida dentro do `with`, deixando o código mais compacto e legível. Contudo, a aplicação é limitada a problemas de ocupação e desocupação simples de servidores \(veja um contraexemplo no Desafio 6\).
+No script anterior a ocupação e desocupação é garantida dentro do `with`, deixando o código mais compacto e legível. Contudo, a aplicação é limitada a problemas de ocupação e desocupação simples de servidores (veja um contraexemplo no Desafio 6).
 
 Existem muitos conceitos a serem discutidos sobre os scripts anteriores e, garanto, que eles serão destrinchados nas seções seguintes.
 
@@ -150,8 +150,8 @@ Por hora, e para não esticar demais a atividade, analise atentamente os resulta
 
 ## Conteúdos desta seção
 
-| **Conteúdo** | **Descrição** |
-| :--- | :--- |
+| **Conteúdo**                         | **Descrição**                                                                                                                                                                    |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `with servidorRes.request() as req:` | forma compacta de representar a sequência de ocupação e desocupação do recurso: `request(), yield` e `release().` Tudo que está dentro do with é realizado com o recurso ocupado |
 
 ## Desafios
@@ -160,5 +160,4 @@ Por hora, e para não esticar demais a atividade, analise atentamente os resulta
 >
 > **Desafio 5:** calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila`e apresente o resultado na tela.
 >
-> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar \(ou aguarda em fila\). A lavagem consome 20 minutos \(constante\). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo de simulação que represente o processo anterior.
-
+> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo de simulação que represente o processo anterior.

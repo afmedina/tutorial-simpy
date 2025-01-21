@@ -1,10 +1,14 @@
+---
+hidden: true
+---
+
 # Interrupções de eventos
 
 De modo semelhante ao que vimos com recursos, os eventos também podem ser interrompidos em SimPy. Como o SimPy aproveita-se dos comandos de interrupção já existentes no Python, pode-se utilizar o [bloco `try... except`](https://docs.python.org/3.5/tutorial/errors.html) e assim capturar a interrupção em qualquer parte do modelo.
 
 Considere um exemplo simples em que um jovem [Jedi](https://pt.wikipedia.org/wiki/Jedi) tem sua seção de meditação matinal interrompida por um cruel [Lord Sith](https://pt.wikipedia.org/wiki/Sith) interessado em convertê-lo para o Lado Negro.
 
-Construir um modelo de simulação deste sistema, é tarefa simples: precisamos de uma função que representa o Jedi meditando e outra que interrompe o processo em determinado momento \(lembre-se que um processo é também um evento para o SimPy\).
+Construir um modelo de simulação deste sistema, é tarefa simples: precisamos de uma função que representa o Jedi meditando e outra que interrompe o processo em determinado momento (lembre-se que um processo é também um evento para o SimPy).
 
 O SimPy tem dois métodos diferentes para interroper um evento: `interrupt` ou `fail.`
 
@@ -37,7 +41,7 @@ def forca(env):
         print('%d Eu estou com a Força e a Força está comigo.' % env.now)
 ```
 
-Portanto, a cada 1 unidade de tempo, o Jedi fala um frase para manter-se concentrado. O processo de interrupção por sua vez, recebe como parâmetro de entrada o processo \(ou evento\) a ser interrompido. Apenas para ilustrar melhor o exemplo, vamos considerar que após 3 unidades de tempo, a função interrompe o processo \(ou evento\) de meditação:
+Portanto, a cada 1 unidade de tempo, o Jedi fala um frase para manter-se concentrado. O processo de interrupção por sua vez, recebe como parâmetro de entrada o processo (ou evento) a ser interrompido. Apenas para ilustrar melhor o exemplo, vamos considerar que após 3 unidades de tempo, a função interrompe o processo (ou evento) de meditação:
 
 ```python
 def ladoNegro(env, proc):
@@ -92,7 +96,7 @@ Mas, jovem leitor Jedi, temos duas maneiras de contornar o problema: com a lógi
 
 ### Método de controle de interrupção 1: lógica de exceção `try... except`
 
-Neste caso, a solução é razoavelmente simples, basta acrescentarmos ao final do programa \(ou em outra parte conveniente\) uma lógica de exceção do SimPy, `simpy.Interrupt,`como no exemplo a seguir:
+Neste caso, a solução é razoavelmente simples, basta acrescentarmos ao final do programa (ou em outra parte conveniente) uma lógica de exceção do SimPy, `simpy.Interrupt,`como no exemplo a seguir:
 
 ```python
 import simpy
@@ -132,13 +136,13 @@ Quando executado, o modelo anterior fornece:
 3 Eu estou com a Força e a Força está comigo.
 ```
 
-É importante notar que depois da interrupção `proc.interrupt()` o modelo ainda executa a última linha do processo `ladoNegro` \(basicamente, imprime "Welcome, young Sith"\) para, a seguir, executar o comando dentro do `except simpy.Interrupt.`
+É importante notar que depois da interrupção `proc.interrupt()` o modelo ainda executa a última linha do processo `ladoNegro` (basicamente, imprime "Welcome, young Sith") para, a seguir, executar o comando dentro do `except simpy.Interrupt.`
 
 ### Método de controle de interrupção 2: alterando o atributo `defused`
 
 No caso anterior, o leitor deve ter notado que, ao interromper o processo, interrompemos a simulação por completo, pois nossa lógica de exceção está ao final do código.
 
-E se quisésemos apenas paralizar o processo \(ou evento\) sem que isso impactasse em toda a simulação? Neste caso, SimPy fornece um atributo `defused` para cada evento que, quando alterado para `True`, faz com que a interrupção seja "desarmada".
+E se quisésemos apenas paralizar o processo (ou evento) sem que isso impactasse em toda a simulação? Neste caso, SimPy fornece um atributo `defused` para cada evento que, quando alterado para `True`, faz com que a interrupção seja "desarmada".
 
 Vamos alterar o atributo `defused` do processo interrompido no exemplo anterior:
 
@@ -185,4 +189,3 @@ Portanto, se o objetivo é _desarmar_ a interrupção, basta tornar `True` o atr
 ## Interrompendo um evento com o método `fail`
 
 De modo semelhante a provocar um interrupção, podemos provocar uma _falha_ no evento. O interessante, neste caso, é que podemos informar a falha
-

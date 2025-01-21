@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Events: os diversos tipos de Eventos em SimPy
 
 Nesta seção discutiremos comandos que lhe darão o poder de criar, manipular ou disparar seus próprios eventos, de modo independente dos processos já discutidos nas seções anteriores.
@@ -116,7 +120,7 @@ env.run(until=20)
 
 Quando executado por 20 minutos, o modelo anterior fornece:
 
-```text
+```
  0 A ponte está fechada =(
  5 A ponte está aberta  =)
 10 A ponte está fechada =(
@@ -125,7 +129,7 @@ Quando executado por 20 minutos, o modelo anterior fornece:
 
 No exemplo anterior, fizemos uso de uma variável global, `abrePonte`, para enviar a informação de que o evento de abertura da ponte foi disparado.
 
-Isso é bom, mas também pode ser ruim =\).
+Isso é bom, mas também pode ser ruim =).
 
 Note que o evento de abertura da ponte é criado e processado dentro da função `turno(env),` portanto, **fora** da função que controla o processo de abertura e fechamento da ponte, `ponteElevatoria(env).`As coisas podem realmente ficar confusas no seu modelo, caso você não tome o devido cuidado.
 
@@ -135,7 +139,7 @@ O método`.succeed()` ainda pode enviar um valor como parâmetro:
 meuEvento.succeed(value=valor)
 ```
 
-Poderíamos, por exemplo, enviar à função `ponteElevatoria` o tempo previsto para que a ponte fique aberta. O modelo a seguir, por exemplo, transfere o tempo de abertura \(5 minutos\) à função `ponteElevatoria` que o armazena na variável `tempoAberta:`
+Poderíamos, por exemplo, enviar à função `ponteElevatoria` o tempo previsto para que a ponte fique aberta. O modelo a seguir, por exemplo, transfere o tempo de abertura (5 minutos) à função `ponteElevatoria` que o armazena na variável `tempoAberta:`
 
 ```python
 import simpy
@@ -180,21 +184,20 @@ Dentro da função `ponteElevatoria` a linha:
 tempoAberta = yield abrePonte
 ```
 
-Aguarda até que o evento `abrePonte` seja executado e resgata seu valor \(o tempo que a ponte deve permanecer aberta\) na variável `tempoAberta.`
+Aguarda até que o evento `abrePonte` seja executado e resgata seu valor (o tempo que a ponte deve permanecer aberta) na variável `tempoAberta.`
 
-Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descuidado pode tornar qualquer código ininteligível, candidato ao [Campeonato Mundial de Código C Ofuscado](http://www.ioccc.org/) \(sim, isso existe!\) ou mesmo algo semelhante a utilizar desvios de laço `go... to` em um programa \(des\)estruturado\).
+Concluindo, o potencial de uso do comando `event()` é extraordinário, mas, por experiência própria, garanto que seu uso descuidado pode tornar qualquer código ininteligível, candidato ao [Campeonato Mundial de Código C Ofuscado](http://www.ioccc.org/) (sim, isso existe!) ou mesmo algo semelhante a utilizar desvios de laço `go... to` em um programa (des)estruturado).
 
 ## Conceitos desta seção
 
-| Conteúdo | Descrição |
-| :--- | :--- |
-| `meuEvento = env.event()` | cria um novo _evento_ `meuEvento` durante a simulação, mas não o processa. |
-| `yield meuEvento` | aguarda até que o evento `meuEvento` seja processado |
+| Conteúdo                               | Descrição                                                                                                                                       |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `meuEvento = env.event()`              | cria um novo _evento_ `meuEvento` durante a simulação, mas não o processa.                                                                      |
+| `yield meuEvento`                      | aguarda até que o evento `meuEvento` seja processado                                                                                            |
 | `yield meuEvento.succeed(value=valor)` | processa o evento `meuEvento`, isto é, engatilha o evento no tempo atual e inicia o seu processamento, retornando o parâmetro opcional `valor.` |
 
 ## Desafios
 
-> **Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. Os intervalos entre chegadas sucessivas de veículos para travessia são exponencialmente distribuídos com média de 10 segundos \(ou 6 veículos/min\), e a ponte permite a travessia de 10 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte?
+> **Desafio 21:** crie um processo de geração de automóveis que desejam cruzar a ponte, durante o horário de pico que dura 4 horas. Os intervalos entre chegadas sucessivas de veículos para travessia são exponencialmente distribuídos com média de 10 segundos (ou 6 veículos/min), e a ponte permite a travessia de 10 veículos por minuto. Após 4 horas de operação, quantos veículos estão em espera por travessia da ponte?
 >
 > **Desafio 22:** para o sistema anterior, construa um gráfico para o número de veículos em fila em função do tempo de abertura da ponte para travessia de automóveis. Qual o tempo mínimo que você recomendaria para abertura da ponte.
-

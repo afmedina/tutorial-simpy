@@ -1,8 +1,12 @@
+---
+hidden: true
+---
+
 # Adicionando funções aos eventos com callbacks
 
 ## Adicionando `callbacks` aos eventos
 
-SimPy possui uma ferramenta tão curiosa quanto poderosa: os `callbacks.` Um `callback` é uma função que você _acrescenta_ ao final de um evento. Por exemplo, considere que quando o evento da tartaruga \(ou da lebre\) termina, desejamos imprimir o vencedor na tela. Assim, quando o evento é _processado_, desejamos que ele processe a seguinte função, que recebe o evento como **único** parâmetro de entrada:
+SimPy possui uma ferramenta tão curiosa quanto poderosa: os `callbacks.` Um `callback` é uma função que você _acrescenta_ ao final de um evento. Por exemplo, considere que quando o evento da tartaruga (ou da lebre) termina, desejamos imprimir o vencedor na tela. Assim, quando o evento é _processado_, desejamos que ele processe a seguinte função, que recebe o evento como **único** parâmetro de entrada:
 
 ```python
 def campeao(event):
@@ -11,7 +15,7 @@ def campeao(event):
                 %(env.now, event.value))
 ```
 
-Toda função para ser anexada como um `callback`, deve possuir como parâmetro de chamada apenas um único evento. Note também, que o valor de `env.now` impresso na tela é possível pois `env` é uma variável global para o Python. \(Caso você ainda tenha alguma dificuldade para entender como o Python lida com variáveis globais e locais, um bom caminho é [ler este bom guia](http://www.python-course.eu/python3_global_vs_local_variables.php)\).
+Toda função para ser anexada como um `callback`, deve possuir como parâmetro de chamada apenas um único evento. Note também, que o valor de `env.now` impresso na tela é possível pois `env` é uma variável global para o Python. (Caso você ainda tenha alguma dificuldade para entender como o Python lida com variáveis globais e locais, um bom caminho é [ler este bom guia](http://www.python-course.eu/python3_global_vs_local_variables.php)).
 
 Para anexarmos a função `campeão` a um evento, utilizaremos o método `callbacks.append(função_criada):`
 
@@ -62,7 +66,7 @@ proc = env.process(corrida(env))
 env.run(until=10)
 ```
 
-Note como o código ficou razoavelmente mais compacto, por eliminamos toda a codificação referente aos testes `if...then...else` para determinar que é o campeão.  
+Note como o código ficou razoavelmente mais compacto, por eliminamos toda a codificação referente aos testes `if...then...else` para determinar que é o campeão.\
 Quando executado, o modelo fornece como resultado:
 
 ```python
@@ -114,7 +118,7 @@ Você pode adicionar quantas funções de `callback` quiser ao seu evento, mas l
 
 ## Todo processo é um evento
 
-Quando um processo é gerado pelo comando `env.process(),` o processo gerado é automaticamente tratado como um evento pelo SimPy. Você pode igualmente adicionar `callbacks` aos processos ou mesmo retornar um valor \(como já vimos na seção....\).  
+Quando um processo é gerado pelo comando `env.process(),` o processo gerado é automaticamente tratado como um evento pelo SimPy. Você pode igualmente adicionar `callbacks` aos processos ou mesmo retornar um valor (como já vimos na seção....).\
 Por exemplo, vamos acrescentar uma função de `callback` para ao processo `corrida` que informa o final da corrida para o público:
 
 ```python
@@ -136,7 +140,7 @@ proc.callbacks.append(final)
 env.run(proc)
 ```
 
-Note que, além de adicionarmos a função `final` como `callback` da função `corrida,` modificamos o comando `env.run()` para que ele simule até que a função `corrida` termine seu processamento. \(Experimente substituir a linha `env.run(proc)` por `env.run(until=10)` e verifique o que acontece\).
+Note que, além de adicionarmos a função `final` como `callback` da função `corrida,` modificamos o comando `env.run()` para que ele simule até que a função `corrida` termine seu processamento. (Experimente substituir a linha `env.run(proc)` por `env.run(until=10)` e verifique o que acontece).
 
 Quando executado, o modelo fornece como saída:
 
@@ -150,11 +154,10 @@ Uma boa pedida para `callbacks` é construir funções que calculem estatística
 
 ## Conceitos desta seção
 
-| Conteúdo | Descrição |
-| :--- | :--- |
-| `Event.callbacks.append(callbackFunction)` | adiciona um `callback`, representado pela função `callbackFunction` do modelo. Após o processamento do evento \(`Event.processed = True`\) a função de `callback` é executada. A função `callbackFunction,` obrigatoriamente deve ter como parâmetro apenas um evento. |
+| Conteúdo                                   | Descrição                                                                                                                                                                                                                                                            |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Event.callbacks.append(callbackFunction)` | adiciona um `callback`, representado pela função `callbackFunction` do modelo. Após o processamento do evento (`Event.processed = True`) a função de `callback` é executada. A função `callbackFunction,` obrigatoriamente deve ter como parâmetro apenas um evento. |
 
 ## Desafio
 
 > Desafio 26: acrescente à função `final` um comando para armazenar quem venceu e em que tempo. Simule para 10 replicações e calcule a média e a porcentagem de vitórias de cada corredor.
-

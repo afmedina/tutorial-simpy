@@ -1,6 +1,10 @@
-# Criando lotes \(ou agrupando\) entidades durante a simulação
+---
+hidden: true
+---
 
-Uma situação bastante comum em modelos de simulação é o agrupamento de entidades em lotes ou o seu oposto: o desmembramento de um lote em diversas entidades separadas. É usual em softwares de simulação proprietários existir um comando \(ou bloco\) específico para isso. Por exemplo, o [AnyLogic ](https://www.anylogicbrasil.com.br/)possui o "[Batch](https://help.anylogic.com/topic/com.anylogic.help/html/processmodeling/batch.html)/[Unbatch](https://help.anylogic.com/topic/com.anylogic.help/html/processmodeling/unbatch.html)", o Arena possui o "Batch/Separate", o Simul8 o "Batching" etc.
+# Criando lotes (ou agrupando) entidades durante a simulação
+
+Uma situação bastante comum em modelos de simulação é o agrupamento de entidades em lotes ou o seu oposto: o desmembramento de um lote em diversas entidades separadas. É usual em softwares de simulação proprietários existir um comando (ou bloco) específico para isso. Por exemplo, o [AnyLogic ](https://www.anylogicbrasil.com.br/)possui o "[Batch](https://help.anylogic.com/topic/com.anylogic.help/html/processmodeling/batch.html)/[Unbatch](https://help.anylogic.com/topic/com.anylogic.help/html/processmodeling/unbatch.html)", o Arena possui o "Batch/Separate", o Simul8 o "Batching" etc.
 
 Vamos partir de um exemplo simples, em que uma célula de produção deve realizar a tarefa de montagem de um certo componente a partir do encaixe de uma peça A com duas peças B. O operador da célula leva em média 5 minutos para montar o componente, segundo uma distribuição normal com desvio padrão de 1 minuto. Os processos de chegadas dos lotes A e B são distintos entre si, com tempos entre chegadas sucessivas uniformemente distribuídos no intervalo entre 40 a 60 minutos.
 
@@ -69,7 +73,7 @@ def chegadaPecas(env, pecasContainerDict, tipo, tamLote):
         yield env.timeout(random.uniform(*TEMPO_CHEGADAS))
 ```
 
-Note que, diferentemente das funções de geração de entidades criadas nas seções anteriores deste livro, a função `chegadaPecas` não encaminha a entidade criada para uma nova função, iniciando um novo processo \(de atendimento, por exemplo\). A função apenas armazena uma certa quantidade de peças, `tamLote,` dentro do respectivo `Container` na linha:
+Note que, diferentemente das funções de geração de entidades criadas nas seções anteriores deste livro, a função `chegadaPecas` não encaminha a entidade criada para uma nova função, iniciando um novo processo (de atendimento, por exemplo). A função apenas armazena uma certa quantidade de peças, `tamLote,` dentro do respectivo `Container` na linha:
 
 ```python
 pecasContainerDict[tipo].put(tamLote)
@@ -134,13 +138,13 @@ Quando executado, o modelo completo fornece como saída:
  70.0 Fim da montagem   Estoque A: 10   Estoque B: 0    Componentes: 10
 ```
 
-O que o leitor deve ter achado interessante é o modo passivo da função `montagem` que, por meio de um laço infinito `while True` aguarda o aparecimento de peças suficientes nos estoques para iniciar a montagem. Interessante também é notar que não alocamos recursos para a operação e isso significa que o modelo de simulação atual não permite a montagem simultânea de componentes \(veja o tópico "Teste seus conhecimentos" na próxima seção\).
+O que o leitor deve ter achado interessante é o modo passivo da função `montagem` que, por meio de um laço infinito `while True` aguarda o aparecimento de peças suficientes nos estoques para iniciar a montagem. Interessante também é notar que não alocamos recursos para a operação e isso significa que o modelo de simulação atual não permite a montagem simultânea de componentes (veja o tópico "Teste seus conhecimentos" na próxima seção).
 
 ## Agrupando lotes por atributo da entidade utilizando o `FilterStore`
 
 Outra situação bastante comum em modelos de simulação é quando precisamos agrupar entidades por atributo. Por exemplo, os componentes anteriores são de duas cores: brancos ou verdes, de modo que a célula de montagem agora deve pegar peças A e B com as cores corretas.
 
-Como agora existe um atributo \(no caso, cor\) que diferencia uma peça da outra, precisaremos de um `FilterStore`, para garantir a escolha certa da peça no estoque. Contudo, devemos lembrar que o `FilterStore`, diferentemente do `Container`, não permite que se armazene ou retire múltiplos objetos ao mesmo tempo. O comando `put` \(ou mesmo o `get),` é limitado a um objeto por vez. Por fim, a montagem do componente agora é pelo atributo "cor", o que significa que a função `montagem` deve ser chamada uma vez para cada valor do atributo \(no caso duas vezes: "branco" ou "verde"\).
+Como agora existe um atributo (no caso, cor) que diferencia uma peça da outra, precisaremos de um `FilterStore`, para garantir a escolha certa da peça no estoque. Contudo, devemos lembrar que o `FilterStore`, diferentemente do `Container`, não permite que se armazene ou retire múltiplos objetos ao mesmo tempo. O comando `put` (ou mesmo o `get),` é limitado a um objeto por vez. Por fim, a montagem do componente agora é pelo atributo "cor", o que significa que a função `montagem` deve ser chamada uma vez para cada valor do atributo (no caso duas vezes: "branco" ou "verde").
 
 De modo semelhante ao exemplo anterior, uma máscara para o problema seria:
 
@@ -182,8 +186,8 @@ env.process(montagem(env, pecasFilterStoreDict, 1, 2, 'verde'))
 env.run(until=80)
 ```
 
-Note que foi criado um dicionário `pecasFilterStore` armazena um `FilterStore` para cada tipo de peça.  
-Vamos agora construir a função `chegadaPecas`, considerando que ela deve sortear a cor do lote de peças e enviar todas as peças do lote \(uma por vez\) para o respectivo `FilterStore.`
+Note que foi criado um dicionário `pecasFilterStore` armazena um `FilterStore` para cada tipo de peça.\
+Vamos agora construir a função `chegadaPecas`, considerando que ela deve sortear a cor do lote de peças e enviar todas as peças do lote (uma por vez) para o respectivo `FilterStore.`
 
 Para sortear a cor do lote, uma opção é utilizar o comando [random.choice](https://docs.python.org/3/library/random.html#random.choice), enquanto o envio de múltiplas peças para o `FilterStore` pode ser feito por um laço `for,` como mostra o código a seguir:
 
@@ -227,9 +231,9 @@ def montagem(env, pecasFilterStoreDict, numA, numB, cor):
               len(pecasFilterStoreDict['B'].items)))
 ```
 
-Dois pontos merecem destaque na função anterior:  
-1. A função `montagem`, deve ser chamada duas vezes na inicialização da simulação, uma para cada cor. Isto significa que nossa implementação permite a montagem simultânea de peças de cores diferentes. Caso seja necessário contornar este problema, basta a criação de um recurso "montador" \(veja o tópico "Teste seus conhecimentos" na próxima seção";  
-2. Na última linha, para contabilizar o total de peças ainda em estoque, como o `FilterStore` não possui um método `.level,` utilizou-se a função `len()` aplicada a todos os `items` do `FilterStore.`
+Dois pontos merecem destaque na função anterior:\
+1\. A função `montagem`, deve ser chamada duas vezes na inicialização da simulação, uma para cada cor. Isto significa que nossa implementação permite a montagem simultânea de peças de cores diferentes. Caso seja necessário contornar este problema, basta a criação de um recurso "montador" (veja o tópico "Teste seus conhecimentos" na próxima seção";\
+2\. Na última linha, para contabilizar o total de peças ainda em estoque, como o `FilterStore` não possui um método `.level,` utilizou-se a função `len()` aplicada a todos os `items` do `FilterStore.`
 
 Quando executado por apenas 80 minutos, o programa anterior fornece como saída:
 
@@ -262,7 +266,6 @@ Quando executado por apenas 80 minutos, o programa anterior fornece como saída:
 
 Naturalmente, existem outras soluções, mas optei por um caminho que mostrasse algumas limitações para um problema bastante comum em modelos de simulação.
 
-> **Desafio 19**: Considere, no primeiro exemplo, que o componente possui mais duas partes, C e D que devem ser previamente montadas entre si para, a seguir, serem encaixadas nas peças A e B. Os tempos de montagem são todos semelhantes. \(Dica: generalize a função `montagem` apresentada no exemplo\).
+> **Desafio 19**: Considere, no primeiro exemplo, que o componente possui mais duas partes, C e D que devem ser previamente montadas entre si para, a seguir, serem encaixadas nas peças A e B. Os tempos de montagem são todos semelhantes. (Dica: generalize a função `montagem` apresentada no exemplo).
 >
 > **Desafio 20**: Nos exemplos anteriores, os processos de montagem são paralelos. Considere que existe apenas um montador compartilhado para todos processos. Generalize a função montagem do desafio anterior, de modo que ela receba como parâmetro o respectivo recurso utilizado no processo.
-

@@ -1,13 +1,17 @@
+---
+hidden: true
+---
+
 # Aguardando múltiplos eventos
 
 Uma funcionalidade importante do SimPy é permitir que uma entidade aguarde até que dois ou mais eventos ocorram para então prosseguir com o processo. O SimPy possui duas opções muito interessantes para isso:
 
-* `simpy.nyOf(env, eventos):` aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "\|" \(ou `or`\);
-* `simpy.AllOf(env, eventos):` aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" \(ou `and`\).
+* `simpy.nyOf(env, eventos):` aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "|" (ou `or`);
+*   `simpy.AllOf(env, eventos):` aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`).
 
-  s
+    s
 
-  Para compreender o funcionamento dos comandos anteriores, partiremos de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare). 
+    Para compreender o funcionamento dos comandos anteriores, partiremos de um exemplo baseado numa obscura fábula infantil: [a Lebre e a Tartaruga](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare).&#x20;
 
 ![](../../.gitbook/assets/Tortoise_and_hare_rackham.jpg) The Tortoise and the Hare", from an edition of Aesop's Fables illustrated by Arthur Rackham, 1912.
 
@@ -30,7 +34,7 @@ De outra forma, os eventos `lebreEvent` e `tartarugaEvent` foram _disparados_, m
 
 ## Aguardando até que, ao menos, um evento termine com `AnyOf`
 
-Para garantir que a função `corrida` aguarde até que, ao menos, um dos corredores termine a prova, uma opção é acrescentar um `yield AnyOf()` \(que pode ser substituído por "\|"\) após a criação dos eventos:
+Para garantir que a função `corrida` aguarde até que, ao menos, um dos corredores termine a prova, uma opção é acrescentar um `yield AnyOf()` (que pode ser substituído por "|") após a criação dos eventos:
 
 ```python
     # começou!
@@ -41,7 +45,7 @@ Para garantir que a função `corrida` aguarde até que, ao menos, um dos corred
     tempo = env.now - start
 ```
 
-O `yield` garante que a função aguardará até que um dos dois eventos - `lebreEvent` ou `tartarugaEvent` - termine e a variável `resultado` armazenará qual desses eventos terminou primeiro \(ou mesmo os dois, em caso de empate\). Assim, para sabermos quem venceu, basta explorarmos o valor contido na variável `resultado`.  
+O `yield` garante que a função aguardará até que um dos dois eventos - `lebreEvent` ou `tartarugaEvent` - termine e a variável `resultado` armazenará qual desses eventos terminou primeiro (ou mesmo os dois, em caso de empate). Assim, para sabermos quem venceu, basta explorarmos o valor contido na variável `resultado`.\
 O código a seguir completa o modelo, testando qual dos dois eventos está na variável `resultado`:
 
 ```python
@@ -118,7 +122,7 @@ Quando simulado, o novo modelo forncece como saída:
 5.4 Houve um empate em 5.4 minutos
 ```
 
-O que ocorreu? Neste caso, o comando `AllOf` \(ou "&"\) aguardou até que os dois eventos terminassem para liberar o processamento da linha seguinte de código e nosso desvio de condição `if` identificou que a variável `resultado` possuia os dois eventos armazenados.
+O que ocorreu? Neste caso, o comando `AllOf` (ou "&") aguardou até que os dois eventos terminassem para liberar o processamento da linha seguinte de código e nosso desvio de condição `if` identificou que a variável `resultado` possuia os dois eventos armazenados.
 
 ## Comprendendo melhor as saídas dos comandos `AllOf` e `AnyOf`
 
@@ -173,7 +177,7 @@ resultado =  <ConditionValue {<Timeout(5.33749212083634, value=tartaruga) object
 5.4 Houve um empate em 5.4 minutos
 ```
 
-Pela saída anterior, descobrimos, inicialmente, que os eventos são _objetos_ do tipo `Timeout` e que armazenam tanto o tempo de espera, quanto o valor \(ou `value`\) fornecido na chamada da função `env.timeout.`
+Pela saída anterior, descobrimos, inicialmente, que os eventos são _objetos_ do tipo `Timeout` e que armazenam tanto o tempo de espera, quanto o valor (ou `value`) fornecido na chamada da função `env.timeout.`
 
 Um pouco mais abaixo, a saída revela que a variável `resultado` é um objeto da classe `ConditionValue` que, aparentemente, contém um dicionário de eventos em seu interior. Para acessar esse dicionário, o SimPy fornece o método `.todict():`
 
@@ -192,14 +196,13 @@ Que nada mais é do que um dicionário padrão do Python, onde as `keys` são os
 
 ## Conceitos desta seção
 
-| Conteúdo | Descrição |
-| :--- | :--- |
-| `AnyOf(env, eventos)` | aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "\|" \(ou `or`\). |
-| `AllOf(env, eventos)` | aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" \(ou `and`\). |
+| Conteúdo              | Descrição                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------------ |
+| `AnyOf(env, eventos)` | aguarda até que um dos eventos tenham ocorrido - `AnyOf` é equivalente ao símbolo de "\|" (ou `or`).   |
+| `AllOf(env, eventos)` | aguarda até que todos os eventos tenham ocorrido - `AllOf` é equivalente ao símbolo de "&" (ou `and`). |
 
 ## Desafios
 
-> **Desafio 23:** Considere que existe uma probabilidade de que a Lebre, por alguma razão mal explicada \(eu realizaria um teste antidoping nos competidores\), resolva que é uma boa ideia tirar uma soneca de 5 minutos em algum instante entre 2 e 10 minutos do início da corrida. Modele esta nova situação \(dica: crie um função `soneca` que gera um evento que pode ocasionar a parada da Lebre ainda durante a corrida\).
+> **Desafio 23:** Considere que existe uma probabilidade de que a Lebre, por alguma razão mal explicada (eu realizaria um teste antidoping nos competidores), resolva que é uma boa ideia tirar uma soneca de 5 minutos em algum instante entre 2 e 10 minutos do início da corrida. Modele esta nova situação (dica: crie um função `soneca` que gera um evento que pode ocasionar a parada da Lebre ainda durante a corrida).
 >
 > **Desafio 24:** É interessante notar, que mesmo quando um dos competidores _perde_ a corrida, de fato, o respectivo evento **não é** cancelado. Altere o modelo anterior para marcar o horário de chegada dos dois competidores, garantindo que os eventos `lebreEvent` e `tartarugaEvent` sejam executados até o fim.
-

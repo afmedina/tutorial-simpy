@@ -48,13 +48,13 @@ Executado o código, descobrimos que no instante 5,5 min, temos 2 clientes em fi
 4.5 Servidor termina o atendimento do cliente 4. Clientes em fila: 0
 ```
 
-Portanto, existem 0 cliente em fila no instante 4,5 minutos, nas condições simuladas \(note a semente de geração de números aleatórios igual a 2\).
+Portanto, existem 0 cliente em fila no instante 4,5 minutos, nas condições simuladas (note a semente de geração de números aleatórios igual a 2).
 
-> **Desafio 5**: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`  
+> **Desafio 5**: calcule o tempo de permanência em fila de cada cliente e imprima o resultado na tela. Para isso, armazene o instante de chegada do cliente na fila em uma variável `chegada.`\
 > Ao final do atendimento, armazene o tempo de fila, numa variável `tempoFila` e apresente o resultado na tela.
 
-A ideia deste desafio é que você se acostume com esse cálculo tão trivial quanto importante dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é uma fila por ocupação de um recurso.  
-A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do atendimento.  
+A ideia deste desafio é que você se acostume com esse cálculo tão trivial quanto importante dentro da simulação: o tempo de permanência de uma entidade em algum local. Neste caso, o local é uma fila por ocupação de um recurso.\
+A lógica aqui é a de um cronometrista que deve disparar o cronômetro na chegada do cliente e pará-lo ao início do atendimento.\
 Assim, ao chegar, criamos uma variável `chegada` que armazena o instante atual fornecido pelo comando `env.now` do SimPy:
 
 ```python
@@ -66,7 +66,7 @@ def atendimentoServidor(env, nome, servidorRes):
     request = servidorRes.request()
 ```
 
-Agora, inciado o atendimento \(logo após o `yield` que ocupa o recurso\), a variável `tempoFila` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável `chegada`:
+Agora, inciado o atendimento (logo após o `yield` que ocupa o recurso), a variável `tempoFila` armazena o tempo de permanência em fila. Como num cronômetro, o tempo em fila é calculado pelo instante atual do cronômetro menos o instante de disparo dele já armazenado na variável `chegada`:
 
 ```python
 def atendimentoServidor(env, nome, servidorRes):
@@ -82,7 +82,7 @@ def atendimentoServidor(env, nome, servidorRes):
     tempoFila = env.now - chegada
 ```
 
-Para imprimir o resultado, basta simplesmente alterar a chamada à função `print` na linha seguinte, de modo que o código final da função `atendimentoServidor`  
+Para imprimir o resultado, basta simplesmente alterar a chamada à função `print` na linha seguinte, de modo que o código final da função `atendimentoServidor`\
 fica:
 
 ```python
@@ -126,7 +126,7 @@ Agora, a execução do programa mostra na tela o tempo de espera de cada cliente
 4.5 Servidor termina o atendimento do cliente 4. Clientes em fila: 0
 ```
 
-> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar \(ou aguarda em fila\). A lavagem consome 20 minutos \(constante\). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
+> **Desafio 6:** um problema clássico de simulação envolve ocupar e desocupar recursos na seqüência correta. Considere uma lavanderia com 4 lavadoras, 3 secadoras e 5 cestos de roupas. Quando um cliente chega, ele coloca as roupas em uma máquina de lavar (ou aguarda em fila). A lavagem consome 20 minutos (constante). Ao terminar a lavagem, o cliente retira as roupas da máquina e coloca em um cesto e leva o cesto com suas roupas até a secadora, num processo que leva de 1 a 4 minutos distribuídos uniformemente. O cliente então descarrega as roupas do cesto diretamente para a secadora, espera a secagem e vai embora. Esse processo leva entre 9 e 12 minutos, uniformemente distribuídos. Construa um modelo que represente o sistema descrito.
 
 A dificuldade do desafio da lavanderia é representar corretamente a sequência de ocupação e desocupação dos recursos necessários de cada cliente. Se você ocupá-los/desocupá-los na ordem errada, fatalmente seu programa apresentará resultados inesperados.
 
@@ -302,6 +302,5 @@ A execução do programa anterior fornece como saída:
 ## Teste seus conhecimentos:
 
 1. A fila M/M/1 possui expressões analíticas conhecidas. Por exemplo, o tempo médio de permanência no sistema é dado pela expressão: $$W = \frac{1} {\mu - \lambda}$$. Valide seu modelo, ou seja, calcule o resultado esperado para a expressão e compare com o resultado obtido pelo seu programa.
-2. Utilizando a função [`plot`da bilbioteca `matplotlib,`](http://matplotlib.org/users/pyplot_tutorial.html#pyplot-tutorial%29%20construa%20um%20gráfico%20que%20represente%20a%20evolução%20do%20número%20de%20entidades%20em%20fila%20%28dica:%20você%20precisará%20armazenar%20o%20tempo%20de%20espera%20em%20uma%20lista%20e%20plotar%20a%20lista%20em%20um%20gráfico%20ao%20final%20da%20simulação\).
+2. Utilizando a função [`plot`da bilbioteca `matplotlib,`](http://matplotlib.org/users/pyplot_tutorial.html#pyplot-tutorial%29%20construa%20um%20gr%C3%A1fico%20que%20represente%20a%20evolu%C3%A7%C3%A3o%20do%20n%C3%BAmero%20de%20entidades%20em%20fila%20%28dica:%20voc%C3%AA%20precisar%C3%A1%20armazenar%20o%20tempo%20de%20espera%20em%20uma%20lista%20e%20plotar%20a%20lista%20em%20um%20gr%C3%A1fico%20ao%20final%20da%20simula%C3%A7%C3%A3o%5C).
 3. No problema da lavanderia, crie uma situação de desistência, isto é: caso a fila de espera por lavadoras seja de 5 clientes, o próximo cliente a chegar no sistema desiste imediatamente de entrar na lavanderia.
-

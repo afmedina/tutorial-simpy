@@ -1,14 +1,18 @@
+---
+hidden: true
+---
+
 # Recursos com prioridade
 
 Além do recurso como definido nas seções anteriores, o SimPy possui dois tipos específicos de recursos: com prioridade e "peemptivos".
 
 ## Recursos com prioridade: `PriorityResource`
 
-Um recurso pode ter uma fila de entidades desejando ocupá-lo para executar determinado processo. Existindo a fila, o recurso será ocupado respeitando a ordem de chegada das entidades \(ou a regra FIFO\).
+Um recurso pode ter uma fila de entidades desejando ocupá-lo para executar determinado processo. Existindo a fila, o recurso será ocupado respeitando a ordem de chegada das entidades (ou a regra FIFO).
 
 Contudo, existem situações em que algumas entidades possuem _prioridades_ sobre as outras, de modo que elas desrespeitam a regra do primeiro a chegar é o primeiro a ser atendido.
 
-Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa \(pulseira verde\), 20% de prioridade intermediária \(pulseira amarela\) e 10% de prioridade alta \(pulseira vermelha\). Existem 2 médicos que realizam o atendimento e que sempre verificam inicialmente a ordem de prioridade dos pacientes na fila. Os pacientes chegam entre si em intervalos exponencialmente distribuídos, com média de 5 minutos e o atendimento é também exponencialmente distribuído, com média de 9 minutos por paciente.
+Por exemplo, considere um consultório de pronto atendimento de um hospital em que 70% do pacientes são de prioridade baixa (pulseira verde), 20% de prioridade intermediária (pulseira amarela) e 10% de prioridade alta (pulseira vermelha). Existem 2 médicos que realizam o atendimento e que sempre verificam inicialmente a ordem de prioridade dos pacientes na fila. Os pacientes chegam entre si em intervalos exponencialmente distribuídos, com média de 5 minutos e o atendimento é também exponencialmente distribuído, com média de 9 minutos por paciente.
 
 No exemplo, os médicos são recursos, mas também respeitam uma regra específica de prioridade. Um médico ou recurso deste tipo, é criado pelo comando:
 
@@ -101,7 +105,7 @@ with medicos.request(priority=prio) as req:
     yield req
 ```
 
-Para o SimPy, **quando menor o valor fornecido** para o parâmetro `priority,` **maior a prioridade** daquela entidade na fila. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde \(de menor prioridade\) e 1 para a vermelha \(de maior prioridade\).
+Para o SimPy, **quando menor o valor fornecido** para o parâmetro `priority,` **maior a prioridade** daquela entidade na fila. Assim, a função `sorteiaPulseira` retorna 3 para a pulseira verde (de menor prioridade) e 1 para a vermelha (de maior prioridade).
 
 Quando o modelo anterior é executado, fornece como saída:
 
@@ -121,7 +125,7 @@ Quando o modelo anterior é executado, fornece como saída:
 18.8 Paciente  4 com pulseira verde inicia o atendimento
 ```
 
-Percebemos que o paciente 5 chegou no instante 11,7 minutos, depois do pacientes 3 e 4, mas iniciou seu atendimento assim que um médico ficou livre no instante 11,8 minutos \(exatamente aquele que atendia ao Paciente 1\).
+Percebemos que o paciente 5 chegou no instante 11,7 minutos, depois do pacientes 3 e 4, mas iniciou seu atendimento assim que um médico ficou livre no instante 11,8 minutos (exatamente aquele que atendia ao Paciente 1).
 
 ## Recursos que podem ser interrompidos: `PreemptiveResource`
 
@@ -147,7 +151,7 @@ env.run(until=20)
 
 Agora, devemos modificar a função `atendimento`para garantir que quando um recurso for requisitado por um processo de menor prioridade, ele causará uma interrupção no Python, o que obriga a utilização de bloco de controle de interrupção `try:...except`.
 
-Quando um recurso deve ser interrompido, o SimPy retorna um interrupção do tipo `simpy.Interrupt,`como mostrado no código a seguir \(noteo bloco `try...except` dentro da função atendimento\):
+Quando um recurso deve ser interrompido, o SimPy retorna um interrupção do tipo `simpy.Interrupt,`como mostrado no código a seguir (noteo bloco `try...except` dentro da função atendimento):
 
 ```python
 def atendimento(env, paciente, pulseira, prio, medicos):
@@ -198,7 +202,7 @@ with medicos.request(priority=prio, preempt=preempt) as req:
     yield req
 ```
 
-O modelo alterado para interromper apenas no caso de pulseiras vermelhas, ficaria \(note que o argumento `preempt` é agora fornecido diretamente a partir da função `sorteiaPulseira):`
+O modelo alterado para interromper apenas no caso de pulseiras vermelhas, ficaria (note que o argumento `preempt` é agora fornecido diretamente a partir da função `sorteiaPulseira):`
 
 ```python
 import simpy
@@ -269,17 +273,16 @@ O modelo anterior, quando executado por apenas 20 minutos, fornece como saída:
 
 ## Conteúdos desta seção
 
-| **Conteúdo** | **Descrição** |
-| :--- | :--- |
-| `meuRecurso = simpy.PriorityResource(env, capacity=1)` | Cria um recurso com prioridade e capacidade = 1 |
-| `meuRequest = meuRecurso.request(env, priority=prio)` | Solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir |
-| `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)` | Cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior |
-| `meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)` | Solicita o recurso meuRecurso \(note que ele ainda não ocupa o recurso\) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
-| `try:...except simpy.Interrupt:` | Chamada de interrupção utilizada na lógica try:...except: |
+| **Conteúdo**                                                                  | **Descrição**                                                                                                                                                                                     |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `meuRecurso = simpy.PriorityResource(env, capacity=1)`                        | Cria um recurso com prioridade e capacidade = 1                                                                                                                                                   |
+| `meuRequest = meuRecurso.request(env, priority=prio)`                         | Solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir                                                         |
+| `meuRecursoPreempt = simpy.PreemptiveResource(env, capacity=1)`               | Cria um recurso em `env` que pode ser interrompido por entidades de prioridade maior                                                                                                              |
+| `meuRequest = meuRecursoPreempt.request(env, priority=prio, preempt=preempt)` | Solicita o recurso meuRecurso (note que ele ainda não ocupa o recurso) respeitando a ordem de prioridade primeiro e a regra FIFO a seguir. Caso preempt seja False o o recurso não é interrompido |
+| `try:...except simpy.Interrupt:`                                              | Chamada de interrupção utilizada na lógica try:...except:                                                                                                                                         |
 
 ## Desafios
 
 > **Desafio 11**: acrescente ao último programa proposto o cálculo do tempo de atendimento que ainda falta de atendimento para o paciente que foi interrompido por outro e imprima o resultado na tela.
 >
 > **Desafio 12**: quando um paciente é interrompido, ele deseja retornar ao atendimento de onde parou. Altere o programa para que um paciente de pulseira verde interrompido possa retornar para ser atendido no tempo restante do seu atendimento. Dica: altere a numeração de prioridades de modo que um paciente verde interrompido tenha prioridade superior ao de um paciente verde que acabou de chegar.
-
