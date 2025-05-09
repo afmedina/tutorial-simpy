@@ -1,3 +1,4 @@
+{sample: true}
 ---
 description: '(Observação: seções entre colchetes ''[...]'' ainda estão em desenvolvimento)'
 ---
